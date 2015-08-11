@@ -2075,28 +2075,28 @@ pre .css ~ * .id {
   border-right-color: #ff945c;
 }
 .tagcloud a.color2 {
-  background: #f5c7b7;
+  background: #6aba3e;
 }
 .tagcloud a.color2:before {
-  border-right-color: #f5c7b7;
+  border-right-color: #6aba3e;
 }
 .tagcloud a.color3 {
-  background: #ba8f6c;
+  background: #ce4833;
 }
 .tagcloud a.color3:before {
-  border-right-color: #ba8f6c;
+  border-right-color: #ce4833;
 }
 .tagcloud a.color4 {
-  background: #cfb7c4;
+  background: #703091;
 }
 .tagcloud a.color4:before {
-  border-right-color: #cfb7c4;
+  border-right-color: #703091;
 }
 .tagcloud a.color5 {
-  background: #7b5d5f;
+  background: #50c2f6;
 }
 .tagcloud a.color5:before {
-  border-right-color: #7b5d5f;
+  border-right-color: #50c2f6;
 }
 .article-tag-list .article-tag-list-item {
   float: left;
