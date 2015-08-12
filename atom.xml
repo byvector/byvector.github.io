@@ -5,7 +5,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com//"/>
-  <updated>2015-08-12T08:47:46.875Z</updated>
+  <updated>2015-08-12T13:27:23.057Z</updated>
   <id>http://yoursite.com//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2015/08/12/github-gitcafe/"/>
     <id>http://yoursite.com/2015/08/12/github-gitcafe/</id>
     <published>2015-08-12T01:04:40.000Z</published>
-    <updated>2015-08-12T08:47:46.875Z</updated>
+    <updated>2015-08-12T13:27:23.057Z</updated>
     <content type="html"><![CDATA[<h1 id="前言">前言</h1><hr>
 <p>曾经一直有搭建博客的想法，前面由于时间原因搁置了下来，这次抽时间终于把博客搭建完成了。网上很多教程都是基于 hexo 2.x 的教程，而 hexo 3.0 做了很多变动，于是把这次搭建博客的过程记录下来，供大家参考，如有不对的地方欢迎大家指正。</p>
 <h1 id="1_安装">1 安装</h1><hr>
@@ -29,9 +29,8 @@
 <h1 id="2_添加SSH公钥">2 添加SSH公钥</h1><hr>
 <p><em>由于某些因素，gitcafe 的访问速度比 github 要快，因此以 gitcafe 为例。如果想使用 github，请参考附录。</em></p>
 <blockquote>
-<p>SSH （ Secure Shell）是一种安全协议，在你的电脑与 GitCafe 服务器进行通信时，我们使用 SSH 密钥（SSH Keys）认证的方式来保证通信安全。你可以在网络上搜索到关于 <strong>SSH 密钥 </strong>的更多介绍；下面我们重点讲解如何创建 SSH 密钥，并将密钥中的公钥添加到 GitCafe，以便我们通过 SSH 协议来访问 Git 仓库。</p>
+<p>SSH （ Secure Shell）是一种安全协议，在你的电脑与 GitCafe 服务器进行通信时，我们使用 SSH 密钥（SSH Keys）认证的方式来保证通信安全。你可以在网络上搜索到关于 <strong>SSH 密钥 </strong>的更多介绍；下面我们重点讲解如何创建 SSH 密钥，并将密钥中的公钥添加到 GitCafe，以便我们通过 SSH 协议来访问 Git 仓库。<br><a id="more"></a><br><strong>2.1 进入 SSH 目录</strong></p>
 </blockquote>
-<p><strong>2.1 进入 SSH 目录</strong></p>
 <p>SSH 密钥的创建需要在终端（命令行）环境下进行，我们首先进入命令行环境。在 Windows 平台中，可以使用刚才安装的 Git Bash 工具。进入命令行环境后，我们执行以下操作来创建 SSH 密钥。</p>
 <pre><code><span class="built_in">cd</span>  ~/.ssh
 </code></pre><p><em>如果还没有 ~/.ssh 目录，可以手工创建一个 <code>mkdir ~/.ssh</code>，之后再通过 <code>cd ~/.ssh</code> 进入 SSH 目录</em></p>
@@ -152,7 +151,15 @@ git pull origin master
 ]]></content>
     <summary type="html">
     <![CDATA[<h1 id="前言">前言</h1><hr>
-<p>曾经一直有搭建博客的想法，前面由于时间原因搁置了下来，这次抽时间终于把博客搭建完成了。网上很多教程都是基于 hexo 2.x 的教程，而 hexo 3.0 做了很多变动，于是把这次搭建博客的过程记录下来，供大家参考，如有不对的]]>
+<p>曾经一直有搭建博客的想法，前面由于时间原因搁置了下来，这次抽时间终于把博客搭建完成了。网上很多教程都是基于 hexo 2.x 的教程，而 hexo 3.0 做了很多变动，于是把这次搭建博客的过程记录下来，供大家参考，如有不对的地方欢迎大家指正。</p>
+<h1 id="1_安装">1 安装</h1><hr>
+<p><em>请选择对应的版本下载安装</em>。</p>
+<p>1.1 安装  <a href="https://nodejs.org/">node.js</a><br>1.2 安装  <a href="http://git-scm.com/">git</a></p>
+<h1 id="2_添加SSH公钥">2 添加SSH公钥</h1><hr>
+<p><em>由于某些因素，gitcafe 的访问速度比 github 要快，因此以 gitcafe 为例。如果想使用 github，请参考附录。</em></p>
+<blockquote>
+<p>SSH （ Secure Shell）是一种安全协议，在你的电脑与 GitCafe 服务器进行通信时，我们使用 SSH 密钥（SSH Keys）认证的方式来保证通信安全。你可以在网络上搜索到关于 <strong>SSH 密钥 </strong>的更多介绍；下面我们重点讲解如何创建 SSH 密钥，并将密钥中的公钥添加到 GitCafe，以便我们通过 SSH 协议来访问 Git 仓库。<br>]]>
+    
     </summary>
     
       <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
@@ -188,11 +195,11 @@ git pull origin master
     <title><![CDATA[Hello World]]></title>
     <link href="http://yoursite.com/2015/08/11/hello-world/"/>
     <id>http://yoursite.com/2015/08/11/hello-world/</id>
-    <published>2015-08-11T01:38:24.681Z</published>
-    <updated>2015-08-11T01:38:24.681Z</updated>
+    <published>2015-08-11T01:04:40.000Z</published>
+    <updated>2015-08-12T13:26:30.469Z</updated>
     <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a><br><a id="more"></a></p>
 <h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
 <h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
@@ -201,7 +208,10 @@ git pull origin master
 <p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html">Writing</a><br>]]>
+    
     </summary>
     
       <category term="demo" scheme="http://yoursite.com/tags/demo/"/>
