@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  
   <title><![CDATA[vector's blog]]></title>
   
   <link href="/atom.xml" rel="self"/>
-  <link href="http://yoursite.com//"/>
-  <updated>2015-08-12T13:27:23.057Z</updated>
-  <id>http://yoursite.com//</id>
+  <link href="http://yoursite.com/"/>
+  <updated>2015-08-16T02:21:55.403Z</updated>
+  <id>http://yoursite.com/</id>
   
   <author>
     <name><![CDATA[vector]]></name>
@@ -14,6 +13,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[给博客绑定域名,添加评论以及RSS]]></title>
+    <link href="http://yoursite.com/2015/08/15/%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/"/>
+    <id>http://yoursite.com/2015/08/15/绑定域名/</id>
+    <published>2015-08-15T02:08:22.000Z</published>
+    <updated>2015-08-16T02:21:55.403Z</updated>
+    <content type="html"><![CDATA[<h1 id="一、绑定域名">一、绑定域名</h1><hr>
+<p>1、 <strong>域名申请</strong><br>域名申请尽量使用经 ICANN 和 CNNIC 认证的顶级域名注册商。</p>
+<ul>
+<li>国外</li>
+</ul>
+<p>有英语基础的同学推荐国外狗爹(<a href="https://www.godaddy.com/" target="_blank" rel="external"> godaddy </a>),支持支付宝付款，付款前可以网上搜一些优惠码。</p>
+<ul>
+<li>国内</li>
+</ul>
+<p>自从万网被阿里收购以后，有了一定的价格优势，想方便的同学可以通过<a href="www.net.cn">万网</a>申请自己的域名，.com首年仅39元，续费55元/年。</p>
+<p>2、 <strong>为pages绑定自定义域名</strong></p>
+<p>GitCafe Pages 支持绑定自定义域名。申请完我们的域名后，进入项目主页，点击右上角的 项目设置 ，在新打开的页面里点击 Pages 服务 一项可以看到自定义域名相关的设置。<br><a id="more"></a><br><img src="https://gitcafe-image.b0.upaiyun.com/d56295f8c77a86306a1c7c6aad48cfd1.png" alt="绑定域名"><br>填入你要绑定的域名，点击「新增」；之后到域名管理面板中添加 CNAME 记录指向到 gitcafe.io；如果你使用的域名服务提供商不支持添加 CNAME 记录，建议你更换到其他支持该功能的域名提供商。</p>
+<p>3、<strong>域名解析</strong></p>
+<p>域名解析可以使用万网自己的云解析，也可以使用<a href="https://www.dnspod.cn/Event/Dnspod.Cdn/?from=BD70" target="_blank" rel="external">DNSPod</a>来解析自己的域名。</p>
+<p><em>以下以DNSPod为例</em><br>3.1 在万网中点击自己的域名，进入域名控制台，点击修改dns<br>3.2 分别填写DNSPod的2个DNS短地址（对应6台服务器）</p>
+<pre><code>f1g1ns1<span class="class">.dnspod</span><span class="class">.net</span>
+f1g1ns2<span class="class">.dnspod</span><span class="class">.net</span>
+</code></pre><p>3.3 点击保存，然后等待全球递归DNS服务器刷新（最多72小时）。<br>3.4 进入 DNSPod 管理控制台，点击添加域名，填写自己的域名,添加上您要解析的主域名后，点击【确定】</p>
+<p><img src="https://statics.dnspod.cn/zhanjiang/images/about/support/15.jpg" alt=""></p>
+<p>3.5 点击刚添加的域名,<br>在域名记录管理界面，点击【添加记录】，添加需要解析的记录即可</p>
+<p><img src="https://statics.dnspod.cn/zhanjiang/images/about/support/17.jpg" alt=""></p>
+<blockquote>
+<p>注意：记录类型一定要为：CNAME，记录值为：uer_name.gitcafe.io. 将user_name替换为您的用户名即可。</p>
+</blockquote>
+<h1 id="2、_添加评论">2、 添加评论</h1><hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="一、绑定域名">一、绑定域名</h1><hr>
+<p>1、 <strong>域名申请</strong><br>域名申请尽量使用经 ICANN 和 CNNIC 认证的顶级域名注册商。</p>
+<ul>
+<li>国外</li>
+</ul>
+<p>有英语基础的同学推荐国外狗爹(<a href="https://www.godaddy.com/"> godaddy </a>),支持支付宝付款，付款前可以网上搜一些优惠码。</p>
+<ul>
+<li>国内</li>
+</ul>
+<p>自从万网被阿里收购以后，有了一定的价格优势，想方便的同学可以通过<a href="www.net.cn">万网</a>申请自己的域名，.com首年仅39元，续费55元/年。</p>
+<p>2、 <strong>为pages绑定自定义域名</strong></p>
+<p>GitCafe Pages 支持绑定自定义域名。申请完我们的域名后，进入项目主页，点击右上角的 项目设置 ，在新打开的页面里点击 Pages 服务 一项可以看到自定义域名相关的设置。<br>]]>
+    
+    </summary>
+    
+      <category term="html" scheme="http://yoursite.com/tags/html/"/>
+    
+      <category term="网站" scheme="http://yoursite.com/tags/%E7%BD%91%E7%AB%99/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[利用 Hexo 3 及以上版本 + github/gitcafe 搭建博客]]></title>
