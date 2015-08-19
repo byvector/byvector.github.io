@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-08-16T02:21:55.403Z</updated>
+  <updated>2015-08-19T07:22:16.160Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/08/15/%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/"/>
     <id>http://yoursite.com/2015/08/15/绑定域名/</id>
     <published>2015-08-15T02:08:22.000Z</published>
-    <updated>2015-08-16T02:21:55.403Z</updated>
+    <updated>2015-08-19T07:22:16.160Z</updated>
     <content type="html"><![CDATA[<h1 id="一、绑定域名">一、绑定域名</h1><hr>
 <p>1、 <strong>域名申请</strong><br>域名申请尽量使用经 ICANN 和 CNNIC 认证的顶级域名注册商。</p>
 <ul>
@@ -44,7 +44,61 @@ f1g1ns2<span class="class">.dnspod</span><span class="class">.net</span>
 <blockquote>
 <p>注意：记录类型一定要为：CNAME，记录值为：uer_name.gitcafe.io. 将user_name替换为您的用户名即可。</p>
 </blockquote>
-<h1 id="2、_添加评论">2、 添加评论</h1><hr>
+<h1 id="二、添加评论">二、添加评论</h1><hr>
+<p>Hexo默认使用的评论插件是Disqus，为了方便广大国内用户使用多说来替换Disqus。我们首先来讲下基于默认主题下添加多说评论。</p>
+<p>2.1 进入<a href="http://duoshuo.com/create-site/" target="_blank" rel="external">多说</a>创建你自己的站点，创建完成后进入后台管理，点击设置，可以查看自己的域名。假设域名为****.duoshuo.com，则我们把****称为：shortname。</p>
+<p>2.2 在_config.yml中添加多说的配置：</p>
+<pre><code><span class="attribute">duoshuo_shortname</span>: <span class="string">你站点的short_name</span>
+</code></pre><p>2.3 修改<code>themes\landscape\layout\_partial\article.ejs</code>模板，把</p>
+<pre><code><span class="xml"></span>&lt;%<span class="perl"> <span class="keyword">if</span> (!<span class="keyword">index</span> &amp;&amp; post.comments &amp;&amp; config.disqus_shortname){ </span>%&gt;<span class="xml">
+<span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comments"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"disqus_thread"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">noscript</span>&gt;</span>Please enable JavaScript to view the <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"//disqus.com/?ref_noscript"</span>&gt;</span>comments powered by Disqus.<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">noscript</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
+</span>&lt;%<span class="perl"> } </span>%&gt;<span class="xml"></span>
+</code></pre><p>改为</p>
+<pre><code><span class="tag">&lt;<span class="title">%</span> <span class="attribute">if</span> (!<span class="attribute">index</span> &amp;&amp; <span class="attribute">post.comments</span> &amp;&amp; <span class="attribute">config.duoshuo_shortname</span>){ %&gt;</span>
+<span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comments"</span>&gt;</span>
+  <span class="comment">&lt;!-- 多说评论框 start --&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"ds-thread"</span> <span class="attribute">data-thread-key</span>=<span class="value">"&lt;%= post.layout %&gt;-&lt;%= post.slug %&gt;"</span> <span class="attribute">data-title</span>=<span class="value">"&lt;%= post.title %&gt;"</span> <span class="attribute">data-url</span>=<span class="value">"&lt;%= page.permalink %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+  <span class="comment">&lt;!-- 多说评论框 end --&gt;</span>
+  <span class="comment">&lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</span>
+  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+  <span class="keyword">var</span> duoshuoQuery = {short_name:<span class="string">'&lt;%= config.duoshuo_shortname %&gt;'</span>};
+    (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+      <span class="keyword">var</span> ds = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);
+      ds.type = <span class="string">'text/javascript'</span>;ds.async = <span class="literal">true</span>;
+      ds.src = (<span class="built_in">document</span>.location.protocol == <span class="string">'https:'</span> ? <span class="string">'https:'</span> : <span class="string">'http:'</span>) + <span class="string">'//static.duoshuo.com/embed.js'</span>;
+      ds.charset = <span class="string">'UTF-8'</span>;
+      (<span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>] 
+       || <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>]).appendChild(ds);
+    })();
+    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+  <span class="comment">&lt;!-- 多说公共JS代码 end --&gt;</span>
+<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
+<span class="tag">&lt;<span class="title">%</span> } %&gt;</span>
+</code></pre><p>如果有疑问的同学，还可以参考下面的基于<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">yilia主题</a>的添加教程。</p>
+<p>假设我们的多说网站二级域名为****.duoshuo.com。yilia主题下有两种解决方案。</p>
+<ul>
+<li>方案一：</li>
+</ul>
+<pre><code>打开themes<span class="regexp">/yilia/</span>layout<span class="regexp">/_partial/</span>post/duoshuo.ejs
+
+将var duoshuoQuery = {<span class="string">short_name:</span><span class="string">"&lt;%=theme.duoshuo%&gt;"</span>};修改为var duoshuoQuery = {<span class="string">short_name:</span><span class="string">"****"</span>};
+</code></pre><ul>
+<li>方案二：</li>
+</ul>
+<pre><code>打开themes<span class="regexp">/yilia/</span>layout<span class="regexp">/_partial/</span>post/duoshuo.ejs.
+
+将var duoshuoQuery = {<span class="string">short_name:</span><span class="string">"&lt;%=theme.duoshuo%&gt;"</span>};
+修改为var duoshuoQuery = {<span class="string">short_name:</span><span class="string">"&lt;%=theme.duoshuo_shortname%&gt;"</span>};
+
+打开themes<span class="regexp">/yilia/\_</span>config.yml，添加一行：<span class="string">duoshuo_shortname:</span> ****
+</code></pre><h1 id="三、添加RSS">三、添加RSS</h1><hr>
+<p>RSS添加还是比较容易的，我们打开GitBash，切换到博客根目录，输入</p>
+<pre><code>$ npm <span class="keyword">install</span> hexo-generator-feed 
+</code></pre><p>打开<code>themes/yilia/_config.yml</code>，将rss注释去掉即可。</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h1 id="一、绑定域名">一、绑定域名</h1><hr>
