@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-09-21T12:07:29.434Z</updated>
+  <updated>2015-11-08T11:02:11.787Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,23 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[心情]]></title>
+    <link href="http://yoursite.com/2015/11/08/%E5%BF%83%E6%83%85/"/>
+    <id>http://yoursite.com/2015/11/08/心情/</id>
+    <published>2015-11-08T10:48:17.000Z</published>
+    <updated>2015-11-08T11:02:11.787Z</updated>
+    <content type="html"><![CDATA[<p>今天心情真的很沉重，好像有块石头压在心口。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>今天心情真的很沉重，好像有块石头压在心口。</p>
+]]>
+    </summary>
+    
+      <category term="心情杂记" scheme="http://yoursite.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[python 中类属性和实例属性]]></title>
