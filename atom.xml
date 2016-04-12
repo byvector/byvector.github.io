@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-04-11T04:19:03.667Z</updated>
+  <updated>2016-04-12T03:41:21.188Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,94 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS基础之容器的位置]]></title>
+    <link href="http://yoursite.com/2016/04/12/CSS%E4%B9%8B%E5%AE%B9%E5%99%A8/"/>
+    <id>http://yoursite.com/2016/04/12/CSS之容器/</id>
+    <published>2016-04-11T16:00:00.000Z</published>
+    <updated>2016-04-12T03:41:21.188Z</updated>
+    <content type="html"><![CDATA[<h1 id="一、准备工作">一、准备工作</h1><hr>
+<p>首先，我们准备一个存放诗句的div容器放在body中。</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"poemBox"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>《采桑子·长者》<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">address</span>&gt;</span>当代·无名氏<span class="tag">&lt;/<span class="title">address</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>人间易老他不老，时刻一秒<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>今又一秒，香江怒斥分外好<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>苟利国家生死以，不若代表<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>更若代表，西方国家谁未到<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>其效果如下图所示：<br><a id="more"></a><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi.jpg" alt="未添加CSS样式"></p>
+<h1 id="二、容器居中显示">二、容器居中显示</h1><p>我们添加下面这段CSS样式代码：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">body</span><span class="rules">{
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>此时的诗句效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi1.jpg" alt="居中后的诗"><br>内容虽然居中了，但是我们想看下div元素是否也是居中了。我们对div元素添加浅色背景,并且给div添加宽度。</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">body</span><span class="rules">{
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    }</span>
+    <span class="class">.poemBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi2.jpg" alt=""><br>定义宽度和背景色的div并没有居中显示，但div中的内容是居中显示的。我们想要让容器居中，可以设置容器的左右外边距为左右自适应。</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        <span class="tag">body</span><span class="rules">{
+            <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+        }</span>
+        <span class="class">.poemBox</span><span class="rules">{
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+            <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+            <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> auto</span></span>;
+            <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> auto</span></span>;
+        }</span>
+    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>此时的诗句效果是这样的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi3.jpg" alt="居中的诗句"></p>
+<h1 id="三、容器居右显示">三、容器居右显示</h1><hr>
+<p>1、利用浮动方式将容器居右显示</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="class">.poemBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><blockquote>
+<p>注意：利用浮动会带来清除浮动问题，这个问题会在后面专门介绍。</p>
+</blockquote>
+<p>2、利用定位方式将容器居右显示</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="class">.poemBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+        <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0px</span></span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><h2 id="&gt;关于absolute的有关内容会在后面有更多的介绍">&gt;关于absolute的有关内容会在后面有更多的介绍</h2><p>通过上面几个实验，关容器位置的一些内容就先简单介绍到这里吧。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="一、准备工作">一、准备工作</h1><hr>
+<p>首先，我们准备一个存放诗句的div容器放在body中。</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"poemBox"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>《采桑子·长者》<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">address</span>&gt;</span>当代·无名氏<span class="tag">&lt;/<span class="title">address</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>人间易老他不老，时刻一秒<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>今又一秒，香江怒斥分外好<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>苟利国家生死以，不若代表<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>更若代表，西方国家谁未到<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>其效果如下图所示：<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://yoursite.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS基础之盒模型]]></title>
