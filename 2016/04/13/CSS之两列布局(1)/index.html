@@ -20,16 +20,16 @@
 两列的页面布局是我们经常看见的一种页面结构，（蛤？我的博客首页！）这种布局方式在内容体现上可分为主要内容区域和侧边栏。首先让我们先把HTML的骨架搭好。
 &amp;lt;div id=&quot;header&quot;&amp;gt;这里是头&amp;lt;/div&amp;gt;
 &amp;lt;div id=&quot;container&quot;&amp;gt;">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju.jpg">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju2.jpg">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju3.jpg">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju4.jpg">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju5.jpg">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju6.jpg">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju7.jpg">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju8.jpg">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju9.jpg">
-<meta property="og:updated_time" content="2016-04-14T02:37:25.144Z">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju2.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju3.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju4.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju5.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju6.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju7.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju8.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju9.jpg-blogImg">
+<meta property="og:updated_time" content="2016-04-14T03:31:14.764Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS基础之两列页面布局（一）">
 <meta name="twitter:description" content="今天比较忙，但还是挤时间把今天的博客写出来了，下面就赶紧进入正题了 ヾ(=^▽^=)ノ
@@ -266,7 +266,7 @@
         <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#999999</span></span></span>;
     }</span>
 </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju.jpg" alt="两列定宽"><br>通过float，一个最简单的两列定宽布局就这么实现了，但是我们在mainBox中添加更多的行呢？<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju2.jpg" alt="多行两列"><br>结果，内容超出了容器范围，我们可以用overflow将多余的内容隐藏，但是，我们更想实现高度自适应，高度随着内容而改变。可以把CSS修改成这样：</p>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju.jpg-blogImg" alt="两列定宽"><br>通过float，一个最简单的两列定宽布局就这么实现了，但是我们在mainBox中添加更多的行呢？<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju2.jpg-blogImg" alt="多行两列"><br>结果，内容超出了容器范围，我们可以用overflow将多余的内容隐藏，但是，我们更想实现高度自适应，高度随着内容而改变。可以把CSS修改成这样：</p>
 <pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
     ……
     <span class="id">#container</span><span class="rules">{
@@ -296,7 +296,7 @@
 </code></pre><blockquote>
 <p>由于float将div从文档流中脱离，我们给footer添加了清除浮动的效果，使用float脱离文档流时，其他盒子会无视这个元素，但其他盒子内的文本依然会为这个元素让出位置，环绕在周围。而对于使用absolute，positioning脱离文档流的元素，其他盒子与其他盒子内的文本都会无视它。更多关于清除浮动的问题会在后面写一篇文章专门介绍。</p>
 </blockquote>
-<p>未添加清除浮动的效果如下图，可以看出，footer这个盒子虽然无视了浮动的元素，但是盒子中的文本还是为浮动的元素让出了位置。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju3.jpg" alt=""><br>添加清除浮动的效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju4.jpg" alt=""><br>但是我们发现底部的外边距却没有了，这是由于container中元素浮动导致container的高度为0，并没有自适应，如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju5.jpg" alt=""><br>我们对container清除浮动</p>
+<p>未添加清除浮动的效果如下图，可以看出，footer这个盒子虽然无视了浮动的元素，但是盒子中的文本还是为浮动的元素让出了位置。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju3.jpg-blogImg" alt=""><br>添加清除浮动的效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju4.jpg-blogImg" alt=""><br>但是我们发现底部的外边距却没有了，这是由于container中元素浮动导致container的高度为0，并没有自适应，如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju5.jpg-blogImg" alt=""><br>我们对container清除浮动</p>
 <pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
     ……
     <span class="comment">/*
@@ -316,7 +316,7 @@
 </code></pre><blockquote>
 <p>更多关于清除浮动的问题会在后面写一篇文章专门介绍。</p>
 </blockquote>
-<p>此时的效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju6.jpg" alt=""><br>这个时候两列好像是没什么问题了，但是，两列不是等高啊。如果我们将mainBox的宽度增加，会发现出现错位现象：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju7.jpg" alt=""><br>由此可见，两列定宽的布局方式一个前提要求是，两列的盒模型宽度相加不能超过父级元素的宽度，否则会导致页面发生错位。<br>如果我们将外边距设置成负值，可以修复这个问题</p>
+<p>此时的效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju6.jpg-blogImg" alt=""><br>这个时候两列好像是没什么问题了，但是，两列不是等高啊。如果我们将mainBox的宽度增加，会发现出现错位现象：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju7.jpg-blogImg" alt=""><br>由此可见，两列定宽的布局方式一个前提要求是，两列的盒模型宽度相加不能超过父级元素的宽度，否则会导致页面发生错位。<br>如果我们将外边距设置成负值，可以修复这个问题</p>
 <pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
     ……
     <span class="class">.sideBox</span><span class="rules">{
@@ -328,7 +328,7 @@
     }</span>
     ……
 </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju8.jpg" alt=""><br>侧边栏回到了原来的位置，（是不是很神奇 O(∩_∩)O）但覆盖了主要内容区域，这并不是我们想要的效果，于是我们利用两列自适应结构来满足我们的要求。</p>
+</code></pre><p>如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju8.jpg-blogImg" alt=""><br>侧边栏回到了原来的位置，（是不是很神奇 O(∩_∩)O）但覆盖了主要内容区域，这并不是我们想要的效果，于是我们利用两列自适应结构来满足我们的要求。</p>
 <h1 id="二、两列自适应结构">二、两列自适应结构</h1><hr>
 <p>两列自适应的页面布局方式其实将宽度属性以百分比的形式计算，但该宽度并不是盒模型的总宽度，而是盒模型的内容区域的宽度。</p>
 <pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
@@ -366,7 +366,7 @@
             <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">""</span></span></span>;
         }</span>
     </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>这样就得到我们想要的结果了，具体效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju9.jpg" alt=""><br>两页布局就先介绍到这里，今天实在是没时间，就把文章分成两部分，明天填第二部分的坑。先这样吧 ↖(^ω^)↗<br><em>ps:昨晚网络出了点问题，今天上午才传上来</em></p>
+</code></pre><p>这样就得到我们想要的结果了，具体效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju9.jpg-blogImg" alt=""><br>两页布局就先介绍到这里，今天实在是没时间，就把文章分成两部分，明天填第二部分的坑。先这样吧 ↖(^ω^)↗<br><em>ps:昨晚网络出了点问题，今天上午才传上来</em></p>
 
       
     </div>
@@ -375,6 +375,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/04/14/CSS之两列布局(2)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          CSS基础之两列页面布局（二）
+        
+      </div>
+    </a>
   
   
     <a href="/2016/04/12/CSS之容器/" id="article-nav-older" class="article-nav-link-wrap">
@@ -436,7 +445,7 @@
     	</div>
       	<div class="footer-right" >
       		<p style="margin-top:5px">2016-04-14
-            10:37:34 最后一次编辑</p>
+            11:31:52 最后一次编辑</p>
       	   </div>
         
     </div>
