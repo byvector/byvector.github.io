@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-04-14T03:31:12.978Z</updated>
+  <updated>2016-04-15T09:35:28.381Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,10 +19,172 @@
     <link href="http://yoursite.com/2016/04/14/CSS%E4%B9%8B%E4%B8%A4%E5%88%97%E5%B8%83%E5%B1%80(2)/"/>
     <id>http://yoursite.com/2016/04/14/CSS之两列布局(2)/</id>
     <published>2016-04-13T16:00:00.000Z</published>
-    <updated>2016-04-14T03:31:12.978Z</updated>
-    <content type="html"><![CDATA[<h1 id="一、单列定宽单列自适应结构">一、单列定宽单列自适应结构</h1>]]></content>
+    <updated>2016-04-15T09:35:28.381Z</updated>
+    <content type="html"><![CDATA[<p><em>上一篇学习了两列定宽和两列自适应结构并且遗留了一个两列不等高的问题，今天就把两者结合一下试试，并且学习一些解决两列不等高问题的方法</em></p>
+<h1 id="一、单列定宽单列自适应结构">一、单列定宽单列自适应结构</h1><hr>
+<p>上一次学习到如果两列的盒模型宽度总和超过父元素的宽度，或者大于100%，就会发生错位的现象。但是，如果让一列的宽度采用百分比或者auto，一列的宽度采用像素，怎么才能让这两个宽度单位不同的盒子组合在一起，完美实现单列定宽单列自适应结构。<br>下面我们就来学习一个，提高一下自己的滋似水平！▇-▇ ，将上节的代码稍微修改一下，把mainBox的宽度设置为70%，sideBox的宽度设置为200px。</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    ……
+    <span class="class">.mainBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">70%</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FF0000</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333333</span></span></span>;
+    }</span>
+    <span class="class">.sideBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#999999</span></span></span>;
+    }</span>
+    ……
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><a id="more"></a>
+<p>如果将页面缩小，就会发生错位现象：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lianglie.jpg-blogImg" alt=""><br>为了解决这个问题，先尝试给sideBox增加一个负的外边距试试 <code>marigin-left: -200px</code> 这时候再将浏览器窗口缩小效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lianglie1.jpg-blogImg" alt=""><br>虽然不像上次发生错位，但是却发生了重叠，这并不是我想要的结果。于是，再尝试将mainBox的width设置为auto。</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    ……
+    <span class="class">.mainBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> auto</span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FF0000</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333333</span></span></span>;
+    }</span>
+    <span class="class">.sideBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">200px</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#999999</span></span></span>;
+    }</span>
+    ……
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>刷新页面，好像问题是解决了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lianglie2.jpg-blogImg" alt=""><br>但是我们将mainBox中的增加内容，会发现又发生了覆盖，看来这个思路是不行了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lianglie3.jpg-blogImg" alt=""><br>换个思路。float看来已经不行了，那可以尝试一下定位的方式。先设置父元素container相对定位，使其子元素在定位的时候有参照物。然后设置mainBox的右外边距为200px,给sideBox腾出空白的空间，防止覆盖。</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        *<span class="rules">{
+            <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+            <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+        }</span>
+        <span class="id">#header</span>,<span class="id">#footer</span><span class="rules">{
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span>
+            height: <span class="number">30px</span></span></span>;
+            <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+        }</span>
+        <span class="id">#container</span><span class="rules">{
+            <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+            <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> <span class="number">0</span></span></span>;
+        }</span>
+        <span class="class">.mainBox</span><span class="rules">{
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> auto</span></span>;
+            <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> <span class="number">200px</span></span></span>;
+            <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+            <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333333</span></span></span>;
+        }</span>
+        <span class="class">.sideBox</span><span class="rules">{
+            <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+            <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;
+            <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;
+            <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">200px</span></span></span>; <span class="comment">/*使用负边距使sideBox向左浮动缩进*/</span>
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
+            <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+            <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#999999</span></span></span>;
+        }</span>
+        <span class="comment">/*#container:after{
+            display: block;
+            visibility: hidden;
+            font-size: 0;
+            line-height: 0;
+            clear:both;
+            content: "";
+        }
+        #footer {
+            clear:both;
+        } */</span>
+    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>效果如下图:<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lianglie4.jpg-blogImg" alt=""><br>这样就得到了我们想要的结果，但是这种方法是不得已而为之的。使用绝对定位后，浮动与清除浮动都会无效，而且会导致一个严重的问题————使用绝对定位的元素无法撑开父元素的高度，而且会覆盖其他元素的内容。比如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lianglie5.jpg-blogImg" alt=""></p>
+<blockquote>
+<p>在文档流的文章中会详细介绍定位等相关内容</p>
+</blockquote>
+<h1 id="二、两列等高">二、两列等高</h1><hr>
+<p>上一节中带来了一些高度问题，我们可以用下面四种方法来解决。每种方法都有自己的优点和缺点，可以根据自己的具体使用环境来选择。</p>
+<h2 id="1、背景模拟">1、背景模拟</h2><p>最简单和最直接的办法是背景模拟。背景模拟就是利用背景图片的平铺，在视觉上产生等高的感觉。背景图片必须是一张可以Y轴重复的图片。即<code>background-repeat: repeat-y;</code><br>为了实现两列等高，背景图片也必须是两列的存在形式，如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lianglie-moni.png-blogImg" alt=""><br>在开始实验之前，先将实验要用的骨架搭建好</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>头部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"container"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"mainBox"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>主要内容区域<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>多添加几行文字试试效果<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>多添加几行文字试试效果<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>多添加几行文字试试效果<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>多添加几行文字试试效果<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sideBox"</span>&gt;</span>这是侧边栏<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"footer"</span>&gt;</span>底部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>骨架已经搭好，利用上面的背景图开始等两列高实验</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    *<span class="rules">{
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="id">#header</span>, <span class="id">#footer</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">960px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+    <span class="id">#container</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">960px</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/bg.png) repeat-y <span class="number">0</span> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="class">.mainBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">650px</span></span></span>;
+    }</span>
+    <span class="class">.sideBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">280px</span></span></span>;
+    }</span>
+    <span class="class">.mainBox</span>,<span class="class">.sideBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span> <span class="number">5px</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FF0000</span></span></span>;
+    }</span>
+    <span class="id">#container</span><span class="pseudo">:after</span><span class="rules">{
+        <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+        <span class="rule"><span class="attribute">visibility</span>:<span class="value"> hidden</span></span>;
+        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;
+        <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">""</span>
+    }
+</span></span></span></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>刷新一下页面，看下效果:<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/denggao.jpg-blogImg" alt=""><br>利用背景图片实现两列“等高”只是在mainBox和sideBox两个元素的父元素中添加了背景图片，并纵向重复，无论mainBox比sideBox高，还是sideBox比mainBox高，在视觉上实现了等高，其实是较高的子元素将父元素撑高了而已。<br>这种方法有着其自己的优点：</p>
+<ul>
+<li>实现方法简单，只需要一张能够纵向重复的图片</li>
+<li>保持简洁的HTML代码结构和简单的CSS样式代码<br>缺点：</li>
+<li>宽度必须固定，无论修改页面中mainBox还是sideBox的宽度，都需要修改图片，影响了效率和页面的重构</li>
+<li>左右两列互换或者页面结构变化，也必须修改图片<br>所以，在页面结构基本不变动的情况下，可以使用这种方法来产生视觉上的等高。<h2 id="2、负边距实现">2、负边距实现</h2></li>
+</ul>
+<h2 id="3、边框模拟">3、边框模拟</h2><h2 id="4、其他方式">4、其他方式</h2>]]></content>
     <summary type="html">
-    <![CDATA[<h1 id="一、单列定宽单列自适应结构">一、单列定宽单列自适应结构</h1>]]>
+    <![CDATA[<p><em>上一篇学习了两列定宽和两列自适应结构并且遗留了一个两列不等高的问题，今天就把两者结合一下试试，并且学习一些解决两列不等高问题的方法</em></p>
+<h1 id="一、单列定宽单列自适应结构">一、单列定宽单列自适应结构</h1><hr>
+<p>上一次学习到如果两列的盒模型宽度总和超过父元素的宽度，或者大于100%，就会发生错位的现象。但是，如果让一列的宽度采用百分比或者auto，一列的宽度采用像素，怎么才能让这两个宽度单位不同的盒子组合在一起，完美实现单列定宽单列自适应结构。<br>下面我们就来学习一个，提高一下自己的滋似水平！▇-▇ ，将上节的代码稍微修改一下，把mainBox的宽度设置为70%，sideBox的宽度设置为200px。</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    ……
+    <span class="class">.mainBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">70%</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FF0000</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333333</span></span></span>;
+    }</span>
+    <span class="class">.sideBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#999999</span></span></span>;
+    }</span>
+    ……
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre>]]>
+    
     </summary>
     
       <category term="CSS" scheme="http://yoursite.com/tags/CSS/"/>
@@ -200,7 +362,7 @@
     <link href="http://yoursite.com/2016/04/12/CSS%E4%B9%8B%E5%AE%B9%E5%99%A8/"/>
     <id>http://yoursite.com/2016/04/12/CSS之容器/</id>
     <published>2016-04-11T16:00:00.000Z</published>
-    <updated>2016-04-14T03:28:48.656Z</updated>
+    <updated>2016-04-14T03:31:13.907Z</updated>
     <content type="html"><![CDATA[<h1 id="一、准备工作">一、准备工作</h1><hr>
 <p>首先，我们准备一个存放诗句的div容器放在body中。</p>
 <pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"poemBox"</span>&gt;</span>
