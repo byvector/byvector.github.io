@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-04-15T09:35:28.381Z</updated>
+  <updated>2016-04-16T05:04:02.133Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2016/04/14/CSS%E4%B9%8B%E4%B8%A4%E5%88%97%E5%B8%83%E5%B1%80(2)/"/>
     <id>http://yoursite.com/2016/04/14/CSS之两列布局(2)/</id>
     <published>2016-04-13T16:00:00.000Z</published>
-    <updated>2016-04-15T09:35:28.381Z</updated>
+    <updated>2016-04-16T05:04:02.133Z</updated>
     <content type="html"><![CDATA[<p><em>上一篇学习了两列定宽和两列自适应结构并且遗留了一个两列不等高的问题，今天就把两者结合一下试试，并且学习一些解决两列不等高问题的方法</em></p>
 <h1 id="一、单列定宽单列自适应结构">一、单列定宽单列自适应结构</h1><hr>
 <p>上一次学习到如果两列的盒模型宽度总和超过父元素的宽度，或者大于100%，就会发生错位的现象。但是，如果让一列的宽度采用百分比或者auto，一列的宽度采用像素，怎么才能让这两个宽度单位不同的盒子组合在一起，完美实现单列定宽单列自适应结构。<br>下面我们就来学习一个，提高一下自己的滋似水平！▇-▇ ，将上节的代码稍微修改一下，把mainBox的宽度设置为70%，sideBox的宽度设置为200px。</p>
@@ -160,9 +160,9 @@
 <li>实现方法简单，只需要一张能够纵向重复的图片</li>
 <li>保持简洁的HTML代码结构和简单的CSS样式代码<br>缺点：</li>
 <li>宽度必须固定，无论修改页面中mainBox还是sideBox的宽度，都需要修改图片，影响了效率和页面的重构</li>
-<li>左右两列互换或者页面结构变化，也必须修改图片<br>所以，在页面结构基本不变动的情况下，可以使用这种方法来产生视觉上的等高。<h2 id="2、负边距实现">2、负边距实现</h2></li>
+<li>左右两列互换或者页面结构变化，也必须修改图片<br>所以，在页面结构基本不变动的情况下，可以使用这种方法来产生视觉上的等高。</li>
 </ul>
-<h2 id="3、边框模拟">3、边框模拟</h2><h2 id="4、其他方式">4、其他方式</h2>]]></content>
+<h2 id="2、负边距实现">2、负边距实现</h2><h2 id="3、边框模拟">3、边框模拟</h2><h2 id="4、其他方式">4、其他方式</h2>]]></content>
     <summary type="html">
     <![CDATA[<p><em>上一篇学习了两列定宽和两列自适应结构并且遗留了一个两列不等高的问题，今天就把两者结合一下试试，并且学习一些解决两列不等高问题的方法</em></p>
 <h1 id="一、单列定宽单列自适应结构">一、单列定宽单列自适应结构</h1><hr>
@@ -594,7 +594,7 @@ s2<span class="class">.age</span> = <span class="number">20</span>  \\给实例s
     <link href="http://yoursite.com/2015/08/15/%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/"/>
     <id>http://yoursite.com/2015/08/15/绑定域名/</id>
     <published>2015-08-15T02:08:22.000Z</published>
-    <updated>2015-08-19T07:22:16.160Z</updated>
+    <updated>2016-04-16T05:06:07.967Z</updated>
     <content type="html"><![CDATA[<h1 id="一、绑定域名">一、绑定域名</h1><hr>
 <p>1、 <strong>域名申请</strong><br>域名申请尽量使用经 ICANN 和 CNNIC 认证的顶级域名注册商。</p>
 <ul>
@@ -691,9 +691,7 @@ f1g1ns2<span class="class">.dnspod</span><span class="class">.net</span>
     
     </summary>
     
-      <category term="html" scheme="http://yoursite.com/tags/html/"/>
-    
-      <category term="网站" scheme="http://yoursite.com/tags/%E7%BD%91%E7%AB%99/"/>
+      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
     
   </entry>
   
@@ -702,7 +700,7 @@ f1g1ns2<span class="class">.dnspod</span><span class="class">.net</span>
     <link href="http://yoursite.com/2015/08/12/github-gitcafe/"/>
     <id>http://yoursite.com/2015/08/12/github-gitcafe/</id>
     <published>2015-08-12T01:04:40.000Z</published>
-    <updated>2015-08-12T13:27:23.057Z</updated>
+    <updated>2016-04-16T05:05:46.847Z</updated>
     <content type="html"><![CDATA[<h1 id="前言">前言</h1><hr>
 <p>曾经一直有搭建博客的想法，前面由于时间原因搁置了下来，这次抽时间终于把博客搭建完成了。网上很多教程都是基于 hexo 2.x 的教程，而 hexo 3.0 做了很多变动，于是把这次搭建博客的过程记录下来，供大家参考，如有不对的地方欢迎大家指正。</p>
 <h1 id="1_安装">1 安装</h1><hr>
@@ -846,10 +844,6 @@ git pull origin master
     
       <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
     
-      <category term="Web" scheme="http://yoursite.com/tags/Web/"/>
-    
-      <category term="html" scheme="http://yoursite.com/tags/html/"/>
-    
   </entry>
   
   <entry>
@@ -857,7 +851,7 @@ git pull origin master
     <link href="http://yoursite.com/2015/08/11/Test/"/>
     <id>http://yoursite.com/2015/08/11/Test/</id>
     <published>2015-08-11T01:45:39.000Z</published>
-    <updated>2015-08-12T01:08:41.827Z</updated>
+    <updated>2016-04-16T05:05:30.115Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>This is a test.</p>
 </blockquote>
@@ -869,7 +863,7 @@ git pull origin master
 ]]>
     </summary>
     
-      <category term="test" scheme="http://yoursite.com/tags/test/"/>
+      <category term="demo" scheme="http://yoursite.com/tags/demo/"/>
     
   </entry>
   
