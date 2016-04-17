@@ -82,16 +82,22 @@
 
 
 
-<meta name="description" content="昨天做汇报没有抽出时间来更新，由于 gitcafe 被收购，又把 repository 做了迁移，正好换了一个主题，又把原主题稍微修改了一下。感觉心情舒畅了好多 O(∩_∩)O哈！">
+<meta name="description" content="昨天做汇报没有抽出时间来更新，由于 gitcafe 被收购，又把 repository 做了迁移，正好换了一个主题，又把原主题稍微修改了一下。感觉心情舒畅了好多 O(∩_∩)O哈！
+一、结构分析三列结构的页面布局一般用在一些门户网站上，比如：网易、搜狐和新浪等等。对三列结构进行分析，会发现三列的布局结构可以分成两种情况
+1、两个两列布局结构组成第一种三列结构可以看做是两个两列布局结构组合而成的，比">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS基础之三列或多列页面布局（一）">
+<meta property="og:title" content="CSS基础之三列页面布局（一）">
 <meta property="og:url" content="http://www.songchubai.com/2016/04/16/CSS之三列布局(1)/index.html">
 <meta property="og:site_name" content="vector's blog">
-<meta property="og:description" content="昨天做汇报没有抽出时间来更新，由于 gitcafe 被收购，又把 repository 做了迁移，正好换了一个主题，又把原主题稍微修改了一下。感觉心情舒畅了好多 O(∩_∩)O哈！">
-<meta property="og:updated_time" content="2016-04-16T13:05:18.601Z">
+<meta property="og:description" content="昨天做汇报没有抽出时间来更新，由于 gitcafe 被收购，又把 repository 做了迁移，正好换了一个主题，又把原主题稍微修改了一下。感觉心情舒畅了好多 O(∩_∩)O哈！
+一、结构分析三列结构的页面布局一般用在一些门户网站上，比如：网易、搜狐和新浪等等。对三列结构进行分析，会发现三列的布局结构可以分成两种情况
+1、两个两列布局结构组成第一种三列结构可以看做是两个两列布局结构组合而成的，比">
+<meta property="og:updated_time" content="2016-04-17T03:16:56.243Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS基础之三列或多列页面布局（一）">
-<meta name="twitter:description" content="昨天做汇报没有抽出时间来更新，由于 gitcafe 被收购，又把 repository 做了迁移，正好换了一个主题，又把原主题稍微修改了一下。感觉心情舒畅了好多 O(∩_∩)O哈！">
+<meta name="twitter:title" content="CSS基础之三列页面布局（一）">
+<meta name="twitter:description" content="昨天做汇报没有抽出时间来更新，由于 gitcafe 被收购，又把 repository 做了迁移，正好换了一个主题，又把原主题稍微修改了一下。感觉心情舒畅了好多 O(∩_∩)O哈！
+一、结构分析三列结构的页面布局一般用在一些门户网站上，比如：网易、搜狐和新浪等等。对三列结构进行分析，会发现三列的布局结构可以分成两种情况
+1、两个两列布局结构组成第一种三列结构可以看做是两个两列布局结构组合而成的，比">
 
 
 
@@ -109,7 +115,7 @@
   };
 </script>
 
-  <title> CSS基础之三列或多列页面布局（一） | vector's blog </title>
+  <title> CSS基础之三列页面布局（一） | vector's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -229,7 +235,7 @@
             
             
               
-                CSS基础之三列或多列页面布局（一）
+                CSS基础之三列页面布局（一）
               
             
           </h1>
@@ -277,7 +283,28 @@
 
       
         <p><em>昨天做汇报没有抽出时间来更新，由于 gitcafe 被收购，又把 repository 做了迁移，正好换了一个主题，又把原主题稍微修改了一下。感觉心情舒畅了好多 O(∩_∩)O哈！</em></p>
-
+<h1 id="一、结构分析">一、结构分析</h1><p>三列结构的页面布局一般用在一些门户网站上，比如：网易、搜狐和新浪等等。对三列结构进行分析，会发现三列的布局结构可以分成两种情况</p>
+<h2 id="1、两个两列布局结构组成">1、两个两列布局结构组成</h2><p>第一种三列结构可以看做是两个两列布局结构组合而成的，比如下面这段HTML代码：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"header"</span>&gt;头部信息&lt;/<span class="keyword">div</span>&gt;
+&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"container"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"wrap"</span>&gt;
+        &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"mainBox"</span>&gt;主要内容区域&lt;/<span class="keyword">div</span>&gt;
+        &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"subMainBox"</span>&gt;次要内容区域&lt;/<span class="keyword">div</span>&gt;
+    &lt;/<span class="keyword">div</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"sideBox"</span>&gt;侧边栏&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"footer"</span>&gt;底部信息&lt;/<span class="keyword">div</span>&gt;
+</code></pre><a id="more"></a>
+<h2 id="2、三个独立列组成">2、三个独立列组成</h2><p>第二种三列结构就是由三个独立的列组成的。具体HTML代码如下：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"header"</span>&gt;头部信息&lt;/<span class="keyword">div</span>&gt;
+&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"container"</span>&gt;    
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"mainBox"</span>&gt;主要内容区域&lt;/<span class="keyword">div</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"subMainBox"</span>&gt;次要内容区域&lt;/<span class="keyword">div</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"sideBox"</span>&gt;侧边栏&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"footer"</span>&gt;底部信息&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>总之，这两种方式其实都是由两列布局拓展而来的。下面就开始根据不同的情况进行分析。</p>
+<h1 id="二、两列定宽中间自适应结构">二、两列定宽中间自适应结构</h1><h1 id="三、左侧定宽右侧及中间自适应结构">三、左侧定宽右侧及中间自适应结构</h1>
       
     </div>
     
@@ -339,7 +366,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/04/16/CSS之三列布局(1)/"
-           data-title="CSS基础之三列或多列页面布局（一）" data-url="http://www.songchubai.com/2016/04/16/CSS之三列布局(1)/">
+           data-title="CSS基础之三列页面布局（一）" data-url="http://www.songchubai.com/2016/04/16/CSS之三列布局(1)/">
       </div>
     
   </div>
@@ -468,7 +495,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、结构分析"><span class="nav-number">1.</span> <span class="nav-text">一、结构分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、两个两列布局结构组成"><span class="nav-number">1.1.</span> <span class="nav-text">1、两个两列布局结构组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、三个独立列组成"><span class="nav-number">1.2.</span> <span class="nav-text">2、三个独立列组成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、两列定宽中间自适应结构"><span class="nav-number">2.</span> <span class="nav-text">二、两列定宽中间自适应结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、左侧定宽右侧及中间自适应结构"><span class="nav-number">3.</span> <span class="nav-text">三、左侧定宽右侧及中间自适应结构</span></a></li></ol></div>
             
           </div>
         </section>
