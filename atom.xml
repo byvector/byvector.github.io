@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-19T13:57:26.387Z</updated>
+  <updated>2016-04-19T14:00:25.194Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,9 +19,9 @@
     <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(2)/"/>
     <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(2)/</id>
     <published>2016-04-18T16:00:00.000Z</published>
-    <updated>2016-04-19T13:57:26.387Z</updated>
+    <updated>2016-04-19T14:00:25.194Z</updated>
     <content type="html"><![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
-<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/" target="_blank" rel="external">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现</p>
+<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/" target="_blank" rel="external">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br><a id="more"></a></p>
 <pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
         <span class="tag">p</span><span class="rules">{
             <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
@@ -98,7 +98,8 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
-<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/" target="_blank" rel="external">网易跟帖</a>的朋友可能遇见过这种样]]>
+<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br>]]>
+    
     </summary>
     
       <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
