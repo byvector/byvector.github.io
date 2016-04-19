@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-19T04:54:39.437Z</updated>
+  <updated>2016-04-19T04:58:13.259Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(1)/"/>
     <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(1)/</id>
     <published>2016-04-18T16:00:00.000Z</published>
-    <updated>2016-04-19T04:54:39.437Z</updated>
+    <updated>2016-04-19T04:58:13.259Z</updated>
     <content type="html"><![CDATA[<p><em>这里所说的文本润色并不是将某些语句修改下使其变的更有文采，而是使用CSS修饰页面中的文本，改善文本使其在视觉上更加美观</em></p>
 <h1 id="一、文字基本样式">一、文字基本样式</h1><h2 id="1、字体设置">1、字体设置</h2><p>在CSS样式中，可以定义单个字体，可以多个字体可以同时定义，浏览器在解析时是按顺序进行解析的。</p>
 <pre><code><span class="rule"><span class="attribute">font-family</span>:<span class="value"> Arial</span></span>;
@@ -28,7 +28,7 @@
 <blockquote>
 <p>如果字体中包含空格应该用引号引起，中文字体也最好用引号引起</p>
 </blockquote>
-<p>这时候会发现浏览器显示网页上文字使用的字体只能限制在电脑里已经安装的几款字体里。而且每个人的电脑里安装的字体也是因人而异的。这时候CSS3就引入了<code>@font-face</code><br>它的作用是从网上下载并使用自定义字体，使页面显示字体不依赖用户的操作系统字体环境。<br>语法是这样的：</p>
+<p>这时候会发现浏览器显示网页上文字使用的字体只能限制在电脑里已经安装的几款字体里。而且每个人的电脑里安装的字体也是因人而异的。这时候CSS3就引入了<code>@font-face</code><br>它的作用是从网上下载并使用自定义字体，使页面显示字体不依赖用户的操作系统字体环境。<br><a id="more"></a><br>语法是这样的：</p>
 <pre><code>@font-face {
       font-family: &lt;YourWebFontName&gt;;
       src: &lt;source&gt; <span class="annotation">[&lt;format&gt;]</span>[,&lt;source&gt; <span class="annotation">[&lt;format&gt;]</span>]*;
@@ -207,7 +207,15 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p><em>这里所说的文本润色并不是将某些语句修改下使其变的更有文采，而是使用CSS修饰页面中的文本，改善文本使其在视觉上更加美观</em></p>
-<h1 id="一、文字基本样式">一、文字基本样式</h1><h2 id="1、字体设置">1、字体设置</h2><p>在CS]]>
+<h1 id="一、文字基本样式">一、文字基本样式</h1><h2 id="1、字体设置">1、字体设置</h2><p>在CSS样式中，可以定义单个字体，可以多个字体可以同时定义，浏览器在解析时是按顺序进行解析的。</p>
+<pre><code><span class="rule"><span class="attribute">font-family</span>:<span class="value"> Arial</span></span>;
+<span class="rule"><span class="attribute">font-family</span>:<span class="value"> <span class="string">"微软雅黑"</span>, <span class="string">"宋体"</span>, Arial, Verdana, <span class="string">"Times New Romen"</span></span></span>;
+</code></pre><p>在上面多字体例子中，浏览器会先寻找”微软雅黑”，如果没有找到会寻找”宋体”，以次类推</p>
+<blockquote>
+<p>如果字体中包含空格应该用引号引起，中文字体也最好用引号引起</p>
+</blockquote>
+<p>这时候会发现浏览器显示网页上文字使用的字体只能限制在电脑里已经安装的几款字体里。而且每个人的电脑里安装的字体也是因人而异的。这时候CSS3就引入了<code>@font-face</code><br>它的作用是从网上下载并使用自定义字体，使页面显示字体不依赖用户的操作系统字体环境。<br>]]>
+    
     </summary>
     
       <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
