@@ -1383,7 +1383,7 @@
     <link href="http://www.songchubai.com/2016/04/12/CSS%E4%B9%8B%E5%AE%B9%E5%99%A8/"/>
     <id>http://www.songchubai.com/2016/04/12/CSS之容器/</id>
     <published>2016-04-11T16:00:00.000Z</published>
-    <updated>2016-04-14T03:31:13.907Z</updated>
+    <updated>2016-04-19T08:01:56.929Z</updated>
     <content type="html"><![CDATA[<h1 id="一、准备工作">一、准备工作</h1><hr>
 <p>首先，我们准备一个存放诗句的div容器放在body中。</p>
 <pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"poemBox"</span>&gt;</span>
@@ -1445,7 +1445,10 @@
         <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
     }</span>
 </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><h2 id="&gt;关于absolute的有关内容会在后面有更多的介绍">&gt;关于absolute的有关内容会在后面有更多的介绍</h2><p>通过上面几个实验，关容器位置的一些内容就先简单介绍到这里吧。</p>
+</code></pre><blockquote>
+<p>关于absolute的有关内容会在后面有更多的介绍</p>
+</blockquote>
+<p>通过上面几个实验，关容器位置的一些内容就先简单介绍到这里吧。</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h1 id="一、准备工作">一、准备工作</h1><hr>
