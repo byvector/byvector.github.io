@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-19T08:18:25.826Z</updated>
+  <updated>2016-04-19T13:57:26.387Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -15,11 +15,102 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[CSS基础之文本润色（一）]]></title>
+    <title><![CDATA[CSS学习笔记之文本润色（二）]]></title>
+    <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(2)/"/>
+    <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(2)/</id>
+    <published>2016-04-18T16:00:00.000Z</published>
+    <updated>2016-04-19T13:57:26.387Z</updated>
+    <content type="html"><![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
+<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/" target="_blank" rel="external">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        <span class="tag">p</span><span class="rules">{
+            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
+        }</span>
+        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
+            font-size: <span class="number">26px</span></span></span>;
+            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
+        }
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
+    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
+<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs1.jpg-blogImg" alt=""></p>
+<h2 id="首行处理">首行处理</h2><p>这个暂时没有在网上找到例子，其实和首字处理差不多，同样利用伪对象，只不过是 <code>first-line</code>，只会影响第一行的文本效果，感兴趣的同学可以自己写的demo玩玩。</p>
+<h2 id="文字隐藏">文字隐藏</h2><p>文字隐藏是当某段文字超出自己所在的容器时，我们可以将超出的文本内容隐藏<br>简单写个demo：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        <span class="tag">p</span><span class="rules">{
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+            <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70px</span></span></span>;
+            <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> dashed</span></span>;
+            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
+            <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+        }</span>
+        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
+            font-size: <span class="number">26px</span></span></span>;
+            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
+        }
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
+    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
+<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+</code></pre><p>下面两图分别是未隐藏和隐藏的效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs2.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs3.jpg-blogImg" alt=""><br>其实文字的隐藏更多是用在以图代字的环境中，就是说用图片代替一些字（这些字往往是特效字体），这时候会把字体隐藏。可以利用<code>visibility:hidden</code> 或者<code>display:none</code>两个属性。设置<code>visibility:hidden</code>的容器会占有原页面的位置空间，设置<code>display:none</code>的容器不会占用页面空间，代码简单就不贴了。</p>
+<h1 id="文字链接">文字链接</h1><hr>
+<p><em>链接也就是HTML中的a标签，负责页面的跳转，在网页中很常见</em></p>
+<h2 id="基础链接样式">基础链接样式</h2><p>一个最基础的链接</p>
+<pre><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>这是一个链接<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+</code></pre><p>它的默认样式是蓝色的带有下划线的可以点击的一段文本。在支持 CSS 的浏览器中，链接的不同状态都可以不同的方式显示，这些状态包括：活动状态，已被访问状态，未被访问状态，和鼠标悬停状态。CSS中可以利用伪类来修饰我们的链接样式：</p>
+<ul>
+<li>a:link     未被访问过的链接样式 </li>
+<li>a:visited  已被访问过的链接样式 </li>
+<li>a:hover    鼠标移动到链接上时的样式 </li>
+<li>a:active   选定的链接样式(鼠标点击时的样式) </li>
+</ul>
+<h2 id="带有修饰的链接样式">带有修饰的链接样式</h2><p>我们可以给链接增加各种修饰，比如：增加文字权重，添加文字边框，修改内外边距，增加背景色等等，可以打开脑洞进行各种尝试。下面写了个小demo练练手：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+<span class="class">.myLink</span> <span class="rules">{
+    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value">red</span></span>;
+}</span> 
+<span class="rule"><span class="attribute">.myLink</span>:<span class="value">hover {
+    padding-bottom:<span class="number">3px</span></span></span>;
+    <span class="rule"><span class="attribute">text-decoration</span>:<span class="value">none</span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
+    <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"><span class="number">1px</span> dashed <span class="hexcolor">#FF0000</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value">none</span></span>;
+} 
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"myLink"</span>&gt;</span>带有修饰的链接样式<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs4.jpg-blogImg" alt=""></p>
+<h2 id="带有图片的链接样式">带有图片的链接样式</h2><p>我们也可以在链接中加入图片。</p>
+<pre><code>.myLink {
+    padding-left:<span class="number">20</span>px;
+    <span class="built_in">background</span>:url(images/music_1.gif) no-repeat left center;
+    <span class="built_in">text</span>-decoration: none;
+    <span class="built_in">color</span>: <span class="built_in">green</span>;
+} 
+.myLink:hover {
+    <span class="built_in">background</span>:url(images/music_2.gif) no-repeat left center;
+    <span class="built_in">text</span>-decoration: none;
+    <span class="built_in">color</span>: <span class="built_in">red</span>;
+} 
+&lt;a href=<span class="string">"#"</span> class=<span class="string">"myLink"</span>&gt;带有图片的链接样式&lt;/a&gt;
+</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs5.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs6.jpg-blogImg" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
+<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/" target="_blank" rel="external">网易跟帖</a>的朋友可能遇见过这种样]]>
+    </summary>
+    
+      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CSS学习笔记之文本润色（一）]]></title>
     <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(1)/"/>
     <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(1)/</id>
     <published>2016-04-18T16:00:00.000Z</published>
-    <updated>2016-04-19T08:18:25.826Z</updated>
+    <updated>2016-04-19T13:56:51.712Z</updated>
     <content type="html"><![CDATA[<p><em>这里所说的文本润色并不是将某些语句修改下使其变的更有文采，而是使用CSS修饰页面中的文本，改善文本使其在视觉上更加美观</em></p>
 <h1 id="一、文字基本样式">一、文字基本样式</h1><hr>
 <h2 id="1、字体设置">1、字体设置</h2><p>在CSS样式中，可以定义单个字体，可以多个字体可以同时定义，浏览器在解析时是按顺序进行解析的。</p>
@@ -226,11 +317,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[CSS基础之三列页面布局（二）]]></title>
+    <title><![CDATA[CSS学习笔记之三列页面布局（二）]]></title>
     <link href="http://www.songchubai.com/2016/04/17/CSS%E4%B9%8B%E4%B8%89%E5%88%97%E5%B8%83%E5%B1%80(2)/"/>
     <id>http://www.songchubai.com/2016/04/17/CSS之三列布局(2)/</id>
     <published>2016-04-16T16:00:00.000Z</published>
-    <updated>2016-04-17T13:49:24.462Z</updated>
+    <updated>2016-04-19T13:56:57.335Z</updated>
     <content type="html"><![CDATA[<p>接着上次，继续学习三列页面布局结构。</p>
 <h1 id="一、三列宽度自适应结构">一、三列宽度自适应结构</h1><p>三列宽度自适应只需要把上次的左侧定宽右侧和中间自适应稍作修改就可以了。先保持上次的HTML结构不变</p>
 <pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>这里是头部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
@@ -574,11 +665,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[CSS基础之三列页面布局（一）]]></title>
+    <title><![CDATA[CSS学习笔记之三列页面布局（一）]]></title>
     <link href="http://www.songchubai.com/2016/04/16/CSS%E4%B9%8B%E4%B8%89%E5%88%97%E5%B8%83%E5%B1%80(1)/"/>
     <id>http://www.songchubai.com/2016/04/16/CSS之三列布局(1)/</id>
     <published>2016-04-15T16:00:00.000Z</published>
-    <updated>2016-04-17T10:17:14.513Z</updated>
+    <updated>2016-04-19T13:57:02.718Z</updated>
     <content type="html"><![CDATA[<p><em>昨天做汇报没有抽出时间来更新，由于 gitcafe 被收购，又把 repository 做了迁移，正好换了一个主题，把原主题稍微修改了一下。感觉心情舒畅了好多 O(∩_∩)O哈！</em></p>
 <h1 id="一、结构分析">一、结构分析</h1><p>三列结构的页面布局一般用在一些门户网站上，比如：网易、搜狐和新浪等等。对三列结构进行分析，会发现三列的布局结构可以分成两种情况</p>
 <h2 id="1、两个两列布局结构组成">1、两个两列布局结构组成</h2><p>第一种三列结构可以看做是两个两列布局结构组合而成的，比如下面这段HTML代码：</p>
@@ -845,11 +936,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[CSS基础之两列页面布局（二）]]></title>
+    <title><![CDATA[CSS学习笔记之两列页面布局（二）]]></title>
     <link href="http://www.songchubai.com/2016/04/14/CSS%E4%B9%8B%E4%B8%A4%E5%88%97%E5%B8%83%E5%B1%80(2)/"/>
     <id>http://www.songchubai.com/2016/04/14/CSS之两列布局(2)/</id>
     <published>2016-04-13T16:00:00.000Z</published>
-    <updated>2016-04-17T08:40:40.728Z</updated>
+    <updated>2016-04-19T13:57:13.609Z</updated>
     <content type="html"><![CDATA[<p><em>上一篇学习了两列定宽和两列自适应结构并且遗留了一个两列不等高的问题，今天就把两者结合一下试试，并且学习一些解决两列不等高问题的方法</em></p>
 <h1 id="一、单列定宽单列自适应结构">一、单列定宽单列自适应结构</h1><hr>
 <p>上一次学习到如果两列的盒模型宽度总和超过父元素的宽度，或者大于100%，就会发生错位的现象。但是，如果让一列的宽度采用百分比或者auto，一列的宽度采用像素，怎么才能让这两个宽度单位不同的盒子组合在一起，完美实现单列定宽单列自适应结构。<br>下面我们就来学习一个，提高一下自己的滋似水平！▇-▇ ，将上节的代码稍微修改一下，把mainBox的宽度设置为70%，sideBox的宽度设置为200px。</p>
@@ -1216,11 +1307,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[CSS基础之两列页面布局（一）]]></title>
+    <title><![CDATA[CSS学习笔记之两列页面布局（一）]]></title>
     <link href="http://www.songchubai.com/2016/04/13/CSS%E4%B9%8B%E4%B8%A4%E5%88%97%E5%B8%83%E5%B1%80(1)/"/>
     <id>http://www.songchubai.com/2016/04/13/CSS之两列布局(1)/</id>
     <published>2016-04-12T16:00:00.000Z</published>
-    <updated>2016-04-14T03:31:14.764Z</updated>
+    <updated>2016-04-19T13:57:18.844Z</updated>
     <content type="html"><![CDATA[<p><em>今天比较忙，但还是挤时间把今天的博客写出来了，下面就赶紧进入正题了 ヾ(=^▽^=)ノ</em></p>
 <h1 id="一、两列定宽的页面布局">一、两列定宽的页面布局</h1><hr>
 <p>两列的页面布局是我们经常看见的一种页面结构，（蛤？我的博客首页！）这种布局方式在内容体现上可分为主要内容区域和侧边栏。首先让我们先把HTML的骨架搭好。</p>
@@ -1382,11 +1473,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[CSS基础之容器的位置]]></title>
+    <title><![CDATA[CSS学习笔记之容器的位置]]></title>
     <link href="http://www.songchubai.com/2016/04/12/CSS%E4%B9%8B%E5%AE%B9%E5%99%A8/"/>
     <id>http://www.songchubai.com/2016/04/12/CSS之容器/</id>
     <published>2016-04-11T16:00:00.000Z</published>
-    <updated>2016-04-19T08:01:56.929Z</updated>
+    <updated>2016-04-19T13:57:08.284Z</updated>
     <content type="html"><![CDATA[<h1 id="一、准备工作">一、准备工作</h1><hr>
 <p>首先，我们准备一个存放诗句的div容器放在body中。</p>
 <pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"poemBox"</span>&gt;</span>
@@ -1473,11 +1564,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[CSS基础之盒模型]]></title>
+    <title><![CDATA[CSS学习笔记之盒模型]]></title>
     <link href="http://www.songchubai.com/2016/04/11/CSS%E4%B9%8B%E7%9B%92%E6%A8%A1%E5%9E%8B/"/>
     <id>http://www.songchubai.com/2016/04/11/CSS之盒模型/</id>
     <published>2016-04-10T16:00:00.000Z</published>
-    <updated>2016-04-14T03:28:51.783Z</updated>
+    <updated>2016-04-19T13:57:24.244Z</updated>
     <content type="html"><![CDATA[<h1 id="一、盒模型的组成">一、盒模型的组成</h1><hr>
 <p>盒模型是CSS布局的最基本组成部分，它是指定页面元素如何显示及在某种方式上如何相互交互。在页面上的每个元素都是以一个矩形的表现形式存在的，每个矩形是由元素的内容、内边距(padding)、边框(border)、外边距(margin)组成的，如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/box.jpg-blogImg" alt="盒模型的基本组成"><br><a id="more"></a><br>从上图可以清楚的理解任何一个元素的内容区域都是被内边距(padding)、边框(border)、外边距(margin)这3个属性所包含。一个元素的盒模型有多大，那么该元素在页面中占用的空间也将会有多大。</p>
 <blockquote>
