@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-19T04:58:13.259Z</updated>
+  <updated>2016-04-19T08:18:25.826Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,9 +19,10 @@
     <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(1)/"/>
     <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(1)/</id>
     <published>2016-04-18T16:00:00.000Z</published>
-    <updated>2016-04-19T04:58:13.259Z</updated>
+    <updated>2016-04-19T08:18:25.826Z</updated>
     <content type="html"><![CDATA[<p><em>这里所说的文本润色并不是将某些语句修改下使其变的更有文采，而是使用CSS修饰页面中的文本，改善文本使其在视觉上更加美观</em></p>
-<h1 id="一、文字基本样式">一、文字基本样式</h1><h2 id="1、字体设置">1、字体设置</h2><p>在CSS样式中，可以定义单个字体，可以多个字体可以同时定义，浏览器在解析时是按顺序进行解析的。</p>
+<h1 id="一、文字基本样式">一、文字基本样式</h1><hr>
+<h2 id="1、字体设置">1、字体设置</h2><p>在CSS样式中，可以定义单个字体，可以多个字体可以同时定义，浏览器在解析时是按顺序进行解析的。</p>
 <pre><code><span class="rule"><span class="attribute">font-family</span>:<span class="value"> Arial</span></span>;
 <span class="rule"><span class="attribute">font-family</span>:<span class="value"> <span class="string">"微软雅黑"</span>, <span class="string">"宋体"</span>, Arial, Verdana, <span class="string">"Times New Romen"</span></span></span>;
 </code></pre><p>在上面多字体例子中，浏览器会先寻找”微软雅黑”，如果没有找到会寻找”宋体”，以次类推</p>
@@ -125,7 +126,8 @@
 <h3 id="2、font-weight">2、font-weight</h3><p>该属性用于设置显示元素的文本中所用的字体加粗。数字值 400 相当于 关键字 normal，700 等价于 bold。很简单，不写那么多了。虽然我不是那种偷懒的人<br>可能的值：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/wb1.jpg-blogImg" alt=""></p>
 <h3 id="3、font-style">3、font-style</h3><p>该属性设置使用斜体、倾斜或正常字体。<br>可能的值：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/wb2.jpg-blogImg" alt=""></p>
 <h2 id="3、字体颜色">3、字体颜色</h2><p>color该属性设置文本的颜色，这个颜色还会应用到元素的所有边框，除非被 border-color 或另外某个边框颜色属性覆盖。<br>可能的值:<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/wb3.jpg-blogImg" alt=""></p>
-<h1 id="二、段落样式">二、段落样式</h1><h2 id="1、首行缩进">1、首行缩进</h2><p>在CSS样式中，通过text-indent属性来设置文本的缩进。取值为百分比数字或者由浮点数字和单位标识符组成的长度值。</p>
+<h1 id="二、段落样式">二、段落样式</h1><hr>
+<h2 id="1、首行缩进">1、首行缩进</h2><p>在CSS样式中，通过text-indent属性来设置文本的缩进。取值为百分比数字或者由浮点数字和单位标识符组成的长度值。</p>
 <blockquote>
 <p>允许使用负值。如果使用负值，那么首行会被缩进到左边</p>
 </blockquote>
@@ -207,7 +209,8 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p><em>这里所说的文本润色并不是将某些语句修改下使其变的更有文采，而是使用CSS修饰页面中的文本，改善文本使其在视觉上更加美观</em></p>
-<h1 id="一、文字基本样式">一、文字基本样式</h1><h2 id="1、字体设置">1、字体设置</h2><p>在CSS样式中，可以定义单个字体，可以多个字体可以同时定义，浏览器在解析时是按顺序进行解析的。</p>
+<h1 id="一、文字基本样式">一、文字基本样式</h1><hr>
+<h2 id="1、字体设置">1、字体设置</h2><p>在CSS样式中，可以定义单个字体，可以多个字体可以同时定义，浏览器在解析时是按顺序进行解析的。</p>
 <pre><code><span class="rule"><span class="attribute">font-family</span>:<span class="value"> Arial</span></span>;
 <span class="rule"><span class="attribute">font-family</span>:<span class="value"> <span class="string">"微软雅黑"</span>, <span class="string">"宋体"</span>, Arial, Verdana, <span class="string">"Times New Romen"</span></span></span>;
 </code></pre><p>在上面多字体例子中，浏览器会先寻找”微软雅黑”，如果没有找到会寻找”宋体”，以次类推</p>
