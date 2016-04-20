@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-19T14:00:25.194Z</updated>
+  <updated>2016-04-20T12:10:36.833Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -15,90 +15,149 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[CSS学习笔记之文本润色（二）]]></title>
-    <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(2)/"/>
-    <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(2)/</id>
-    <published>2016-04-18T16:00:00.000Z</published>
-    <updated>2016-04-19T14:00:25.194Z</updated>
-    <content type="html"><![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
-<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/" target="_blank" rel="external">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br><a id="more"></a></p>
+    <title><![CDATA[CSS基础之文本润色（三）]]></title>
+    <link href="http://www.songchubai.com/2016/04/20/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(3)/"/>
+    <id>http://www.songchubai.com/2016/04/20/CSS之文本润色(3)/</id>
+    <published>2016-04-19T16:00:00.000Z</published>
+    <updated>2016-04-20T12:10:36.833Z</updated>
+    <content type="html"><![CDATA[<p><em>这次就结合上两次的学习写个小例子</em></p>
+<h1 id="一个新闻页面">一个新闻页面</h1><hr>
+<p>这次写个新闻页面，是新华社的一份有关记者问答的<a href="http://news.xinhuanet.com/world/2016-04/19/c_128911146.htm" target="_blank" rel="external">新闻</a></p>
+<h2 id="结构分析">结构分析</h2><p>打开页面，是一个单列定宽单列自适应的两列页面结构，左侧为新闻内容区域，右侧为侧边栏。在左侧的新闻内容区域从上至下又依次可分为新闻标题，新闻日期，新闻图片，图片说明，新闻内容，相关新闻链接和作者信息。在右侧侧边栏，又可分为图片新闻，广告，视频新闻。<br><a id="more"></a></p>
+<h2 id="HTML页面框架">HTML页面框架</h2><p>结构分析清楚了，页面结构就很容易写出来了</p>
+<pre><code><span class="doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">title</span>&gt;</span>新闻<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>这里是头部<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"container"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"mainBox"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"article"</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>国防部新闻局就美方质疑我用军机赴永暑礁运送重病工人答记者问<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"info"</span>&gt;</span>  <span class="comment">&lt;!-- 原网页在来源处没有超链接 --&gt;</span>
+                        <span class="tag">&lt;<span class="title">span</span>&gt;</span>2016年04月19日 19:12:46<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>来源： 国防部网<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+                    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"newsImg"</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/news1.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">p</span>&gt;</span>4月17日，海军巡逻机转运重病工人抵达三亚凤凰机场。当日，一架正在南海执行空中巡逻任务的海军巡逻机紧急飞赴南沙，降落在永暑礁机场，将李万美等3名重病工人转运至海南三亚425医院接受救治。新华社发（高宏伟 摄）<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+                    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"newContent"</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">p</span>&gt;</span>问：据美国有线新闻网（CNN）报道，针对中方派军机赴南沙永暑礁运送三名重病工人，美国国防部发言人在回应媒体问询时表示，注意到此次中方称之为人道主义救援的行动，但不清楚中方为何使用军机而不是民用飞机。同时，美方还表示会进一步要求中国不在永暑礁部署军机。请问对此有何评论？<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">p</span>&gt;</span>答：全心全意为人民服务是中国人民解放军的根本宗旨。在危急时刻，全力救助人民群众是我军的优良传统和一贯做法。<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">p</span>&gt;</span>与此形成鲜明对比的是，在人的生命危急之时，美方却还在质疑什么军机民机。我们不禁要问，如果美国民众在美国领土上突发疾病，美军是不是会袖手旁观？<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">p</span>&gt;</span>需要强调的是，中国对南沙群岛及其附近海域拥有无可争辩的主权。相关岛礁建设和防卫设施部署都是中国主权范围内的事，美国无权指手画脚。<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+                    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"newRec"</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/news2.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span>&gt;</span>海军派巡逻机赴南沙永暑礁转运重病工人<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span>&gt;</span>我国南沙永暑礁新建机场试飞成功<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"author"</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span>&gt;</span>【纠错】<span class="tag">&lt;/<span class="title">a</span>&gt;</span>[责任编辑: 雷东瑞 ] <span class="tag">&lt;/<span class="title">p</span>&gt;</span> 
+                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sideBox"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"imgRec"</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"title"</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">h2</span>&gt;</span>炫图推荐<span class="tag">&lt;/<span class="title">h2</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>进入频道<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"listPic"</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">li</span>&gt;</span>
+                            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"imgWrapper"</span>&gt;</span>
+                                <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/news3.jpg"</span> /&gt;</span><span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"text"</span>&gt;</span>走进震后的日本熊本<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+                            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                        <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">li</span>&gt;</span>
+                            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"imgWrapper"</span>&gt;</span>
+                                <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/news4.jpg"</span> /&gt;</span><span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"text"</span>&gt;</span>用玻璃渣改装玛莎拉蒂<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+                            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                        <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">li</span>&gt;</span>
+                            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"imgWrapper"</span>&gt;</span>
+                                <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/news5.jpg"</span> /&gt;</span><span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"text"</span>&gt;</span>全球惊为天人的大胆儿童<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+                            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                        <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">li</span>&gt;</span>
+                            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"imgWrapper"</span>&gt;</span>
+                                <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/news6.jpg"</span> /&gt;</span><span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"text"</span>&gt;</span>揭全球最神秘女人<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+                            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                        <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+                    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"ad"</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/news7.jpg"</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"listVideo"</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"title"</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">h2</span>&gt;</span>视频推荐<span class="tag">&lt;/<span class="title">h2</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>进入频道<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+                            <span class="tag">&lt;<span class="title">li</span>&gt;</span>
+                                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"videoWrap"</span>&gt;</span>
+                                    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span>&gt;</span>浙江多地现“日晕”奇观<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+                                    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/news8.jpg"</span>&gt;</span>
+                                    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span>&gt;</span>泰国现罕见生物<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+                                    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span>&gt;</span>暴风雨袭击美国休斯敦<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+                                    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span>&gt;</span>虚拟现实技术直播手术<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+                                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+                        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+                    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"footer"</span>&gt;</span>这里是底部<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
+</code></pre><p>未添加任何CSS样式的部分效果如下：<br><img src="" alt=""><br><img src="" alt=""></p>
+<h2 id="为页面添加CSS样式">为页面添加CSS样式</h2><p>HTML已经写好，下面就开始装饰它。<br>先把整体布局添加好。</p>
 <pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-        <span class="tag">p</span><span class="rules">{
-            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
-        }</span>
-        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
-            font-size: <span class="number">26px</span></span></span>;
-            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
-        }
+    *<span class="rules">{
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="id">#header</span>,<span class="id">#footer</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#999</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    }</span>
+    <span class="id">#container</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">80%</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+    }</span>
+    <span class="class">.mainBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+    }</span>
+    <span class="class">.mainBox</span> <span class="class">.content</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> <span class="number">330px</span></span></span>;
+    }</span>
+    <span class="class">.sideBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">300px</span></span></span>;
+    }</span>
+    <span class="id">#footer</span><span class="rules">{
+        <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;
+    }</span>
 </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
-    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
-<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs1.jpg-blogImg" alt=""></p>
-<h2 id="首行处理">首行处理</h2><p>这个暂时没有在网上找到例子，其实和首字处理差不多，同样利用伪对象，只不过是 <code>first-line</code>，只会影响第一行的文本效果，感兴趣的同学可以自己写的demo玩玩。</p>
-<h2 id="文字隐藏">文字隐藏</h2><p>文字隐藏是当某段文字超出自己所在的容器时，我们可以将超出的文本内容隐藏<br>简单写个demo：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-        <span class="tag">p</span><span class="rules">{
-            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-            <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70px</span></span></span>;
-            <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> dashed</span></span>;
-            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
-            <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-        }</span>
-        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
-            font-size: <span class="number">26px</span></span></span>;
-            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
-        }
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
-    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
-<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-</code></pre><p>下面两图分别是未隐藏和隐藏的效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs2.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs3.jpg-blogImg" alt=""><br>其实文字的隐藏更多是用在以图代字的环境中，就是说用图片代替一些字（这些字往往是特效字体），这时候会把字体隐藏。可以利用<code>visibility:hidden</code> 或者<code>display:none</code>两个属性。设置<code>visibility:hidden</code>的容器会占有原页面的位置空间，设置<code>display:none</code>的容器不会占用页面空间，代码简单就不贴了。</p>
-<h1 id="文字链接">文字链接</h1><hr>
-<p><em>链接也就是HTML中的a标签，负责页面的跳转，在网页中很常见</em></p>
-<h2 id="基础链接样式">基础链接样式</h2><p>一个最基础的链接</p>
-<pre><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>这是一个链接<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-</code></pre><p>它的默认样式是蓝色的带有下划线的可以点击的一段文本。在支持 CSS 的浏览器中，链接的不同状态都可以不同的方式显示，这些状态包括：活动状态，已被访问状态，未被访问状态，和鼠标悬停状态。CSS中可以利用伪类来修饰我们的链接样式：</p>
-<ul>
-<li>a:link     未被访问过的链接样式 </li>
-<li>a:visited  已被访问过的链接样式 </li>
-<li>a:hover    鼠标移动到链接上时的样式 </li>
-<li>a:active   选定的链接样式(鼠标点击时的样式) </li>
-</ul>
-<h2 id="带有修饰的链接样式">带有修饰的链接样式</h2><p>我们可以给链接增加各种修饰，比如：增加文字权重，添加文字边框，修改内外边距，增加背景色等等，可以打开脑洞进行各种尝试。下面写了个小demo练练手：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-<span class="class">.myLink</span> <span class="rules">{
-    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-    <span class="rule"><span class="attribute">background-color</span>:<span class="value">red</span></span>;
-}</span> 
-<span class="rule"><span class="attribute">.myLink</span>:<span class="value">hover {
-    padding-bottom:<span class="number">3px</span></span></span>;
-    <span class="rule"><span class="attribute">text-decoration</span>:<span class="value">none</span></span>;
-    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
-    <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"><span class="number">1px</span> dashed <span class="hexcolor">#FF0000</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value">none</span></span>;
-} 
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"myLink"</span>&gt;</span>带有修饰的链接样式<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs4.jpg-blogImg" alt=""></p>
-<h2 id="带有图片的链接样式">带有图片的链接样式</h2><p>我们也可以在链接中加入图片。</p>
-<pre><code>.myLink {
-    padding-left:<span class="number">20</span>px;
-    <span class="built_in">background</span>:url(images/music_1.gif) no-repeat left center;
-    <span class="built_in">text</span>-decoration: none;
-    <span class="built_in">color</span>: <span class="built_in">green</span>;
-} 
-.myLink:hover {
-    <span class="built_in">background</span>:url(images/music_2.gif) no-repeat left center;
-    <span class="built_in">text</span>-decoration: none;
-    <span class="built_in">color</span>: <span class="built_in">red</span>;
-} 
-&lt;a href=<span class="string">"#"</span> class=<span class="string">"myLink"</span>&gt;带有图片的链接样式&lt;/a&gt;
-</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs5.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs6.jpg-blogImg" alt=""></p>
+</code></pre><p>这时的效果如下：<br><img src="" alt=""><br><img src="" alt=""><br>下一步就是修饰每一个细节部分</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
-<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br>]]>
+    <![CDATA[<p><em>这次就结合上两次的学习写个小例子</em></p>
+<h1 id="一个新闻页面">一个新闻页面</h1><hr>
+<p>这次写个新闻页面，是新华社的一份有关记者问答的<a href="http://news.xinhuanet.com/world/2016-04/19/c_128911146.htm">新闻</a></p>
+<h2 id="结构分析">结构分析</h2><p>打开页面，是一个单列定宽单列自适应的两列页面结构，左侧为新闻内容区域，右侧为侧边栏。在左侧的新闻内容区域从上至下又依次可分为新闻标题，新闻日期，新闻图片，图片说明，新闻内容，相关新闻链接和作者信息。在右侧侧边栏，又可分为图片新闻，广告，视频新闻。<br>]]>
     
     </summary>
     
@@ -310,6 +369,98 @@
 <p>如果字体中包含空格应该用引号引起，中文字体也最好用引号引起</p>
 </blockquote>
 <p>这时候会发现浏览器显示网页上文字使用的字体只能限制在电脑里已经安装的几款字体里。而且每个人的电脑里安装的字体也是因人而异的。这时候CSS3就引入了<code>@font-face</code><br>它的作用是从网上下载并使用自定义字体，使页面显示字体不依赖用户的操作系统字体环境。<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CSS学习笔记之文本润色（二）]]></title>
+    <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(2)/"/>
+    <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(2)/</id>
+    <published>2016-04-18T16:00:00.000Z</published>
+    <updated>2016-04-19T14:00:25.194Z</updated>
+    <content type="html"><![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
+<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/" target="_blank" rel="external">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br><a id="more"></a></p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        <span class="tag">p</span><span class="rules">{
+            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
+        }</span>
+        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
+            font-size: <span class="number">26px</span></span></span>;
+            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
+        }
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
+    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
+<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs1.jpg-blogImg" alt=""></p>
+<h2 id="首行处理">首行处理</h2><p>这个暂时没有在网上找到例子，其实和首字处理差不多，同样利用伪对象，只不过是 <code>first-line</code>，只会影响第一行的文本效果，感兴趣的同学可以自己写的demo玩玩。</p>
+<h2 id="文字隐藏">文字隐藏</h2><p>文字隐藏是当某段文字超出自己所在的容器时，我们可以将超出的文本内容隐藏<br>简单写个demo：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        <span class="tag">p</span><span class="rules">{
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+            <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70px</span></span></span>;
+            <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> dashed</span></span>;
+            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
+            <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+        }</span>
+        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
+            font-size: <span class="number">26px</span></span></span>;
+            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
+        }
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
+    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
+<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+</code></pre><p>下面两图分别是未隐藏和隐藏的效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs2.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs3.jpg-blogImg" alt=""><br>其实文字的隐藏更多是用在以图代字的环境中，就是说用图片代替一些字（这些字往往是特效字体），这时候会把字体隐藏。可以利用<code>visibility:hidden</code> 或者<code>display:none</code>两个属性。设置<code>visibility:hidden</code>的容器会占有原页面的位置空间，设置<code>display:none</code>的容器不会占用页面空间，代码简单就不贴了。</p>
+<h1 id="文字链接">文字链接</h1><hr>
+<p><em>链接也就是HTML中的a标签，负责页面的跳转，在网页中很常见</em></p>
+<h2 id="基础链接样式">基础链接样式</h2><p>一个最基础的链接</p>
+<pre><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>这是一个链接<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+</code></pre><p>它的默认样式是蓝色的带有下划线的可以点击的一段文本。在支持 CSS 的浏览器中，链接的不同状态都可以不同的方式显示，这些状态包括：活动状态，已被访问状态，未被访问状态，和鼠标悬停状态。CSS中可以利用伪类来修饰我们的链接样式：</p>
+<ul>
+<li>a:link     未被访问过的链接样式 </li>
+<li>a:visited  已被访问过的链接样式 </li>
+<li>a:hover    鼠标移动到链接上时的样式 </li>
+<li>a:active   选定的链接样式(鼠标点击时的样式) </li>
+</ul>
+<h2 id="带有修饰的链接样式">带有修饰的链接样式</h2><p>我们可以给链接增加各种修饰，比如：增加文字权重，添加文字边框，修改内外边距，增加背景色等等，可以打开脑洞进行各种尝试。下面写了个小demo练练手：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+<span class="class">.myLink</span> <span class="rules">{
+    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value">red</span></span>;
+}</span> 
+<span class="rule"><span class="attribute">.myLink</span>:<span class="value">hover {
+    padding-bottom:<span class="number">3px</span></span></span>;
+    <span class="rule"><span class="attribute">text-decoration</span>:<span class="value">none</span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
+    <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"><span class="number">1px</span> dashed <span class="hexcolor">#FF0000</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value">none</span></span>;
+} 
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"myLink"</span>&gt;</span>带有修饰的链接样式<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs4.jpg-blogImg" alt=""></p>
+<h2 id="带有图片的链接样式">带有图片的链接样式</h2><p>我们也可以在链接中加入图片。</p>
+<pre><code>.myLink {
+    padding-left:<span class="number">20</span>px;
+    <span class="built_in">background</span>:url(images/music_1.gif) no-repeat left center;
+    <span class="built_in">text</span>-decoration: none;
+    <span class="built_in">color</span>: <span class="built_in">green</span>;
+} 
+.myLink:hover {
+    <span class="built_in">background</span>:url(images/music_2.gif) no-repeat left center;
+    <span class="built_in">text</span>-decoration: none;
+    <span class="built_in">color</span>: <span class="built_in">red</span>;
+} 
+&lt;a href=<span class="string">"#"</span> class=<span class="string">"myLink"</span>&gt;带有图片的链接样式&lt;/a&gt;
+</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs5.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs6.jpg-blogImg" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
+<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br>]]>
     
     </summary>
     
