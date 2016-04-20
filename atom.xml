@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-20T13:40:40.592Z</updated>
+  <updated>2016-04-20T13:52:54.354Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.songchubai.com/2016/04/20/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(3)/"/>
     <id>http://www.songchubai.com/2016/04/20/CSS之文本润色(3)/</id>
     <published>2016-04-19T16:00:00.000Z</published>
-    <updated>2016-04-20T13:40:40.592Z</updated>
+    <updated>2016-04-20T13:52:54.354Z</updated>
     <content type="html"><![CDATA[<p><em>这次就结合上两次的学习写个小例子</em></p>
 <h1 id="一个新闻页面">一个新闻页面</h1><hr>
 <p>这次写个新闻页面，是新华社的一份有关记者问答的<a href="http://news.xinhuanet.com/world/2016-04/19/c_128911146.htm" target="_blank" rel="external">新闻</a></p>
@@ -310,7 +310,7 @@
         <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">170px</span></span></span>;
     }</span> 
 </code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/dm5.jpg-blogImg" alt=""><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/dm6.jpg-blogImg" alt=""></p>
-<p>OK！搞定 小demo可以在<a href="">这里</a>找到 JavaScript的相关代码和操作会在JavaScript的文章中补上</p>
+<p>OK！搞定 小demo可以在<a href="https://github.com/byvector/byvector.github.io/tree/master/demo" target="_blank" rel="external">这里</a>找到 JavaScript的相关代码和操作会在JavaScript的文章中补上</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p><em>这次就结合上两次的学习写个小例子</em></p>
