@@ -96,7 +96,9 @@ jpg格式jgp格式也称为JPEG格式，以24位颜色存储单个位图。它�
 在网站页面中背景图片往往是必不可少的，它能帮助我们美化页面或者增加页面信息量。
 图片格式在网页中常用的图片格式有jpg gif以及png。
 jpg格式jgp格式也称为JPEG格式，以24位颜色存储单个位图。它能够以牺牲图像质量为代价对图片进行压缩。所以jpg格式的图片比较小，下载速度快，在页面中很受欢迎。">
-<meta property="og:updated_time" content="2016-04-21T02:22:04.527Z">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/yahoo.gif">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/tx.jpg-blogImg">
+<meta property="og:updated_time" content="2016-04-21T07:58:01.921Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS基础之图片处理">
 <meta name="twitter:description" content="今天任务多，偷点懒少写一些
@@ -356,6 +358,48 @@ jpg格式jgp格式也称为JPEG格式，以24位颜色存储单个位图。它�
     <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#FFF</span> <span class="function">url</span>(images/demo.jpg) no-repeat right bottom</span></span>;
 }</span>
 </code></pre><p>设置body背景色为#FFF 背景图为demo 不平铺 图片设置在右下角</p>
+<h2 id="CSS_Sprite">CSS Sprite</h2><p>CSS Sprite是一种网页图片应用处理方式。它允许你将一个页面涉及到的所有零星图片都包含到一张大图中去，这样在访问该页面时，载入的图片不会像以前那样一幅一幅的慢慢显示出来。使用这种方式，大大减少了该页面的http请求的次数，减轻服务器压力，同时缩短了悬停加载图片所需要的时间延迟，使效果更流畅。</p>
+<p>CSS Sprite可以用在很多场合，大型网站将许多单独的图片组合起来从而便于维护和更新。图片之间通常会留出较大的空白，使图片不会影响图片的内容。但该方式大多使用于较固定的像素定位中，弹性差，守到定位等因素的制约，所以必须在可维护性和降低负载之间权衡利弊。<br>使用CSS Sprite过程中注意以下两点：</p>
+<ul>
+<li>固定容器的宽度和高度</li>
+<li>超出容器高度和宽度的部分需要隐藏</li>
+</ul>
+<p>利用下面这张图写个小例子<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/yahoo.gif" alt=""></p>
+<blockquote>
+<p>每个ICO纵向以40px为基准，横向以400px为基准</p>
+</blockquote>
+<p>HTML代码如下：</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"ico_list"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"note"</span>&gt;</span>笔记本<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"earth"</span>&gt;</span>地球<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"group"</span>&gt;</span>群组<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>然后就可以使用CSS Sprite方法了</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="class">.ico_list</span> <span class="tag">li</span> <span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">100px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">20px</span></span></span>; 
+        <span class="rule"><span class="attribute">overflow</span>:<span class="value">hidden</span></span>; 
+        <span class="rule"><span class="attribute">list-style</span>:<span class="value">none</span></span>; 
+        <span class="rule"><span class="attribute">text-indent</span>:<span class="value"><span class="number">20px</span></span></span>; 
+        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/yahoo.gif) no-repeat <span class="number">0</span> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="class">.ico_list</span> <span class="tag">li</span><span class="class">.note</span> <span class="rules">{
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">400px</span> -<span class="number">520px</span></span></span>;
+    }</span>
+    <span class="class">.ico_list</span> <span class="tag">li</span><span class="class">.earth</span> <span class="rules">{
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value"><span class="number">0</span> -<span class="number">200px</span></span></span>;
+    }</span>
+    <span class="class">.ico_list</span> <span class="tag">li</span><span class="class">.group</span> <span class="rules">{
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">400px</span> -<span class="number">200px</span></span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tx.jpg-blogImg" alt=""></p>
 <blockquote>
 <p>今天偷懒就写到这里吧 咕~~(╯﹏╰)b</p>
 </blockquote>
@@ -550,7 +594,7 @@ jpg格式jgp格式也称为JPEG格式，以24位颜色存储单个位图。它�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景图优化"><span class="nav-number">1.</span> <span class="nav-text">背景图优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图片格式"><span class="nav-number">1.1.</span> <span class="nav-text">图片格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jpg格式"><span class="nav-number">1.1.1.</span> <span class="nav-text">jpg格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gif格式"><span class="nav-number">1.1.2.</span> <span class="nav-text">gif格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#png格式"><span class="nav-number">1.1.3.</span> <span class="nav-text">png格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景属性"><span class="nav-number">1.2.</span> <span class="nav-text">背景属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#background-color"><span class="nav-number">1.2.1.</span> <span class="nav-text">background-color</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background-image"><span class="nav-number">1.2.2.</span> <span class="nav-text">background-image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background-repeat"><span class="nav-number">1.2.3.</span> <span class="nav-text">background-repeat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background-position"><span class="nav-number">1.2.4.</span> <span class="nav-text">background-position</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background属性的简写"><span class="nav-number">1.2.5.</span> <span class="nav-text">background属性的简写</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景图优化"><span class="nav-number">1.</span> <span class="nav-text">背景图优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图片格式"><span class="nav-number">1.1.</span> <span class="nav-text">图片格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jpg格式"><span class="nav-number">1.1.1.</span> <span class="nav-text">jpg格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gif格式"><span class="nav-number">1.1.2.</span> <span class="nav-text">gif格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#png格式"><span class="nav-number">1.1.3.</span> <span class="nav-text">png格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景属性"><span class="nav-number">1.2.</span> <span class="nav-text">背景属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#background-color"><span class="nav-number">1.2.1.</span> <span class="nav-text">background-color</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background-image"><span class="nav-number">1.2.2.</span> <span class="nav-text">background-image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background-repeat"><span class="nav-number">1.2.3.</span> <span class="nav-text">background-repeat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background-position"><span class="nav-number">1.2.4.</span> <span class="nav-text">background-position</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background属性的简写"><span class="nav-number">1.2.5.</span> <span class="nav-text">background属性的简写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS_Sprite"><span class="nav-number">1.3.</span> <span class="nav-text">CSS Sprite</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
