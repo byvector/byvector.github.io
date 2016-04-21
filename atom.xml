@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-21T01:11:58.588Z</updated>
+  <updated>2016-04-21T02:22:04.527Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -13,6 +13,97 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS基础之图片处理]]></title>
+    <link href="http://www.songchubai.com/2016/04/21/CSS%E4%B9%8B%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86/"/>
+    <id>http://www.songchubai.com/2016/04/21/CSS之图片处理/</id>
+    <published>2016-04-20T16:00:00.000Z</published>
+    <updated>2016-04-21T02:22:04.527Z</updated>
+    <content type="html"><![CDATA[<p><em>今天任务多，偷点懒少写一些</em></p>
+<h1 id="背景图优化">背景图优化</h1><hr>
+<p>在网站页面中背景图片往往是必不可少的，它能帮助我们美化页面或者增加页面信息量。</p>
+<h2 id="图片格式">图片格式</h2><p>在网页中常用的图片格式有jpg gif以及png。</p>
+<h3 id="jpg格式">jpg格式</h3><p>jgp格式也称为JPEG格式，以24位颜色存储单个位图。它能够以牺牲图像质量为代价对图片进行压缩。所以jpg格式的图片比较小，下载速度快，在页面中很受欢迎。<br><a id="more"></a></p>
+<h3 id="gif格式">gif格式</h3><p>gif在网页中一般以动态图或者图标类的形式出现。gif不能存储超过256颜色的图像，因此对色彩有要求的图片最好不适用gif，否则会对复杂色彩的图片造成失真。</p>
+<h3 id="png格式">png格式</h3><p>png格式图片汲取了gif和jpg二者的优点。</p>
+<ul>
+<li>存储形式丰富，兼有gif和jpg的色彩模式。</li>
+<li>同时它能够将图片尽可能的压缩以利于网络传输，而且它的压缩是无损的。</li>
+<li>png的图片显示速度很快，只需下载1/64的图像信息就可以显示低分辨率的预览图像。</li>
+<li>png支持透明图像制作</li>
+</ul>
+<h2 id="背景属性">背景属性</h2><h3 id="background-color">background-color</h3><p>background-color用来设置其对应元素的背景色。比如设置body为黑色，body内部的div为白色</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">body</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#000</span></span></span>;
+    }</span>
+    <span class="tag">div</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+        body中的div
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+</code></pre><h3 id="background-image">background-image</h3><p>background-image用来设置页面的背景图。其中url的路径可以是相对路径也可以是绝对路径</p>
+<pre><code><span class="tag">body</span><span class="rules">{
+    <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(图片路径)</span></span>;   
+}</span>
+</code></pre><h3 id="background-repeat">background-repeat</h3><p>用来设置背景图片在网页中以什么方式显示，包括平铺和不平铺两种方式<br>background-repeat有以下四种属性值</p>
+<ul>
+<li>repeat 默认值 背景图在纵轴和横轴上平铺</li>
+<li>no-repeat 背景图不平铺</li>
+<li>repeat-x 背景图仅在x轴上平铺</li>
+<li>repeat-y 背景图仅在y轴上平铺</li>
+</ul>
+<p>在一些网站中可能会使用平铺图作为自己页面的背景。比如</p>
+<pre><code><span class="tag">body</span><span class="rules">{
+   <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(平铺图路径)</span></span>;
+   <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> repeat</span></span>;
+}</span>
+</code></pre><h3 id="background-position">background-position</h3><p>用来设置背景图在容器中的位置,比如将图片设置在body的右下角</p>
+<pre><code><span class="tag">body</span><span class="rules">{
+    <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(图片路径)</span></span>;
+    <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
+    <span class="rule"><span class="attribute">background-position</span>:<span class="value"> right bottom</span></span>;
+}</span>
+</code></pre><p>当然也可以使用数值来确定图片的位置，比如将图片设置在容器水平居中，距顶部200px的位置上。</p>
+<pre><code><span class="tag">body</span><span class="rules">{
+    <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(图片路径)</span></span>;
+    <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
+    <span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">50%</span> <span class="number">200px</span></span></span>;
+}</span>
+</code></pre><blockquote>
+<ul>
+<li>当background-position属性值只设置一个数值时，只应用于水平方向，而垂直方向以默认的50%为基准</li>
+<li>当background-position属性值为百分比时，以图片中心为基准来计算位置，属性值为像素值时，以图片左上角为基准来计算位置</li>
+<li>属性值也可以为负值</li>
+</ul>
+</blockquote>
+<p>background-position属性常常用在CSS Sprite中，后面会介绍到</p>
+<h3 id="background属性的简写">background属性的简写</h3><p>上面提到的属性可以用一行来简写</p>
+<pre><code><span class="tag">body</span><span class="rules">{
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#FFF</span> <span class="function">url</span>(images/demo.jpg) no-repeat right bottom</span></span>;
+}</span>
+</code></pre><p>设置body背景色为#FFF 背景图为demo 不平铺 图片设置在右下角</p>
+<blockquote>
+<p>今天偷懒就写到这里吧 咕~~(╯﹏╰)b</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><em>今天任务多，偷点懒少写一些</em></p>
+<h1 id="背景图优化">背景图优化</h1><hr>
+<p>在网站页面中背景图片往往是必不可少的，它能帮助我们美化页面或者增加页面信息量。</p>
+<h2 id="图片格式">图片格式</h2><p>在网页中常用的图片格式有jpg gif以及png。</p>
+<h3 id="jpg格式">jpg格式</h3><p>jgp格式也称为JPEG格式，以24位颜色存储单个位图。它能够以牺牲图像质量为代价对图片进行压缩。所以jpg格式的图片比较小，下载速度快，在页面中很受欢迎。<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS基础之文本润色（三）]]></title>
@@ -324,6 +415,98 @@
   </entry>
   
   <entry>
+    <title><![CDATA[CSS学习笔记之文本润色（二）]]></title>
+    <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(2)/"/>
+    <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(2)/</id>
+    <published>2016-04-18T16:00:00.000Z</published>
+    <updated>2016-04-19T14:00:25.194Z</updated>
+    <content type="html"><![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
+<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/" target="_blank" rel="external">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br><a id="more"></a></p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        <span class="tag">p</span><span class="rules">{
+            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
+        }</span>
+        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
+            font-size: <span class="number">26px</span></span></span>;
+            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
+        }
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
+    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
+<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs1.jpg-blogImg" alt=""></p>
+<h2 id="首行处理">首行处理</h2><p>这个暂时没有在网上找到例子，其实和首字处理差不多，同样利用伪对象，只不过是 <code>first-line</code>，只会影响第一行的文本效果，感兴趣的同学可以自己写的demo玩玩。</p>
+<h2 id="文字隐藏">文字隐藏</h2><p>文字隐藏是当某段文字超出自己所在的容器时，我们可以将超出的文本内容隐藏<br>简单写个demo：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        <span class="tag">p</span><span class="rules">{
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+            <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70px</span></span></span>;
+            <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> dashed</span></span>;
+            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
+            <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+        }</span>
+        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
+            font-size: <span class="number">26px</span></span></span>;
+            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
+        }
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
+    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
+<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+</code></pre><p>下面两图分别是未隐藏和隐藏的效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs2.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs3.jpg-blogImg" alt=""><br>其实文字的隐藏更多是用在以图代字的环境中，就是说用图片代替一些字（这些字往往是特效字体），这时候会把字体隐藏。可以利用<code>visibility:hidden</code> 或者<code>display:none</code>两个属性。设置<code>visibility:hidden</code>的容器会占有原页面的位置空间，设置<code>display:none</code>的容器不会占用页面空间，代码简单就不贴了。</p>
+<h1 id="文字链接">文字链接</h1><hr>
+<p><em>链接也就是HTML中的a标签，负责页面的跳转，在网页中很常见</em></p>
+<h2 id="基础链接样式">基础链接样式</h2><p>一个最基础的链接</p>
+<pre><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>这是一个链接<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+</code></pre><p>它的默认样式是蓝色的带有下划线的可以点击的一段文本。在支持 CSS 的浏览器中，链接的不同状态都可以不同的方式显示，这些状态包括：活动状态，已被访问状态，未被访问状态，和鼠标悬停状态。CSS中可以利用伪类来修饰我们的链接样式：</p>
+<ul>
+<li>a:link     未被访问过的链接样式 </li>
+<li>a:visited  已被访问过的链接样式 </li>
+<li>a:hover    鼠标移动到链接上时的样式 </li>
+<li>a:active   选定的链接样式(鼠标点击时的样式) </li>
+</ul>
+<h2 id="带有修饰的链接样式">带有修饰的链接样式</h2><p>我们可以给链接增加各种修饰，比如：增加文字权重，添加文字边框，修改内外边距，增加背景色等等，可以打开脑洞进行各种尝试。下面写了个小demo练练手：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+<span class="class">.myLink</span> <span class="rules">{
+    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value">red</span></span>;
+}</span> 
+<span class="rule"><span class="attribute">.myLink</span>:<span class="value">hover {
+    padding-bottom:<span class="number">3px</span></span></span>;
+    <span class="rule"><span class="attribute">text-decoration</span>:<span class="value">none</span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
+    <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"><span class="number">1px</span> dashed <span class="hexcolor">#FF0000</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value">none</span></span>;
+} 
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"myLink"</span>&gt;</span>带有修饰的链接样式<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs4.jpg-blogImg" alt=""></p>
+<h2 id="带有图片的链接样式">带有图片的链接样式</h2><p>我们也可以在链接中加入图片。</p>
+<pre><code>.myLink {
+    padding-left:<span class="number">20</span>px;
+    <span class="built_in">background</span>:url(images/music_1.gif) no-repeat left center;
+    <span class="built_in">text</span>-decoration: none;
+    <span class="built_in">color</span>: <span class="built_in">green</span>;
+} 
+.myLink:hover {
+    <span class="built_in">background</span>:url(images/music_2.gif) no-repeat left center;
+    <span class="built_in">text</span>-decoration: none;
+    <span class="built_in">color</span>: <span class="built_in">red</span>;
+} 
+&lt;a href=<span class="string">"#"</span> class=<span class="string">"myLink"</span>&gt;带有图片的链接样式&lt;/a&gt;
+</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs5.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs6.jpg-blogImg" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
+<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[CSS学习笔记之文本润色（一）]]></title>
     <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(1)/"/>
     <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(1)/</id>
@@ -527,98 +710,6 @@
 <p>如果字体中包含空格应该用引号引起，中文字体也最好用引号引起</p>
 </blockquote>
 <p>这时候会发现浏览器显示网页上文字使用的字体只能限制在电脑里已经安装的几款字体里。而且每个人的电脑里安装的字体也是因人而异的。这时候CSS3就引入了<code>@font-face</code><br>它的作用是从网上下载并使用自定义字体，使页面显示字体不依赖用户的操作系统字体环境。<br>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之文本润色（二）]]></title>
-    <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(2)/"/>
-    <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(2)/</id>
-    <published>2016-04-18T16:00:00.000Z</published>
-    <updated>2016-04-19T14:00:25.194Z</updated>
-    <content type="html"><![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
-<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/" target="_blank" rel="external">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br><a id="more"></a></p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-        <span class="tag">p</span><span class="rules">{
-            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
-        }</span>
-        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
-            font-size: <span class="number">26px</span></span></span>;
-            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
-        }
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
-    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
-<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs1.jpg-blogImg" alt=""></p>
-<h2 id="首行处理">首行处理</h2><p>这个暂时没有在网上找到例子，其实和首字处理差不多，同样利用伪对象，只不过是 <code>first-line</code>，只会影响第一行的文本效果，感兴趣的同学可以自己写的demo玩玩。</p>
-<h2 id="文字隐藏">文字隐藏</h2><p>文字隐藏是当某段文字超出自己所在的容器时，我们可以将超出的文本内容隐藏<br>简单写个demo：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-        <span class="tag">p</span><span class="rules">{
-            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-            <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70px</span></span></span>;
-            <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> dashed</span></span>;
-            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
-            <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-        }</span>
-        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
-            font-size: <span class="number">26px</span></span></span>;
-            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
-        }
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
-    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
-<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-</code></pre><p>下面两图分别是未隐藏和隐藏的效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs2.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs3.jpg-blogImg" alt=""><br>其实文字的隐藏更多是用在以图代字的环境中，就是说用图片代替一些字（这些字往往是特效字体），这时候会把字体隐藏。可以利用<code>visibility:hidden</code> 或者<code>display:none</code>两个属性。设置<code>visibility:hidden</code>的容器会占有原页面的位置空间，设置<code>display:none</code>的容器不会占用页面空间，代码简单就不贴了。</p>
-<h1 id="文字链接">文字链接</h1><hr>
-<p><em>链接也就是HTML中的a标签，负责页面的跳转，在网页中很常见</em></p>
-<h2 id="基础链接样式">基础链接样式</h2><p>一个最基础的链接</p>
-<pre><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>这是一个链接<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-</code></pre><p>它的默认样式是蓝色的带有下划线的可以点击的一段文本。在支持 CSS 的浏览器中，链接的不同状态都可以不同的方式显示，这些状态包括：活动状态，已被访问状态，未被访问状态，和鼠标悬停状态。CSS中可以利用伪类来修饰我们的链接样式：</p>
-<ul>
-<li>a:link     未被访问过的链接样式 </li>
-<li>a:visited  已被访问过的链接样式 </li>
-<li>a:hover    鼠标移动到链接上时的样式 </li>
-<li>a:active   选定的链接样式(鼠标点击时的样式) </li>
-</ul>
-<h2 id="带有修饰的链接样式">带有修饰的链接样式</h2><p>我们可以给链接增加各种修饰，比如：增加文字权重，添加文字边框，修改内外边距，增加背景色等等，可以打开脑洞进行各种尝试。下面写了个小demo练练手：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-<span class="class">.myLink</span> <span class="rules">{
-    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-    <span class="rule"><span class="attribute">background-color</span>:<span class="value">red</span></span>;
-}</span> 
-<span class="rule"><span class="attribute">.myLink</span>:<span class="value">hover {
-    padding-bottom:<span class="number">3px</span></span></span>;
-    <span class="rule"><span class="attribute">text-decoration</span>:<span class="value">none</span></span>;
-    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
-    <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"><span class="number">1px</span> dashed <span class="hexcolor">#FF0000</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value">none</span></span>;
-} 
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"myLink"</span>&gt;</span>带有修饰的链接样式<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs4.jpg-blogImg" alt=""></p>
-<h2 id="带有图片的链接样式">带有图片的链接样式</h2><p>我们也可以在链接中加入图片。</p>
-<pre><code>.myLink {
-    padding-left:<span class="number">20</span>px;
-    <span class="built_in">background</span>:url(images/music_1.gif) no-repeat left center;
-    <span class="built_in">text</span>-decoration: none;
-    <span class="built_in">color</span>: <span class="built_in">green</span>;
-} 
-.myLink:hover {
-    <span class="built_in">background</span>:url(images/music_2.gif) no-repeat left center;
-    <span class="built_in">text</span>-decoration: none;
-    <span class="built_in">color</span>: <span class="built_in">red</span>;
-} 
-&lt;a href=<span class="string">"#"</span> class=<span class="string">"myLink"</span>&gt;带有图片的链接样式&lt;/a&gt;
-</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs5.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs6.jpg-blogImg" alt=""></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
-<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br>]]>
     
     </summary>
     
