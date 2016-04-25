@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-25T13:25:41.364Z</updated>
+  <updated>2016-04-25T13:28:56.233Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.songchubai.com/2016/04/25/CSS%E4%B9%8B%E5%88%97%E8%A1%A8(2)/"/>
     <id>http://www.songchubai.com/2016/04/25/CSS之列表(2)/</id>
     <published>2016-04-24T16:00:00.000Z</published>
-    <updated>2016-04-25T13:25:41.364Z</updated>
+    <updated>2016-04-25T13:28:56.233Z</updated>
     <content type="html"><![CDATA[<h1 id="在列表中图文嵌套">在列表中图文嵌套</h1><hr>
 <p>这次写个列表中图文嵌套的小例子 例子中模仿百度新闻首页中的效果<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tw.jpg-blogImg" alt=""><br>先把HTML代码写出来，很简单</p>
 <pre><code><span class="tag">&lt;<span class="title">div</span>&gt;</span>
@@ -31,7 +31,8 @@
         <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/tw5.jpg"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>姚晨宣布11月将生二胎<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
     <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>默认样式如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tw1.jpg-blogImg" alt=""><br>下面就开始仿照百度的样式进行美化</p>
+</code></pre><a id="more"></a>
+<p>默认样式如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tw1.jpg-blogImg" alt=""><br>下面就开始仿照百度的样式进行美化</p>
 <pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
     *<span class="rules">{
         <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
@@ -129,7 +130,18 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<h1 id="在列表中图文嵌套">在列表中图文嵌套</h1><hr>
-<p>这次写个列表中图文嵌套的小例子 例子中模仿百度新闻首页中的效果<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tw.jpg-blogImg" al]]>
+<p>这次写个列表中图文嵌套的小例子 例子中模仿百度新闻首页中的效果<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tw.jpg-blogImg" alt=""><br>先把HTML代码写出来，很简单</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/tw1.jpg"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>许晴晒出游美照 河边蹦跳<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/tw2.jpg"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>小芈月刘楚恬周出游爆潮<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/tw3.jpg"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>45岁梁佩瑚嫁圈外富商<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/tw4.jpg"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>高圆圆着宽松衣回京显亲民<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/tw5.jpg"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>姚晨宣布11月将生二胎<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre>]]>
+    
     </summary>
     
       <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
