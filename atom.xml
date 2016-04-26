@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-25T13:28:56.233Z</updated>
+  <updated>2016-04-26T12:49:50.269Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -13,6 +13,115 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS学习笔记之表单]]></title>
+    <link href="http://www.songchubai.com/2016/04/26/CSS%E4%B9%8B%E8%A1%A8%E5%8D%95/"/>
+    <id>http://www.songchubai.com/2016/04/26/CSS之表单/</id>
+    <published>2016-04-25T16:00:00.000Z</published>
+    <updated>2016-04-26T12:49:50.269Z</updated>
+    <content type="html"><![CDATA[<h1 id="默认表单">默认表单</h1><hr>
+<p>表单是一个包含表单元素的区域，在网页中负责数据采集功能。一个表单有三个基本组成部分：</p>
+<ul>
+<li>表单标签：包含了处理表单数据所用CGI程序的URL以及数据提交到服务器的方法。</li>
+<li>表单域：包含了文本框、密码框、隐藏域、多行文本框、多选框、单选框、下拉选择框和文件上传框等。 </li>
+<li><p>表单按钮：包括提交按钮、重置按钮和一般按钮；用于将数据传送到服务器上的CGI脚本或者重置输入，还可以用表单按钮来控制其他定义了处理脚本的处理工作。<br>下面就写一个最基本的表单</p>
+<a id="more"></a>
+<p>  <form></form></p>
+<pre><code><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span>&gt;</span>文本框<span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;<span class="title">br</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"123"</span>&gt;</span>密码框<span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;<span class="title">br</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"hidden"</span> <span class="attribute">name</span>=<span class="value">"hidden_input"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;<span class="title">br</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">textarea</span>&gt;</span>多行文本框<span class="tag">&lt;/<span class="title">textarea</span>&gt;</span><span class="tag">&lt;<span class="title">br</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span>&gt;</span>多选框<span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;<span class="title">br</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"radio"</span> <span class="attribute">name</span>=<span class="value">"sex"</span> <span class="attribute">value</span>=<span class="value">"boy"</span>&gt;</span>男<span class="tag">&lt;/<span class="title">input</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"radio"</span> <span class="attribute">name</span>=<span class="value">"sex"</span> <span class="attribute">value</span>=<span class="value">"girl"</span>&gt;</span>女<span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;<span class="title">br</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">select</span> <span class="attribute">size</span>=<span class="value">"3"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span>=<span class="value">"1"</span> <span class="attribute">selected</span>&gt;</span>被默认选择的<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span>=<span class="value">"2"</span>&gt;</span>第二个<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span>=<span class="value">"3"</span>&gt;</span>第三个<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">select</span>&gt;</span><span class="tag">&lt;<span class="title">br</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"file"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;<span class="title">br</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"提交"</span> <span class="attribute">name</span>=<span class="value">"mySubmit"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"reset"</span> <span class="attribute">value</span>=<span class="value">"重置"</span> <span class="attribute">name</span>=<span class="value">"myReset"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">value</span>=<span class="value">"普通按钮"</span> <span class="attribute">name</span>=<span class="value">"myButton"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
+</code></pre><p>  <br>一个默认样式的表单，在不同的浏览器会有不同的显示效果，比如上面的表单在IE和Chrome中的显示效果如下：<br><img src="" alt=""><br>下面就写几个带有CSS样式的表单练练手</p>
+<h1 id="登录表单">登录表单</h1></li>
+</ul>
+<hr>
+<p>首先把HTML写出来 很简单</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"login"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>Sign In<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>邮箱：<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">value</span>=<span class="value">"mail@address.com"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>密码：<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"*******"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"submit"</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"登录"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>未加任何修饰的表单好丑<br><img src="" alt=""><br>下面就开始对表单进行美容</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    *<span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
+    }</span>
+    <span class="class">.login</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">40px</span> auto</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">400px</span></span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#007FFF</span></span></span>;
+        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">16px</span></span></span>;
+        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+    }</span>
+    <span class="tag">h1</span><span class="rules">{
+        <span class="rule"><span class="attribute">font</span>:<span class="value"> <span class="number">35px</span> arial</span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="function">rgb</span>(<span class="number">249</span>,<span class="number">82</span>,<span class="number">82</span>)</span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70px</span></span></span>;
+        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">70px</span></span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    }</span>
+    <span class="tag">p</span><span class="rules">{
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">20px</span> arial</span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#A8A8A8</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">20px</span> <span class="number">20px</span></span></span>;
+    }</span>
+    <span class="tag">input</span><span class="rules">{
+        <span class="rule"><span class="attribute">border</span>:<span class="value">none</span></span>;
+        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">3px</span></span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span> arial</span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span> <span class="number">8px</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#A8A8A8</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="function">rgb</span>(<span class="number">248</span>,<span class="number">248</span>,<span class="number">248</span>)</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">344px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">32px</span></span></span>;
+    }</span>
+    <span class="class">.submit</span><span class="rules">{
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span> <span class="string">"楷体"</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#33cc77</span></span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">28px</span></span></span>;
+        <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> auto</span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>效果如下，是不是美多了？<br><img src="" alt=""></p>
+<blockquote>
+<p>这里面有个有意思的方法，我们可以去掉input元素的border，然后为其添加背景色来增加input的美观度</p>
+</blockquote>
+<h1 id="搜索框">搜索框</h1><hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="默认表单">默认表单</h1><hr>
+<p>表单是一个包含表单元素的区域，在网页中负责数据采集功能。一个表单有三个基本组成部分：</p>
+<ul>
+<li>表单标签：包含了处理表单数据所用CGI程序的URL以及数据提交到服务器的方法。</li>
+<li>表单域：包含了文本框、密码框、隐藏域、多行文本框、多选框、单选框、下拉选择框和文件上传框等。 </li>
+<li><p>表单按钮：包括提交按钮、重置按钮和一般按钮；用于将数据传送到服务器上的CGI脚本或者重置输入，还可以用表单按钮来控制其他定义了处理脚本的处理工作。<br>下面就写一个最基本的表单</p>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之列表（二）]]></title>
@@ -954,11 +1063,103 @@ ul li{
   </entry>
   
   <entry>
-    <title><![CDATA[CSS学习笔记之文本润色（一）]]></title>
-    <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(1)/"/>
-    <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(1)/</id>
+    <title><![CDATA[CSS学习笔记之文本润色（二）]]></title>
+    <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(2)/"/>
+    <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(2)/</id>
     <published>2016-04-18T16:00:00.000Z</published>
-    <updated>2016-04-19T13:56:51.712Z</updated>
+    <updated>2016-04-19T14:00:25.194Z</updated>
+    <content type="html"><![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
+<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/" target="_blank" rel="external">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br><a id="more"></a></p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        <span class="tag">p</span><span class="rules">{
+            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
+        }</span>
+        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
+            font-size: <span class="number">26px</span></span></span>;
+            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
+        }
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
+    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
+<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs1.jpg-blogImg" alt=""></p>
+<h2 id="首行处理">首行处理</h2><p>这个暂时没有在网上找到例子，其实和首字处理差不多，同样利用伪对象，只不过是 <code>first-line</code>，只会影响第一行的文本效果，感兴趣的同学可以自己写的demo玩玩。</p>
+<h2 id="文字隐藏">文字隐藏</h2><p>文字隐藏是当某段文字超出自己所在的容器时，我们可以将超出的文本内容隐藏<br>简单写个demo：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        <span class="tag">p</span><span class="rules">{
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+            <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70px</span></span></span>;
+            <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> dashed</span></span>;
+            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
+            <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+        }</span>
+        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
+            font-size: <span class="number">26px</span></span></span>;
+            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
+        }
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
+    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
+<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+</code></pre><p>下面两图分别是未隐藏和隐藏的效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs2.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs3.jpg-blogImg" alt=""><br>其实文字的隐藏更多是用在以图代字的环境中，就是说用图片代替一些字（这些字往往是特效字体），这时候会把字体隐藏。可以利用<code>visibility:hidden</code> 或者<code>display:none</code>两个属性。设置<code>visibility:hidden</code>的容器会占有原页面的位置空间，设置<code>display:none</code>的容器不会占用页面空间，代码简单就不贴了。</p>
+<h1 id="文字链接">文字链接</h1><hr>
+<p><em>链接也就是HTML中的a标签，负责页面的跳转，在网页中很常见</em></p>
+<h2 id="基础链接样式">基础链接样式</h2><p>一个最基础的链接</p>
+<pre><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>这是一个链接<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+</code></pre><p>它的默认样式是蓝色的带有下划线的可以点击的一段文本。在支持 CSS 的浏览器中，链接的不同状态都可以不同的方式显示，这些状态包括：活动状态，已被访问状态，未被访问状态，和鼠标悬停状态。CSS中可以利用伪类来修饰我们的链接样式：</p>
+<ul>
+<li>a:link     未被访问过的链接样式 </li>
+<li>a:visited  已被访问过的链接样式 </li>
+<li>a:hover    鼠标移动到链接上时的样式 </li>
+<li>a:active   选定的链接样式(鼠标点击时的样式) </li>
+</ul>
+<h2 id="带有修饰的链接样式">带有修饰的链接样式</h2><p>我们可以给链接增加各种修饰，比如：增加文字权重，添加文字边框，修改内外边距，增加背景色等等，可以打开脑洞进行各种尝试。下面写了个小demo练练手：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+<span class="class">.myLink</span> <span class="rules">{
+    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value">red</span></span>;
+}</span> 
+<span class="rule"><span class="attribute">.myLink</span>:<span class="value">hover {
+    padding-bottom:<span class="number">3px</span></span></span>;
+    <span class="rule"><span class="attribute">text-decoration</span>:<span class="value">none</span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
+    <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"><span class="number">1px</span> dashed <span class="hexcolor">#FF0000</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value">none</span></span>;
+} 
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"myLink"</span>&gt;</span>带有修饰的链接样式<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs4.jpg-blogImg" alt=""></p>
+<h2 id="带有图片的链接样式">带有图片的链接样式</h2><p>我们也可以在链接中加入图片。</p>
+<pre><code>.myLink {
+    padding-left:<span class="number">20</span>px;
+    <span class="built_in">background</span>:url(images/music_1.gif) no-repeat left center;
+    <span class="built_in">text</span>-decoration: none;
+    <span class="built_in">color</span>: <span class="built_in">green</span>;
+} 
+.myLink:hover {
+    <span class="built_in">background</span>:url(images/music_2.gif) no-repeat left center;
+    <span class="built_in">text</span>-decoration: none;
+    <span class="built_in">color</span>: <span class="built_in">red</span>;
+} 
+&lt;a href=<span class="string">"#"</span> class=<span class="string">"myLink"</span>&gt;带有图片的链接样式&lt;/a&gt;
+</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs5.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs6.jpg-blogImg" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
+<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CSS学习笔记之文本润色（一）]]></title>
+    <link href="http://www.songchubai.com/2016/04/18/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(1)/"/>
+    <id>http://www.songchubai.com/2016/04/18/CSS之文本润色(1)/</id>
+    <published>2016-04-17T16:00:00.000Z</published>
+    <updated>2016-04-26T01:42:38.778Z</updated>
     <content type="html"><![CDATA[<p><em>这里所说的文本润色并不是将某些语句修改下使其变的更有文采，而是使用CSS修饰页面中的文本，改善文本使其在视觉上更加美观</em></p>
 <h1 id="一、文字基本样式">一、文字基本样式</h1><hr>
 <h2 id="1、字体设置">1、字体设置</h2><p>在CSS样式中，可以定义单个字体，可以多个字体可以同时定义，浏览器在解析时是按顺序进行解析的。</p>
@@ -1157,98 +1358,6 @@ ul li{
 <p>如果字体中包含空格应该用引号引起，中文字体也最好用引号引起</p>
 </blockquote>
 <p>这时候会发现浏览器显示网页上文字使用的字体只能限制在电脑里已经安装的几款字体里。而且每个人的电脑里安装的字体也是因人而异的。这时候CSS3就引入了<code>@font-face</code><br>它的作用是从网上下载并使用自定义字体，使页面显示字体不依赖用户的操作系统字体环境。<br>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之文本润色（二）]]></title>
-    <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(2)/"/>
-    <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(2)/</id>
-    <published>2016-04-18T16:00:00.000Z</published>
-    <updated>2016-04-19T14:00:25.194Z</updated>
-    <content type="html"><![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
-<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/" target="_blank" rel="external">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br><a id="more"></a></p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-        <span class="tag">p</span><span class="rules">{
-            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
-        }</span>
-        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
-            font-size: <span class="number">26px</span></span></span>;
-            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
-        }
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
-    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
-<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs1.jpg-blogImg" alt=""></p>
-<h2 id="首行处理">首行处理</h2><p>这个暂时没有在网上找到例子，其实和首字处理差不多，同样利用伪对象，只不过是 <code>first-line</code>，只会影响第一行的文本效果，感兴趣的同学可以自己写的demo玩玩。</p>
-<h2 id="文字隐藏">文字隐藏</h2><p>文字隐藏是当某段文字超出自己所在的容器时，我们可以将超出的文本内容隐藏<br>简单写个demo：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-        <span class="tag">p</span><span class="rules">{
-            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-            <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70px</span></span></span>;
-            <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> dashed</span></span>;
-            <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Arial</span></span>;
-            <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-        }</span>
-        <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter{
-            font-size: <span class="number">26px</span></span></span>;
-            <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
-        }
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-<span class="tag">&lt;<span class="title">p</span>&gt;</span> 
-    正恩哥你好！我在深圳华强北有一伙朋友，专做各种电子数码产品，手机、电脑都可以，请问你们郭嘉科研所还收人吗？
-<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-</code></pre><p>下面两图分别是未隐藏和隐藏的效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs2.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs3.jpg-blogImg" alt=""><br>其实文字的隐藏更多是用在以图代字的环境中，就是说用图片代替一些字（这些字往往是特效字体），这时候会把字体隐藏。可以利用<code>visibility:hidden</code> 或者<code>display:none</code>两个属性。设置<code>visibility:hidden</code>的容器会占有原页面的位置空间，设置<code>display:none</code>的容器不会占用页面空间，代码简单就不贴了。</p>
-<h1 id="文字链接">文字链接</h1><hr>
-<p><em>链接也就是HTML中的a标签，负责页面的跳转，在网页中很常见</em></p>
-<h2 id="基础链接样式">基础链接样式</h2><p>一个最基础的链接</p>
-<pre><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>这是一个链接<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-</code></pre><p>它的默认样式是蓝色的带有下划线的可以点击的一段文本。在支持 CSS 的浏览器中，链接的不同状态都可以不同的方式显示，这些状态包括：活动状态，已被访问状态，未被访问状态，和鼠标悬停状态。CSS中可以利用伪类来修饰我们的链接样式：</p>
-<ul>
-<li>a:link     未被访问过的链接样式 </li>
-<li>a:visited  已被访问过的链接样式 </li>
-<li>a:hover    鼠标移动到链接上时的样式 </li>
-<li>a:active   选定的链接样式(鼠标点击时的样式) </li>
-</ul>
-<h2 id="带有修饰的链接样式">带有修饰的链接样式</h2><p>我们可以给链接增加各种修饰，比如：增加文字权重，添加文字边框，修改内外边距，增加背景色等等，可以打开脑洞进行各种尝试。下面写了个小demo练练手：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-<span class="class">.myLink</span> <span class="rules">{
-    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-    <span class="rule"><span class="attribute">background-color</span>:<span class="value">red</span></span>;
-}</span> 
-<span class="rule"><span class="attribute">.myLink</span>:<span class="value">hover {
-    padding-bottom:<span class="number">3px</span></span></span>;
-    <span class="rule"><span class="attribute">text-decoration</span>:<span class="value">none</span></span>;
-    <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
-    <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"><span class="number">1px</span> dashed <span class="hexcolor">#FF0000</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value">none</span></span>;
-} 
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"myLink"</span>&gt;</span>带有修饰的链接样式<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs4.jpg-blogImg" alt=""></p>
-<h2 id="带有图片的链接样式">带有图片的链接样式</h2><p>我们也可以在链接中加入图片。</p>
-<pre><code>.myLink {
-    padding-left:<span class="number">20</span>px;
-    <span class="built_in">background</span>:url(images/music_1.gif) no-repeat left center;
-    <span class="built_in">text</span>-decoration: none;
-    <span class="built_in">color</span>: <span class="built_in">green</span>;
-} 
-.myLink:hover {
-    <span class="built_in">background</span>:url(images/music_2.gif) no-repeat left center;
-    <span class="built_in">text</span>-decoration: none;
-    <span class="built_in">color</span>: <span class="built_in">red</span>;
-} 
-&lt;a href=<span class="string">"#"</span> class=<span class="string">"myLink"</span>&gt;带有图片的链接样式&lt;/a&gt;
-</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs5.jpg-blogImg" alt=""> <img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs6.jpg-blogImg" alt=""></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
-<h2 id="首字处理">首字处理</h2><p>去过<a href="http://tie.163.com/">网易跟帖</a>的朋友可能遇见过这种样式：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rs.jpg-blogImg" alt=""><br>会发现文本的首字跟其他文本有些不同，我们可以利用CSS的伪对象<code>first-letter</code>来实现<br>]]>
     
     </summary>
     
