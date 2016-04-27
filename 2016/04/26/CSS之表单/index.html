@@ -98,7 +98,13 @@
 表单标签：包含了处理表单数据所用CGI程序的URL以及数据提交到服务器的方法。
 表单域：包含了文本框、密码框、隐藏域、多行文本框、多选框、单选框、下拉选择框和文件上传框等。 
 表单按钮：包括提交按钮、重置按钮和一般按钮；用于将数据传送到服务器上的CGI脚本或者重置输入，还可以用表单按钮来控制其他定义了">
-<meta property="og:updated_time" content="2016-04-26T12:49:50.269Z">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/bd.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/bd1.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/bd2.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/bd3.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/bd4.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/bd5.jpg-blogImg">
+<meta property="og:updated_time" content="2016-04-27T02:27:47.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS学习笔记之表单">
 <meta name="twitter:description" content="默认表单
@@ -315,20 +321,22 @@
 <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"提交"</span> <span class="attribute">name</span>=<span class="value">"mySubmit"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
 <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"reset"</span> <span class="attribute">value</span>=<span class="value">"重置"</span> <span class="attribute">name</span>=<span class="value">"myReset"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
 <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">value</span>=<span class="value">"普通按钮"</span> <span class="attribute">name</span>=<span class="value">"myButton"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
-</code></pre><p>  <br>一个默认样式的表单，在不同的浏览器会有不同的显示效果，比如上面的表单在IE和Chrome中的显示效果如下：<br><img src="" alt=""><br>下面就写几个带有CSS样式的表单练练手</p>
+</code></pre><p>  <br>一个默认样式的表单，在不同的浏览器会有不同的显示效果，比如上面的表单在IE和Chrome中的显示效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bd.jpg-blogImg" alt=""><br>下面就写几个带有CSS样式的表单练练手</p>
 <h1 id="登录表单">登录表单</h1></li>
 </ul>
 <hr>
 <p>首先把HTML写出来 很简单</p>
 <pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"login"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>Sign In<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">p</span>&gt;</span>邮箱：<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">value</span>=<span class="value">"mail@address.com"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">p</span>&gt;</span>密码：<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"*******"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"submit"</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"登录"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">form</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">h1</span>&gt;</span>Sign In<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>邮箱：<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">value</span>=<span class="value">"mail@address.com"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>密码：<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"*******"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"submit"</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"登录"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">form</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>未加任何修饰的表单好丑<br><img src="" alt=""><br>下面就开始对表单进行美容</p>
+</code></pre><p>未加任何修饰的表单好丑<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bd1.jpg-blogImg" alt=""><br>下面就开始对表单进行美容</p>
 <pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
     *<span class="rules">{
         <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
@@ -374,11 +382,172 @@
         <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> auto</span></span>;
     }</span>
 </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>效果如下，是不是美多了？<br><img src="" alt=""></p>
+</code></pre><p>效果如下，是不是美多了？<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bd2.jpg-blogImg" alt=""></p>
 <blockquote>
 <p>这里面有个有意思的方法，我们可以去掉input元素的border，然后为其添加背景色来增加input的美观度</p>
 </blockquote>
-<h1 id="搜索框">搜索框</h1><hr>
+<h1 id="反馈表单">反馈表单</h1><hr>
+<p>一个网站在用户反馈页面会用到表单，下面这个例子就模仿下<a href="http://im.baidu.com/feedback/feedback.php" target="_blank" rel="external">百度Hi</a>的用户反馈界面。</p>
+<p><em>08年到11年高中的时候，一直是百度的粘性用户，后来百度Hi半死不活，这次就算纪念下吧。</em><br>原网页是用的table来写的 自己没有用，想实现的可以自己写下一练练手<br>先把HTML准备好：</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"wrap"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>选择与问题描述<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">form</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>
+            问题反馈<span class="tag">&lt;<span class="title">span</span>&gt;</span>*<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">select</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">option</span> <span class="attribute">selected</span>&gt;</span>客户端版百度HI<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">option</span>&gt;</span>网页版百度HI<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">select</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>
+            反馈类型<span class="tag">&lt;<span class="title">span</span>&gt;</span>*<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">select</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">option</span> <span class="attribute">selected</span>&gt;</span>请选择<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">option</span>&gt;</span>下载和安装过程<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">option</span>&gt;</span>界面问题<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">select</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>
+            提交类型<span class="tag">&lt;<span class="title">span</span>&gt;</span>*<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">select</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">option</span> <span class="attribute">selected</span>&gt;</span>请选择<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">option</span>&gt;</span>发现一个错误<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">option</span>&gt;</span>提交改进建议<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">select</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span> &gt;</span>
+            反馈内容<span class="tag">&lt;<span class="title">span</span>&gt;</span>*<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+
+        <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"spe"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"minSize"</span>&gt;</span>(限1000个字符)<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">textarea</span>&gt;</span><span class="tag">&lt;/<span class="title">textarea</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>
+            上传图片
+            <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"file"</span> <span class="attribute">class</span>=<span class="value">"fileInput"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"tips"</span>&gt;</span>您可以上传1M以内的jpg、jpeg、png和gif格式的图片文件<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"line"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">h1</span>&gt;</span>填写用户信息<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>
+            电子邮箱<span class="tag">&lt;<span class="title">span</span>&gt;</span>*<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>
+            百度账号<span class="tag">&lt;<span class="title">span</span>&gt;</span>*<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"longInput"</span>&gt;</span>
+            软件版本号<span class="tag">&lt;<span class="title">span</span>&gt;</span>*<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">select</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">option</span> <span class="attribute">selected</span>&gt;</span>请选择<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">option</span>&gt;</span>百度Hi xx版<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">option</span>&gt;</span>百度Hi xxx版<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">select</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"longInput"</span>&gt;</span>
+            输入验证码<span class="tag">&lt;<span class="title">span</span>&gt;</span>*<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/genimg.jpg"</span>&gt;</span> <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>看不清？<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"buttonDiv"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"提交"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">form</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>看下没有样式的页面：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bd3.jpg-blogImg" alt=""><br>添加美美的CSS代码：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    *<span class="rules">{
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="class">.wrap</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">980px</span></span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">20px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">40px</span> auto</span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+    <span class="tag">form</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    }</span>
+    <span class="class">.line</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span> auto</span></span>;
+        <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>; 
+    }</span>
+    <span class="tag">p</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">25px</span> <span class="number">72px</span></span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span>/<span class="number">1.125</span> Microsoft Yahei</span></span>;
+    }</span>
+    <span class="tag">h1</span><span class="rules">{
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">18px</span>/<span class="number">1.5</span> Microsoft Yahei</span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;
+    }</span>
+    <span class="tag">span</span><span class="rules">{
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
+    }</span>
+    <span class="tag">select</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">20px</span></span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">150px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">25px</span></span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+    <span class="tag">input</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">20px</span></span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">150px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">23px</span></span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+    <span class="class">.fileInput</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> auto</span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value">none</span></span>;
+    }</span>
+    <span class="class">.tips</span><span class="rules">{
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">12px</span></span></span>;
+        <span class="rule"><span class="attribute">padding-left</span>:<span class="value"><span class="number">85px</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#999</span></span></span>;
+    }</span>
+    <span class="class">.minSize</span><span class="rules">{
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">12px</span></span></span>;
+    }</span>
+    <span class="tag">textarea</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+        <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">150px</span></span></span>;
+        <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">162px</span></span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">400px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">150px</span></span></span>;
+    }</span>
+    <span class="class">.spe</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin-bottom</span>:<span class="value"> <span class="number">125px</span></span></span>;
+    }</span>
+    <span class="class">.buttonDiv</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> <span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    }</span>
+    <span class="class">.buttonDiv</span> <span class="tag">input</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">156px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">51px</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">rgb</span>(<span class="number">51</span>,<span class="number">165</span>,<span class="number">255</span>)</span></span>; 
+        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFF</span></span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value">none</span></span>;
+    }</span>
+    <span class="class">.longInput</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">57px</span></span></span>;
+    }</span>
+    <span class="class">.longInput</span> <span class="tag">img</span><span class="rules">{
+        <span class="rule"><span class="attribute">vertical-align</span>:<span class="value"> bottom</span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">25px</span></span></span>;
+    }</span>
+    <span class="tag">a</span><span class="rules">{
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">13px</span> Microsoft Yahei</span></span>;
+        <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>刷新下页面：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bd4.jpg-blogImg" alt=""><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bd5.jpg-blogImg" alt=""></p>
+<blockquote>
+<p>Ok搞定 至于为什么写百度Hi呢反馈页面呢，或许是传说中的情怀吧。</p>
+</blockquote>
 
       
     </div>
@@ -570,7 +739,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#默认表单"><span class="nav-number">1.</span> <span class="nav-text">默认表单</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#登录表单"><span class="nav-number">2.</span> <span class="nav-text">登录表单</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搜索框"><span class="nav-number">3.</span> <span class="nav-text">搜索框</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#默认表单"><span class="nav-number">1.</span> <span class="nav-text">默认表单</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#登录表单"><span class="nav-number">2.</span> <span class="nav-text">登录表单</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反馈表单"><span class="nav-number">3.</span> <span class="nav-text">反馈表单</span></a></li></ol></div>
             
           </div>
         </section>
