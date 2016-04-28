@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-27T02:27:47.373Z</updated>
+  <updated>2016-04-28T09:14:44.703Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -13,6 +13,241 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS学习笔记之表格]]></title>
+    <link href="http://www.songchubai.com/2016/04/27/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(1)/"/>
+    <id>http://www.songchubai.com/2016/04/27/CSS之表格(1)/</id>
+    <published>2016-04-26T16:00:00.000Z</published>
+    <updated>2016-04-28T09:14:44.703Z</updated>
+    <content type="html"><![CDATA[<h1 id="表格介绍">表格介绍</h1><hr>
+<p>表格由一行或者多行单元格组成，能够友好的对数据进行整理归类，以便对数据进行分析。<br>一个表格结构由以下标签组成：<br><code>&lt;table&gt;</code> | table标签可定义表格。在table标签内部可以放置表格的标题、行、列<br><code>&lt;caption&gt;</code> | caption可以定义一个表格标题。该标签紧跟在table标签后，每个表格只能定义一个标题。标题通常会显示在表格最上方<br><code>&lt;th&gt;</code> | 定义表格内的表头单元格 文本会显示为粗体居中<br><code>&lt;tr&gt;</code> | 在表格中定义行<br><code>&lt;td&gt;</code> | 在表格中定义列<br><code>&lt;thead&gt;</code> | 定义表格的表头<br><code>&lt;tbody&gt;</code> | 定义表格的主题<br><code>&lt;tfoo&gt;</code> | 定义表格的页脚<br><a id="more"></a></p>
+<h1 id="表格修饰">表格修饰</h1><p>首先创建一个table的框架</p>
+<pre><code><span class="tag">&lt;<span class="title">table</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">caption</span>&gt;</span>表格标题<span class="tag">&lt;/<span class="title">caption</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">thead</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">th</span>&gt;</span>标题1<span class="tag">&lt;/<span class="title">th</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">th</span>&gt;</span>标题2<span class="tag">&lt;/<span class="title">th</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">thead</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">tbody</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容A<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容B<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容C<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容D<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容E<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容F<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">tbody</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">tfoot</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">td</span> <span class="attribute">colspan</span>=<span class="value">"2"</span>&gt;</span>这里是tfoot<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">tfoot</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">table</span>&gt;</span>
+</code></pre><p>默认的表格样式如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg.jpg-blogImg" alt=""><br>惨不忍睹，下面就给表格添加样式</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">table</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value">normal <span class="number">15px</span>/<span class="number">1.5</span> Arial</span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    }</span>
+    <span class="tag">caption</span><span class="rules">{
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    }</span>
+    <span class="tag">tfoot</span><span class="rules">{
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span>/<span class="number">1.5</span> <span class="string">"楷体"</span></span></span>;
+    }</span>
+    <span class="tag">th</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#CDCDCD</span></span></span>;
+    }</span>
+    <span class="tag">tbody</span> <span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>刷新下页面 美观多了<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg1.jpg-blogImg" alt=""><br>这里还可以利用之前说到的子选择器与相邻选择器的方式进行样式调整，比如将第一列字体设置为绿色，第二列为红色。</p>
+<pre><code><span class="tag">tr</span>&gt;<span class="tag">td</span><span class="rules">{
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> green</span></span>;
+}</span>
+<span class="tag">tr</span>&gt;<span class="tag">td</span>+<span class="tag">td</span><span class="rules">{
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
+}</span>
+</code></pre><p>非常容易实现我们想要的效果<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg2.jpg-blogImg" alt=""><br>下面把单元格的背景色去掉 给单元格添加边框：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">table</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value">normal <span class="number">15px</span>/<span class="number">1.5</span> Arial</span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    }</span>
+    <span class="tag">caption</span><span class="rules">{
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    }</span>
+    <span class="tag">tfoot</span><span class="rules">{
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span>/<span class="number">1.5</span> <span class="string">"楷体"</span></span></span>;
+    }</span>
+    <span class="tag">th</span><span class="rules">{
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
+
+    }</span>
+    <span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+    <span class="tag">tr</span>&gt;<span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> green</span></span>;
+    }</span>
+    <span class="tag">tr</span>&gt;<span class="tag">td</span>+<span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg3.jpg-blogImg" alt=""><br>但是表格单元格之间的空白并不是想要的。<br>可以在table中设置<code>border-collapse: collapse;</code>使边框合并<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg4.jpg-blogImg" alt=""></p>
+<h1 id="隔行换色表格">隔行换色表格</h1><p>有时候由于表格行数太多，为了增加表格数据的可视性，可以让表格隔行换色</p>
+<h2 id="使用相邻选择器">使用相邻选择器</h2><p>首先把HTML框架搭好,在原来的基础上复制几行<br>然后先使用相邻选择器的方式实现隔行换色：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">table</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value">normal <span class="number">15px</span>/<span class="number">1.5</span> Arial</span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+        <span class="rule"><span class="attribute">border-collapse</span>:<span class="value"> collapse</span></span>;
+    }</span>
+    <span class="tag">caption</span><span class="rules">{
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    }</span>
+    <span class="tag">tfoot</span><span class="rules">{
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span>/<span class="number">1.5</span> <span class="string">"楷体"</span></span></span>;
+    }</span>
+    <span class="tag">th</span><span class="rules">{
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+    }</span>
+    <span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#CDCDCD</span></span></span>;
+    }</span>
+    <span class="tag">tr</span>+<span class="tag">tr</span> <span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+    <span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span> <span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#CDCDCD</span></span></span>;
+    }</span>
+    <span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span> <span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+    <span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span> <span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#CDCDCD</span></span></span>;
+    }</span>
+    <span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span> <span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>效果是实现了，但是行数过多的情况下要添加很多CSS样式代码，此时这种方式是行不通的<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg5.jpg-blogImg" alt=""></p>
+<h2 id="使用类选择器">使用类选择器</h2><p>可以给tr添加类选择器，这样就很简单了。</p>
+<pre><code><span class="tag">&lt;<span class="title">tbody</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">class</span>=<span class="value">"tr_bg1"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容A<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容B<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容C<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容D<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">class</span>=<span class="value">"tr_bg1"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容E<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容F<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容G<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容H<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">class</span>=<span class="value">"tr_bg1"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容I<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容J<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容K<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容L<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>    
+<span class="tag">&lt;/<span class="title">tbody</span>&gt;</span>
+</code></pre><p>CSS就少多了</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">table</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value">normal <span class="number">15px</span>/<span class="number">1.5</span> Arial</span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+        <span class="rule"><span class="attribute">border-collapse</span>:<span class="value"> collapse</span></span>;
+    }</span>
+    <span class="tag">caption</span><span class="rules">{
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    }</span>
+    <span class="tag">tfoot</span><span class="rules">{
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span>/<span class="number">1.5</span> <span class="string">"楷体"</span></span></span>;
+    }</span>
+    <span class="tag">th</span><span class="rules">{
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+    }</span>
+    <span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+    <span class="class">.tr_bg1</span> <span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#CDCDCD</span></span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><blockquote>
+<p>这时候效果跟刚才是一样的。但是如果要修改为隔N行换色就需要修改HTML了，当然也可以在类选择器的基础上添加相邻选择器来修改样式。具体用哪种方式要根据具体的条件背景和要求了。</p>
+</blockquote>
+<h2 id="使用背景图片">使用背景图片</h2><p>要使用背景图片，首先要准备一张平铺图 如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg6.jpg-blogImg" alt=""><br>修改CSS代码如下：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">table</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value">normal <span class="number">12px</span>/<span class="number">1.5</span> Arial</span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+        <span class="rule"><span class="attribute">border-collapse</span>:<span class="value"> collapse</span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/td_bg.gif) repeat <span class="number">0</span> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="tag">caption</span><span class="rules">{
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    }</span>
+    <span class="tag">tfoot</span><span class="rules">{
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">12px</span>/<span class="number">1.5</span> <span class="string">"楷体"</span></span></span>;
+    }</span>
+    <span class="tag">th</span><span class="rules">{
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">20px</span></span></span>;
+        <span class="rule"><span class="attribute">border-right</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+    }</span>
+    <span class="tag">td</span><span class="rules">{
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">20px</span></span></span>;
+        <span class="rule"><span class="attribute">border-right</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+    }</span>       
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg7.jpg-blogImg" alt=""><br>但是这种方式需要精确计算图片大小、行高以及字体大小。比如我们将字体调大为26px 这是就会发生错位现象<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg8.jpg-blogImg" alt=""></p>
+<blockquote>
+<p>除了隔行换色的方式，其实还可以给tr添加hover来增加表格的可视性，在一些炫酷的表格中还可以使用box-shadow来增加立体效果，当然这些都是CSS3的属性。这里就不展示了，以后应该会专门写一些CSS的学习笔记来展示</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="表格介绍">表格介绍</h1><hr>
+<p>表格由一行或者多行单元格组成，能够友好的对数据进行整理归类，以便对数据进行分析。<br>一个表格结构由以下标签组成：<br><code>&lt;table&gt;</code> | table标签可定义表格。在table标签内部可以放置表格的标题、行、列<br><code>&lt;caption&gt;</code> | caption可以定义一个表格标题。该标签紧跟在table标签后，每个表格只能定义一个标题。标题通常会显示在表格最上方<br><code>&lt;th&gt;</code> | 定义表格内的表头单元格 文本会显示为粗体居中<br><code>&lt;tr&gt;</code> | 在表格中定义行<br><code>&lt;td&gt;</code> | 在表格中定义列<br><code>&lt;thead&gt;</code> | 定义表格的表头<br><code>&lt;tbody&gt;</code> | 定义表格的主题<br><code>&lt;tfoo&gt;</code> | 定义表格的页脚<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之表单]]></title>
