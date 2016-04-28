@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-28T09:14:44.703Z</updated>
+  <updated>2016-04-28T13:08:25.868Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -15,11 +15,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[CSS学习笔记之表格]]></title>
+    <title><![CDATA[CSS学习笔记之表格（二）]]></title>
+    <link href="http://www.songchubai.com/2016/04/28/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(2)/"/>
+    <id>http://www.songchubai.com/2016/04/28/CSS之表格(2)/</id>
+    <published>2016-04-27T16:00:00.000Z</published>
+    <updated>2016-04-28T13:08:25.868Z</updated>
+    <content type="html"><![CDATA[<p><em>虽然题目是表格，其实是想把之前的文本，列表，图片，表单结合一起写个小例子。这次就写一个全国最大的同性交友网<a href="https://passport.bilibili.com/login" target="_blank" rel="external">B站</a>的登录页面吧,毕竟之前的页面写起来不过瘾</em></p>
+<blockquote>
+<p>权侵删</p>
+</blockquote>
+<h1 id="结构分析">结构分析</h1><p>首先把原网页结构搞明白<br>最上面是header，header里左侧是一个由li组成的导航栏，右侧是搜索、登录、注册和投稿按钮。<br>header下面是一个宽度为100%的图片。暂时把它称为img_wraper吧。<br><a id="more"></a><br>再往下是网页的content部分，而content内部又分为上左右三部分。上侧为横线和登录图片，左侧为APP下载二维码，右侧为一个登录表单。<br>content下面就是footer部分 footer内部也分为上左右三部分，上侧为分别为B站的相关链接传送门，左侧为合作机构和备案等法律信息，右侧为B站客户端下载和其他公共账号信息</p>
+<h1 id="HTML框架">HTML框架</h1><p>结构分析明白，HTML框架子还是很好写的</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><em>虽然题目是表格，其实是想把之前的文本，列表，图片，表单结合一起写个小例子。这次就写一个全国最大的同性交友网<a href="https://passport.bilibili.com/login">B站</a>的登录页面吧,毕竟之前的页面写起来不过瘾</em></p>
+<blockquote>
+<p>权侵删</p>
+</blockquote>
+<h1 id="结构分析">结构分析</h1><p>首先把原网页结构搞明白<br>最上面是header，header里左侧是一个由li组成的导航栏，右侧是搜索、登录、注册和投稿按钮。<br>header下面是一个宽度为100%的图片。暂时把它称为img_wraper吧。<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CSS学习笔记之表格（一）]]></title>
     <link href="http://www.songchubai.com/2016/04/27/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(1)/"/>
     <id>http://www.songchubai.com/2016/04/27/CSS之表格(1)/</id>
     <published>2016-04-26T16:00:00.000Z</published>
-    <updated>2016-04-28T09:14:44.703Z</updated>
+    <updated>2016-04-28T09:44:49.202Z</updated>
     <content type="html"><![CDATA[<h1 id="表格介绍">表格介绍</h1><hr>
 <p>表格由一行或者多行单元格组成，能够友好的对数据进行整理归类，以便对数据进行分析。<br>一个表格结构由以下标签组成：<br><code>&lt;table&gt;</code> | table标签可定义表格。在table标签内部可以放置表格的标题、行、列<br><code>&lt;caption&gt;</code> | caption可以定义一个表格标题。该标签紧跟在table标签后，每个表格只能定义一个标题。标题通常会显示在表格最上方<br><code>&lt;th&gt;</code> | 定义表格内的表头单元格 文本会显示为粗体居中<br><code>&lt;tr&gt;</code> | 在表格中定义行<br><code>&lt;td&gt;</code> | 在表格中定义列<br><code>&lt;thead&gt;</code> | 定义表格的表头<br><code>&lt;tbody&gt;</code> | 定义表格的主题<br><code>&lt;tfoo&gt;</code> | 定义表格的页脚<br><a id="more"></a></p>
 <h1 id="表格修饰">表格修饰</h1><p>首先创建一个table的框架</p>
@@ -3426,33 +3452,6 @@ git pull origin master
 <p>This is a test.</p>
 </blockquote>
 ]]>
-    </summary>
-    
-      <category term="demo" scheme="http://www.songchubai.com/tags/demo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <link href="http://www.songchubai.com/2015/08/11/hello-world/"/>
-    <id>http://www.songchubai.com/2015/08/11/hello-world/</id>
-    <published>2015-08-11T01:04:40.000Z</published>
-    <updated>2015-08-12T13:26:30.469Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a><br><a id="more"></a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html">Writing</a><br>]]>
-    
     </summary>
     
       <category term="demo" scheme="http://www.songchubai.com/tags/demo/"/>
