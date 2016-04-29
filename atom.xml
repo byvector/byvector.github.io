@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-29T13:31:50.587Z</updated>
+  <updated>2016-04-29T13:35:08.025Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.songchubai.com/2016/04/29/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(2)/"/>
     <id>http://www.songchubai.com/2016/04/29/CSS之表格(2)/</id>
     <published>2016-04-28T16:00:00.000Z</published>
-    <updated>2016-04-29T13:31:50.587Z</updated>
+    <updated>2016-04-29T13:35:08.025Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>虽然题目是表格，其实是想把之前的文本，列表，图片，表单结合一起写个简单的小例子。这次就写一个全国最大的同性交友网<a href="https://passport.bilibili.com/login" target="_blank" rel="external">B站</a>的登录页面吧,毕竟之前的页面写起来不过瘾*</p>
 </blockquote>
