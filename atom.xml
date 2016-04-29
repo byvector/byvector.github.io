@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-04-29T13:27:00.276Z</updated>
+  <updated>2016-04-29T13:31:50.587Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.songchubai.com/2016/04/29/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(2)/"/>
     <id>http://www.songchubai.com/2016/04/29/CSS之表格(2)/</id>
     <published>2016-04-28T16:00:00.000Z</published>
-    <updated>2016-04-29T13:27:00.276Z</updated>
+    <updated>2016-04-29T13:31:50.587Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>虽然题目是表格，其实是想把之前的文本，列表，图片，表单结合一起写个简单的小例子。这次就写一个全国最大的同性交友网<a href="https://passport.bilibili.com/login" target="_blank" rel="external">B站</a>的登录页面吧,毕竟之前的页面写起来不过瘾*</p>
 </blockquote>
@@ -160,8 +160,8 @@
         <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
     <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-</code></pre><p>首先是没有CSS修饰的页面<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/B.jpg-blogImg" alt=""></p>
-<p>为header部分添加CSS</p>
+</code></pre><p>首先是没有CSS修饰的页面<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/B1.jpg-blogImg" alt=""></p>
+<h1 id="header部分CSS">header部分CSS</h1><p>为header部分添加CSS</p>
 <pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
     *<span class="rules">{
         <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
@@ -281,7 +281,7 @@
         <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">106px</span></span></span>;
         <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> auto</span></span>;
     }</span></span>
-</code></pre><p>为content部分添加CSS</p>
+</code></pre><h1 id="content部分CSS">content部分CSS</h1><p>为content部分添加CSS</p>
 <pre><code><span class="id">#content</span><span class="rules">{
         <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">980px</span></span></span>;
         <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> auto</span></span>;
@@ -429,7 +429,7 @@
     <span class="class">.qq</span><span class="rules">{
         <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/snsicon.png) no-repeat <span class="number">0</span> -<span class="number">41px</span></span></span>;
     }</span>
-</code></pre><p>为footer添加CSS</p>
+</code></pre><h1 id="footer部分CSS">footer部分CSS</h1><p>为footer添加CSS</p>
 <pre><code>#footer{
         margin-top: 20px<span class="comment">;</span>
         padding: 20px 0<span class="comment">;</span>
@@ -528,7 +528,7 @@
         background: url(images/icons.png) no-repeat -1020px -62px<span class="comment">;</span>
     }   
 &lt;/style&gt;
-</code></pre><p>OK，刷新下页面 还是很像的 大概模仿了一个七八分吧 可以兼容IE B站的登录页面在IE11下排版是错位的<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/B1.jpg-blogImg" alt=""><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/B2.jpg-blogImg" alt=""></p>
+</code></pre><p>OK，刷新下页面 还是很像的 大概模仿了一个七八分吧 可以兼容IE B站的登录页面在IE11下排版是错位的<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/B2.jpg-blogImg" alt=""><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/B.jpg-blogImg" alt=""></p>
 <blockquote>
 <p>到JavaScript部分会专门在为这个网页添加相应的事件</p>
 </blockquote>
