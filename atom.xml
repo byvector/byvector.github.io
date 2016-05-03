@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-05-03T03:48:31.243Z</updated>
+  <updated>2016-05-03T11:03:43.434Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.songchubai.com/2016/05/03/CSS%E4%B9%8B%E6%BB%A4%E9%95%9C/"/>
     <id>http://www.songchubai.com/2016/05/03/CSS之滤镜/</id>
     <published>2016-05-02T16:00:00.000Z</published>
-    <updated>2016-05-03T03:48:31.243Z</updated>
+    <updated>2016-05-03T11:03:43.434Z</updated>
     <content type="html"><![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
 <p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
 <h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
@@ -108,13 +108,13 @@
 <p>filer: drop-shadow(x-offset y-offset 阴影模糊半径 阴影颜色)<br>x-offset和y-offset为阴影的相对于元素左上角的位移距离；</p>
 </blockquote>
 <p>测试代码:</p>
-<pre><code>.filter{
-        -webkit-filter: drop-shadow(<span class="number">5</span>px <span class="number">5</span>px <span class="number">3</span>px <span class="preprocessor">#<span class="number">4</span>D4DFF); </span>
-        -ms-filter: drop-shadow(<span class="number">5</span>px <span class="number">5</span>px <span class="number">3</span>px <span class="preprocessor">#<span class="number">4</span>D4DFF);</span>
-        -moz-filter: drop-shadow(<span class="number">5</span>px <span class="number">5</span>px <span class="number">3</span>px <span class="preprocessor">#<span class="number">4</span>D4DFF)(<span class="number">2</span>);</span>
-        -o-filter: drop-shadow(<span class="number">5</span>px <span class="number">5</span>px <span class="number">3</span>px <span class="preprocessor">#<span class="number">4</span>D4DFF)(<span class="number">2</span>);</span>
-        filter: drop-shadow(<span class="number">5</span>px <span class="number">5</span>px <span class="number">3</span>px <span class="preprocessor">#<span class="number">4</span>D4DFF)(<span class="number">2</span>);</span>
-    }
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+    }</span>
 </code></pre><p>效果美美的：</p>
 <p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj7.jpg-blogImg" alt=""></p>
 <blockquote>
@@ -124,9 +124,9 @@
 <pre><code><span class="class">.filter</span><span class="rules">{
         <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
         <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
         <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">20px</span></span></span>;
     }</span>
 </code></pre><p>是不是更美了</p>
@@ -149,13 +149,205 @@
   </entry>
   
   <entry>
+    <title><![CDATA[CSS学习笔记之选项卡]]></title>
+    <link href="http://www.songchubai.com/2016/05/03/CSS%E4%B9%8B%E9%80%89%E9%A1%B9%E5%8D%A1/"/>
+    <id>http://www.songchubai.com/2016/05/03/CSS之选项卡/</id>
+    <published>2016-05-02T16:00:00.000Z</published>
+    <updated>2016-05-03T13:07:24.593Z</updated>
+    <content type="html"><![CDATA[<h1 id="网页中的选项卡">网页中的选项卡</h1><hr>
+<p>在一些门户网站中，为了在有限的网页空间中尽可能的展示更多的信息，会采用tab选项卡的方式。比如<a href="http://www.163.com/" target="_blank" rel="external">网易</a>首页就使用了大量的选项卡。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab.jpg-blogImg" alt=""><br>下面学习几种实现tab选项卡的方式</p>
+<a id="more"></a>
+<h2 id="Iframe框架">Iframe框架</h2><p>记得以前在很多XX后台管理系统中会使用iframe框架来实现在同一个页面中相同的位置显示不同的内容<br>先是HTML框架子：</p>
+<pre><code><span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://163.com"</span> <span class="attribute">target</span>=<span class="value">"web_wrapper"</span>&gt;</span>网易<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://baidu.com"</span> <span class="attribute">target</span>=<span class="value">"web_wrapper"</span>&gt;</span>百度<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://sohu.com"</span> <span class="attribute">target</span>=<span class="value">"web_wrapper"</span>&gt;</span>搜狐<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://sina.com.cn"</span> <span class="attribute">target</span>=<span class="value">"web_wrapper"</span>&gt;</span>新浪<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+<span class="tag">&lt;<span class="title">iframe</span> <span class="attribute">scrolling</span>=<span class="value">"no"</span> <span class="attribute">src</span>=<span class="value">"http://163.com"</span> <span class="attribute">name</span>=<span class="value">"web_wrapper"</span>&gt;</span><span class="tag">&lt;/<span class="title">iframe</span>&gt;</span>
+</code></pre><p>简单修改下样式</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">ul</span><span class="rules">{
+        <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
+    }</span>
+    <span class="tag">li</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> <span class="number">10px</span></span></span>;
+    }</span>
+    <span class="tag">a</span><span class="rules">{
+        <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
+    }</span>
+    <span class="tag">iframe</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">960px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">400px</span></span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>简单粗暴：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab1.jpg-blogImg" alt=""></p>
+<h2 id="利用JS实现tab选项卡">利用JS实现tab选项卡</h2><p>iframe感觉并不是很好用，可以利用JS实现一个更加灵活的tab选项卡。选项卡主要由多个选项卡标题和选项卡内容区域组成，通过浮动或者定位将选项卡标题和内容分别控制在某个区域，然后通过JS来给我们的选项卡标题添加事件以实现控制选项卡内容<br>大概就是下图这个意思：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab2.jpg-blogImg" alt=""><br>首先还是我们的HTML框架子</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"tab"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">class</span>=<span class="value">"selected"</span> <span class="attribute">onmouseover</span>=<span class="value">"go(1)"</span>&gt;</span>选项卡一<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"block"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>习近平:构建不敢腐不能腐不想腐的机制<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>这些年习近平的劳动节 国平 网信专题 这三年<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>李克强在北大讲了啥 校长教授们连鼓四次掌<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>中央军委与卫计委等部门调查北京市武警二院<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>外交部:"西藏流亡政府"不合法"选举"是场闹剧<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">onmouseover</span>=<span class="value">"go(2)"</span>&gt;</span>选项卡二<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>莆田人承包了中国90%寺庙？网帖系旧文拼凑<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>江西"头号老赖"引爆官场地震 苏荣等官员涉案<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>中国最高过山车半空停车 28人悬50米高空(图)<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>准新娘宴客时被邻桌砸满身血 工作人员未阻拦<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>母女大闹机场被拘10天 女儿自称"市政协委员"<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">onmouseover</span>=<span class="value">"go(3)"</span>&gt;</span>选项卡三<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>学者：中国实际控制黄岩岛已4年 填了更好<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>巴斯钢铁造船厂将建造首艘伯克III型驱逐舰<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>澳媒:澳买潜艇对付中国?中方觉得没啥要紧的<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>澳新潜艇将装哪些美式装备 已采购战斧导弹<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>周琦优劣势明显难坏NBA 莱斯特的"平凡"之路<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>  
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab3.jpg-blogImg" alt=""><br>然后添加样式</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    *<span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="id">#tab</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">333px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">15px</span></span></span>;
+    }</span>
+    <span class="tag">h3</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+        <span class="rule"><span class="attribute">border-left</span>:<span class="value"> none</span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#c0c0c0</span></span></span>;
+        <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;
+    }</span>
+    <span class="tag">h3</span><span class="pseudo">:first-child</span><span class="rules">{
+        <span class="rule"><span class="attribute">border-left</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+    }</span>
+    <span class="class">.selected</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
+    }</span>
+    <span class="tag">ul</span><span class="rules">{
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">5px</span></span></span>;
+        <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
+    }</span>
+    <span class="tag">ul</span> <span class="tag">li</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"><span class="number">1px</span> dashed <span class="hexcolor">#a8a8a8</span></span></span>;
+    }</span>
+    <span class="id">#tab</span> <span class="tag">div</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+        <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;
+    }</span>
+    <span class="id">#tab</span> <span class="class">.block</span><span class="rules">{
+        <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+    }</span></span>
+</code></pre><p>利用JS添加mouseover事件</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> h = <span class="built_in">document</span>.getElementById(<span class="string">"tab"</span>).getElementsByTagName(<span class="string">"h3"</span>);
+    <span class="keyword">var</span> d = <span class="built_in">document</span>.getElementById(<span class="string">"tab"</span>).getElementsByTagName(<span class="string">"div"</span>);
+    <span class="function"><span class="keyword">function</span> <span class="title">go</span>(<span class="params">num</span>)</span>{
+        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;h.length;i++){
+            <span class="keyword">if</span> (num-<span class="number">1</span> == i) {
+                h[i].className+=<span class="string">" selected"</span>;
+                d[i].className+=<span class="string">" block"</span>;
+            }<span class="keyword">else</span>{
+                h[i].className=<span class="string">" "</span>;
+                d[i].className=<span class="string">" "</span>;
+            }
+        }
+    }
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p>刷新下页面：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab4.jpg-blogImg" alt=""></p>
+<h2 id="对选项卡进行优化">对选项卡进行优化</h2><p>这时候会发现刚才的例子由于利用了float和absolute定位的方式，我们即使清除浮动也无法使父元素的高度自适应，想办法只使用float不使用absolute，这时就需要修改HTML代码的结构了<br>修改后的HTML结构如下：</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"tab"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">class</span>=<span class="value">"selected"</span> <span class="attribute">onmouseover</span>=<span class="value">"go(1)"</span>&gt;</span>选项卡一<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">onmouseover</span>=<span class="value">"go(2)"</span>&gt;</span>选项卡二<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">onmouseover</span>=<span class="value">"go(3)"</span>&gt;</span>选项卡三<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"block"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>习近平:构建不敢腐不能腐不想腐的机制<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>这些年习近平的劳动节 国平 网信专题 这三年<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>李克强在北大讲了啥 校长教授们连鼓四次掌<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>中央军委与卫计委等部门调查北京市武警二院<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>外交部:"西藏流亡政府"不合法"选举"是场闹剧<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>莆田人承包了中国90%寺庙？网帖系旧文拼凑<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>江西"头号老赖"引爆官场地震 苏荣等官员涉案<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>中国最高过山车半空停车 28人悬50米高空(图)<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>准新娘宴客时被邻桌砸满身血 工作人员未阻拦<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>母女大闹机场被拘10天 女儿自称"市政协委员"<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>学者：中国实际控制黄岩岛已4年 填了更好<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>巴斯钢铁造船厂将建造首艘伯克III型驱逐舰<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>澳媒:澳买潜艇对付中国?中方觉得没啥要紧的<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>澳新潜艇将装哪些美式装备 已采购战斧导弹<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>周琦优劣势明显难坏NBA 莱斯特的"平凡"之路<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>  
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>样式稍作修改</p>
+<pre><code><span class="id">#tab</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">333px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">15px</span></span></span>;
+        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+    }</span>
+<span class="id">#tab</span> <span class="tag">div</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;
+    }</span>
+</code></pre><p>其他保持不变，刷新页面会发现父元素可以自适应高度了<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab5.jpg-blogImg" alt=""><br>但是这样又带来另一个问题，那就是渐进增强与平稳退化。比如当某些原因导致我们的CSS不能加载时，没有样式的HTML页面变成了这样：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab6.jpg-blogImg" alt=""></p>
+<blockquote>
+<p>这样的结构其实并不如上一个HTML结构优秀。但为了向父元素高度自适应妥协，也暂时只好这样了。</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="网页中的选项卡">网页中的选项卡</h1><hr>
+<p>在一些门户网站中，为了在有限的网页空间中尽可能的展示更多的信息，会采用tab选项卡的方式。比如<a href="http://www.163.com/">网易</a>首页就使用了大量的选项卡。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab.jpg-blogImg" alt=""><br>下面学习几种实现tab选项卡的方式</p>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[CSS学习笔记之表格（二）]]></title>
     <link href="http://www.songchubai.com/2016/04/29/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(2)/"/>
     <id>http://www.songchubai.com/2016/04/29/CSS之表格(2)/</id>
     <published>2016-04-28T16:00:00.000Z</published>
-    <updated>2016-04-29T13:35:08.025Z</updated>
+    <updated>2016-05-03T11:06:22.554Z</updated>
     <content type="html"><![CDATA[<blockquote>
-<p>虽然题目是表格，其实是想把之前的文本，列表，图片，表单结合一起写个简单的小例子。这次就写一个全国最大的同性交友网<a href="https://passport.bilibili.com/login" target="_blank" rel="external">B站</a>的登录页面吧,毕竟之前的页面写起来不过瘾*</p>
+<p>虽然题目是表格，其实是想把之前的文本，列表，图片，表单结合一起写个简单的小例子。这次就写一个全国最大的同性交友网<a href="https://passport.bilibili.com/login" target="_blank" rel="external">B站</a>的登录页面吧,毕竟之前的页面写起来不过瘾</p>
 </blockquote>
 <p><em>权侵删</em></p>
 <h1 id="结构分析">结构分析</h1><hr>
@@ -669,7 +861,7 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
-<p>虽然题目是表格，其实是想把之前的文本，列表，图片，表单结合一起写个简单的小例子。这次就写一个全国最大的同性交友网<a href="https://passport.bilibili.com/login">B站</a>的登录页面吧,毕竟之前的页面写起来不过瘾*</p>
+<p>虽然题目是表格，其实是想把之前的文本，列表，图片，表单结合一起写个简单的小例子。这次就写一个全国最大的同性交友网<a href="https://passport.bilibili.com/login">B站</a>的登录页面吧,毕竟之前的页面写起来不过瘾</p>
 </blockquote>
 <p><em>权侵删</em></p>
 <h1 id="结构分析">结构分析</h1><hr>
@@ -3920,157 +4112,6 @@ f1g1ns2<span class="class">.dnspod</span><span class="class">.net</span>
 <p>自从万网被阿里收购以后，有了一定的价格优势，想方便的同学可以通过<a href="www.net.cn">万网</a>申请自己的域名，.com首年仅39元，续费55元/年。</p>
 <p>2、 <strong>为pages绑定自定义域名</strong></p>
 <p>GitCafe Pages 支持绑定自定义域名。申请完我们的域名后，进入项目主页，点击右上角的 项目设置 ，在新打开的页面里点击 Pages 服务 一项可以看到自定义域名相关的设置。<br>]]>
-    
-    </summary>
-    
-      <category term="Hexo" scheme="http://www.songchubai.com/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[利用 Hexo 3 及以上版本 + github/gitcafe 搭建博客]]></title>
-    <link href="http://www.songchubai.com/2015/08/12/github-gitcafe/"/>
-    <id>http://www.songchubai.com/2015/08/12/github-gitcafe/</id>
-    <published>2015-08-12T01:04:40.000Z</published>
-    <updated>2016-04-16T05:05:46.847Z</updated>
-    <content type="html"><![CDATA[<h1 id="前言">前言</h1><hr>
-<p>曾经一直有搭建博客的想法，前面由于时间原因搁置了下来，这次抽时间终于把博客搭建完成了。网上很多教程都是基于 hexo 2.x 的教程，而 hexo 3.0 做了很多变动，于是把这次搭建博客的过程记录下来，供大家参考，如有不对的地方欢迎大家指正。</p>
-<h1 id="1_安装">1 安装</h1><hr>
-<p><em>请选择对应的版本下载安装</em>。</p>
-<p>1.1 安装  <a href="https://nodejs.org/" target="_blank" rel="external">node.js</a><br>1.2 安装  <a href="http://git-scm.com/" target="_blank" rel="external">git</a></p>
-<h1 id="2_添加SSH公钥">2 添加SSH公钥</h1><hr>
-<p><em>由于某些因素，gitcafe 的访问速度比 github 要快，因此以 gitcafe 为例。如果想使用 github，请参考附录。</em></p>
-<blockquote>
-<p>SSH （ Secure Shell）是一种安全协议，在你的电脑与 GitCafe 服务器进行通信时，我们使用 SSH 密钥（SSH Keys）认证的方式来保证通信安全。你可以在网络上搜索到关于 <strong>SSH 密钥 </strong>的更多介绍；下面我们重点讲解如何创建 SSH 密钥，并将密钥中的公钥添加到 GitCafe，以便我们通过 SSH 协议来访问 Git 仓库。<br><a id="more"></a><br><strong>2.1 进入 SSH 目录</strong></p>
-</blockquote>
-<p>SSH 密钥的创建需要在终端（命令行）环境下进行，我们首先进入命令行环境。在 Windows 平台中，可以使用刚才安装的 Git Bash 工具。进入命令行环境后，我们执行以下操作来创建 SSH 密钥。</p>
-<pre><code><span class="built_in">cd</span>  ~/.ssh
-</code></pre><p><em>如果还没有 ~/.ssh 目录，可以手工创建一个 <code>mkdir ~/.ssh</code>，之后再通过 <code>cd ~/.ssh</code> 进入 SSH 目录</em></p>
-<blockquote>
-<p>可以通过 <code>ls</code> 命令查看 SSH 目录下的文件，来确认你是否已经生成过 SSH 密钥；如果 SSH 目录为空，我们开始第二步，生成 SSH 密钥；如果存在 <strong>id_rsa.pub </strong>这个文件，说明你之前生成过 SSH 密钥，可以跳过第二步，直接进行密钥的获取。</p>
-</blockquote>
-<p><strong>2.2 生成 SSH 密钥</strong></p>
-<p>我们通过下面的命令生成密钥，<strong>请将命令中的 <code>YOUR_EMAIL@YOUREMAIL.COM</code> 替换为你自己的 Email 地址。</strong></p>
-<pre><code>ssh-keygen -t rsa -<span class="keyword">C</span> <span class="string">"YOUR_EMAIL@YOUREMAIL.COM"</span>
-</code></pre><p>在 SSH 生成过程中会出现以下信息，按屏幕的提示操作即可；当提示 <code>Enter passphrase ( empty for no passphrase ) : </code> 时，可以直接按两次回车键输入一个空的 passphrase；也可以选择输入一个 passphrase 口令，如果此时你输入了一个 passphrase，请牢记，之后每次提交时都需要输入这个口令来确认。</p>
-<pre><code>$ ssh-keygen -t rsa -C <span class="string">"YOUR_EMAIL@YOUREMAIL.COM"</span>
-Generating <span class="keyword">public</span>/<span class="keyword">private</span> rsa key pair.
-Enter passphrase (empty <span class="keyword">for</span> no passphrase):
-Enter same passphrase <span class="string">again:</span>
-Your identification has been saved <span class="keyword">in</span> <span class="regexp">/Users/</span>USERNAME<span class="regexp">/.ssh/</span>id_rsa.
-Your <span class="keyword">public</span> key has been saved <span class="keyword">in</span> <span class="regexp">/Users/</span>USERNAME<span class="regexp">/.ssh/</span>id_rsa.pub.
-The key fingerprint <span class="string">is:</span>
-<span class="number">15</span>:<span class="number">81</span>:<span class="string">d2:</span><span class="number">7</span><span class="string">a:</span><span class="string">c6:</span><span class="number">6</span><span class="string">c:</span><span class="number">0</span><span class="string">f:</span><span class="string">ec:</span><span class="string">b0:</span><span class="string">b6:</span><span class="string">d4:</span><span class="number">18</span>:<span class="string">b8:</span><span class="string">d1:</span><span class="number">41</span>:<span class="number">48</span> YOUR_EMAIL<span class="annotation">@YOUREMAIL</span>.COM
-</code></pre><p><em>一般情况下，在命令行中输入密码、口令一类的信息时是没有信息回显的。在我们这一步的操作中，输入 passphrase 口令时，命令行界面上不会随着键盘敲入密码而有什么反馈。</em></p>
-<p><strong>2.3 获取 SSH 公钥信息</strong></p>
-<p>SSH 秘钥生成结束后，你可以在 SSH 目录下看到私钥 id_rsa 和公钥 id_rsa.pub 这两个文件，不要把私钥文件 id_rsa 的信息透露给任何人。我们可以通过文本编辑器或 <code>cat</code>   命令来查看 id_rsa.pub 公钥信息。</p>
-<ul>
-<li>通过编辑器。使用你熟悉的文本编辑器，比如 记事本、Sublime Text 等软件打开 id_rsa.pub ，复制里面的所有内容以备下一步使用。</li>
-<li>通过 cat命令。在命令行中敲入 cat id_rsa.pub ，回车执行后命令行界面中会显示 id_rsa.pub 文件里的内容，复制后在下一步使用。</li>
-</ul>
-<p><strong>2.4 添加 SSH 公钥到 GitCafe</strong></p>
-<p>打开 GitCafe 网站，进入 账户设置 –&gt; SSH 公钥管理 设置项，点击 添加新公钥 按钮，在「名称」文本框中可以输入任意文字。之后将我们刚刚复制的 SSH 公钥的内容粘贴到公钥文本框中，之后输入 GitCafe 的账户密码，保存。</p>
-<p><img src="https://gitcafe-image.b0.upaiyun.com/0675aeeee7c5ae6234263425c7eb6f42.png" alt="添加ssh"></p>
-<p>至此，我们已完成 SSH 密钥的生成，并在 GitCafe 设置了公钥。</p>
-<p><strong>2.5 测试 GitCafe SSH 连接</strong></p>
-<p>完成上面的操作后，可以通过下面的命令来测试一下是否可以连接 GitCafe 服务器。</p>
-<pre><code><span class="title">ssh</span> -T git<span class="variable">@gitcafe</span>.com
-</code></pre><p>如果你操作的电脑是第一次与 GitCafe 建立连接，会出现以下警告，</p>
-<pre><code>The authenticity <span class="keyword">of</span> host <span class="attribute">'gitcafe</span>.com (<span class="number">50.116</span>.<span class="number">2.223</span>)' can<span class="attribute">'t</span> be established.
-#RSA key fingerprint <span class="keyword">is</span> <span class="number">84</span>:<span class="number">9</span>e:c9:<span class="number">8</span>e:<span class="number">7</span>f:<span class="number">36</span>:<span class="number">28</span>:<span class="number">08</span>:<span class="number">7</span>e:<span class="number">13</span>:bf:<span class="number">43</span>:<span class="number">12</span>:<span class="number">74</span>:<span class="number">11</span>:<span class="number">4</span>e.
-#Are you sure you want <span class="keyword">to</span> continue connecting (yes/no)?
-</code></pre><p>输入 yes 后回车。此时，如果你在生成 SSH 密钥时设置了 passphrase 口令，会提示你输入口令，输入后回车即可。</p>
-<p>最后，如果你看到以下信息，说明连接成功。</p>
-<pre><code>Hi USERNAME! You've successfully authenticated, <span class="keyword">but</span> GitCafe <span class="keyword">does</span> <span class="keyword">not</span> provide shell access.
-</code></pre><p>测试通过后，你就可以到 GitCafe 创建项目并上传要托管的项目了。Happy Coding！Happy Git!</p>
-<blockquote>
-<p><em>如果你对 GitCafe 网站还不熟悉，推荐阅读<a href="https://help.gitcafe.com/manuals/help/getting-started" target="_blank" rel="external">《 GitCafe 快速上手 》</a></em></p>
-</blockquote>
-<h1 id="3_gitcafe_建立项目仓库">3 gitcafe 建立项目仓库</h1><hr>
-<p>进入 GitCafe 个人主页，点击页面右上角的 <em>新建</em> 按钮来新建一个项目。其中，<strong>项目名称必须与拥有者一致。</strong></p>
-<blockquote>
-<p>例如：我的拥有者为 byvector，则项目名称也为 byvector ，选填内容根据自己情况填写。</p>
-</blockquote>
-<p><img src="/img/create.png" alt="建立项目仓库"></p>
-<h1 id="4_Hexo_介绍及安装">4 Hexo 介绍及安装</h1><hr>
-<p><strong>4.1 什么是 Hexo？</strong></p>
-<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
-<p><strong>4.2 Hexo 的安装</strong><br>进入 git Bash，输入：</p>
-<pre><code>$ npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> hexo-cli</span>
-</code></pre><p>在你的电脑磁盘中新建文件夹 <em>Hexo</em>，右键文件夹，选择 <code>git bash</code> 输入：</p>
-<pre><code><span class="variable">$ </span>hexo init
-</code></pre><p>完成后输入：</p>
-<pre><code>$ npm <span class="keyword">install</span>
-</code></pre><p>安装 Hexo3.0 独立出来的模块</p>
-<pre><code>npm <span class="operator"><span class="keyword">install</span> hexo-generator-<span class="keyword">index</span> <span class="comment">--save</span>
-npm <span class="keyword">install</span> hexo-generator-<span class="keyword">archive</span> <span class="comment">--save</span>
-npm <span class="keyword">install</span> hexo-generator-<span class="keyword">category</span> <span class="comment">--save</span>
-npm <span class="keyword">install</span> hexo-generator-tag <span class="comment">--save</span>
-npm <span class="keyword">install</span> hexo-<span class="keyword">server</span> <span class="comment">--save</span>
-npm <span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span>
-npm <span class="keyword">install</span> hexo-renderer-marked@<span class="number">0.2</span> <span class="comment">--save</span>
-npm <span class="keyword">install</span> hexo-renderer-stylus@<span class="number">0.2</span> <span class="comment">--save</span>
-npm <span class="keyword">install</span> hexo-generator-feed@<span class="number">1</span> <span class="comment">--save</span>
-npm <span class="keyword">install</span> hexo-generator-sitemap@<span class="number">1</span> <span class="comment">--save</span></span>
-</code></pre><p>完成后，指定文件夹的目录如下：</p>
-<pre><code>.
-├── _config.yml
-├── package.json
-├── scaffolds
-├── scripts
-├── source
-<span class="string">|   ├── _drafts</span>
-<span class="string">|   └── _posts</span>
-└── themes
-</code></pre><blockquote>
-<p><strong>_config.yml</strong><br>网站的 配置 信息，您可以在此配置大部分的参数。<br><strong>package.json</strong><br>应用程序的信息。EJS, Stylus 和 Markdown renderer 已默认安装，您可以自由移除。<br><strong>scaffolds</strong><br>模版 文件夹。当您新建文章时，Hexo 会根据 scaffold 来建立文件。<br><strong>scripts</strong><br>脚本 文件夹。脚本是扩展 Hexo 最简易的方式，在此文件夹内的 JavaScript 文件会被自动执行。<br><strong>source</strong><br>资源文件夹是存放用户资源的地方。除 <em>posts 文件夹之外，开头命名为 </em> (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。<br><strong>themes</strong><br>主题 文件夹。Hexo 会根据主题来生成静态页面。</p>
-</blockquote>
-<p>生成静态文件。</p>
-<pre><code><span class="variable">$ </span>hexo generate
-</code></pre><p>开启本地server调试。</p>
-<pre><code>$ hexo <span class="keyword">server</span>
-</code></pre><p>浏览器中打开localhost:4000则可以在本地看到生成的页面。</p>
-<p><strong>4.3 Hexo 部署到gitcafe</strong></p>
-<p>打开 <code>_config.yml</code> 添加如下配置</p>
-<blockquote>
-<p>将uer_name 替换成您自己的用户名</p>
-</blockquote>
-<pre><code><span class="attribute">deploy</span>:
-  <span class="attribute">type</span>: git
-  <span class="attribute">repo</span>: git<span class="variable">@gitcafe</span>.<span class="attribute">com</span>:usr_name/user_name.git
-  <span class="attribute">branch</span>: gitcafe-pages
-</code></pre><p>输入命令</p>
-<pre><code><span class="variable">$ </span>hexo deploy
-</code></pre><p>就可以通过<code>user_name.gitcafe.io</code>访问您自己的博客了。</p>
-<blockquote>
-<p>其他具体内容可以参考 <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">Hexo 中文文档</a></p>
-</blockquote>
-<h1 id="4-4_更换主题">4.4 更换主题</h1><p>输入命令</p>
-<pre><code>git clone https://<span class="tag">&lt;<span class="title">git</span>/<span class="attribute">repository</span>&gt;</span> themes/<span class="tag">&lt;<span class="title">themename</span>&gt;</span>
-</code></pre><p>将<code>_config.yml</code>文件中的<code>theme</code>字段设置为与 <code>&lt;themename&gt;</code>一致</p>
-<p><em>更新主题,更新前备份 <code>themes/&lt;themename&gt;</code>目录下的<code>_config.yml</code></em></p>
-<pre><code>cd themes/<span class="tag">&lt;<span class="title">themename</span>&gt;</span>
-git pull origin master
-</code></pre><p><em>以下以 jacman 主题为例</em><br><em>输入命令</em></p>
-<pre><code><span class="variable">$ </span>git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/wuchong</span><span class="regexp">/jacman.git themes/jacman</span>
-</code></pre><p><em>将<code>_config.yml</code>文件中的<code>theme</code>字段设置为 jacman</em><br><em>更新主题</em></p>
-<pre><code><span class="built_in">cd</span> themes/jacman
-git pull origin master
-</code></pre><blockquote>
-<p>执行hexo deploy时发现fatal: ‘github’ does not appear to be a git repository<br>在重新设置 Repo 的时候要把 .deploy/ 文件夹删掉，让 Hexo 再次初始化，否则 Hexo 只是执行 push 操作，所以会一直报错。</p>
-</blockquote>
-<p>更多有关主题详细内容可以参考 <a href="https://github.com/wuchong/jacman/blob/master/README_zh.md" target="_blank" rel="external">jacman中文说明</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="前言">前言</h1><hr>
-<p>曾经一直有搭建博客的想法，前面由于时间原因搁置了下来，这次抽时间终于把博客搭建完成了。网上很多教程都是基于 hexo 2.x 的教程，而 hexo 3.0 做了很多变动，于是把这次搭建博客的过程记录下来，供大家参考，如有不对的地方欢迎大家指正。</p>
-<h1 id="1_安装">1 安装</h1><hr>
-<p><em>请选择对应的版本下载安装</em>。</p>
-<p>1.1 安装  <a href="https://nodejs.org/">node.js</a><br>1.2 安装  <a href="http://git-scm.com/">git</a></p>
-<h1 id="2_添加SSH公钥">2 添加SSH公钥</h1><hr>
-<p><em>由于某些因素，gitcafe 的访问速度比 github 要快，因此以 gitcafe 为例。如果想使用 github，请参考附录。</em></p>
-<blockquote>
-<p>SSH （ Secure Shell）是一种安全协议，在你的电脑与 GitCafe 服务器进行通信时，我们使用 SSH 密钥（SSH Keys）认证的方式来保证通信安全。你可以在网络上搜索到关于 <strong>SSH 密钥 </strong>的更多介绍；下面我们重点讲解如何创建 SSH 密钥，并将密钥中的公钥添加到 GitCafe，以便我们通过 SSH 协议来访问 Git 仓库。<br>]]>
     
     </summary>
     
