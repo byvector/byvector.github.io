@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-05-03T03:46:46.229Z</updated>
+  <updated>2016-05-03T03:48:31.243Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,14 +19,15 @@
     <link href="http://www.songchubai.com/2016/05/03/CSS%E4%B9%8B%E6%BB%A4%E9%95%9C/"/>
     <id>http://www.songchubai.com/2016/05/03/CSS之滤镜/</id>
     <published>2016-05-02T16:00:00.000Z</published>
-    <updated>2016-05-03T03:46:46.229Z</updated>
+    <updated>2016-05-03T03:48:31.243Z</updated>
     <content type="html"><![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
 <p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
 <h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
 <p>先是HTML代码：</p>
 <pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
 &lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-</code></pre><p>然后是CSS的测试代码：</p>
+</code></pre><a id="more"></a>
+<p>然后是CSS的测试代码：</p>
 <pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
     <span class="tag">img</span><span class="rules">{
         <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
@@ -135,7 +136,12 @@
     <summary type="html">
     <![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
 <p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
-<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网]]>
+<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
+<p>先是HTML代码：</p>
+<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
+&lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
+</code></pre>]]>
+    
     </summary>
     
       <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>

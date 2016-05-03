@@ -281,120 +281,18 @@
 
       
         
-          
-            <h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
+          <h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
 <p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
 <h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
 <p>先是HTML代码：</p>
 <pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
 &lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-</code></pre><p>然后是CSS的测试代码：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">img</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">400</span>x</span></span>;
-    }</span>
-    <span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> gray</span></span>;  <span class="comment">/*IE*/</span>
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj.jpg-blogImg" alt=""></p>
-<h2 id="高斯模糊">高斯模糊</h2><p>高斯模糊也就是我没带眼镜时的效果，用blur实现 取值范围为0-N px，其中0为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">blur</span>(<span class="number">2px</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-    }</span> 
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj1.jpg-blogImg" alt=""></p>
-<h2 id="Speia滤镜">Speia滤镜</h2><p>Speia滤镜是对图片或元素整体进行棕褐色处理，就是老照片那种效果 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj2.jpg-blogImg" alt=""></p>
-<h2 id="饱和度滤镜">饱和度滤镜</h2><p>看到饱和度让我想起了冷屏和暖屏之间的战争以及到底用不用三星A屏 可以利用saturate实现 取值范围&gt;=0的数字或百分数，1为无效果，0为灰度图</p>
-<p>测试代码:</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj3.jpg-blogImg" alt=""></p>
-<h2 id="反色滤镜">反色滤镜</h2><p>反色滤镜使用invert来实现 就是婴儿照那种胶片的感觉(好像把年龄暴漏了) 取值范围0~1或0~100%，0为无效果，1或100%表示最大效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj4.jpg-blogImg" alt=""></p>
-<h2 id="对比度滤镜">对比度滤镜</h2><p>对比度和亮度一般在显示器都可以调试，CSS3中对比度使用contrast 取值范围&gt;=0的数字或百分数，1为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj5.jpg-blogImg" alt=""></p>
-<h2 id="亮度滤镜">亮度滤镜</h2><p>亮度滤镜使用brightness 取值范围&gt;=0的数字或百分数，1为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj6.jpg-blogImg" alt=""></p>
-<h2 id="阴影滤镜">阴影滤镜</h2><p>阴影滤镜其实在表单写button的时候用过，可以增加元素的立体感 使用drop-shadow来实现<br>格式：</p>
-<blockquote>
-<p>filer: drop-shadow(x-offset y-offset 阴影模糊半径 阴影颜色)<br>x-offset和y-offset为阴影的相对于元素左上角的位移距离；</p>
-</blockquote>
-<p>测试代码:</p>
-<pre><code>.filter{
-        -webkit-filter: drop-shadow(<span class="number">5</span>px <span class="number">5</span>px <span class="number">3</span>px <span class="preprocessor">#<span class="number">4</span>D4DFF); </span>
-        -ms-filter: drop-shadow(<span class="number">5</span>px <span class="number">5</span>px <span class="number">3</span>px <span class="preprocessor">#<span class="number">4</span>D4DFF);</span>
-        -moz-filter: drop-shadow(<span class="number">5</span>px <span class="number">5</span>px <span class="number">3</span>px <span class="preprocessor">#<span class="number">4</span>D4DFF)(<span class="number">2</span>);</span>
-        -o-filter: drop-shadow(<span class="number">5</span>px <span class="number">5</span>px <span class="number">3</span>px <span class="preprocessor">#<span class="number">4</span>D4DFF)(<span class="number">2</span>);</span>
-        filter: drop-shadow(<span class="number">5</span>px <span class="number">5</span>px <span class="number">3</span>px <span class="preprocessor">#<span class="number">4</span>D4DFF)(<span class="number">2</span>);</span>
-    }
-</code></pre><p>效果美美的：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj7.jpg-blogImg" alt=""></p>
-<blockquote>
-<p>注意：阴影的外观受border-radius样式的影响</p>
-</blockquote>
-<p>比如：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    }</span>
-</code></pre><p>是不是更美了</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj8.jpg-blogImg" alt=""></p>
-<p>当然也可以结合border来进行更好的美化效果。这里就不贴代码和效果了</p>
-
-          
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/03/CSS之滤镜/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
