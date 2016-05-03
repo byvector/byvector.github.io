@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="CSS," />
 
 
 
@@ -82,15 +82,40 @@
 
 
 
-<meta name="description" content="We are all in the gutter, but some of us are looking at the stars.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="vector's blog">
-<meta property="og:url" content="http://www.songchubai.com/index.html">
+<meta name="description" content="几个常见的CSS滤镜效果
+今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填
+灰度图在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果
+先是HTML代码：
+&amp;lt;img src=&quot;images/xi.jpg&quot;&amp;gt;
+&amp;lt;img clas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS学习笔记之滤镜">
+<meta property="og:url" content="http://www.songchubai.com/2016/05/03/CSS之滤镜/index.html">
 <meta property="og:site_name" content="vector's blog">
-<meta property="og:description" content="We are all in the gutter, but some of us are looking at the stars.">
+<meta property="og:description" content="几个常见的CSS滤镜效果
+今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填
+灰度图在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果
+先是HTML代码：
+&amp;lt;img src=&quot;images/xi.jpg&quot;&amp;gt;
+&amp;lt;img clas">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/lj.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/lj1.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/lj2.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/lj3.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/lj4.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/lj5.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/lj6.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/lj7.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/lj8.jpg-blogImg">
+<meta property="og:updated_time" content="2016-05-03T03:46:46.229Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vector's blog">
-<meta name="twitter:description" content="We are all in the gutter, but some of us are looking at the stars.">
+<meta name="twitter:title" content="CSS学习笔记之滤镜">
+<meta name="twitter:description" content="几个常见的CSS滤镜效果
+今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填
+灰度图在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果
+先是HTML代码：
+&amp;lt;img src=&quot;images/xi.jpg&quot;&amp;gt;
+&amp;lt;img clas">
 
 
 
@@ -108,7 +133,7 @@
   };
 </script>
 
-  <title> vector's blog </title>
+  <title> CSS学习笔记之滤镜 | vector's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -129,9 +154,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -208,9 +231,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -230,10 +253,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/05/03/CSS之滤镜/" itemprop="url">
-                  CSS学习笔记之滤镜
-                </a>
+                CSS学习笔记之滤镜
               
             
           </h1>
@@ -280,9 +300,7 @@
       
 
       
-        
-          
-            <h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
+        <h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
 <p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
 <h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
 <p>先是HTML代码：</p>
@@ -394,474 +412,57 @@
 <p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj8.jpg-blogImg" alt=""></p>
 <p>当然也可以结合border来进行更好的美化效果。这里就不贴代码和效果了</p>
 
-          
-        
       
     </div>
     
     <div>
       
+        
+      
     </div>
 
     <div>
+      
+        
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/29/CSS之表格(2)/" itemprop="url">
-                  CSS学习笔记之表格（二）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-29T00:00:00+08:00" content="2016-04-29">
-              2016-04-29
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/29/CSS之表格(2)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/29/CSS之表格(2)/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <blockquote>
-<p>虽然题目是表格，其实是想把之前的文本，列表，图片，表单结合一起写个简单的小例子。这次就写一个全国最大的同性交友网<a href="https://passport.bilibili.com/login">B站</a>的登录页面吧,毕竟之前的页面写起来不过瘾*</p>
-</blockquote>
-<p><em>权侵删</em></p>
-<h1 id="结构分析">结构分析</h1><hr>
-<p>首先把原网页结构搞明白<br>最上面是header，header里左侧是一个由li组成的导航栏，右侧是搜索、登录、注册和投稿按钮。<br>header下面是一个宽度为100%的图片。暂时把它称为img_wraper吧。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/29/CSS之表格(2)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/29/CSS之表格(2)/" rel="next" title="CSS学习笔记之表格（二）">
+                <i class="fa fa-chevron-left"></i> CSS学习笔记之表格（二）
+              </a>
+            
           </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/27/CSS之表格(1)/" itemprop="url">
-                  CSS学习笔记之表格（一）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-27T00:00:00+08:00" content="2016-04-27">
-              2016-04-27
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/27/CSS之表格(1)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/27/CSS之表格(1)/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="表格介绍">表格介绍</h1><hr>
-<p>表格由一行或者多行单元格组成，能够友好的对数据进行整理归类，以便对数据进行分析。<br>一个表格结构由以下标签组成：<br><code>&lt;table&gt;</code> | table标签可定义表格。在table标签内部可以放置表格的标题、行、列<br><code>&lt;caption&gt;</code> | caption可以定义一个表格标题。该标签紧跟在table标签后，每个表格只能定义一个标题。标题通常会显示在表格最上方<br><code>&lt;th&gt;</code> | 定义表格内的表头单元格 文本会显示为粗体居中<br><code>&lt;tr&gt;</code> | 在表格中定义行<br><code>&lt;td&gt;</code> | 在表格中定义列<br><code>&lt;thead&gt;</code> | 定义表格的表头<br><code>&lt;tbody&gt;</code> | 定义表格的主题<br><code>&lt;tfoo&gt;</code> | 定义表格的页脚<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/27/CSS之表格(1)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/26/CSS之表单/" itemprop="url">
-                  CSS学习笔记之表单
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T00:00:00+08:00" content="2016-04-26">
-              2016-04-26
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/26/CSS之表单/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/CSS之表单/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="默认表单">默认表单</h1><hr>
-<p>表单是一个包含表单元素的区域，在网页中负责数据采集功能。一个表单有三个基本组成部分：</p>
-<ul>
-<li>表单标签：包含了处理表单数据所用CGI程序的URL以及数据提交到服务器的方法。</li>
-<li>表单域：包含了文本框、密码框、隐藏域、多行文本框、多选框、单选框、下拉选择框和文件上传框等。 </li>
-<li><p>表单按钮：包括提交按钮、重置按钮和一般按钮；用于将数据传送到服务器上的CGI脚本或者重置输入，还可以用表单按钮来控制其他定义了处理脚本的处理工作。<br>下面就写一个最基本的表单</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/26/CSS之表单/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    <div class="post-spread">
       
     </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/25/CSS之列表(2)/" itemprop="url">
-                  CSS学习笔记之列表（二）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-25T00:00:00+08:00" content="2016-04-25">
-              2016-04-25
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/25/CSS之列表(2)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/25/CSS之列表(2)/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="在列表中图文嵌套">在列表中图文嵌套</h1><hr>
-<p>这次写个列表中图文嵌套的小例子 例子中模仿百度新闻首页中的效果<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tw.jpg-blogImg" alt=""><br>先把HTML代码写出来，很简单</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/tw1.jpg"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>许晴晒出游美照 河边蹦跳<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/tw2.jpg"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>小芈月刘楚恬周出游爆潮<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/tw3.jpg"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>45岁梁佩瑚嫁圈外富商<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/tw4.jpg"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>高圆圆着宽松衣回京显亲民<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/tw5.jpg"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>姚晨宣布11月将生二胎<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/25/CSS之列表(2)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+  </div>
 
 
           </div>
@@ -869,6 +470,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/03/CSS之滤镜/"
+           data-title="CSS学习笔记之滤镜" data-url="http://www.songchubai.com/2016/05/03/CSS之滤镜/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -888,8 +497,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
@@ -977,6 +595,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#几个常见的CSS滤镜效果"><span class="nav-number">1.</span> <span class="nav-text">几个常见的CSS滤镜效果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#灰度图"><span class="nav-number">1.1.</span> <span class="nav-text">灰度图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高斯模糊"><span class="nav-number">1.2.</span> <span class="nav-text">高斯模糊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Speia滤镜"><span class="nav-number">1.3.</span> <span class="nav-text">Speia滤镜</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#饱和度滤镜"><span class="nav-number">1.4.</span> <span class="nav-text">饱和度滤镜</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反色滤镜"><span class="nav-number">1.5.</span> <span class="nav-text">反色滤镜</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对比度滤镜"><span class="nav-number">1.6.</span> <span class="nav-text">对比度滤镜</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#亮度滤镜"><span class="nav-number">1.7.</span> <span class="nav-text">亮度滤镜</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阴影滤镜"><span class="nav-number">1.8.</span> <span class="nav-text">阴影滤镜</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -1080,6 +709,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
