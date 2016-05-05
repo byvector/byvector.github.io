@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-05-03T11:03:43.434Z</updated>
+  <updated>2016-05-05T03:18:11.733Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -13,6 +13,190 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS学习笔记之相册]]></title>
+    <link href="http://www.songchubai.com/2016/05/05/CSS%E4%B9%8B%E7%9B%B8%E5%86%8C/"/>
+    <id>http://www.songchubai.com/2016/05/05/CSS之相册/</id>
+    <published>2016-05-04T16:00:00.000Z</published>
+    <updated>2016-05-05T03:18:11.733Z</updated>
+    <content type="html"><![CDATA[<h1 id="一个简易的相册">一个简易的相册</h1><hr>
+<p>在上一次模仿新闻页的时候，学习了一种对图片进行处理的方式，这次换个思路，写一个简易的相册。</p>
+<h2 id="第一种思路">第一种思路</h2><p>惯例 HTML框架<br><a id="more"></a></p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"photo"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h4</span>&gt;</span>简易相册<span class="tag">&lt;/<span class="title">h4</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/1.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/2.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/3.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/4.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/5.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/6.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/7.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/8.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/9.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>然后可以先给整个div添加样式</p>
+<pre><code><span class="id">#photo</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">800px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">590px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> auto</span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="function">rgb</span>(<span class="number">39</span>,<span class="number">40</span>,<span class="number">34</span>)</span></span>;
+        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">15px</span></span></span>;
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
+    }</span>
+</code></pre><p>设置整个div为relative，以方便我们对img和h4进行定位</p>
+<p>然后为div内部元素添加样式</p>
+<pre><code><span class="tag">h4</span><span class="rules">{
+    <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span> <span class="string">"楷体"</span></span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">15px</span></span></span>;
+    <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">15px</span></span></span>;
+}</span>
+<span class="tag">ul</span><span class="rules">{
+    <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">168px</span></span></span>;
+    <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none
+}
+li{
+    float: left</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">60px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">60px</span></span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">2px</span> solid <span class="hexcolor">#CDCDCD</span></span></span>;
+    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+}</span>
+<span class="tag">a</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">60px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">60px</span></span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+}</span>
+<span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> -<span class="number">160px</span> <span class="number">0</span> <span class="number">0</span> -<span class="number">80px</span></span></span>;
+}</span>
+<span class="rule"><span class="attribute">a</span>:<span class="value">hover img{
+    position: absolute</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">10px</span></span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">10px</span></span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">2px</span> solid <span class="hexcolor">#CDCDCD</span></span></span>;
+}
+</code></pre><p>刷新一下页面：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/xc.jpg-blogImg" alt=""></p>
+<h2 id="第二种思路">第二种思路</h2><p>当然，刚才只是一种思路，我们也可以设置页面默认展示第一个图片，但是这种思路有一个缺点，当图片的大小不一样时，其他图片不能覆盖第一张图片。所以，另一种方式可以仿照tab标签那一部分的思路，结合我们的JavaScript，就能写出更加美观的相册<br>首选对HTML结构进行修改：</p>
+<pre><code>&lt;<span class="tag">div</span> id=<span class="string">"photo"</span>&gt;
+    &lt;h4&gt;简易相册&lt;/h4&gt;
+    &lt;ul&gt;
+        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(1)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/1.jpg"</span>&gt;&lt;/li&gt;
+        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(2)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/2.jpg"</span>&gt;&lt;/li&gt;
+        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(3)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/3.jpg"</span>&gt;&lt;/li&gt;
+        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(4)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/4.jpg"</span>&gt;&lt;/li&gt;
+        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(5)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/5.jpg"</span>&gt;&lt;/li&gt;
+        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(6)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/6.jpg"</span>&gt;&lt;/li&gt;
+        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(7)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/7.jpg"</span>&gt;&lt;/li&gt;
+        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(8)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/8.jpg"</span>&gt;&lt;/li&gt;
+        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(9)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/9.jpg"</span>&gt;&lt;/li&gt;
+
+    &lt;/ul&gt;
+    &lt;<span class="tag">img</span> class=<span class="string">"img_detail block"</span> src=<span class="string">"images/photo/1.jpg"</span>&gt;
+    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/2.jpg"</span>&gt;
+    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/3.jpg"</span>&gt;
+    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/4.jpg"</span>&gt;
+    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/5.jpg"</span>&gt;
+    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/6.jpg"</span>&gt;
+    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/7.jpg"</span>&gt;
+    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/8.jpg"</span>&gt;
+    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/9.jpg"</span>&gt;
+&lt;/div&gt;
+</code></pre><p>然后修改CSS</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    *<span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="id">#photo</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">800px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">590px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> auto</span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="function">rgb</span>(<span class="number">39</span>,<span class="number">40</span>,<span class="number">34</span>)</span></span>;
+        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">15px</span></span></span>;
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
+    }</span>
+    <span class="tag">h4</span><span class="rules">{
+        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span> <span class="string">"楷体"</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+        <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">15px</span></span></span>;
+        <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">15px</span></span></span>;
+    }</span>
+    <span class="tag">ul</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">168px</span></span></span>;
+        <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none
+    }
+    li{
+        float: left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">60px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">60px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">2px</span> solid <span class="hexcolor">#CDCDCD</span></span></span>;
+        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+    }</span>
+
+    <span class="tag">img</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> -<span class="number">160px</span> <span class="number">0</span> <span class="number">0</span> -<span class="number">80px</span></span></span>;
+    }</span>
+    <span class="class">.img_detail</span><span class="rules">{
+        <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;
+    }</span>
+    <span class="class">.block</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+        <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">2px</span> solid <span class="hexcolor">#CDCDCD</span></span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>最后添加JavaScript</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> li = <span class="built_in">document</span>.getElementById(<span class="string">"photo"</span>).getElementsByTagName(<span class="string">"li"</span>);
+    <span class="keyword">var</span> img_detail = <span class="built_in">document</span>.getElementsByClassName(<span class="string">"img_detail"</span>);
+    <span class="function"><span class="keyword">function</span> <span class="title">go</span>(<span class="params">num</span>)</span>{
+        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;li.length;i++){
+            <span class="keyword">if</span>(num-<span class="number">1</span>==i){
+                img_detail[i].className=<span class="string">"img_detail block"</span>;
+            }<span class="keyword">else</span>{
+                img_detail[i].className=<span class="string">"img_detail"</span>;
+            }
+        }
+    }
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p>刷新一下页面，效果就好多了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="一个简易的相册">一个简易的相册</h1><hr>
+<p>在上一次模仿新闻页的时候，学习了一种对图片进行处理的方式，这次换个思路，写一个简易的相册。</p>
+<h2 id="第一种思路">第一种思路</h2><p>惯例 HTML框架<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之滤镜]]></title>
@@ -4010,112 +4194,6 @@ s2<span class="class">.age</span> = <span class="number">20</span>  \\给实例s
     </summary>
     
       <category term="Python" scheme="http://www.songchubai.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[给博客绑定域名,添加评论以及RSS]]></title>
-    <link href="http://www.songchubai.com/2015/08/15/%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/"/>
-    <id>http://www.songchubai.com/2015/08/15/绑定域名/</id>
-    <published>2015-08-15T02:08:22.000Z</published>
-    <updated>2016-04-16T05:06:07.967Z</updated>
-    <content type="html"><![CDATA[<h1 id="一、绑定域名">一、绑定域名</h1><hr>
-<p>1、 <strong>域名申请</strong><br>域名申请尽量使用经 ICANN 和 CNNIC 认证的顶级域名注册商。</p>
-<ul>
-<li>国外</li>
-</ul>
-<p>有英语基础的同学推荐国外狗爹(<a href="https://www.godaddy.com/" target="_blank" rel="external"> godaddy </a>),支持支付宝付款，付款前可以网上搜一些优惠码。</p>
-<ul>
-<li>国内</li>
-</ul>
-<p>自从万网被阿里收购以后，有了一定的价格优势，想方便的同学可以通过<a href="www.net.cn">万网</a>申请自己的域名，.com首年仅39元，续费55元/年。</p>
-<p>2、 <strong>为pages绑定自定义域名</strong></p>
-<p>GitCafe Pages 支持绑定自定义域名。申请完我们的域名后，进入项目主页，点击右上角的 项目设置 ，在新打开的页面里点击 Pages 服务 一项可以看到自定义域名相关的设置。<br><a id="more"></a><br><img src="https://gitcafe-image.b0.upaiyun.com/d56295f8c77a86306a1c7c6aad48cfd1.png" alt="绑定域名"><br>填入你要绑定的域名，点击「新增」；之后到域名管理面板中添加 CNAME 记录指向到 gitcafe.io；如果你使用的域名服务提供商不支持添加 CNAME 记录，建议你更换到其他支持该功能的域名提供商。</p>
-<p>3、<strong>域名解析</strong></p>
-<p>域名解析可以使用万网自己的云解析，也可以使用<a href="https://www.dnspod.cn/Event/Dnspod.Cdn/?from=BD70" target="_blank" rel="external">DNSPod</a>来解析自己的域名。</p>
-<p><em>以下以DNSPod为例</em><br>3.1 在万网中点击自己的域名，进入域名控制台，点击修改dns<br>3.2 分别填写DNSPod的2个DNS短地址（对应6台服务器）</p>
-<pre><code>f1g1ns1<span class="class">.dnspod</span><span class="class">.net</span>
-f1g1ns2<span class="class">.dnspod</span><span class="class">.net</span>
-</code></pre><p>3.3 点击保存，然后等待全球递归DNS服务器刷新（最多72小时）。<br>3.4 进入 DNSPod 管理控制台，点击添加域名，填写自己的域名,添加上您要解析的主域名后，点击【确定】</p>
-<p><img src="https://statics.dnspod.cn/zhanjiang/images/about/support/15.jpg" alt=""></p>
-<p>3.5 点击刚添加的域名,<br>在域名记录管理界面，点击【添加记录】，添加需要解析的记录即可</p>
-<p><img src="https://statics.dnspod.cn/zhanjiang/images/about/support/17.jpg" alt=""></p>
-<blockquote>
-<p>注意：记录类型一定要为：CNAME，记录值为：uer_name.gitcafe.io. 将user_name替换为您的用户名即可。</p>
-</blockquote>
-<h1 id="二、添加评论">二、添加评论</h1><hr>
-<p>Hexo默认使用的评论插件是Disqus，为了方便广大国内用户使用多说来替换Disqus。我们首先来讲下基于默认主题下添加多说评论。</p>
-<p>2.1 进入<a href="http://duoshuo.com/create-site/" target="_blank" rel="external">多说</a>创建你自己的站点，创建完成后进入后台管理，点击设置，可以查看自己的域名。假设域名为****.duoshuo.com，则我们把****称为：shortname。</p>
-<p>2.2 在_config.yml中添加多说的配置：</p>
-<pre><code><span class="attribute">duoshuo_shortname</span>: <span class="string">你站点的short_name</span>
-</code></pre><p>2.3 修改<code>themes\landscape\layout\_partial\article.ejs</code>模板，把</p>
-<pre><code><span class="xml"></span>&lt;%<span class="perl"> <span class="keyword">if</span> (!<span class="keyword">index</span> &amp;&amp; post.comments &amp;&amp; config.disqus_shortname){ </span>%&gt;<span class="xml">
-<span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comments"</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"disqus_thread"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">noscript</span>&gt;</span>Please enable JavaScript to view the <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"//disqus.com/?ref_noscript"</span>&gt;</span>comments powered by Disqus.<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">noscript</span>&gt;</span>
-  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-</span>&lt;%<span class="perl"> } </span>%&gt;<span class="xml"></span>
-</code></pre><p>改为</p>
-<pre><code><span class="tag">&lt;<span class="title">%</span> <span class="attribute">if</span> (!<span class="attribute">index</span> &amp;&amp; <span class="attribute">post.comments</span> &amp;&amp; <span class="attribute">config.duoshuo_shortname</span>){ %&gt;</span>
-<span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comments"</span>&gt;</span>
-  <span class="comment">&lt;!-- 多说评论框 start --&gt;</span>
-  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"ds-thread"</span> <span class="attribute">data-thread-key</span>=<span class="value">"&lt;%= post.layout %&gt;-&lt;%= post.slug %&gt;"</span> <span class="attribute">data-title</span>=<span class="value">"&lt;%= post.title %&gt;"</span> <span class="attribute">data-url</span>=<span class="value">"&lt;%= page.permalink %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-  <span class="comment">&lt;!-- 多说评论框 end --&gt;</span>
-  <span class="comment">&lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</span>
-  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-  <span class="keyword">var</span> duoshuoQuery = {short_name:<span class="string">'&lt;%= config.duoshuo_shortname %&gt;'</span>};
-    (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-      <span class="keyword">var</span> ds = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);
-      ds.type = <span class="string">'text/javascript'</span>;ds.async = <span class="literal">true</span>;
-      ds.src = (<span class="built_in">document</span>.location.protocol == <span class="string">'https:'</span> ? <span class="string">'https:'</span> : <span class="string">'http:'</span>) + <span class="string">'//static.duoshuo.com/embed.js'</span>;
-      ds.charset = <span class="string">'UTF-8'</span>;
-      (<span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>] 
-       || <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>]).appendChild(ds);
-    })();
-    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-  <span class="comment">&lt;!-- 多说公共JS代码 end --&gt;</span>
-<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-<span class="tag">&lt;<span class="title">%</span> } %&gt;</span>
-</code></pre><p>如果有疑问的同学，还可以参考下面的基于<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">yilia主题</a>的添加教程。</p>
-<p>假设我们的多说网站二级域名为****.duoshuo.com。yilia主题下有两种解决方案。</p>
-<ul>
-<li>方案一：</li>
-</ul>
-<pre><code>打开themes<span class="regexp">/yilia/</span>layout<span class="regexp">/_partial/</span>post/duoshuo.ejs
-
-将var duoshuoQuery = {<span class="string">short_name:</span><span class="string">"&lt;%=theme.duoshuo%&gt;"</span>};修改为var duoshuoQuery = {<span class="string">short_name:</span><span class="string">"****"</span>};
-</code></pre><ul>
-<li>方案二：</li>
-</ul>
-<pre><code>打开themes<span class="regexp">/yilia/</span>layout<span class="regexp">/_partial/</span>post/duoshuo.ejs.
-
-将var duoshuoQuery = {<span class="string">short_name:</span><span class="string">"&lt;%=theme.duoshuo%&gt;"</span>};
-修改为var duoshuoQuery = {<span class="string">short_name:</span><span class="string">"&lt;%=theme.duoshuo_shortname%&gt;"</span>};
-
-打开themes<span class="regexp">/yilia/\_</span>config.yml，添加一行：<span class="string">duoshuo_shortname:</span> ****
-</code></pre><h1 id="三、添加RSS">三、添加RSS</h1><hr>
-<p>RSS添加还是比较容易的，我们打开GitBash，切换到博客根目录，输入</p>
-<pre><code>$ npm <span class="keyword">install</span> hexo-generator-feed 
-</code></pre><p>打开<code>themes/yilia/_config.yml</code>，将rss注释去掉即可。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="一、绑定域名">一、绑定域名</h1><hr>
-<p>1、 <strong>域名申请</strong><br>域名申请尽量使用经 ICANN 和 CNNIC 认证的顶级域名注册商。</p>
-<ul>
-<li>国外</li>
-</ul>
-<p>有英语基础的同学推荐国外狗爹(<a href="https://www.godaddy.com/"> godaddy </a>),支持支付宝付款，付款前可以网上搜一些优惠码。</p>
-<ul>
-<li>国内</li>
-</ul>
-<p>自从万网被阿里收购以后，有了一定的价格优势，想方便的同学可以通过<a href="www.net.cn">万网</a>申请自己的域名，.com首年仅39元，续费55元/年。</p>
-<p>2、 <strong>为pages绑定自定义域名</strong></p>
-<p>GitCafe Pages 支持绑定自定义域名。申请完我们的域名后，进入项目主页，点击右上角的 项目设置 ，在新打开的页面里点击 Pages 服务 一项可以看到自定义域名相关的设置。<br>]]>
-    
-    </summary>
-    
-      <category term="Hexo" scheme="http://www.songchubai.com/tags/Hexo/"/>
     
   </entry>
   
