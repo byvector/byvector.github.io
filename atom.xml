@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-05-05T03:18:11.733Z</updated>
+  <updated>2016-05-06T13:40:33.933Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -13,6 +13,255 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS学习笔记之导航栏]]></title>
+    <link href="http://www.songchubai.com/2016/05/06/CSS%E4%B9%8B%E5%AF%BC%E8%88%AA%E6%A0%8F/"/>
+    <id>http://www.songchubai.com/2016/05/06/CSS之导航栏/</id>
+    <published>2016-05-05T16:00:00.000Z</published>
+    <updated>2016-05-06T13:40:33.933Z</updated>
+    <content type="html"><![CDATA[<h1 id="导航栏结构分析">导航栏结构分析</h1><hr>
+<p>有的网页导航栏直接将a标签放在div中，比如：百度和网易等。</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Home<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>About<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><a id="more"></a>
+<p>有的网页导航栏将a标签放在li中，比如搜狐和B站等</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Home<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>About<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>导航经常会有好几级的情况，li可以很好的展现项目级别关系，直接用a无法突出元素之间的关联，同时使用ul+li方式可以增加对搜索引擎的友好度。但在单级导航栏直接用a标签也不是不可以。下面几个简单例子直接使用a标签的方式，利用纯CSS，不引入JavaScript和jQuery。</p>
+<h2 id="引入CSS精灵的导航栏">引入CSS精灵的导航栏</h2><p>首先用上之前的CSS Sprite。<em>这里引用下别人的图</em><br>简单的HTML框架：</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"index"</span>&gt;</span>首页<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"intro"</span>&gt;</span>公司简介<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"honor"</span>&gt;</span>企业荣誉<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"flow"</span>&gt;</span>工艺流程<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"product"</span>&gt;</span>产品展示<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"sale"</span>&gt;</span>销售网络<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"buy"</span>&gt;</span>网上订购<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"contact"</span>&gt;</span>联系我们<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>然后是CSS</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    *<span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="id">#nav</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">800px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">31px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> auto</span></span>;
+        <span class="rule"><span class="attribute">padding-left</span>:<span class="value"> <span class="number">21px</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/bg_nav1.png) no-repeat <span class="number">0</span> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+    }</span>
+    <span class="id">#nav</span> <span class="tag">a</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">92px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">31px</span></span></span>;
+        <span class="rule"><span class="attribute">text-indent</span>:<span class="value"> -<span class="number">9999px</span></span></span>; <span class="comment">/*将文本缩进进行隐藏*/</span>
+        <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/bg_nav1.png) no-repeat <span class="number">1000px</span> <span class="number">1000px</span></span></span>;
+    }</span>
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a</span>:<span class="value">hover {
+        position:relative</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">120px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.index</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">11px</span> -<span class="number">31px</span></span></span>;
+    }
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.intro</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">103px</span> -<span class="number">62px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.honor</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">195px</span> -<span class="number">93px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.flow</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">287px</span> -<span class="number">124px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.product</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">379px</span> -<span class="number">155px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.sale</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">471px</span> -<span class="number">186px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.buy</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">563px</span> -<span class="number">217px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.contact</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">655px</span> -<span class="number">248px</span></span></span>;
+    } </span>
+</code></pre><p>刷新下页面，效果还是不错的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/dhl.jpg-blogImg" alt=""></p>
+<h2 id="引入绝对定位的导航栏">引入绝对定位的导航栏</h2><p>在上一个例子中，锚点a设置为浮动的，在a的边缘处可能会指向相邻的a锚点，这时候可以尝试使用绝对定位的方式，使每个a锚点准确“空降”到指定位置，从而避免这个问题。保持HTML结构不变，对CSS稍加修改即可。</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    *<span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="id">#nav</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">800px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">31px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> auto</span></span>;
+        <span class="rule"><span class="attribute">padding-left</span>:<span class="value"> <span class="number">21px</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/bg_nav1.png) no-repeat <span class="number">0</span> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+    }</span>
+    <span class="id">#nav</span> <span class="tag">a</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+        <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">92px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">31px</span></span></span>;
+        <span class="rule"><span class="attribute">text-indent</span>:<span class="value"> -<span class="number">9999px</span></span></span>; <span class="comment">/*将文本缩进进行隐藏*/</span>
+        <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/bg_nav1.png) no-repeat <span class="number">1000px</span> <span class="number">1000px</span></span></span>;
+    }</span>
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a</span>:<span class="value">hover {
+        width:<span class="number">120px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="tag">div</span> <span class="tag">a</span><span class="class">.index</span> <span class="rules">{
+        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">21px</span></span></span>;    
+    }</span>
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.index</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">11px</span> -<span class="number">31px</span></span></span>;
+    }
+    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.intro</span> <span class="rules">{
+        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">113px</span></span></span>;    <span class="comment">/*21+92*/</span>
+    }</span>
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.intro</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">103px</span> -<span class="number">62px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.honor</span> <span class="rules">{
+        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">205px</span></span></span>; 
+    }</span>
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.honor</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">195px</span> -<span class="number">93px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.flow</span> <span class="rules">{
+        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">297px</span></span></span>; 
+    }</span>
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.flow</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">287px</span> -<span class="number">124px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.product</span> <span class="rules">{
+        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">389px</span></span></span>; 
+    }</span>
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.product</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">379px</span> -<span class="number">155px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.sale</span> <span class="rules">{
+        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">481px</span></span></span>; 
+    }</span>
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.sale</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">471px</span> -<span class="number">186px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.buy</span> <span class="rules">{
+        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">573px</span></span></span>; 
+    }</span>
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.buy</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">563px</span> -<span class="number">217px</span></span></span>;
+    } 
+    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.contact</span> <span class="rules">{
+        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">665px</span></span></span>; 
+    }</span>
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.contact</span>:<span class="value">hover {
+        margin-left:-<span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">655px</span> -<span class="number">248px</span></span></span>;
+    } 
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>效果跟刚才是一个的，好麻烦的说，感觉还是用JS与JQuery比较好。这种纯CSS就当练手了</p>
+<h2 id="涉及层叠的导航栏">涉及层叠的导航栏</h2><p>有一些导航栏具有层叠的效果，因为这里用了层叠，所以把a标签放在li中比直接使用a更好控制。上次B站登录页在关于图片和文字的部分使用了层叠属性。<br><em>关于CSS的层叠级别介绍以后会专门写一篇来介绍</em><br>先是HTML</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航1<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航2<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航3<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航4<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航5<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航6<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航7<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航8<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>为我们的HTML框架添加样式</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    *<span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="id">#nav</span> <span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">700px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> auto</span></span>;
+    }</span>
+    <span class="tag">ul</span><span class="rules">{
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">25px</span></span></span>;
+        <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
+    }</span>
+    <span class="tag">a</span><span class="rules">{
+        <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
+    }</span>
+    <span class="id">#nav</span> <span class="tag">li</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">25px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> -<span class="number">7px</span></span></span>; <span class="comment">/*利用负边距产生层叠属性*/</span>
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    }</span>
+    <span class="id">#nav</span> <span class="tag">a</span> <span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>; 
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">86px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">25px</span></span></span>;
+        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">25px</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/btn2.gif) center center no-repeat</span></span>;
+    }</span>
+    <span class="id">#nav</span> <span class="rule"><span class="attribute">a</span>:<span class="value">hover {
+        z-index: <span class="number">99</span></span></span>; <span class="comment">/* 提升锚点a标签的层叠级别 */</span>
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#000000</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/btn1.gif) <span class="number">0</span> <span class="number">0</span> no-repeat</span></span>; 
+    }</span>
+</code></pre><p>刷新下页面效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/dhl1.jpg-blogImg" alt=""></p>
+<blockquote>
+<p>零零碎碎的时间凑出来真是不容易 时间真是越来越不够用了 咕~~(╯﹏╰)b</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="导航栏结构分析">导航栏结构分析</h1><hr>
+<p>有的网页导航栏直接将a标签放在div中，比如：百度和网易等。</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Home<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>About<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之相册]]></title>
@@ -4152,48 +4401,6 @@ ul li{
     </summary>
     
       <category term="心情杂记" scheme="http://www.songchubai.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[python 中类属性和实例属性]]></title>
-    <link href="http://www.songchubai.com/2015/09/21/class/"/>
-    <id>http://www.songchubai.com/2015/09/21/class/</id>
-    <published>2015-09-21T11:52:56.000Z</published>
-    <updated>2015-09-21T12:07:29.434Z</updated>
-    <content type="html"><![CDATA[<p><em>忙开学，博客荒废了一段，现在捡起来。闲话不多说，步入正题</em></p>
-<hr>
-<p>最近正在学习Python，发现Python中类属性和实例属性容易混淆。于是写了下面这段demo</p>
-<a id="more"></a>
-<pre><code>class <span class="function"><span class="title">Stu</span><span class="params">(object)</span></span>:
-    pass
-
-def <span class="function"><span class="title">set_age</span><span class="params">(self,age)</span></span>:
-    self<span class="class">.age</span> = age
-
-s1 = <span class="function"><span class="title">Stu</span><span class="params">()</span></span>
-s2 = <span class="function"><span class="title">Stu</span><span class="params">()</span></span>
-
-from types import MethodType
-Stu<span class="class">.set_age</span> = <span class="function"><span class="title">MethodType</span><span class="params">(set_age,Stu)</span></span>
-
-s1.<span class="function"><span class="title">set_age</span><span class="params">(<span class="number">1</span>)</span></span> \\通过set_age方法，设置的类属性age的值
-s2.<span class="function"><span class="title">set_age</span><span class="params">(<span class="number">2</span>)</span></span> \\也是设置类属性age的值，并把上个值覆盖掉
-<span class="function"><span class="title">print</span><span class="params">(s1.age,s2.age)</span></span> \\由于s1和s2自身没有age属性,所以打印的是类属性age的值
-
-s1<span class="class">.age</span> = <span class="number">10</span>  \\给实例s1添加一个属性age并赋值为<span class="number">10</span>
-s2<span class="class">.age</span> = <span class="number">20</span>  \\给实例s2添加一个属性age并赋值为<span class="number">20</span>
-<span class="function"><span class="title">print</span><span class="params">(s1.age,s2.age)</span></span> \\打印的是a和s自身的age属性值，不是类age属性值
-</code></pre><p>有了这段代码，就很好分清、理解类属性和实例属性了(<em>^__^</em>) </p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p><em>忙开学，博客荒废了一段，现在捡起来。闲话不多说，步入正题</em></p>
-<hr>
-<p>最近正在学习Python，发现Python中类属性和实例属性容易混淆。于是写了下面这段demo</p>]]>
-    
-    </summary>
-    
-      <category term="Python" scheme="http://www.songchubai.com/tags/Python/"/>
     
   </entry>
   
