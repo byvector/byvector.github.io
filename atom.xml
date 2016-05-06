@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-05-06T13:40:33.933Z</updated>
+  <updated>2016-05-06T13:53:58.135Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.songchubai.com/2016/05/06/CSS%E4%B9%8B%E5%AF%BC%E8%88%AA%E6%A0%8F/"/>
     <id>http://www.songchubai.com/2016/05/06/CSS之导航栏/</id>
     <published>2016-05-05T16:00:00.000Z</published>
-    <updated>2016-05-06T13:40:33.933Z</updated>
+    <updated>2016-05-06T13:53:58.135Z</updated>
     <content type="html"><![CDATA[<h1 id="导航栏结构分析">导航栏结构分析</h1><hr>
 <p>有的网页导航栏直接将a标签放在div中，比如：百度和网易等。</p>
 <pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
@@ -238,11 +238,14 @@
         <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/btn2.gif) center center no-repeat</span></span>;
     }</span>
     <span class="id">#nav</span> <span class="rule"><span class="attribute">a</span>:<span class="value">hover {
-        z-index: <span class="number">99</span></span></span>; <span class="comment">/* 提升锚点a标签的层叠级别 */</span>
+        position: relative</span></span>; <span class="comment">/*设置容器为相对定位，是元素获得层叠属性*/</span>
+        <span class="rule"><span class="attribute">z-index</span>:<span class="value"> <span class="number">99</span></span></span>; <span class="comment">/* 提升锚点a标签的层叠级别 */</span>
         <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#000000</span></span></span>;
         <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/btn1.gif) <span class="number">0</span> <span class="number">0</span> no-repeat</span></span>; 
     }</span>
-</code></pre><p>刷新下页面效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/dhl1.jpg-blogImg" alt=""></p>
+</code></pre><p>对于包含有<code>position:relative/position:absolute</code>的定位元素，当其z-index值不是auto的时候，会创建层叠上下文。</p>
+<p>刷新下页面效果如下：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/dhl1.jpg-blogImg" alt=""></p>
 <blockquote>
 <p>零零碎碎的时间凑出来真是不容易 时间真是越来越不够用了 咕~~(╯﹏╰)b</p>
 </blockquote>
