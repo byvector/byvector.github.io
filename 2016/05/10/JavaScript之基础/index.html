@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -82,15 +82,28 @@
 
 
 
-<meta name="description" content="We are all in the gutter, but some of us are looking at the stars.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="vector's blog">
-<meta property="og:url" content="http://www.songchubai.com/page/6/index.html">
+<meta name="description" content="前一段时间一直在写CSS，以后这段时间会把百度前端学院有关JavaScript的任务写一写任务目的
+JavaScript初体验
+初步明白JavaScript的简单基本语法，如变量、函数
+初步了解JavaScript的事件是什么
+初步了解JavaScript中的DOM是什么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IFE Task One">
+<meta property="og:url" content="http://www.songchubai.com/2016/05/10/JavaScript之基础/index.html">
 <meta property="og:site_name" content="vector's blog">
-<meta property="og:description" content="We are all in the gutter, but some of us are looking at the stars.">
+<meta property="og:description" content="前一段时间一直在写CSS，以后这段时间会把百度前端学院有关JavaScript的任务写一写任务目的
+JavaScript初体验
+初步明白JavaScript的简单基本语法，如变量、函数
+初步了解JavaScript的事件是什么
+初步了解JavaScript中的DOM是什么">
+<meta property="og:updated_time" content="2016-05-10T03:37:22.377Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vector's blog">
-<meta name="twitter:description" content="We are all in the gutter, but some of us are looking at the stars.">
+<meta name="twitter:title" content="IFE Task One">
+<meta name="twitter:description" content="前一段时间一直在写CSS，以后这段时间会把百度前端学院有关JavaScript的任务写一写任务目的
+JavaScript初体验
+初步明白JavaScript的简单基本语法，如变量、函数
+初步了解JavaScript的事件是什么
+初步了解JavaScript中的DOM是什么">
 
 
 
@@ -108,7 +121,7 @@
   };
 </script>
 
-  <title> vector's blog </title>
+  <title> IFE Task One | vector's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -129,9 +142,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -208,9 +219,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -230,10 +241,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2015/08/11/Test/" itemprop="url">
-                  Test
-                </a>
+                IFE Task One
               
             
           </h1>
@@ -245,8 +253,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-11T09:45:39+08:00" content="2015-08-11">
-              2015-08-11
+            <time itemprop="dateCreated" datetime="2016-05-10T00:00:00+08:00" content="2016-05-10">
+              2016-05-10
             </time>
           </span>
 
@@ -256,8 +264,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/08/11/Test/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/11/Test/" itemprop="commentsCount"></span>
+                <a href="/2016/05/10/JavaScript之基础/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/10/JavaScript之基础/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -280,151 +288,107 @@
       
 
       
-        
-          
-            <blockquote>
-<p>This is a test.</p>
+        <h2 id="前一段时间一直在写CSS，以后这段时间会把百度前端学院有关JavaScript的任务写一写"><em>前一段时间一直在写CSS，以后这段时间会把百度前端学院有关JavaScript的任务写一写</em></h2><h1 id="任务目的">任务目的</h1><ul>
+<li>JavaScript初体验</li>
+<li>初步明白JavaScript的简单基本语法，如变量、函数</li>
+<li>初步了解JavaScript的事件是什么</li>
+<li>初步了解JavaScript中的DOM是什么<a id="more"></a>
+</li>
+</ul>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>参考以下示例代码，补充其中的JavaScript功能，完成一个JavaScript代码的编写</li>
+<li>本任务完成的功能为：用户可以在输入框中输入任何内容，点击“确认填写”按钮后，用户输入的内容会显示在“您输入的值是”文字的右边</li>
+</ul>
+<h1 id="最终代码">最终代码</h1><pre><code><span class="tag">&lt;<span class="title">label</span>&gt;</span>请输入北京今天空气质量：<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"aqi-input"</span> <span class="attribute">type</span>=<span class="value">"text"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"button"</span>&gt;</span>确认填写<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span>&gt;</span>您输入的值是：<span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"aqi-display"</span>&gt;</span>尚无录入<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+  (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+      <span class="comment">/*    
+      在注释下方写下代码
+      给按钮button绑定一个点击事件
+      在事件处理函数中
+      获取aqi-input输入的值，并显示在aqi-display中
+      */</span>
+      <span class="keyword">var</span> $ = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>{
+        <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);
+      }
+      <span class="keyword">var</span> handler = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="keyword">var</span> num = <span class="built_in">parseInt</span>($(<span class="string">"aqi-input"</span>).value)
+        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(num) &amp;&amp; num &gt;= <span class="number">0</span> &amp;&amp; num &lt;= <span class="number">500</span>) {
+          $(<span class="string">"aqi-display"</span>).innerHTML = $(<span class="string">"aqi-input"</span>).value;
+        }<span class="keyword">else</span>{
+          $(<span class="string">"aqi-display"</span>).innerHTML = <span class="string">"请输入范围为0-500的效数字"</span>;
+        }
+      }
+      $(<span class="string">"button"</span>).addEventListener(<span class="string">"click"</span>,handler,<span class="literal">false</span>);
+
+  })();
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><blockquote>
+<p>第一个任务还是很哪里不会点哪里的。</p>
 </blockquote>
-
-          
-        
+<h1 id="任务目的-1">任务目的</h1><ul>
+<li>在上一任务基础上继续JavaScript的体验</li>
+<li>学习JavaScript中的if判断语法，for循环语法</li>
+<li>学习JavaScript中的数组对象</li>
+<li>学习如何读取、处理数据，并动态创建、修改DOM中的内容</li>
+</ul>
+<h1 id="任务描述-1">任务描述</h1><ul>
+<li>参考以下示例代码，页面加载后，将提供的空气质量数据数组，按照某种逻辑（比如空气质量大于60）进行过滤筛选，最后将符合条件的数据按照一定的格式要求显示在网页上</li>
+</ul>
+<h1 id="最终代码-1">最终代码</h1>
       
     </div>
     
     <div>
       
+        
+      
     </div>
 
     <div>
+      
+        
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/08/11/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-11T09:04:40+08:00" content="2015-08-11">
-              2015-08-11
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/08/11/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/11/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html">Writing</a><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/11/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/07/CSS之清除浮动/" rel="next" title="CSS学习笔记之清除浮动">
+                <i class="fa fa-chevron-left"></i> CSS学习笔记之清除浮动
+              </a>
+            
           </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -432,6 +396,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/10/JavaScript之基础/"
+           data-title="IFE Task One" data-url="http://www.songchubai.com/2016/05/10/JavaScript之基础/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -451,8 +423,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
@@ -540,6 +521,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前一段时间一直在写CSS，以后这段时间会把百度前端学院有关JavaScript的任务写一写"><span class="nav-number">1.</span> <span class="nav-text">前一段时间一直在写CSS，以后这段时间会把百度前端学院有关JavaScript的任务写一写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务目的"><span class="nav-number"></span> <span class="nav-text">任务目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务描述"><span class="nav-number"></span> <span class="nav-text">任务描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终代码"><span class="nav-number"></span> <span class="nav-text">最终代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务目的-1"><span class="nav-number"></span> <span class="nav-text">任务目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务描述-1"><span class="nav-number"></span> <span class="nav-text">任务描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终代码-1"><span class="nav-number"></span> <span class="nav-text">最终代码</span></a></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -643,6 +635,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
