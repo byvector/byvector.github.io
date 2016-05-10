@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-05-10T03:39:23.380Z</updated>
+  <updated>2016-05-10T03:42:12.846Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,20 +19,23 @@
     <link href="http://www.songchubai.com/2016/05/10/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%80/"/>
     <id>http://www.songchubai.com/2016/05/10/JavaScript之基础/</id>
     <published>2016-05-09T16:00:00.000Z</published>
-    <updated>2016-05-10T03:39:23.380Z</updated>
-    <content type="html"><![CDATA[<h2 id="前一段时间一直在写_CSS，以后这段时间会把百度前端学院有关_JavaScript_的任务写一写"><em>前一段时间一直在写 CSS，以后这段时间会把百度前端学院有关 JavaScript 的任务写一写</em></h2><h1 id="任务目的">任务目的</h1><hr>
-<ul>
+    <updated>2016-05-10T03:42:12.846Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>前一段时间一直在写 CSS，以后这段时间会把百度前端学院有关 JavaScript 的任务写一写</p>
+</blockquote>
+<h1 id="任务一">任务一</h1><hr>
+<h2 id="任务目的">任务目的</h2><ul>
 <li>JavaScript初体验</li>
 <li>初步明白JavaScript的简单基本语法，如变量、函数</li>
 <li>初步了解JavaScript的事件是什么</li>
 <li>初步了解JavaScript中的DOM是什么<a id="more"></a>
 </li>
 </ul>
-<h1 id="任务描述">任务描述</h1><ul>
+<h2 id="任务描述">任务描述</h2><ul>
 <li>参考以下示例代码，补充其中的JavaScript功能，完成一个JavaScript代码的编写</li>
 <li>本任务完成的功能为：用户可以在输入框中输入任何内容，点击“确认填写”按钮后，用户输入的内容会显示在“您输入的值是”文字的右边</li>
 </ul>
-<h1 id="最终代码">最终代码</h1><pre><code><span class="tag">&lt;<span class="title">label</span>&gt;</span>请输入北京今天空气质量：<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"aqi-input"</span> <span class="attribute">type</span>=<span class="value">"text"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+<h2 id="最终代码">最终代码</h2><pre><code><span class="tag">&lt;<span class="title">label</span>&gt;</span>请输入北京今天空气质量：<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"aqi-input"</span> <span class="attribute">type</span>=<span class="value">"text"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span>
 <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"button"</span>&gt;</span>确认填写<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
 <span class="tag">&lt;<span class="title">div</span>&gt;</span>您输入的值是：<span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"aqi-display"</span>&gt;</span>尚无录入<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
@@ -61,20 +64,23 @@
 </code></pre><blockquote>
 <p>第一个任务还是很哪里不会点哪里的。</p>
 </blockquote>
-<h1 id="任务目的-1">任务目的</h1><hr>
-<ul>
+<h1 id="任务二">任务二</h1><hr>
+<h2 id="任务目的-1">任务目的</h2><ul>
 <li>在上一任务基础上继续JavaScript的体验</li>
 <li>学习JavaScript中的if判断语法，for循环语法</li>
 <li>学习JavaScript中的数组对象</li>
 <li>学习如何读取、处理数据，并动态创建、修改DOM中的内容</li>
 </ul>
-<h1 id="任务描述-1">任务描述</h1><ul>
+<h2 id="任务描述-1">任务描述</h2><ul>
 <li>参考以下示例代码，页面加载后，将提供的空气质量数据数组，按照某种逻辑（比如空气质量大于60）进行过滤筛选，最后将符合条件的数据按照一定的格式要求显示在网页上</li>
 </ul>
-<h1 id="最终代码-1">最终代码</h1>]]></content>
+<h2 id="最终代码-1">最终代码</h2>]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="前一段时间一直在写_CSS，以后这段时间会把百度前端学院有关_JavaScript_的任务写一写"><em>前一段时间一直在写 CSS，以后这段时间会把百度前端学院有关 JavaScript 的任务写一写</em></h2><h1 id="任务目的">任务目的</h1><hr>
-<ul>
+    <![CDATA[<blockquote>
+<p>前一段时间一直在写 CSS，以后这段时间会把百度前端学院有关 JavaScript 的任务写一写</p>
+</blockquote>
+<h1 id="任务一">任务一</h1><hr>
+<h2 id="任务目的">任务目的</h2><ul>
 <li>JavaScript初体验</li>
 <li>初步明白JavaScript的简单基本语法，如变量、函数</li>
 <li>初步了解JavaScript的事件是什么</li>
