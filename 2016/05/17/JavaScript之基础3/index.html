@@ -98,7 +98,7 @@
 学习事件代理机制
 学习简单的表单验证功能
 学习外部加载JavaScript文件">
-<meta property="og:updated_time" content="2016-05-17T12:07:18.998Z">
+<meta property="og:updated_time" content="2016-05-17T13:39:03.870Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IFE Task 03">
 <meta name="twitter:description" content="任务目的
@@ -334,7 +334,73 @@
   <span class="tag">&lt;/<span class="title">table</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">body</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">html</span>&gt;</span>
-</code></pre><h2 id="js">js</h2>
+</code></pre><h2 id="js">js</h2><pre><code><span class="comment">/**
+ + aqiData，存储用户输入的空气指数数据
+ + 示例格式：
+ + aqiData = {
+ +    "北京": 90,
+ +    "上海": 40
+ + };
+ */</span>
+ var $ = <span class="function"><span class="keyword">function</span><span class="params">(id)</span>{</span>
+  return document.getElementById<span class="params">(id)</span>;
+ }
+var aqiData = {};
+<span class="comment">/**
+ + 从用户输入中获取数据，向aqiData中增加一条数据
+ + 然后渲染aqi-list列表，增加新增的数据
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">addAqiData</span><span class="params">()</span> {</span>
+  var city = $<span class="params">(<span class="string">"aqi-city-input"</span>)</span>.value.trim<span class="params">()</span>;
+  var num = $<span class="params">(<span class="string">"aqi-value-input"</span>)</span>.value.trim<span class="params">()</span>;
+  <span class="keyword">if</span><span class="params">(!city.match<span class="params">(/^[A-Za-z\u4E00-\u9FA5]+$/)</span>)</span>{
+    alert<span class="params">(<span class="string">"城市名必须为中英文字符"</span>)</span>;
+    return;
+  }
+  <span class="keyword">if</span><span class="params">(!num.match<span class="params">(/^[<span class="number">0</span>-<span class="number">9</span>]*$/)</span>)</span>{
+    alert<span class="params">(<span class="string">"空气质量指数必须为整数"</span>)</span>;
+    return;
+  }
+  aqiData[city] = num;
+}
+<span class="comment">/**
+ + 渲染aqi-table表格
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">renderAqiList</span><span class="params">()</span> {</span>
+  var items = <span class="string">"&lt;tr&gt;&lt;td&gt;城市&lt;/td&gt;&lt;td&gt;空气质量&lt;/td&gt;&lt;td&gt;操作&lt;/td&gt;&lt;/tr&gt;"</span>;
+  <span class="keyword">for</span><span class="params">(value in aqiData)</span>{
+    items += <span class="string">"&lt;tr&gt;&lt;td&gt;"</span> + value + <span class="string">"&lt;/td&gt;&lt;td&gt;"</span> + aqiData[value] 
+    - <span class="string">"&lt;/td&gt;&lt;td&gt;"</span> + <span class="string">"&lt;button onclick='delBtnHandle(\""</span> +value+<span class="string">"\")'&gt;删除&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;"</span>;
+  }
+  $<span class="params">(<span class="string">"aqi-table"</span>)</span>.innerHTML = items;
+}
+<span class="comment">/**
+ + 点击add-btn时的处理逻辑
+ + 获取用户输入，更新数据，并进行页面呈现的更新
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">addBtnHandle</span><span class="params">()</span> {</span>
+  addAqiData<span class="params">()</span>;
+  renderAqiList<span class="params">()</span>;
+}
+<span class="comment">/**
+ + 点击各个删除按钮的时候的处理逻辑
+ + 获取哪个城市数据被删，删除数据，更新表格显示
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">delBtnHandle</span><span class="params">(city)</span> {</span>
+  <span class="comment">// do sth.</span>
+  delete aqiData[city];
+  renderAqiList<span class="params">()</span>;
+}
+<span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span> {</span>
+  <span class="comment">// 在这下面给add-btn绑定一个点击事件，点击时触发addBtnHandle函数</span>
+  $<span class="params">(<span class="string">"add-btn"</span>)</span>.addEventListener<span class="params">(<span class="string">"click"</span>,addBtnHandle,<span class="literal">false</span>)</span>;
+  <span class="comment">// 想办法给aqi-table中的所有删除按钮绑定事件，触发delBtnHandle函数</span>
+}
+init<span class="params">()</span>;
+</code></pre><blockquote>
+<p>搞定</p>
+</blockquote>
+
       
     </div>
     
