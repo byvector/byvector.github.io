@@ -281,8 +281,7 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>最近课题要结项，自由支配的时间越发宝贵了</p>
 </blockquote>
 <h1 id="任务目的">任务目的</h1><hr>
@@ -290,81 +289,12 @@
 <li>在上一任务基础上继续JavaScript的体验</li>
 <li>接触一下JavaScript中的高级选择器</li>
 <li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
-<li>学习简单的字符串处理操作</li>
-</ul>
-<h1 id="任务描述">任务描述</h1><ul>
-<li>参考以下示例代码，读取页面上已有的source列表，从中提取出城市以及对应的空气质量</li>
-<li>将数据按照某种顺序排序后，在resort列表中按照顺序显示出来</li>
-</ul>
-<h1 id="任务最终代码">任务最终代码</h1><pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> $ = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>{
-      <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);
-    }
-    <span class="comment">/**
-     + getData方法
-     + 读取id为source的列表，获取其中城市名字及城市对应的空气质量
-     + 返回一个数组，格式见函数中示例
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>{
-      <span class="comment">/*
-      coding here
-      */</span>
-      <span class="comment">/*
-      data = [
-        ["北京", 90],
-        ["北京", 90]
-        ……
-      ]
-      */</span>
-      <span class="keyword">var</span> data = [];
-      <span class="keyword">var</span> li = $(<span class="string">'source'</span>).getElementsByTagName(<span class="string">'li'</span>);
-      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;li.length; i++){
-        <span class="keyword">var</span> city = li[i].innerHTML.split(<span class="string">"空气质量："</span>)[<span class="number">0</span>];
-
-        <span class="keyword">var</span> num = li[i].getElementsByTagName(<span class="string">'b'</span>)[<span class="number">0</span>].innerHTML;
-        <span class="comment">//var num = Number(li.children[0].innerHTML);</span>
-
-        data[data.length] = [city,num];
-        <span class="comment">//data.push([city,num]);</span>
-      }
-      <span class="built_in">console</span>.log(data.length);
-      <span class="keyword">return</span> data;
-    }
-    <span class="comment">/**
-     + sortAqiData
-     + 按空气质量对data进行从小到大的排序
-     + 返回一个排序后的数组
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">sortAqiData</span>(<span class="params">data</span>) </span>{
-      data.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>{
-        <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];
-      });
-      <span class="keyword">return</span> data;
-    }
-    <span class="comment">/**
-     + render
-     + 将排好序的城市及空气质量指数，输出显示到id位resort的列表中
-     + 格式见ul中的注释的部分
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">data</span>) </span>{
-      <span class="keyword">var</span> chineseNum = [<span class="string">"零"</span>, <span class="string">"一"</span>, <span class="string">"二"</span>, <span class="string">"三"</span>, <span class="string">"四"</span>, <span class="string">"五"</span>, <span class="string">"六"</span>, <span class="string">"七"</span>, <span class="string">"八"</span>, <span class="string">"九"</span>];
-      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;data.length; i++){
-        $(<span class="string">"resort"</span>).innerHTML += <span class="string">"&lt;li&gt;第"</span> + chineseNum[i+<span class="number">1</span>] +　<span class="string">"名："</span> + data[i][<span class="number">0</span>] + <span class="string">"空气质量：&lt;b&gt;"</span> + data[i][<span class="number">1</span>] + <span class="string">"&lt;/b&gt;&lt;/li&gt;"</span>;
-      }
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">btnHandle</span>(<span class="params"></span>) </span>{
-      <span class="keyword">var</span> aqiData = getData();
-      aqiData = sortAqiData(aqiData);
-      render(aqiData);
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>{
-      <span class="comment">// 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数</span>
-      $(<span class="string">"sort-btn"</span>).addEventListener(<span class="string">"click"</span>,btnHandle,<span class="literal">false</span>);
-    }
-    init();
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-          
+<li>学习简单的字符串处理操作
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/17/JavaScript之基础2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
