@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.songchubai.com/"/>
-  <updated>2016-05-17T13:39:03.870Z</updated>
+  <updated>2016-05-17T13:44:56.560Z</updated>
   <id>http://www.songchubai.com/</id>
   
   <author>
@@ -19,8 +19,9 @@
     <link href="http://www.songchubai.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%803/"/>
     <id>http://www.songchubai.com/2016/05/17/JavaScript之基础3/</id>
     <published>2016-05-16T16:00:00.000Z</published>
-    <updated>2016-05-17T13:39:03.870Z</updated>
-    <content type="html"><![CDATA[<h1 id="任务目的">任务目的</h1><ul>
+    <updated>2016-05-17T13:44:56.560Z</updated>
+    <content type="html"><![CDATA[<h1 id="任务目的">任务目的</h1><hr>
+<ul>
 <li>在上一任务基础上继续JavaScript的体验</li>
 <li>深入学习JavaScript的事件机制及DOM操作</li>
 <li>学习事件代理机制</li>
@@ -131,7 +132,8 @@ init<span class="params">()</span>;
 </blockquote>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h1 id="任务目的">任务目的</h1><ul>
+    <![CDATA[<h1 id="任务目的">任务目的</h1><hr>
+<ul>
 <li>在上一任务基础上继续JavaScript的体验</li>
 <li>深入学习JavaScript的事件机制及DOM操作</li>
 <li>学习事件代理机制</li>
@@ -149,7 +151,7 @@ init<span class="params">()</span>;
     <link href="http://www.songchubai.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%802/"/>
     <id>http://www.songchubai.com/2016/05/17/JavaScript之基础2/</id>
     <published>2016-05-16T16:00:00.000Z</published>
-    <updated>2016-05-17T03:58:02.452Z</updated>
+    <updated>2016-05-17T13:44:34.091Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>最近课题要结项，自由支配的时间越发宝贵了</p>
 </blockquote>
