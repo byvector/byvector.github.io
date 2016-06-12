@@ -3,9 +3,9 @@
   <title><![CDATA[vector's blog]]></title>
   
   <link href="/atom.xml" rel="self"/>
-  <link href="http://www.songchubai.com/"/>
+  <link href="http://blog.supce.com/"/>
   <updated>2016-05-25T03:51:07.516Z</updated>
-  <id>http://www.songchubai.com/</id>
+  <id>http://blog.supce.com/</id>
   
   <author>
     <name><![CDATA[vector]]></name>
@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[RegExp类型]]></title>
-    <link href="http://www.songchubai.com/2016/05/25/JavaScript%E4%B9%8BRegExp%E7%B1%BB%E5%9E%8B/"/>
-    <id>http://www.songchubai.com/2016/05/25/JavaScript之RegExp类型/</id>
+    <link href="http://blog.supce.com/2016/05/25/JavaScript%E4%B9%8BRegExp%E7%B1%BB%E5%9E%8B/"/>
+    <id>http://blog.supce.com/2016/05/25/JavaScript之RegExp类型/</id>
     <published>2016-05-24T16:00:00.000Z</published>
     <updated>2016-05-25T03:51:07.516Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -90,14 +90,14 @@ $(<span class="string">"test"</span>).innerHTML += <span class="string">"&lt;/br
     
     </summary>
     
-      <category term="JavaScript" scheme="http://www.songchubai.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[IFE Task 03]]></title>
-    <link href="http://www.songchubai.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%803/"/>
-    <id>http://www.songchubai.com/2016/05/17/JavaScript之基础3/</id>
+    <link href="http://blog.supce.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%803/"/>
+    <id>http://blog.supce.com/2016/05/17/JavaScript之基础3/</id>
     <published>2016-05-16T16:00:00.000Z</published>
     <updated>2016-05-18T02:36:55.056Z</updated>
     <content type="html"><![CDATA[<h1 id="任务目的">任务目的</h1><hr>
@@ -222,14 +222,14 @@ init<span class="params">()</span>;
     
     </summary>
     
-      <category term="JavaScript" scheme="http://www.songchubai.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[IFE Task 02]]></title>
-    <link href="http://www.songchubai.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%802/"/>
-    <id>http://www.songchubai.com/2016/05/17/JavaScript之基础2/</id>
+    <link href="http://blog.supce.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%802/"/>
+    <id>http://blog.supce.com/2016/05/17/JavaScript之基础2/</id>
     <published>2016-05-16T16:00:00.000Z</published>
     <updated>2016-05-17T13:44:34.091Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -328,14 +328,14 @@ init<span class="params">()</span>;
     
     </summary>
     
-      <category term="JavaScript" scheme="http://www.songchubai.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[IFE Task 01]]></title>
-    <link href="http://www.songchubai.com/2016/05/10/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%80/"/>
-    <id>http://www.songchubai.com/2016/05/10/JavaScript之基础/</id>
+    <link href="http://blog.supce.com/2016/05/10/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%80/"/>
+    <id>http://blog.supce.com/2016/05/10/JavaScript之基础/</id>
     <published>2016-05-09T16:00:00.000Z</published>
     <updated>2016-05-13T07:48:58.335Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -551,14 +551,14 @@ alert(sum)  <span class="comment">//15;</span>
     
     </summary>
     
-      <category term="JavaScript" scheme="http://www.songchubai.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之清除浮动]]></title>
-    <link href="http://www.songchubai.com/2016/05/07/CSS%E4%B9%8B%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/"/>
-    <id>http://www.songchubai.com/2016/05/07/CSS之清除浮动/</id>
+    <link href="http://blog.supce.com/2016/05/07/CSS%E4%B9%8B%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/"/>
+    <id>http://blog.supce.com/2016/05/07/CSS之清除浮动/</id>
     <published>2016-05-06T16:00:00.000Z</published>
     <updated>2016-05-07T08:43:01.458Z</updated>
     <content type="html"><![CDATA[<p><em>这次把之前的坑填上 主要探究下浮动的清除</em></p>
@@ -710,14 +710,14 @@ alert(sum)  <span class="comment">//15;</span>
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之导航栏]]></title>
-    <link href="http://www.songchubai.com/2016/05/06/CSS%E4%B9%8B%E5%AF%BC%E8%88%AA%E6%A0%8F/"/>
-    <id>http://www.songchubai.com/2016/05/06/CSS之导航栏/</id>
+    <link href="http://blog.supce.com/2016/05/06/CSS%E4%B9%8B%E5%AF%BC%E8%88%AA%E6%A0%8F/"/>
+    <id>http://blog.supce.com/2016/05/06/CSS之导航栏/</id>
     <published>2016-05-05T16:00:00.000Z</published>
     <updated>2016-05-06T13:53:58.135Z</updated>
     <content type="html"><![CDATA[<h1 id="导航栏结构分析">导航栏结构分析</h1><hr>
@@ -962,14 +962,14 @@ alert(sum)  <span class="comment">//15;</span>
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之相册]]></title>
-    <link href="http://www.songchubai.com/2016/05/05/CSS%E4%B9%8B%E7%9B%B8%E5%86%8C/"/>
-    <id>http://www.songchubai.com/2016/05/05/CSS之相册/</id>
+    <link href="http://blog.supce.com/2016/05/05/CSS%E4%B9%8B%E7%9B%B8%E5%86%8C/"/>
+    <id>http://blog.supce.com/2016/05/05/CSS之相册/</id>
     <published>2016-05-04T16:00:00.000Z</published>
     <updated>2016-05-05T03:18:11.733Z</updated>
     <content type="html"><![CDATA[<h1 id="一个简易的相册">一个简易的相册</h1><hr>
@@ -1146,14 +1146,14 @@ li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之选项卡]]></title>
-    <link href="http://www.songchubai.com/2016/05/03/CSS%E4%B9%8B%E9%80%89%E9%A1%B9%E5%8D%A1/"/>
-    <id>http://www.songchubai.com/2016/05/03/CSS之选项卡/</id>
+    <link href="http://blog.supce.com/2016/05/03/CSS%E4%B9%8B%E9%80%89%E9%A1%B9%E5%8D%A1/"/>
+    <id>http://blog.supce.com/2016/05/03/CSS之选项卡/</id>
     <published>2016-05-02T16:00:00.000Z</published>
     <updated>2016-05-03T13:07:24.593Z</updated>
     <content type="html"><![CDATA[<h1 id="网页中的选项卡">网页中的选项卡</h1><hr>
@@ -1338,14 +1338,14 @@ li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之滤镜]]></title>
-    <link href="http://www.songchubai.com/2016/05/03/CSS%E4%B9%8B%E6%BB%A4%E9%95%9C/"/>
-    <id>http://www.songchubai.com/2016/05/03/CSS之滤镜/</id>
+    <link href="http://blog.supce.com/2016/05/03/CSS%E4%B9%8B%E6%BB%A4%E9%95%9C/"/>
+    <id>http://blog.supce.com/2016/05/03/CSS之滤镜/</id>
     <published>2016-05-02T16:00:00.000Z</published>
     <updated>2016-05-03T11:03:43.434Z</updated>
     <content type="html"><![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
@@ -1472,14 +1472,14 @@ li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之表格（二）]]></title>
-    <link href="http://www.songchubai.com/2016/04/29/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(2)/"/>
-    <id>http://www.songchubai.com/2016/04/29/CSS之表格(2)/</id>
+    <link href="http://blog.supce.com/2016/04/29/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(2)/"/>
+    <id>http://blog.supce.com/2016/04/29/CSS之表格(2)/</id>
     <published>2016-04-28T16:00:00.000Z</published>
     <updated>2016-05-03T11:06:22.554Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -2005,14 +2005,14 @@ li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之表格（一）]]></title>
-    <link href="http://www.songchubai.com/2016/04/27/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(1)/"/>
-    <id>http://www.songchubai.com/2016/04/27/CSS之表格(1)/</id>
+    <link href="http://blog.supce.com/2016/04/27/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(1)/"/>
+    <id>http://blog.supce.com/2016/04/27/CSS之表格(1)/</id>
     <published>2016-04-26T16:00:00.000Z</published>
     <updated>2016-04-28T09:44:49.202Z</updated>
     <content type="html"><![CDATA[<h1 id="表格介绍">表格介绍</h1><hr>
@@ -2240,14 +2240,14 @@ li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之表单]]></title>
-    <link href="http://www.songchubai.com/2016/04/26/CSS%E4%B9%8B%E8%A1%A8%E5%8D%95/"/>
-    <id>http://www.songchubai.com/2016/04/26/CSS之表单/</id>
+    <link href="http://blog.supce.com/2016/04/26/CSS%E4%B9%8B%E8%A1%A8%E5%8D%95/"/>
+    <id>http://blog.supce.com/2016/04/26/CSS之表单/</id>
     <published>2016-04-25T16:00:00.000Z</published>
     <updated>2016-04-27T02:27:47.373Z</updated>
     <content type="html"><![CDATA[<h1 id="默认表单">默认表单</h1><hr>
@@ -2512,14 +2512,14 @@ li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之列表（二）]]></title>
-    <link href="http://www.songchubai.com/2016/04/25/CSS%E4%B9%8B%E5%88%97%E8%A1%A8(2)/"/>
-    <id>http://www.songchubai.com/2016/04/25/CSS之列表(2)/</id>
+    <link href="http://blog.supce.com/2016/04/25/CSS%E4%B9%8B%E5%88%97%E8%A1%A8(2)/"/>
+    <id>http://blog.supce.com/2016/04/25/CSS之列表(2)/</id>
     <published>2016-04-24T16:00:00.000Z</published>
     <updated>2016-04-25T13:28:56.233Z</updated>
     <content type="html"><![CDATA[<h1 id="在列表中图文嵌套">在列表中图文嵌套</h1><hr>
@@ -2646,14 +2646,14 @@ li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之列表（一）]]></title>
-    <link href="http://www.songchubai.com/2016/04/22/CSS%E4%B9%8B%E5%88%97%E8%A1%A8/"/>
-    <id>http://www.songchubai.com/2016/04/22/CSS之列表/</id>
+    <link href="http://blog.supce.com/2016/04/22/CSS%E4%B9%8B%E5%88%97%E8%A1%A8/"/>
+    <id>http://blog.supce.com/2016/04/22/CSS之列表/</id>
     <published>2016-04-21T16:00:00.000Z</published>
     <updated>2016-04-25T12:09:52.981Z</updated>
     <content type="html"><![CDATA[<h1 id="列表的种类">列表的种类</h1><hr>
@@ -3008,14 +3008,14 @@ ul li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之图片处理]]></title>
-    <link href="http://www.songchubai.com/2016/04/21/CSS%E4%B9%8B%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86/"/>
-    <id>http://www.songchubai.com/2016/04/21/CSS之图片处理/</id>
+    <link href="http://blog.supce.com/2016/04/21/CSS%E4%B9%8B%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86/"/>
+    <id>http://blog.supce.com/2016/04/21/CSS之图片处理/</id>
     <published>2016-04-20T16:00:00.000Z</published>
     <updated>2016-04-22T04:14:01.353Z</updated>
     <content type="html"><![CDATA[<p><em>今天任务多，偷点懒少写一些</em></p>
@@ -3142,14 +3142,14 @@ ul li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS基础之文本润色（三）]]></title>
-    <link href="http://www.songchubai.com/2016/04/20/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(3)/"/>
-    <id>http://www.songchubai.com/2016/04/20/CSS之文本润色(3)/</id>
+    <link href="http://blog.supce.com/2016/04/20/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(3)/"/>
+    <id>http://blog.supce.com/2016/04/20/CSS之文本润色(3)/</id>
     <published>2016-04-19T16:00:00.000Z</published>
     <updated>2016-04-21T01:11:58.588Z</updated>
     <content type="html"><![CDATA[<p><em>这次就结合上两次的学习写个小例子</em></p>
@@ -3451,14 +3451,14 @@ ul li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之文本润色（二）]]></title>
-    <link href="http://www.songchubai.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(2)/"/>
-    <id>http://www.songchubai.com/2016/04/19/CSS之文本润色(2)/</id>
+    <link href="http://blog.supce.com/2016/04/19/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(2)/"/>
+    <id>http://blog.supce.com/2016/04/19/CSS之文本润色(2)/</id>
     <published>2016-04-18T16:00:00.000Z</published>
     <updated>2016-04-19T14:00:25.194Z</updated>
     <content type="html"><![CDATA[<h1 id="其他特殊效果">其他特殊效果</h1><hr>
@@ -3543,14 +3543,14 @@ ul li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之文本润色（一）]]></title>
-    <link href="http://www.songchubai.com/2016/04/18/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(1)/"/>
-    <id>http://www.songchubai.com/2016/04/18/CSS之文本润色(1)/</id>
+    <link href="http://blog.supce.com/2016/04/18/CSS%E4%B9%8B%E6%96%87%E6%9C%AC%E6%B6%A6%E8%89%B2(1)/"/>
+    <id>http://blog.supce.com/2016/04/18/CSS之文本润色(1)/</id>
     <published>2016-04-17T16:00:00.000Z</published>
     <updated>2016-04-26T01:42:38.778Z</updated>
     <content type="html"><![CDATA[<p><em>这里所说的文本润色并不是将某些语句修改下使其变的更有文采，而是使用CSS修饰页面中的文本，改善文本使其在视觉上更加美观</em></p>
@@ -3754,14 +3754,14 @@ ul li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之三列页面布局（二）]]></title>
-    <link href="http://www.songchubai.com/2016/04/17/CSS%E4%B9%8B%E4%B8%89%E5%88%97%E5%B8%83%E5%B1%80(2)/"/>
-    <id>http://www.songchubai.com/2016/04/17/CSS之三列布局(2)/</id>
+    <link href="http://blog.supce.com/2016/04/17/CSS%E4%B9%8B%E4%B8%89%E5%88%97%E5%B8%83%E5%B1%80(2)/"/>
+    <id>http://blog.supce.com/2016/04/17/CSS之三列布局(2)/</id>
     <published>2016-04-16T16:00:00.000Z</published>
     <updated>2016-04-19T13:56:57.335Z</updated>
     <content type="html"><![CDATA[<p>接着上次，继续学习三列页面布局结构。</p>
@@ -3804,7 +3804,7 @@ ul li{
     ……
 </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
 </code></pre><p>一个三列自适应的页面结构就这样轻松实现<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl7.jpg-blogImg" alt=""></p>
-<h1 id="二、三列等高">二、三列等高</h1><p>三列等高的原理和<a href="http://www.songchubai.com/2016/04/14/CSS%E4%B9%8B%E4%B8%A4%E5%88%97%E5%B8%83%E5%B1%80(2">两列等高</a>/)的原理几乎相同，所以原理性的东西不多做介绍，只是再实现一次加深下印象。</p>
+<h1 id="二、三列等高">二、三列等高</h1><p>三列等高的原理和<a href="http://www.songchubai.com/2016/04/14/CSS%E4%B9%8B%E4%B8%A4%E5%88%97%E5%B8%83%E5%B1%80(2" target="_blank" rel="external">两列等高</a>/)的原理几乎相同，所以原理性的东西不多做介绍，只是再实现一次加深下印象。</p>
 <h2 id="1、背景模拟">1、背景模拟</h2><p>使用这种方法必须保证三列的宽度固定，而且三列的位置关系因为背景图不能随意的更换。HTML代码如下：</p>
 <pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"header"</span>&gt;</span>头部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container"</span>&gt;</span>
@@ -4102,14 +4102,14 @@ ul li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CSS学习笔记之三列页面布局（一）]]></title>
-    <link href="http://www.songchubai.com/2016/04/16/CSS%E4%B9%8B%E4%B8%89%E5%88%97%E5%B8%83%E5%B1%80(1)/"/>
-    <id>http://www.songchubai.com/2016/04/16/CSS之三列布局(1)/</id>
+    <link href="http://blog.supce.com/2016/04/16/CSS%E4%B9%8B%E4%B8%89%E5%88%97%E5%B8%83%E5%B1%80(1)/"/>
+    <id>http://blog.supce.com/2016/04/16/CSS之三列布局(1)/</id>
     <published>2016-04-15T16:00:00.000Z</published>
     <updated>2016-04-19T13:57:02.718Z</updated>
     <content type="html"><![CDATA[<p><em>昨天做汇报没有抽出时间来更新，由于 gitcafe 被收购，又把 repository 做了迁移，正好换了一个主题，把原主题稍微修改了一下。感觉心情舒畅了好多 O(∩_∩)O哈！</em></p>
@@ -4373,7 +4373,7 @@ ul li{
     
     </summary>
     
-      <category term="CSS" scheme="http://www.songchubai.com/tags/CSS/"/>
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
