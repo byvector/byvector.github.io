@@ -384,11 +384,26 @@
 
       
         
-          
-            <p><em>再把JavaScript中对象的创建与继承复习下</em></p>
-<h2 id="#对象的创建">#对象的创建</h2><p>##工厂模式</p>
-<h2 id="#对象的继承">#对象的继承</h2>
-          
+          <p><em>再把JavaScript中对象的创建与继承复习下</em></p>
+<h1 id="对象的创建">对象的创建</h1><hr>
+<h2 id="工厂模式">工厂模式</h2><pre><code>console.log(<span class="string">"-----工厂模式-----"</span>);
+    function CreatePerson(name,age){
+        var o = new Object();
+        o.name = name;
+        o.age = age;
+        o.sayName = function(){
+            return name;
+        };
+        return o;
+    }
+var <span class="keyword">person</span> = CreatePerson(<span class="string">"Nico"</span>,28);
+console.log(<span class="keyword">person</span>.sayName());
+</code></pre><p>工厂模式虽然解决了对象的创建问题，但是并没有解决对象的识别问题。<br><code>alert(person.constructor);</code> 得到的并不是想要的结果。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/13/JavaScript之基础5/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
