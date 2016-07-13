@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-05-25T03:51:07.516Z</updated>
+  <updated>2016-07-13T01:44:49.151Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[我胡汉三又回来了]]></title>
+    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
+    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
+    <published>2016-07-12T16:00:00.000Z</published>
+    <updated>2016-07-13T01:44:49.151Z</updated>
+    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]>
+    </summary>
+    
+      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[对象的创建与继承]]></title>
+    <link href="http://blog.supce.com/2016/07/13/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%805/"/>
+    <id>http://blog.supce.com/2016/07/13/JavaScript之基础5/</id>
+    <published>2016-07-12T16:00:00.000Z</published>
+    <updated>2016-07-13T01:49:09.385Z</updated>
+    <content type="html"><![CDATA[<p><em>再把JavaScript中对象的创建与继承复习下</em></p>
+<h2 id="#对象的创建">#对象的创建</h2><p>##工厂模式</p>
+<h2 id="#对象的继承">#对象的继承</h2>]]></content>
+    <summary type="html">
+    <![CDATA[<p><em>再把JavaScript中对象的创建与继承复习下</em></p>
+<h2 id="#对象的创建">#对象的创建</h2><p>##工厂模式</p>
+<h2 id="#对象的继承">#对象的继承</h2>]]>
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[RegExp类型]]></title>
@@ -87,6 +123,112 @@ $(<span class="string">"test"</span>).innerHTML += <span class="string">"&lt;/br
 <ul>
 <li>字面量<br><code>var p = /pattern/attributes;</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = /[bc]at/i;</code></li>
 <li>RegExp构造函数<br><code>var p = new RegExp(pattern,attributes);</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = new RegExp(&quot;[bc]at&quot;,&quot;i&quot;);</code>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[IFE Task 02]]></title>
+    <link href="http://blog.supce.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%802/"/>
+    <id>http://blog.supce.com/2016/05/17/JavaScript之基础2/</id>
+    <published>2016-05-16T16:00:00.000Z</published>
+    <updated>2016-05-17T13:44:34.091Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>最近课题要结项，自由支配的时间越发宝贵了</p>
+</blockquote>
+<h1 id="任务目的">任务目的</h1><hr>
+<ul>
+<li>在上一任务基础上继续JavaScript的体验</li>
+<li>接触一下JavaScript中的高级选择器</li>
+<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
+<li>学习简单的字符串处理操作<a id="more"></a>
+</li>
+</ul>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>参考以下示例代码，读取页面上已有的source列表，从中提取出城市以及对应的空气质量</li>
+<li>将数据按照某种顺序排序后，在resort列表中按照顺序显示出来</li>
+</ul>
+<h1 id="任务最终代码">任务最终代码</h1><pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> $ = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>{
+      <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);
+    }
+    <span class="comment">/**
+     + getData方法
+     + 读取id为source的列表，获取其中城市名字及城市对应的空气质量
+     + 返回一个数组，格式见函数中示例
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>{
+      <span class="comment">/*
+      coding here
+      */</span>
+      <span class="comment">/*
+      data = [
+        ["北京", 90],
+        ["北京", 90]
+        ……
+      ]
+      */</span>
+      <span class="keyword">var</span> data = [];
+      <span class="keyword">var</span> li = $(<span class="string">'source'</span>).getElementsByTagName(<span class="string">'li'</span>);
+      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;li.length; i++){
+        <span class="keyword">var</span> city = li[i].innerHTML.split(<span class="string">"空气质量："</span>)[<span class="number">0</span>];
+
+        <span class="keyword">var</span> num = li[i].getElementsByTagName(<span class="string">'b'</span>)[<span class="number">0</span>].innerHTML;
+        <span class="comment">//var num = Number(li.children[0].innerHTML);</span>
+
+        data[data.length] = [city,num];
+        <span class="comment">//data.push([city,num]);</span>
+      }
+      <span class="built_in">console</span>.log(data.length);
+      <span class="keyword">return</span> data;
+    }
+    <span class="comment">/**
+     + sortAqiData
+     + 按空气质量对data进行从小到大的排序
+     + 返回一个排序后的数组
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">sortAqiData</span>(<span class="params">data</span>) </span>{
+      data.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>{
+        <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];
+      });
+      <span class="keyword">return</span> data;
+    }
+    <span class="comment">/**
+     + render
+     + 将排好序的城市及空气质量指数，输出显示到id位resort的列表中
+     + 格式见ul中的注释的部分
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">data</span>) </span>{
+      <span class="keyword">var</span> chineseNum = [<span class="string">"零"</span>, <span class="string">"一"</span>, <span class="string">"二"</span>, <span class="string">"三"</span>, <span class="string">"四"</span>, <span class="string">"五"</span>, <span class="string">"六"</span>, <span class="string">"七"</span>, <span class="string">"八"</span>, <span class="string">"九"</span>];
+      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;data.length; i++){
+        $(<span class="string">"resort"</span>).innerHTML += <span class="string">"&lt;li&gt;第"</span> + chineseNum[i+<span class="number">1</span>] +　<span class="string">"名："</span> + data[i][<span class="number">0</span>] + <span class="string">"空气质量：&lt;b&gt;"</span> + data[i][<span class="number">1</span>] + <span class="string">"&lt;/b&gt;&lt;/li&gt;"</span>;
+      }
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">btnHandle</span>(<span class="params"></span>) </span>{
+      <span class="keyword">var</span> aqiData = getData();
+      aqiData = sortAqiData(aqiData);
+      render(aqiData);
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>{
+      <span class="comment">// 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数</span>
+      $(<span class="string">"sort-btn"</span>).addEventListener(<span class="string">"click"</span>,btnHandle,<span class="literal">false</span>);
+    }
+    init();
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>最近课题要结项，自由支配的时间越发宝贵了</p>
+</blockquote>
+<h1 id="任务目的">任务目的</h1><hr>
+<ul>
+<li>在上一任务基础上继续JavaScript的体验</li>
+<li>接触一下JavaScript中的高级选择器</li>
+<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
+<li>学习简单的字符串处理操作]]>
     
     </summary>
     
@@ -219,112 +361,6 @@ init<span class="params">()</span>;
 <li>学习事件代理机制</li>
 <li>学习简单的表单验证功能</li>
 <li>学习外部加载JavaScript文件]]>
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[IFE Task 02]]></title>
-    <link href="http://blog.supce.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%802/"/>
-    <id>http://blog.supce.com/2016/05/17/JavaScript之基础2/</id>
-    <published>2016-05-16T16:00:00.000Z</published>
-    <updated>2016-05-17T13:44:34.091Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>最近课题要结项，自由支配的时间越发宝贵了</p>
-</blockquote>
-<h1 id="任务目的">任务目的</h1><hr>
-<ul>
-<li>在上一任务基础上继续JavaScript的体验</li>
-<li>接触一下JavaScript中的高级选择器</li>
-<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
-<li>学习简单的字符串处理操作<a id="more"></a>
-</li>
-</ul>
-<h1 id="任务描述">任务描述</h1><ul>
-<li>参考以下示例代码，读取页面上已有的source列表，从中提取出城市以及对应的空气质量</li>
-<li>将数据按照某种顺序排序后，在resort列表中按照顺序显示出来</li>
-</ul>
-<h1 id="任务最终代码">任务最终代码</h1><pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> $ = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>{
-      <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);
-    }
-    <span class="comment">/**
-     + getData方法
-     + 读取id为source的列表，获取其中城市名字及城市对应的空气质量
-     + 返回一个数组，格式见函数中示例
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>{
-      <span class="comment">/*
-      coding here
-      */</span>
-      <span class="comment">/*
-      data = [
-        ["北京", 90],
-        ["北京", 90]
-        ……
-      ]
-      */</span>
-      <span class="keyword">var</span> data = [];
-      <span class="keyword">var</span> li = $(<span class="string">'source'</span>).getElementsByTagName(<span class="string">'li'</span>);
-      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;li.length; i++){
-        <span class="keyword">var</span> city = li[i].innerHTML.split(<span class="string">"空气质量："</span>)[<span class="number">0</span>];
-
-        <span class="keyword">var</span> num = li[i].getElementsByTagName(<span class="string">'b'</span>)[<span class="number">0</span>].innerHTML;
-        <span class="comment">//var num = Number(li.children[0].innerHTML);</span>
-
-        data[data.length] = [city,num];
-        <span class="comment">//data.push([city,num]);</span>
-      }
-      <span class="built_in">console</span>.log(data.length);
-      <span class="keyword">return</span> data;
-    }
-    <span class="comment">/**
-     + sortAqiData
-     + 按空气质量对data进行从小到大的排序
-     + 返回一个排序后的数组
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">sortAqiData</span>(<span class="params">data</span>) </span>{
-      data.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>{
-        <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];
-      });
-      <span class="keyword">return</span> data;
-    }
-    <span class="comment">/**
-     + render
-     + 将排好序的城市及空气质量指数，输出显示到id位resort的列表中
-     + 格式见ul中的注释的部分
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">data</span>) </span>{
-      <span class="keyword">var</span> chineseNum = [<span class="string">"零"</span>, <span class="string">"一"</span>, <span class="string">"二"</span>, <span class="string">"三"</span>, <span class="string">"四"</span>, <span class="string">"五"</span>, <span class="string">"六"</span>, <span class="string">"七"</span>, <span class="string">"八"</span>, <span class="string">"九"</span>];
-      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;data.length; i++){
-        $(<span class="string">"resort"</span>).innerHTML += <span class="string">"&lt;li&gt;第"</span> + chineseNum[i+<span class="number">1</span>] +　<span class="string">"名："</span> + data[i][<span class="number">0</span>] + <span class="string">"空气质量：&lt;b&gt;"</span> + data[i][<span class="number">1</span>] + <span class="string">"&lt;/b&gt;&lt;/li&gt;"</span>;
-      }
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">btnHandle</span>(<span class="params"></span>) </span>{
-      <span class="keyword">var</span> aqiData = getData();
-      aqiData = sortAqiData(aqiData);
-      render(aqiData);
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>{
-      <span class="comment">// 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数</span>
-      $(<span class="string">"sort-btn"</span>).addEventListener(<span class="string">"click"</span>,btnHandle,<span class="literal">false</span>);
-    }
-    init();
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>最近课题要结项，自由支配的时间越发宝贵了</p>
-</blockquote>
-<h1 id="任务目的">任务目的</h1><hr>
-<ul>
-<li>在上一任务基础上继续JavaScript的体验</li>
-<li>接触一下JavaScript中的高级选择器</li>
-<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
-<li>学习简单的字符串处理操作]]>
     
     </summary>
     
@@ -1151,6 +1187,140 @@ li{
   </entry>
   
   <entry>
+    <title><![CDATA[CSS学习笔记之滤镜]]></title>
+    <link href="http://blog.supce.com/2016/05/03/CSS%E4%B9%8B%E6%BB%A4%E9%95%9C/"/>
+    <id>http://blog.supce.com/2016/05/03/CSS之滤镜/</id>
+    <published>2016-05-02T16:00:00.000Z</published>
+    <updated>2016-05-03T11:03:43.434Z</updated>
+    <content type="html"><![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
+<p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
+<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
+<p>先是HTML代码：</p>
+<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
+&lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
+</code></pre><a id="more"></a>
+<p>然后是CSS的测试代码：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">img</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">400</span>x</span></span>;
+    }</span>
+    <span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> gray</span></span>;  <span class="comment">/*IE*/</span>
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj.jpg-blogImg" alt=""></p>
+<h2 id="高斯模糊">高斯模糊</h2><p>高斯模糊也就是我没带眼镜时的效果，用blur实现 取值范围为0-N px，其中0为无效果</p>
+<p>测试代码：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">blur</span>(<span class="number">2px</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
+    }</span> 
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj1.jpg-blogImg" alt=""></p>
+<h2 id="Speia滤镜">Speia滤镜</h2><p>Speia滤镜是对图片或元素整体进行棕褐色处理，就是老照片那种效果 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
+<p>测试代码：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
+    }</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj2.jpg-blogImg" alt=""></p>
+<h2 id="饱和度滤镜">饱和度滤镜</h2><p>看到饱和度让我想起了冷屏和暖屏之间的战争以及到底用不用三星A屏 可以利用saturate实现 取值范围&gt;=0的数字或百分数，1为无效果，0为灰度图</p>
+<p>测试代码:</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
+    }</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj3.jpg-blogImg" alt=""></p>
+<h2 id="反色滤镜">反色滤镜</h2><p>反色滤镜使用invert来实现 就是婴儿照那种胶片的感觉(好像把年龄暴漏了) 取值范围0~1或0~100%，0为无效果，1或100%表示最大效果</p>
+<p>测试代码：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
+    }</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj4.jpg-blogImg" alt=""></p>
+<h2 id="对比度滤镜">对比度滤镜</h2><p>对比度和亮度一般在显示器都可以调试，CSS3中对比度使用contrast 取值范围&gt;=0的数字或百分数，1为无效果</p>
+<p>测试代码：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
+    }</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj5.jpg-blogImg" alt=""></p>
+<h2 id="亮度滤镜">亮度滤镜</h2><p>亮度滤镜使用brightness 取值范围&gt;=0的数字或百分数，1为无效果</p>
+<p>测试代码：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
+    }</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj6.jpg-blogImg" alt=""></p>
+<h2 id="阴影滤镜">阴影滤镜</h2><p>阴影滤镜其实在表单写button的时候用过，可以增加元素的立体感 使用drop-shadow来实现<br>格式：</p>
+<blockquote>
+<p>filer: drop-shadow(x-offset y-offset 阴影模糊半径 阴影颜色)<br>x-offset和y-offset为阴影的相对于元素左上角的位移距离；</p>
+</blockquote>
+<p>测试代码:</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+    }</span>
+</code></pre><p>效果美美的：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj7.jpg-blogImg" alt=""></p>
+<blockquote>
+<p>注意：阴影的外观受border-radius样式的影响</p>
+</blockquote>
+<p>比如：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    }</span>
+</code></pre><p>是不是更美了</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj8.jpg-blogImg" alt=""></p>
+<p>当然也可以结合border来进行更好的美化效果。这里就不贴代码和效果了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
+<p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
+<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
+<p>先是HTML代码：</p>
+<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
+&lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[CSS学习笔记之选项卡]]></title>
     <link href="http://blog.supce.com/2016/05/03/CSS%E4%B9%8B%E9%80%89%E9%A1%B9%E5%8D%A1/"/>
     <id>http://blog.supce.com/2016/05/03/CSS之选项卡/</id>
@@ -1335,140 +1505,6 @@ li{
     <summary type="html">
     <![CDATA[<h1 id="网页中的选项卡">网页中的选项卡</h1><hr>
 <p>在一些门户网站中，为了在有限的网页空间中尽可能的展示更多的信息，会采用tab选项卡的方式。比如<a href="http://www.163.com/">网易</a>首页就使用了大量的选项卡。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab.jpg-blogImg" alt=""><br>下面学习几种实现tab选项卡的方式</p>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之滤镜]]></title>
-    <link href="http://blog.supce.com/2016/05/03/CSS%E4%B9%8B%E6%BB%A4%E9%95%9C/"/>
-    <id>http://blog.supce.com/2016/05/03/CSS之滤镜/</id>
-    <published>2016-05-02T16:00:00.000Z</published>
-    <updated>2016-05-03T11:03:43.434Z</updated>
-    <content type="html"><![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
-<p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
-<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
-<p>先是HTML代码：</p>
-<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-&lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-</code></pre><a id="more"></a>
-<p>然后是CSS的测试代码：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">img</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">400</span>x</span></span>;
-    }</span>
-    <span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> gray</span></span>;  <span class="comment">/*IE*/</span>
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj.jpg-blogImg" alt=""></p>
-<h2 id="高斯模糊">高斯模糊</h2><p>高斯模糊也就是我没带眼镜时的效果，用blur实现 取值范围为0-N px，其中0为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">blur</span>(<span class="number">2px</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-    }</span> 
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj1.jpg-blogImg" alt=""></p>
-<h2 id="Speia滤镜">Speia滤镜</h2><p>Speia滤镜是对图片或元素整体进行棕褐色处理，就是老照片那种效果 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj2.jpg-blogImg" alt=""></p>
-<h2 id="饱和度滤镜">饱和度滤镜</h2><p>看到饱和度让我想起了冷屏和暖屏之间的战争以及到底用不用三星A屏 可以利用saturate实现 取值范围&gt;=0的数字或百分数，1为无效果，0为灰度图</p>
-<p>测试代码:</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj3.jpg-blogImg" alt=""></p>
-<h2 id="反色滤镜">反色滤镜</h2><p>反色滤镜使用invert来实现 就是婴儿照那种胶片的感觉(好像把年龄暴漏了) 取值范围0~1或0~100%，0为无效果，1或100%表示最大效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj4.jpg-blogImg" alt=""></p>
-<h2 id="对比度滤镜">对比度滤镜</h2><p>对比度和亮度一般在显示器都可以调试，CSS3中对比度使用contrast 取值范围&gt;=0的数字或百分数，1为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj5.jpg-blogImg" alt=""></p>
-<h2 id="亮度滤镜">亮度滤镜</h2><p>亮度滤镜使用brightness 取值范围&gt;=0的数字或百分数，1为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj6.jpg-blogImg" alt=""></p>
-<h2 id="阴影滤镜">阴影滤镜</h2><p>阴影滤镜其实在表单写button的时候用过，可以增加元素的立体感 使用drop-shadow来实现<br>格式：</p>
-<blockquote>
-<p>filer: drop-shadow(x-offset y-offset 阴影模糊半径 阴影颜色)<br>x-offset和y-offset为阴影的相对于元素左上角的位移距离；</p>
-</blockquote>
-<p>测试代码:</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-    }</span>
-</code></pre><p>效果美美的：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj7.jpg-blogImg" alt=""></p>
-<blockquote>
-<p>注意：阴影的外观受border-radius样式的影响</p>
-</blockquote>
-<p>比如：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    }</span>
-</code></pre><p>是不是更美了</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj8.jpg-blogImg" alt=""></p>
-<p>当然也可以结合border来进行更好的美化效果。这里就不贴代码和效果了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
-<p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
-<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
-<p>先是HTML代码：</p>
-<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-&lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-</code></pre>]]>
     
     </summary>
     
@@ -3751,625 +3787,6 @@ ul li{
 <p>如果字体中包含空格应该用引号引起，中文字体也最好用引号引起</p>
 </blockquote>
 <p>这时候会发现浏览器显示网页上文字使用的字体只能限制在电脑里已经安装的几款字体里。而且每个人的电脑里安装的字体也是因人而异的。这时候CSS3就引入了<code>@font-face</code><br>它的作用是从网上下载并使用自定义字体，使页面显示字体不依赖用户的操作系统字体环境。<br>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之三列页面布局（二）]]></title>
-    <link href="http://blog.supce.com/2016/04/17/CSS%E4%B9%8B%E4%B8%89%E5%88%97%E5%B8%83%E5%B1%80(2)/"/>
-    <id>http://blog.supce.com/2016/04/17/CSS之三列布局(2)/</id>
-    <published>2016-04-16T16:00:00.000Z</published>
-    <updated>2016-04-19T13:56:57.335Z</updated>
-    <content type="html"><![CDATA[<p>接着上次，继续学习三列页面布局结构。</p>
-<h1 id="一、三列宽度自适应结构">一、三列宽度自适应结构</h1><p>三列宽度自适应只需要把上次的左侧定宽右侧和中间自适应稍作修改就可以了。先保持上次的HTML结构不变</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>这里是头部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"container"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"mainBox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span>&gt;</span>这里是主要内容区域让他宽一些他宽一些他宽一些他宽一些他宽一些他宽一些<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"subMainBox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里是次要内容区域<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有两行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sideBox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里是侧边栏<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有三行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有三行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"footer"</span>&gt;</span>这里是底部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>只需要稍作修改CSS代码，魅力就在于此！<br><a id="more"></a></p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    ……
-    <span class="class">.mainBox</span> <span class="class">.content</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> <span class="number">21%</span> <span class="number">0</span> <span class="number">41%</span></span></span>;
-    }</span>
-    <span class="class">.subMainBox</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">20%</span></span></span>;
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">20%</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;
-    }</span>
-    <span class="class">.sideBox</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40%</span></span></span>;
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">100%</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;
-    }</span>
-    ……
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>一个三列自适应的页面结构就这样轻松实现<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl7.jpg-blogImg" alt=""></p>
-<h1 id="二、三列等高">二、三列等高</h1><p>三列等高的原理和<a href="http://www.songchubai.com/2016/04/14/CSS%E4%B9%8B%E4%B8%A4%E5%88%97%E5%B8%83%E5%B1%80(2" target="_blank" rel="external">两列等高</a>/)的原理几乎相同，所以原理性的东西不多做介绍，只是再实现一次加深下印象。</p>
-<h2 id="1、背景模拟">1、背景模拟</h2><p>使用这种方法必须保证三列的宽度固定，而且三列的位置关系因为背景图不能随意的更换。HTML代码如下：</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"header"</span>&gt;</span>头部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"mainBox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>主要内容区域<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>多添加几行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>更能看得清楚到底是是不是等高<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"subMainBox"</span>&gt;</span>次要内容区域<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sideBox"</span>&gt;</span>侧边栏<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"footer"</span>&gt;</span>底部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>CSS代码如下：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-        * <span class="rules">{
-            <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
-            <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
-        }</span>
-        <span class="class">.header</span>, <span class="class">.footer</span> <span class="rules">{
-            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
-            <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">30px</span></span></span>;
-            <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">30px</span></span></span>;
-            <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
-            <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-            <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#AAAAAA</span></span></span>;
-        }</span>
-        <span class="class">.container</span> <span class="rules">{
-            <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
-            <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
-            <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-            <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/bg2.png) repeat-y <span class="number">0</span> <span class="number">0</span></span></span>;
-        }</span> 
-        <span class="class">.mainBox</span> <span class="rules">{
-            <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
-        }</span> 
-        <span class="class">.mainBox</span> <span class="class">.content</span> <span class="rules">{
-            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">440px</span></span></span>;
-            <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> <span class="number">210px</span> <span class="number">0</span> <span class="number">310px</span></span></span>;
-            <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
-        }</span> 
-        <span class="class">.subMainBox</span> <span class="rules">{
-            <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
-            <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">960px</span></span></span>;
-        }</span> 
-        <span class="class">.sideBox</span> <span class="rules">{
-            <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">200px</span></span></span>;
-            <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">200px</span></span></span>;
-        }</span> 
-        <span class="class">.footer</span> <span class="rules">{
-            <span class="rule"><span class="attribute">clear</span>:<span class="value">both</span></span>;
-        }</span>
-    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>刷新浏览器可以看到等高的视觉效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl8.jpg-blogImg" alt=""></p>
-<h2 id="2、负边距实现">2、负边距实现</h2><p>用负边距实现等高的视觉效果，保证HTML结构不变，只需要修改下CSS代码即可:</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    * <span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
-    }</span>
-    <span class="class">.header</span>, <span class="class">.footer</span> <span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#AAAAAA</span></span></span>;
-    }</span>
-    <span class="class">.container</span> <span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-        <span class="comment">/*background:url(images/bg2.png) repeat-y 0 0;*/</span>
-    }</span> 
-    <span class="class">.mainBox</span> <span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
-        <span class="rule"><span class="attribute">margin-bottom</span>:<span class="value">-<span class="number">9999px</span></span></span>;
-        <span class="rule"><span class="attribute">padding-bottom</span>:<span class="value"><span class="number">9999px</span></span></span>;
-    }</span> 
-    <span class="class">.mainBox</span> <span class="class">.content</span> <span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">440px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> <span class="number">210px</span> <span class="number">0</span> <span class="number">310px</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
-    }</span> 
-    <span class="class">.subMainBox</span> <span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">960px</span></span></span>;
-        <span class="rule"><span class="attribute">margin-bottom</span>:<span class="value">-<span class="number">9999px</span></span></span>;
-        <span class="rule"><span class="attribute">padding-bottom</span>:<span class="value"><span class="number">9999px</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333</span></span></span>;
-    }</span> 
-    <span class="class">.sideBox</span> <span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">200px</span></span></span>;
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">200px</span></span></span>;
-        <span class="rule"><span class="attribute">margin-bottom</span>:<span class="value">-<span class="number">9999px</span></span></span>;
-        <span class="rule"><span class="attribute">padding-bottom</span>:<span class="value"><span class="number">9999px</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#666</span>
-    } 
-    .footer {
-        clear:both</span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl9.jpg-blogImg" alt=""><br>在上一个方法中用图片背景来模拟的时候，三列的宽度必须是固定的。而我们采用负边距实现的三列等高是可以在自适应的三列结构中使用的。代码就不贴了，简单修改下代码可以自己试试。（其实是我懒(-__-)b）</p>
-<h2 id="3、边框模拟">3、边框模拟</h2><p>边框模拟其实是一种非常不实际的方法，但是为了展现CSS的“魅力”，就再实现一遍。采用绝对定位的方式，将次要内容区域和侧边栏定位在主要内容区域的两侧，利用主要内容区域的左右两侧边框来模拟两侧的背景色。<br>在保持原来的HTML结构的基础上，修改CSS代码如下：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    ……
-    <span class="class">.container</span> <span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-    }</span> 
-    <span class="class">.mainBox</span> <span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
-    }</span> 
-    <span class="class">.mainBox</span> <span class="class">.content</span> <span class="rules">{
-        <span class="rule"><span class="attribute">border-left</span>:<span class="value"><span class="number">310px</span> solid <span class="hexcolor">#999</span></span></span>;
-        <span class="rule"><span class="attribute">border-right</span>:<span class="value"><span class="number">210px</span> solid <span class="hexcolor">#333</span></span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;
-    }</span> 
-    <span class="class">.subMainBox</span> <span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>;
-    }</span> 
-    <span class="class">.sideBox</span> <span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">200px</span></span></span>;
-        <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">right</span>:<span class="value"><span class="number">0</span></span></span>;
-    }</span> 
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>刷新一下页面：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl10.jpg-blogImg" alt=""></p>
-<blockquote>
-<p>在两列等高中用边框模拟所带来的问题依然会出现在三列页面结构中 这种不推荐的方式只是为了展现CSS的“魅力”！</p>
-<h2 id="4、其他方式">4、其他方式</h2><p>这里用js来完成三列的真正等高！<br>HTML代码：</p>
-</blockquote>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"header"</span>&gt;</span>头部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"mainBox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span> <span class="attribute">id</span>=<span class="value">"m_content"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>主要内容区域<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>多添加几行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>更能看得清楚到底是是不是等高<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"subMainBox"</span> <span class="attribute">id</span>=<span class="value">"subMainBox"</span>&gt;</span>次要内容区域<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sideBox"</span> <span class="attribute">id</span>=<span class="value">"sideBox"</span>&gt;</span>侧边栏<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"footer"</span>&gt;</span>底部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>CSS代码只需要对两列定宽中间自适应页面结构中的代码稍作修改，去掉高度属性。</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">-</span> <span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
-    }</span>
-    <span class="class">.header</span>, <span class="class">.footer</span> <span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#AAAAAA</span></span></span>;
-    }</span>
-    <span class="class">.container</span> <span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-    }</span>
-    <span class="class">.mainBox</span> <span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
-    }</span>
-    <span class="class">.mainBox</span> <span class="class">.content</span> <span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> <span class="number">210px</span> <span class="number">0</span> <span class="number">310px</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
-    }</span>
-    <span class="class">.subMainBox</span> <span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">100%</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#666666</span></span></span>;
-    }</span>
-    <span class="class">.sideBox</span> <span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">200px</span></span></span>;
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">200px</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#333333</span></span></span>;
-    }</span>
-    <span class="class">.footer</span> <span class="rules">{
-        <span class="rule"><span class="attribute">clear</span>:<span class="value">both</span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>我们的JavaScript代码如下，对了，这里先挖个坑吧。等专门写到JavaScript文章的时候再自己解释这段JavaScript代码！O(∩_∩)O哈哈~</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">columnHeight</span>(<span class="params"></span>)</span>{ 
-    <span class="keyword">var</span> i,oh,hh,h=<span class="number">0</span>,dA=<span class="built_in">document</span>.w3cooleqc,an=<span class="built_in">document</span>.w3cooleqa;
-    <span class="keyword">if</span>(dA &amp;&amp; dA.length){
-            an=<span class="number">1</span>;
-            <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;dA.length;i++){
-                dA[i].style.height=<span class="string">'auto'</span>;
-            }
-            <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;dA.length;i++){
-                oh=dA[i].offsetHeight;
-                h=(oh&gt;h)?oh:h;
-            }
-            <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;dA.length;i++){
-                <span class="keyword">if</span>(an){
-                    dA[i].style.height=h+<span class="string">'px'</span>;
-                }<span class="keyword">else</span>{
-                    equalActive(dA[i].id,dA[i].offsetHeight,h);
-                }
-            }
-            <span class="keyword">if</span>(an){
-                or(i=<span class="number">0</span>;i&lt;dA.length;i++){
-                    hh=dA[i].offsetHeight;
-                    <span class="keyword">if</span>(hh&gt;h){
-                        dA[i].style.height=(h-(hh-h))+<span class="string">'px'</span>;
-                    }
-                }
-            }<span class="keyword">else</span>{
-                <span class="built_in">document</span>.w3cooleqa=<span class="number">1</span>;
-            }
-    <span class="built_in">document</span>.w3cooleqth=<span class="built_in">document</span>.body.offsetHeight;
-    <span class="built_in">document</span>.w3cooleqtw=<span class="built_in">document</span>.body.offsetWidth;
-    }
-}
-<span class="function"><span class="keyword">function</span> <span class="title">blanceHeight</span>(<span class="params"></span>)</span>{ 
-        <span class="keyword">if</span>(<span class="built_in">document</span>.w3cooleqth!=<span class="built_in">document</span>.body.offsetHeight||<span class="built_in">document</span>.w3cooleqtw!=<span class="built_in">document</span>.body.offsetWidth){
-                columnHeight();
-        }
-}
-<span class="function"><span class="keyword">function</span> <span class="title">equalColumns</span>(<span class="params"></span>)</span>{ 
-        <span class="keyword">if</span>(<span class="built_in">document</span>.getElementById){
-                <span class="built_in">document</span>.w3cooleqc=<span class="keyword">new</span> <span class="built_in">Array</span>;
-                <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="built_in">arguments</span>.length;i++){
-                        <span class="built_in">document</span>.w3cooleqc[i]=<span class="built_in">document</span>.getElementById(<span class="built_in">arguments</span>[i]);
-                }
-                setInterval(<span class="string">"blanceHeight()"</span>,<span class="number">10</span>);
-        }
-}
-<span class="function"><span class="keyword">function</span> <span class="title">equalActive</span>(<span class="params">el,h,ht</span>)</span>{ 
-        <span class="keyword">var</span> sp=<span class="number">1000</span>,inc=<span class="number">1000</span>,nh=h,g=<span class="built_in">document</span>.getElementById(el),oh=g.offsetHeight,ch=<span class="built_in">parseInt</span>(g.style.height);
-        ch=(ch)?ch:h;
-        <span class="keyword">var</span> ad=oh-ch,adT=ht-ad;nh+=inc;nh=(nh&gt;adT)?adT:nh;g.style.height=nh+<span class="string">'px'</span>;
-        oh=g.offsetHeight;
-        <span class="keyword">if</span>(oh&gt;ht){
-                nh=(ht-(oh-ht));g.style.height=nh+<span class="string">'px'</span>;
-        }
-        <span class="keyword">if</span>(nh&lt;adT){setTimeout(<span class="string">"equalActive('"</span>+el+<span class="string">"',"</span>+nh+<span class="string">","</span>+ht+<span class="string">")"</span>,sp);}
-}
-<span class="comment">//调用方法equalColumns('subMainBox','m_content','sideBox')</span>
-<span class="comment">//subMainBox，m_content，sideBox就是你希望高度相等的div的id值</span>
-</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl11.jpg-blogImg" alt=""></p>
-<blockquote>
-<p>OK 三列的页面结构终于写完了！容我去B站补几部番缓缓 ԅ( ¯་། ¯ԅ)</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>接着上次，继续学习三列页面布局结构。</p>
-<h1 id="一、三列宽度自适应结构">一、三列宽度自适应结构</h1><p>三列宽度自适应只需要把上次的左侧定宽右侧和中间自适应稍作修改就可以了。先保持上次的HTML结构不变</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>这里是头部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"container"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"mainBox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span>&gt;</span>这里是主要内容区域让他宽一些他宽一些他宽一些他宽一些他宽一些他宽一些<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"subMainBox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里是次要内容区域<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有两行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sideBox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里是侧边栏<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有三行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有三行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"footer"</span>&gt;</span>这里是底部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>只需要稍作修改CSS代码，魅力就在于此！<br>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之三列页面布局（一）]]></title>
-    <link href="http://blog.supce.com/2016/04/16/CSS%E4%B9%8B%E4%B8%89%E5%88%97%E5%B8%83%E5%B1%80(1)/"/>
-    <id>http://blog.supce.com/2016/04/16/CSS之三列布局(1)/</id>
-    <published>2016-04-15T16:00:00.000Z</published>
-    <updated>2016-04-19T13:57:02.718Z</updated>
-    <content type="html"><![CDATA[<p><em>昨天做汇报没有抽出时间来更新，由于 gitcafe 被收购，又把 repository 做了迁移，正好换了一个主题，把原主题稍微修改了一下。感觉心情舒畅了好多 O(∩_∩)O哈！</em></p>
-<h1 id="一、结构分析">一、结构分析</h1><p>三列结构的页面布局一般用在一些门户网站上，比如：网易、搜狐和新浪等等。对三列结构进行分析，会发现三列的布局结构可以分成两种情况</p>
-<h2 id="1、两个两列布局结构组成">1、两个两列布局结构组成</h2><p>第一种三列结构可以看做是两个两列布局结构组合而成的，比如下面这段HTML代码：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"header"</span>&gt;头部信息&lt;/<span class="keyword">div</span>&gt;
-&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"container"</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"wrap"</span>&gt;
-        &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"mainBox"</span>&gt;主要内容区域&lt;/<span class="keyword">div</span>&gt;
-        &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"subMainBox"</span>&gt;次要内容区域&lt;/<span class="keyword">div</span>&gt;
-    &lt;/<span class="keyword">div</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"sideBox"</span>&gt;侧边栏&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"footer"</span>&gt;底部信息&lt;/<span class="keyword">div</span>&gt;
-</code></pre><a id="more"></a>
-<h2 id="2、三个独立列组成">2、三个独立列组成</h2><p>第二种三列结构就是由三个独立的列组成的。具体HTML代码如下：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"header"</span>&gt;头部信息&lt;/<span class="keyword">div</span>&gt;
-&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"container"</span>&gt;    
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"mainBox"</span>&gt;主要内容区域&lt;/<span class="keyword">div</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"subMainBox"</span>&gt;次要内容区域&lt;/<span class="keyword">div</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"sideBox"</span>&gt;侧边栏&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"footer"</span>&gt;底部信息&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>总之，这两种方式其实都是由两列布局拓展而来的。下面就开始根据不同的情况进行分析。</p>
-<h1 id="二、两列定宽中间自适应结构">二、两列定宽中间自适应结构</h1><p>在单列定宽单列自适应结构中，分别尝试了负边距和绝对定位的方式，最终也没有完全达到所需要的效果。在探讨两列定宽中间自适应之前，先了解下宽度值和浮动之间的关系。</p>
-<h2 id="1、宽度值和浮动之间的关系">1、宽度值和浮动之间的关系</h2><p>盒模型宽度的默认值是auto，也就是浏览器窗口所能显示的大小。当盒模型具备了内外边距并且宽度为默认值auto时，盒模型的宽度大小适中保持在浏览器窗口所显示的范围，如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl.jpg-blogImg" alt=""><br>当盒模型的宽度为默认值auto，同时盒子为float。盒模型的宽度不再等同于根据浏览器窗口所显示的大小，而是随着盒模型中的内容产生了变化。比如下面这个小demo：</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"background-color: #999;"</span>&gt;</span>
-    我是浮动的，宽度值为auto<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">br</span>/&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"background-color: #888;"</span>&gt;</span>
-    我是浮动的，宽度值为auto，但是我比你宽
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">br</span>/&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"background-color: #777;"</span>&gt;</span>
-    我是浮动的，宽度值为auto，但是我比你更宽宽宽宽宽宽宽宽
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-        *<span class="rules">{
-            <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
-            <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
-        }</span>
-        <span class="tag">div</span><span class="rules">{
-            <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-            <span class="rule"><span class="attribute">width</span>:<span class="value"> auto</span></span>;
-            <span class="rule"><span class="attribute">margin-bottom</span>:<span class="value"> <span class="number">10px</span></span></span>;
-        }</span>
-        <span class="tag">br</span><span class="rules">{
-            <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;
-        }</span>
-    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl1.jpg-blogImg" alt=""><br>为了更好的理解宽度值和浮动之间的关系，下面看一个更为全面的例子，这里由于特殊情景，采用了不推荐使用的行内样式。</p>
-<pre><code>&lt;<span class="keyword">div</span> class=<span class="string">"header"</span>&gt;头部信息&lt;/<span class="keyword">div</span>&gt;
-&lt;hr /&gt;
-&lt;<span class="keyword">div</span> style=<span class="string">"width:auto;background-color:#999999;"</span>&gt;width:<span class="type">auto</span>;background-color:<span class="comment">#999999;&lt;/div&gt;</span>
-&lt;hr /&gt;
-&lt;<span class="keyword">div</span> style=<span class="string">"width:auto;padding:0 200px;background-color:#EEEEEE;"</span>&gt;width:<span class="type">auto</span>;padding:<span class="number">0</span> <span class="number">200</span>px;background-color:<span class="comment">#EEEEEE;&lt;/div&gt;</span>
-&lt;hr /&gt;
-&lt;<span class="keyword">div</span> style=<span class="string">"width:auto;margin:0 100px;background-color:#999999;"</span>&gt;width:<span class="type">auto</span>;margin:<span class="number">0</span> <span class="number">100</span>px;background-color:<span class="comment">#999999;&lt;/div&gt;</span>
-&lt;hr /&gt;
-&lt;<span class="keyword">div</span> style=<span class="string">"width:auto;padding:0 200px;margin:0 100px;background-color:#EEEEEE;"</span>&gt;width:<span class="type">auto</span>;padding:<span class="number">0</span> <span class="number">200</span>px;margin:<span class="number">0</span> <span class="number">100</span>px;background-color:<span class="comment">#EEEEEE;&lt;/div&gt;</span>
-&lt;hr /&gt;
-&lt;<span class="keyword">div</span> style=<span class="string">"float:left;width:auto;background-color:#999999;"</span>&gt;<span class="type">float</span>:left;width:<span class="type">auto</span>;background-color:<span class="comment">#999999;&lt;/div&gt;</span>
-&lt;hr /&gt;
-&lt;<span class="keyword">div</span> style=<span class="string">"float:left;width:auto;padding:0 200px;background-color:#EEEEEE;"</span>&gt;<span class="type">float</span>:left;width:<span class="type">auto</span>;padding:<span class="number">0</span> <span class="number">200</span>px;background-color:<span class="comment">#EEEEEE;&lt;/div&gt;</span>
-&lt;hr /&gt;
-&lt;<span class="keyword">div</span> style=<span class="string">"float:left;width:auto;margin:0 100px;background-color:#999999;"</span>&gt;<span class="type">float</span>:left;width:<span class="type">auto</span>;margin:<span class="number">0</span> <span class="number">100</span>px;background-color:<span class="comment">#999999;&lt;/div&gt;</span>
-&lt;hr /&gt;
-&lt;<span class="keyword">div</span> style=<span class="string">"float:left;width:auto;padding:0 200px;margin:0 100px;background-color:#EEEEEE;"</span>&gt;<span class="type">float</span>:left;width:<span class="type">auto</span>;padding:<span class="number">0</span> <span class="number">200</span>px;margin:<span class="number">0</span> <span class="number">100</span>px;background-color:<span class="comment">#EEEEEE;&lt;/div&gt;</span>
-&lt;hr /&gt;
-&lt;<span class="keyword">div</span> class=<span class="string">"footer"</span>&gt;底部信息&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>其他CSS代码如下:</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-<span class="tag">-</span> <span class="rules">{
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">font-size</span>:<span class="value"><span class="number">12px</span></span></span>;
-}</span>
-<span class="tag">div</span> <span class="rules">{
-    <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">30px</span></span></span>;
-    <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">30px</span></span></span>;
-}</span>
-<span class="tag">hr</span> <span class="rules">{
-    <span class="rule"><span class="attribute">clear</span>:<span class="value">both</span></span>;
-}</span>
-<span class="class">.header</span>, <span class="class">.footer</span> <span class="rules">{
-    <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">50px</span></span></span>;
-    <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
-    <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">50px</span></span></span>;
-}</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl2.jpg-blogImg" alt=""><br>通过上面几个例子已经彻底搞清楚了width和float之间的关系。下面就着手解决两列定宽中间自适应的问题。</p>
-<h2 id="2、利用宽度值和浮动解决">2、利用宽度值和浮动解决</h2><p>首先将HTML准备好</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>这里是头部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"container"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"mainBox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span>&gt;</span>这里是主要内容区域<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"subMainBox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里是次要内容区域<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有两行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sideBox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里是侧边栏<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有三行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有三行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"footer"</span>&gt;</span>这里是底部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>在上面这段HTML代码中，主要内容区域是由两个div标签所包含的。主要思路是以mainBox的浮动并将其宽度设置为100%，配合content的默认宽度值与外边距所留的空白，利用负边距原理将次要内容区域和侧边栏吸到主要内容的两侧。</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    *<span class="rules">{
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="id">#header</span>,<span class="id">#footer</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#AAA</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    }</span>
-    <span class="id">#container</span><span class="rules">{
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
-    }</span>
-    <span class="class">.mainBox</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
-    }</span>
-    <span class="class">.mainBox</span> <span class="class">.content</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> <span class="number">210px</span> <span class="number">0</span> <span class="number">310px</span></span></span>;
-    }</span>
-    <span class="class">.subMainBox</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-        <span class="comment">/*margin-left: -100%;*/</span>
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;
-    }</span>
-    <span class="class">.sideBox</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
-        <span class="comment">/*margin-left: -200px;*/</span>
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;
-    }</span>
-    <span class="id">#footer</span><span class="rules">{
-        <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>由于mainBox的宽度值为100%，所以subMainBox和sideBox被挤到下面一行。如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl3.jpg-blogImg" alt=""><br>将CSS中的注释去掉，利用负边距就可以实现我们想要的效果，刷新页面，效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl4.jpg-blogImg" alt=""><br>到这里，突然灵光一闪，想起两列结构中单列定宽单列自适应也可以用这种方法解决。</p>
-<h2 id="3、利用该方式解决两列结构">3、利用该方式解决两列结构</h2><p>上一篇文章中的方法都没有很好的解决我们的问题咕~~(╯﹏╰)b，下面用这个方法试试，首先是HTML代码：</p>
-<pre><code><span class="keyword">div</span> <span class="type">class</span>=<span class="string">"header"</span>&gt;头部信息&lt;/<span class="keyword">div</span>&gt;
-&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"container"</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"mainBox"</span>&gt;
-        &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"content"</span>&gt;主要内容区他宽一些他宽一些他宽一些他宽一些他宽一些他宽一些他宽一些他宽一些他宽一些他宽一些他宽一些他宽一些&lt;/<span class="keyword">div</span>&gt;
-    &lt;/<span class="keyword">div</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"sideBox"</span>&gt;
-        侧边栏
-        &lt;p&gt;加一些东西多一行&lt;/p&gt;&lt;p&gt;加一些东西多一行&lt;/p&gt;
-    &lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"footer"</span>&gt;底部信息&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>参照上面的方法，CSS代码如下：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    * <span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
-    }</span>
-    <span class="class">.header</span>, <span class="class">.footer</span> <span class="rules">{
-        <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#AAAAAA</span></span></span>;
-    }</span>
-    <span class="class">.container</span> <span class="rules">{
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-    }</span>
-    <span class="class">.mainBox</span> <span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">100%</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
-    }</span> 
-    <span class="class">.mainBox</span> <span class="class">.content</span> <span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> <span class="number">210px</span> <span class="number">0</span> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
-    }</span> 
-    <span class="class">.sideBox</span> <span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">200px</span></span></span>;
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">200px</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#666666</span></span></span>;
-    }</span>
-    <span class="class">.footer</span> <span class="rules">{
-        <span class="rule"><span class="attribute">clear</span>:<span class="value">both</span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>最终效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl5.jpg-blogImg" alt=""><br>以前挖的坑终于填了一个↖(^ω^)↗。</p>
-<h1 id="三、左侧定宽右侧及中间自适应结构">三、左侧定宽右侧及中间自适应结构</h1><p>其实，左侧定宽右侧及中间自适应结构是在刚才的结构上拓展的。在原来HTML不变的基础上，只需简单修改CSS几个属性就可以实现了！</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    *<span class="rules">{
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="id">#header</span>,<span class="id">#footer</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#AAA</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    }</span>
-    <span class="id">#container</span><span class="rules">{
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
-    }</span>
-    <span class="class">.mainBox</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
-    }</span>
-    <span class="class">.mainBox</span> <span class="class">.content</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> <span class="number">31%</span> <span class="number">0</span> <span class="number">210px</span></span></span>;  <span class="comment">/*modify*/</span>
-    }</span>
-    <span class="class">.subMainBox</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">30%</span></span></span>;  <span class="comment">/*modify*/</span>
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">30%</span></span></span>;  <span class="comment">/*modify*/</span>
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;
-    }</span>
-    <span class="class">.sideBox</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">100%</span></span></span>; <span class="comment">/*modify*/</span>
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;
-    }</span>
-    <span class="id">#footer</span><span class="rules">{
-        <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>CSS的魅力就在于此！刷新下页面：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl6.jpg-blogImg" alt=""></p>
-<blockquote>
-<p>这篇blog就先到这里了（耳畔响起谷歌娘的声音是什么鬼？），更多关于三列的布局结构下一次在探讨和学习吧</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p><em>昨天做汇报没有抽出时间来更新，由于 gitcafe 被收购，又把 repository 做了迁移，正好换了一个主题，把原主题稍微修改了一下。感觉心情舒畅了好多 O(∩_∩)O哈！</em></p>
-<h1 id="一、结构分析">一、结构分析</h1><p>三列结构的页面布局一般用在一些门户网站上，比如：网易、搜狐和新浪等等。对三列结构进行分析，会发现三列的布局结构可以分成两种情况</p>
-<h2 id="1、两个两列布局结构组成">1、两个两列布局结构组成</h2><p>第一种三列结构可以看做是两个两列布局结构组合而成的，比如下面这段HTML代码：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"header"</span>&gt;头部信息&lt;/<span class="keyword">div</span>&gt;
-&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"container"</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"wrap"</span>&gt;
-        &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"mainBox"</span>&gt;主要内容区域&lt;/<span class="keyword">div</span>&gt;
-        &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"subMainBox"</span>&gt;次要内容区域&lt;/<span class="keyword">div</span>&gt;
-    &lt;/<span class="keyword">div</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"sideBox"</span>&gt;侧边栏&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"footer"</span>&gt;底部信息&lt;/<span class="keyword">div</span>&gt;
-</code></pre>]]>
     
     </summary>
     
