@@ -36,7 +36,7 @@
     <link href="http://blog.supce.com/2016/07/13/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%805/"/>
     <id>http://blog.supce.com/2016/07/13/JavaScript之基础5/</id>
     <published>2016-07-12T16:00:00.000Z</published>
-    <updated>2016-07-13T02:53:18.420Z</updated>
+    <updated>2016-07-13T11:15:28.855Z</updated>
     <content type="html"><![CDATA[<p><em>再把JavaScript中对象的创建与继承复习下</em></p>
 <h1 id="对象的创建">对象的创建</h1><hr>
 <h2 id="工厂模式">工厂模式</h2><pre><code>console.log(<span class="string">"-----工厂模式-----"</span>);
@@ -136,6 +136,137 @@ console.log(person1.friends);  //<span class="comment">["Mimo"]</span>
 <span class="keyword">var</span> myarray = <span class="keyword">new</span> MyArray(<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>);
 console.log(myarray.toMyString());  <span class="comment">//1|2|3</span>
 </code></pre><h1 id="对象的继承">对象的继承</h1><hr>
+<blockquote>
+<p>在JavaScript中，主要还是利用原型链来实现继承的。</p>
+<h2 id="原型链">原型链</h2><pre><code><span class="built_in">console</span>.log(<span class="string">"-----原型链-----"</span>);
+<span class="function"><span class="keyword">function</span> <span class="title">SuperClass</span>(<span class="params"></span>)</span>{
+    <span class="keyword">this</span>.superProperty = <span class="string">"super"</span>;
+    <span class="keyword">this</span>.friends = [<span class="string">"nico"</span>];
+}
+SuperClass.prototype.getSuperProperty = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>.superProperty;
+}
+<span class="function"><span class="keyword">function</span> <span class="title">SubClass</span>(<span class="params"></span>)</span>{
+    <span class="keyword">this</span>.subProperty = <span class="string">"sub"</span>;
+}
+SubClass.prototype = <span class="keyword">new</span> SuperClass();
+SubClass.prototype.getSubProperty = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>.subProperty;
+}
+<span class="keyword">var</span> instance1 = <span class="keyword">new</span> SubClass();
+<span class="keyword">var</span> instance2 = <span class="keyword">new</span> SubClass();
+<span class="built_in">console</span>.log(instance1.getSuperProperty());  <span class="comment">//super</span>
+<span class="built_in">console</span>.log(instance2.constructor);  <span class="comment">//superclass</span>
+instance1.friends.push(<span class="string">"mimo"</span>);  
+<span class="built_in">console</span>.log(instance2.friends);  <span class="comment">//["nico", "mimo"]</span>
+</code></pre></blockquote>
+<p>使用原型会带来两个问题</p>
+<ul>
+<li>父类中的属性如果是引用类型，会在子类中出现共享问题</li>
+<li>在创建子类实例时，不能通过父类的构造函数来传递参数<h2 id="借用构造函数">借用构造函数</h2><pre><code><span class="built_in">console</span>.log(<span class="string">"-----借用构造函数-----"</span>);
+<span class="function"><span class="keyword">function</span> <span class="title">SuperClass</span>(<span class="params">name</span>)</span>{
+    <span class="keyword">this</span>.name = name;
+    <span class="keyword">this</span>.friends = [<span class="string">"nico"</span>];
+}
+SuperClass.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>.name;
+}
+<span class="function"><span class="keyword">function</span> <span class="title">SubClass</span>(<span class="params">age</span>)</span>{
+    SuperClass.call(<span class="keyword">this</span>,<span class="string">"sora"</span>);
+    <span class="keyword">this</span>.age = age;
+}
+<span class="keyword">var</span> instance1 = <span class="keyword">new</span> SubClass(<span class="number">21</span>);
+<span class="keyword">var</span> instance2 = <span class="keyword">new</span> SubClass(<span class="number">22</span>);
+instance1.friends.push(<span class="string">"mimo"</span>);
+<span class="built_in">console</span>.log(instance2.friends);  <span class="comment">//["nico"]</span>
+<span class="built_in">console</span>.log(instance1.getName);  <span class="comment">//undefined</span>
+</code></pre></li>
+</ul>
+<p>借用构造函数解决了引用类型的问题，但是带来了其他的问题，在超类型中原型定义的方法对于子类来说是不可见的，因此，也就不能函数复用了。</p>
+<h2 id="组合继承">组合继承</h2><pre><code><span class="built_in">console</span>.log(<span class="string">"-----组合继承-----"</span>);
+<span class="function"><span class="keyword">function</span> <span class="title">SuperClass</span>(<span class="params">name,friends</span>)</span>{
+    <span class="keyword">this</span>.name = name;
+    <span class="keyword">this</span>.friends = friends;
+}
+SuperClass.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>.name;
+}
+<span class="function"><span class="keyword">function</span> <span class="title">SubClass</span>(<span class="params">name,friends,age</span>)</span>{
+    SuperClass.call(<span class="keyword">this</span>,name,friends);
+    <span class="keyword">this</span>.age = age;
+}
+SubClass.prototype = <span class="keyword">new</span> SuperClass();
+SubClass.prototype.getAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>.age;
+}
+<span class="keyword">var</span> instance1 = <span class="keyword">new</span> SubClass(<span class="string">"sora"</span>,[<span class="string">"mimo"</span>],<span class="number">28</span>);
+<span class="keyword">var</span> instance2 = <span class="keyword">new</span> SubClass(<span class="string">"pile"</span>,[<span class="string">"kussn"</span>],<span class="number">27</span>);
+instance1.friends.push(<span class="string">"emi"</span>);
+<span class="built_in">console</span>.log(instance1.friends);  <span class="comment">//["mimo", "emi"]</span>
+<span class="built_in">console</span>.log(instance2.friends);  <span class="comment">//kussn</span>
+<span class="built_in">console</span>.log(instance1.getName() + instance1.getAge()); <span class="comment">//sora28</span>
+</code></pre><p>组合继承是将原型链与借用构造函数二者的长处结合起来，使用原型链实现对原型属性和方法的继承，通过借用构造函数实现对实例属性的继承。</p>
+<h2 id="原型式继承">原型式继承</h2><pre><code>console.log(<span class="string">"-----原型式继承-----"</span>);
+function object(o){
+    function F(){}
+    F.prototype = o;
+    return new F();
+}
+var <span class="keyword">person</span> = {
+    name:<span class="string">"sora"</span>,
+    friends:<span class="comment">["mimo"]</span>
+}
+var person1 = object(<span class="keyword">person</span>);
+person1.name = <span class="string">"pile"</span>;
+person1.friends.push(<span class="string">"emi"</span>);
+var person2 = object(<span class="keyword">person</span>);
+person2.name = <span class="string">"kussn"</span>;
+person2.friends.push(<span class="string">"rippi"</span>);
+console.log(<span class="keyword">person</span>.friends);   //<span class="comment">["mimo", "emi", "rippi"]</span>
+console.log(person2.friends);  //<span class="comment">["mimo", "emi", "rippi"]</span>
+</code></pre><p>object其实是对传入的对象进行了一次浅复制 对于引用类型来说，跟原型链一样是共享的</p>
+<h2 id="寄生式继承">寄生式继承</h2><pre><code>console.log(<span class="string">"-------寄生式继承--------"</span>);
+var <span class="keyword">person</span> = {
+    name:<span class="string">"sora"</span>,
+    friends:<span class="comment">["mimo"]</span>
+}
+function createAnother(original){
+    var clone = Object.create(original);
+    clone.sayName = function(){
+        return this.name;
+    };
+    return clone;
+}
+var instance = createAnother(<span class="keyword">person</span>);
+console.log(instance.sayName());
+</code></pre><p>寄生式继承其实与寄生构造函数和工厂模式类似，创建一个封装继承的函数，然后在函数中对传入的对象进行某种增强，最后返回被增强的对象</p>
+<h2 id="寄生组合式继承">寄生组合式继承</h2><p>组合继承会有一个问题，就是无论什么情况下，都会调用两次超类型构造函数。为了解决这个问题，引入了寄生组合式继承</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">inheritPrototype</span>(<span class="params">subType,superType</span>)</span>{
+    <span class="keyword">var</span> prototype = <span class="built_in">Object</span>.create(superType.prototype);
+    prototype.constructor = subType;
+    subType.prototype = prototype;
+}
+<span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params">name,friends</span>)</span>{
+    <span class="keyword">this</span>.name = name;
+    <span class="keyword">this</span>.friends = friends;
+}
+SuperType.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>.name;
+}
+<span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params">name,friends,age</span>)</span>{
+    SuperType.call(<span class="keyword">this</span>,name,friends);
+    <span class="keyword">this</span>.age = age;
+}
+inheritPrototype(SubType,SuperType);
+SubType.prototype.getAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>.age;
+}
+<span class="keyword">var</span> person1 = <span class="keyword">new</span> SubType(<span class="string">"Nico"</span>,[<span class="string">"emi"</span>],<span class="number">22</span>)
+<span class="keyword">var</span> person2 = <span class="keyword">new</span> SubType(<span class="string">"Sora"</span>,[<span class="string">"kussn"</span>],<span class="number">33</span>);
+person1.friends.push(<span class="string">"Mimo"</span>);
+<span class="built_in">console</span>.log(person1.getName() + person1.getAge() + person1.friends);
+<span class="built_in">console</span>.log(person2.getName() + person2.getAge() + person2.friends);
+</code></pre><p>其实在继承过程中，不必为了指定子类型的原型而调用超类型的构造函数。子类型可以利用寄生式继承来继承超类型的原型。</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p><em>再把JavaScript中对象的创建与继承复习下</em></p>
