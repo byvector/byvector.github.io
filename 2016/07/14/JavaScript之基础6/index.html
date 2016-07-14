@@ -85,24 +85,21 @@
 
 
 <meta name="description" content="闭包
-闭包，在JavaScript中很有意思，由于在JavaScript中是链式作用域，所以可以搭建一座桥梁，将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把闭包简单理解成定义在一个函数内部的函数。通过这个函数就能够读取函数内部的变量。
-console.log(&quot;-----闭包-----&quot;);
-function fun(){">
+闭包，在JavaScript中很有意思。JavaScript是链式作用域，所以可以将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把内部的函数返回，通过返回的函数就能够读取到函数内部的变量。于是，可以把闭包简单理解成定义在一个函数内部的函数，并且该内部函数访问了外部的变量。
+console.log(&quot;-----闭包-----&quot;)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="函数表达式">
 <meta property="og:url" content="http://blog.supce.com/2016/07/14/JavaScript之基础6/index.html">
 <meta property="og:site_name" content="vector's blog">
 <meta property="og:description" content="闭包
-闭包，在JavaScript中很有意思，由于在JavaScript中是链式作用域，所以可以搭建一座桥梁，将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把闭包简单理解成定义在一个函数内部的函数。通过这个函数就能够读取函数内部的变量。
-console.log(&quot;-----闭包-----&quot;);
-function fun(){">
-<meta property="og:updated_time" content="2016-07-14T07:17:15.623Z">
+闭包，在JavaScript中很有意思。JavaScript是链式作用域，所以可以将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把内部的函数返回，通过返回的函数就能够读取到函数内部的变量。于是，可以把闭包简单理解成定义在一个函数内部的函数，并且该内部函数访问了外部的变量。
+console.log(&quot;-----闭包-----&quot;)">
+<meta property="og:updated_time" content="2016-07-14T07:28:45.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数表达式">
 <meta name="twitter:description" content="闭包
-闭包，在JavaScript中很有意思，由于在JavaScript中是链式作用域，所以可以搭建一座桥梁，将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把闭包简单理解成定义在一个函数内部的函数。通过这个函数就能够读取函数内部的变量。
-console.log(&quot;-----闭包-----&quot;);
-function fun(){">
+闭包，在JavaScript中很有意思。JavaScript是链式作用域，所以可以将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把内部的函数返回，通过返回的函数就能够读取到函数内部的变量。于是，可以把闭包简单理解成定义在一个函数内部的函数，并且该内部函数访问了外部的变量。
+console.log(&quot;-----闭包-----&quot;)">
 
 
 
@@ -288,10 +285,10 @@ function fun(){">
 
       
         <h1 id="闭包">闭包</h1><hr>
-<p>闭包，在JavaScript中很有意思，由于在JavaScript中是链式作用域，所以可以搭建一座桥梁，将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把闭包简单理解成定义在一个函数内部的函数。通过这个函数就能够读取函数内部的变量。</p>
+<p>闭包，在JavaScript中很有意思。JavaScript是链式作用域，所以可以将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把内部的函数返回，通过返回的函数就能够读取到函数内部的变量。<br>于是，可以把闭包简单理解成定义在一个函数内部的函数，并且该内部函数访问了外部的变量。</p>
 <pre><code>console.log(<span class="string">"-----闭包-----"</span>);
 function <span class="function"><span class="title">fun</span><span class="params">()</span>{</span>
-    <span class="variable"><span class="keyword">var</span> a</span> = <span class="number">9</span>;
+    <span class="variable"><span class="keyword">var</span> a</span> = <span class="number">1</span>;
     <span class="keyword">return</span> function f(){
         console.log(a);
     };
