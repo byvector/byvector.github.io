@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-07-14T08:59:37.185Z</updated>
+  <updated>2016-07-14T11:46:08.233Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.supce.com/2016/07/14/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%806/"/>
     <id>http://blog.supce.com/2016/07/14/JavaScript之基础6/</id>
     <published>2016-07-13T16:00:00.000Z</published>
-    <updated>2016-07-14T08:59:37.185Z</updated>
+    <updated>2016-07-14T11:46:08.233Z</updated>
     <content type="html"><![CDATA[<h1 id="闭包">闭包</h1><hr>
 <p>闭包，在JavaScript中很有意思。JavaScript是链式作用域，所以可以将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把内部的函数返回，通过返回的函数就能够读取到函数内部的变量。<br>于是，可以把闭包简单理解成定义在一个函数内部的函数，并且该内部函数访问了外部的变量。</p>
 <pre><code>console.log(<span class="string">"-----闭包-----"</span>);
@@ -100,7 +100,76 @@ fun<span class="params">(<span class="number">5</span>)</span>;  <span class="co
     //块级作用域
 }</span>)</span><span class="list">()</span><span class="comment">;</span>
 </code></pre><p>使用这种方式，可以限制向全局作用域中添加过多的变量和函数，同时减少闭包占用内存的问题。</p>
-<h1 id="私有变量">私有变量</h1><h2 id="静态私有变量">静态私有变量</h2><h2 id="模块模式">模块模式</h2><h2 id="增强的模块模式">增强的模块模式</h2>]]></content>
+<h1 id="私有变量">私有变量</h1><p>JavaScript中任何在函数中定义的变量，都可以认为是私有变量，因为不能在函数的外部访问这些变量，但是可以通过闭包来访问这些变量。私有变量包括函数的参数、局部变量和在函数内部定义的其他函数。</p>
+<pre><code>console.log(<span class="string">"---私有变量---"</span>);
+function <span class="keyword">Person</span>(name){
+    this.age = 22;
+    this.getName = function(){
+        return name;
+    };
+    this.setName = function(value){
+        name = value;
+    }
+}
+var <span class="keyword">person</span> = new <span class="keyword">Person</span>(<span class="string">"Nico"</span>);
+console.log(<span class="keyword">person</span>.age);         //22
+console.log(<span class="keyword">person</span>.name);        //undefined
+console.log(<span class="keyword">person</span>.getName());   //Nico
+</code></pre><p>上面的例子中有个问题，就是每个实例都会创建一组相同的方法。为了解决这个问题，可以使用静态私有变量。</p>
+<h2 id="静态私有变量">静态私有变量</h2><pre><code>console.log(<span class="string">"-----静态私有变量-----"</span>);
+(function(){
+    var name = <span class="string">""</span>;
+    <span class="keyword">Person</span> = function(value){
+        name = value;
+    }
+    <span class="keyword">Person</span>.prototype.getName = function(){
+        return name;
+    };
+    <span class="keyword">Person</span>.prototype.setName = function(value){
+        name = value;
+    }
+})();
+var staticPerson1 = new <span class="keyword">Person</span>(<span class="string">"Nico"</span>);
+var staticPerson2 = new <span class="keyword">Person</span>(<span class="string">"Sora"</span>);
+console.log(staticPerson1.getName());   //Sora
+</code></pre><p>这个例子中的 Person 构造函数与 getName() 和 setName()方法一样，都有权访问私有变量 name 。在这种模式下，变量 name就变成了一个静态的、由所有实例共享的属性。也就是说，在一个实例上调用 setName() 会影响所有实例。而调用 setName() 或新建一个 Person 实例都会赋予 name属性一个新值。结果就是所有实例都会返回相同的值。<br>以这种方式创建静态私有变量会因为使用原型而增进代码复用，但每个实例都没有自己的私有变量。</p>
+<h2 id="模块模式">模块模式</h2><p>模块模式主要是为单列创建私有变量和特权方法的。其语法如下：</p>
+<pre><code><span class="built_in">console</span>.log(<span class="string">"-----模块模式-----"</span>);
+<span class="keyword">var</span> single = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> privateProperty = <span class="string">"private"</span>;
+    <span class="function"><span class="keyword">function</span> <span class="title">privateFun</span>(<span class="params"></span>)</span>{
+        <span class="keyword">return</span> <span class="string">"privateFun"</span>
+    };
+    <span class="keyword">return</span> {
+        publicProperty : <span class="string">"public"</span>,
+        publicFun : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+            <span class="keyword">return</span> <span class="string">"publicFun"</span>;
+        },
+        getPrivate : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+            <span class="keyword">return</span> privateProperty;
+        }
+    };
+}();
+<span class="built_in">console</span>.log(single.publicFun());   <span class="comment">//publicFun</span>
+<span class="built_in">console</span>.log(single.getPrivate());  <span class="comment">//private</span>
+</code></pre><p>模块模式使用了一个返回对象的匿名函数。在这个匿名函数内部，首先定义了私有变量和函数。然后，将一个对象字面量作为函数的值返回。返回的对象字面量中只包含可以公开的属性和方法。<br>由于这个对象是在匿名函数内部定义的，因此它的公有方法有权访问私有变量和函数。从本质上来讲，这个对象字面量定义的是单例的公共接口。这种模式在需要对单例进行某些初始化，同时又需要维护其私有变量时是非常有用的。例如：</p>
+<pre><code><span class="keyword">var</span> application = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> components = <span class="keyword">new</span> <span class="built_in">Array</span>();   <span class="comment">//私有变量</span>
+    components.push(<span class="keyword">new</span> BaseComponent());  <span class="comment">//私有变量初始化</span>
+    <span class="comment">//公共方法</span>
+    <span class="keyword">return</span> {
+        getComponentCount : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+            <span class="keyword">return</span> components.length;
+        },
+        registerComponent : <span class="function"><span class="keyword">function</span>(<span class="params">component</span>)</span>{
+            <span class="keyword">if</span>(<span class="keyword">typeof</span> component == <span class="string">"object"</span>){
+                components.push(component);
+            }
+        }
+    };
+}();
+</code></pre><p>对于必须创建一个对象并以某些数据对其进行初始化，同时还要公开一些能够访问这些私有数据的方法，适合模块模式。</p>
+]]></content>
     <summary type="html">
     <![CDATA[<h1 id="闭包">闭包</h1><hr>
 <p>闭包，在JavaScript中很有意思。JavaScript是链式作用域，所以可以将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把内部的函数返回，通过返回的函数就能够读取到函数内部的变量。<br>于是，可以把闭包简单理解成定义在一个函数内部的函数，并且该内部函数访问了外部的变量。</p>
