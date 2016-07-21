@@ -92,7 +92,7 @@ window对象BOM的核心对象是window，它表示浏览器的一个实例。�
 <meta property="og:site_name" content="vector's blog">
 <meta property="og:description" content="BOMBOM是browser object model的缩写，即：浏览器对象模型。BOM主要用于访问浏览器的功能，这些功能与网页的内容无关。
 window对象BOM的核心对象是window，它表示浏览器的一个实例。在浏览器中，window对象既是通过JavaScript访问浏览器窗口的一个接口，也是ECMAScript规定的Global对象。因此，在全局作用域中声明的变量和函数都会成为window">
-<meta property="og:updated_time" content="2016-07-21T11:11:27.311Z">
+<meta property="og:updated_time" content="2016-07-21T13:14:30.808Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript BOM 知识整理 (一)">
 <meta name="twitter:description" content="BOMBOM是browser object model的缩写，即：浏览器对象模型。BOM主要用于访问浏览器的功能，这些功能与网页的内容无关。
@@ -383,7 +383,87 @@ setTimeout<span class="params">(timeout,<span class="number">1000</span>)</span>
 <li>确认对话框：<code>confirm()</code><br>该方法返回一个布尔值，true表示点击了OK，false表示点击了Cancel，或者关闭了对话框</li>
 <li>文本输入框：<code>prompt()</code><br>如果用户单击了OK，则<code>prompt()</code>返回文本输入域的值。如果用户单击了Cancel或没有单击OK而是通过其他方式关闭了对话框，则该方法返回null。</li>
 </ul>
-<h2 id="Location对象">Location对象</h2>
+<h2 id="Location对象">Location对象</h2><p><code>window.location</code>和<code>document.location</code>引用的是同一个对象。Location 对象包含有关当前URL的信息以及与当前窗口中加载的文档有关的信息。</p>
+<h3 id="Location对象的属性">Location对象的属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hash</td>
+<td>设置或返回从井号 (#) 开始的 URL（锚）。</td>
+</tr>
+<tr>
+<td>host</td>
+<td>设置或返回主机名和当前 URL 的端口号。</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>设置或返回当前 URL 的主机名。</td>
+</tr>
+<tr>
+<td>href</td>
+<td>设置或返回完整的 URL。</td>
+</tr>
+<tr>
+<td>pathname</td>
+<td>设置或返回当前 URL 的路径部分。</td>
+</tr>
+<tr>
+<td>port</td>
+<td>设置或返回当前 URL 的端口号。</td>
+</tr>
+<tr>
+<td>protocol</td>
+<td>设置或返回当前 URL 的协议。</td>
+</tr>
+<tr>
+<td>search</td>
+<td>设置或返回从问号 (?) 开始的 URL（查询部分）</td>
+</tr>
+</tbody>
+</table>
+<p>如果URL查询字符串为多个，可以使用下面的函数</p>
+<pre><code>function getQueryStringArgs(){
+    //<span class="keyword">var</span> qs = location.search.length&gt;<span class="number">0</span> ? location.search.substring(<span class="number">1</span>) : <span class="string">""</span>;
+    <span class="keyword">var</span> qs = <span class="string">"a=1&amp;b=2&amp;c=3"</span>;
+    <span class="keyword">var</span> args = {},
+    items = qs.length ? qs.split(<span class="string">"&amp;"</span>) : [],
+    name = null,
+    value = null;
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;items.length;i++){
+        <span class="keyword">var</span> item = items[i].split(<span class="string">"="</span>);
+        name = decodeURIComponent(item[<span class="number">0</span>]);
+        value = decodeURIComponent(item[<span class="number">1</span>]);
+        <span class="keyword">if</span>(name.length){
+            args[name] = value;
+        }
+    }
+    <span class="keyword">return</span> args;
+}
+<span class="keyword">var</span> <span class="literal">result</span> = getQueryStringArgs();
+console.log(<span class="literal">result</span>[<span class="string">"a"</span>]+<span class="literal">result</span>[<span class="string">"b"</span>]+<span class="literal">result</span>[<span class="string">"c"</span>]);
+</code></pre><h3 id="页面跳转">页面跳转</h3><ol>
+<li>有历史记录<ul>
+<li><code>location.assign(&quot;http:/www.supce.com&quot;)</code></li>
+<li><code>window.location = &quot;http:/www.supce.com&quot;</code></li>
+<li><code>location.href = &quot;http:/www.supce.com&quot;</code></li>
+</ul>
+</li>
+<li>不产生历史记录<ul>
+<li><code>location.replace(&quot;http:/www.supce.com&quot;)</code></li>
+</ul>
+</li>
+<li>重新加载<ul>
+<li><code>location.reload()       //有可能从缓存中加载</code></li>
+<li><code>location.reload(true)   //从服务器端重新加载</code>  </li>
+</ul>
+</li>
+</ol>
+
       
     </div>
     
@@ -574,7 +654,7 @@ setTimeout<span class="params">(timeout,<span class="number">1000</span>)</span>
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BOM"><span class="nav-number">1.</span> <span class="nav-text">BOM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#window对象"><span class="nav-number">1.1.</span> <span class="nav-text">window对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口关系与框架"><span class="nav-number">1.1.1.</span> <span class="nav-text">窗口关系与框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口位置"><span class="nav-number">1.1.2.</span> <span class="nav-text">窗口位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口大小"><span class="nav-number">1.1.3.</span> <span class="nav-text">窗口大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开窗口"><span class="nav-number">1.1.4.</span> <span class="nav-text">打开窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超时调用和间歇调用"><span class="nav-number">1.1.5.</span> <span class="nav-text">超时调用和间歇调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统对话框"><span class="nav-number">1.1.6.</span> <span class="nav-text">系统对话框</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Location对象"><span class="nav-number">1.2.</span> <span class="nav-text">Location对象</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BOM"><span class="nav-number">1.</span> <span class="nav-text">BOM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#window对象"><span class="nav-number">1.1.</span> <span class="nav-text">window对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口关系与框架"><span class="nav-number">1.1.1.</span> <span class="nav-text">窗口关系与框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口位置"><span class="nav-number">1.1.2.</span> <span class="nav-text">窗口位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口大小"><span class="nav-number">1.1.3.</span> <span class="nav-text">窗口大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开窗口"><span class="nav-number">1.1.4.</span> <span class="nav-text">打开窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超时调用和间歇调用"><span class="nav-number">1.1.5.</span> <span class="nav-text">超时调用和间歇调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统对话框"><span class="nav-number">1.1.6.</span> <span class="nav-text">系统对话框</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Location对象"><span class="nav-number">1.2.</span> <span class="nav-text">Location对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Location对象的属性"><span class="nav-number">1.2.1.</span> <span class="nav-text">Location对象的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页面跳转"><span class="nav-number">1.2.2.</span> <span class="nav-text">页面跳转</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
