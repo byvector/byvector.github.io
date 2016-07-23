@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-07-22T03:23:32.930Z</updated>
+  <updated>2016-07-23T13:06:33.961Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,71 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[客户端检测]]></title>
+    <link href="http://blog.supce.com/2016/07/23/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%809/"/>
+    <id>http://blog.supce.com/2016/07/23/JavaScript之基础9/</id>
+    <published>2016-07-22T16:00:00.000Z</published>
+    <updated>2016-07-23T13:06:33.961Z</updated>
+    <content type="html"><![CDATA[<p>不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。</p>
+<hr>
+<h1 id="能力检测_(特性检测)">能力检测 (特性检测)</h1><p>能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。</p>
+<pre><code><span class="keyword">if</span>(<span class="class"><span class="keyword">object</span>.<span class="title">someProperty</span>){</span>
+    <span class="comment">//do something</span>
+}
+</code></pre><a id="more"></a>
+<pre><code><span class="comment">//确定浏览器是否具有DOM1级规定的能力</span>
+<span class="keyword">var</span> hasDOM1 = !!(<span class="built_in">document</span>.getElementById &amp;&amp; <span class="built_in">document</span>.createElement &amp;&amp; <span class="built_in">document</span>.getElementsByTagName);
+<span class="built_in">console</span>.log(hasDOM1);
+</code></pre><p><em>能力检测作为确定下一步解决方案的依据，而不是用它来判断用户使用的是什么浏览器。</em></p>
+<hr>
+<h1 id="怪癖(quirk)检测">怪癖(quirk)检测</h1><p>怪癖检测主要是想知道浏览器存在哪些缺陷，通常会运行一小段代码，以确定浏览器的某个特性不能正常工作。<br>比如：IE8及更早版本与其他浏览器处理空白字符的方式不一样，IE9之前的版本不会为空白符创建节点</p>
+<pre><code><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"test"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> myList = <span class="built_in">document</span>.getElementById(<span class="string">"test"</span>);
+    <span class="keyword">var</span> copyList = myList.cloneNode(<span class="literal">true</span>);
+    <span class="built_in">console</span>.log(copyList.childNodes.length); 
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p>上面的代码中，IE&lt;9时，长度为3，而其他浏览器为7</p>
+<p>IE7及以下版本有一个有意思的怪癖：name特性与给定ID匹配的表单元素（<code>&lt;input&gt;,&lt;textarea&gt;,&lt;button&gt;及&lt;select&gt;</code>）也会被该方法返回</p>
+<pre><code><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">"myElement"</span> <span class="attribute">value</span>=<span class="value">"Text"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span>&gt;</span>div<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    alert(<span class="built_in">document</span>.getElementById(<span class="string">"myElement"</span>));
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p>IE&lt;8返回的是<code>input</code>,其他浏览器返回的为<code>div</code></p>
+<p>还有书上的一个例子：IE8及更早版本中存在一个bug，即如果某个实例属性与[[Enumerable]]标记为false的某个原型属性同名，那么该实例属性将不会出现在for—in循环当中<br>。</p>
+<hr>
+<h1 id="用户代理检测">用户代理检测</h1><p>用户代理检测主要是用来检测用户具体是什么浏览器、什么呈现引擎(内核)、什么版本、什么平台。<br>常见的浏览器内核分别为：</p>
+<ul>
+<li>Gecko (Firefox)</li>
+<li>WebKit (Safari)</li>
+<li>Blink (Opera Chrome)</li>
+<li>Trident (IE)<br><em>括号内为对应的浏览器</em></li>
+</ul>
+<blockquote>
+<p>完整的用户代理检测脚本在高级程序第九章中，这里就不贴了</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。</p>
+<hr>
+<h1 id="能力检测_(特性检测)">能力检测 (特性检测)</h1><p>能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。</p>
+<pre><code><span class="keyword">if</span>(<span class="class"><span class="keyword">object</span>.<span class="title">someProperty</span>){</span>
+    <span class="comment">//do something</span>
+}
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[JavaScript BOM 知识整理 (二)]]></title>
@@ -611,23 +676,6 @@ function <span class="function"><span class="title">fun</span><span class="param
   </entry>
   
   <entry>
-    <title><![CDATA[我胡汉三又回来了]]></title>
-    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
-    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
-    <published>2016-07-12T16:00:00.000Z</published>
-    <updated>2016-07-13T01:44:49.151Z</updated>
-    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]>
-    </summary>
-    
-      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[对象的创建与继承]]></title>
     <link href="http://blog.supce.com/2016/07/13/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%805/"/>
     <id>http://blog.supce.com/2016/07/13/JavaScript之基础5/</id>
@@ -884,6 +932,23 @@ console.log(<span class="keyword">person</span>.sayName());
     </summary>
     
       <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[我胡汉三又回来了]]></title>
+    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
+    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
+    <published>2016-07-12T16:00:00.000Z</published>
+    <updated>2016-07-13T01:44:49.151Z</updated>
+    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]>
+    </summary>
+    
+      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
     
   </entry>
   
@@ -3878,140 +3943,6 @@ ul li{
     <span class="tag">&lt;<span class="title">li</span>&gt;</span>第二个li<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
 </code></pre><p>在ul中如果嵌套div。比如<br>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之图片处理]]></title>
-    <link href="http://blog.supce.com/2016/04/21/CSS%E4%B9%8B%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86/"/>
-    <id>http://blog.supce.com/2016/04/21/CSS之图片处理/</id>
-    <published>2016-04-20T16:00:00.000Z</published>
-    <updated>2016-04-22T04:14:01.353Z</updated>
-    <content type="html"><![CDATA[<p><em>今天任务多，偷点懒少写一些</em></p>
-<h1 id="背景图优化">背景图优化</h1><hr>
-<p>在网站页面中背景图片往往是必不可少的，它能帮助我们美化页面或者增加页面信息量。</p>
-<h2 id="图片格式">图片格式</h2><p>在网页中常用的图片格式有jpg gif以及png。</p>
-<h3 id="jpg格式">jpg格式</h3><p>jgp格式也称为JPEG格式，以24位颜色存储单个位图。它能够以牺牲图像质量为代价对图片进行压缩。所以jpg格式的图片比较小，下载速度快，在页面中很受欢迎。<br><a id="more"></a></p>
-<h3 id="gif格式">gif格式</h3><p>gif在网页中一般以动态图或者图标类的形式出现。gif不能存储超过256颜色的图像，因此对色彩有要求的图片最好不适用gif，否则会对复杂色彩的图片造成失真。</p>
-<h3 id="png格式">png格式</h3><p>png格式图片汲取了gif和jpg二者的优点。</p>
-<ul>
-<li>存储形式丰富，兼有gif和jpg的色彩模式。</li>
-<li>同时它能够将图片尽可能的压缩以利于网络传输，而且它的压缩是无损的。</li>
-<li>png的图片显示速度很快，只需下载1/64的图像信息就可以显示低分辨率的预览图像。</li>
-<li>png支持透明图像制作</li>
-</ul>
-<h2 id="背景属性">背景属性</h2><h3 id="background-color">background-color</h3><p>background-color用来设置其对应元素的背景色。比如设置body为黑色，body内部的div为白色</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">body</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#000</span></span></span>;
-    }</span>
-    <span class="tag">div</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-<span class="tag">&lt;<span class="title">body</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
-        body中的div
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-</code></pre><h3 id="background-image">background-image</h3><p>background-image用来设置页面的背景图。其中url的路径可以是相对路径也可以是绝对路径</p>
-<pre><code><span class="tag">body</span><span class="rules">{
-    <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(图片路径)</span></span>;   
-}</span>
-</code></pre><h3 id="background-repeat">background-repeat</h3><p>用来设置背景图片在网页中以什么方式显示，包括平铺和不平铺两种方式<br>background-repeat有以下四种属性值</p>
-<ul>
-<li>repeat 默认值 背景图在纵轴和横轴上平铺</li>
-<li>no-repeat 背景图不平铺</li>
-<li>repeat-x 背景图仅在x轴上平铺</li>
-<li>repeat-y 背景图仅在y轴上平铺</li>
-</ul>
-<p>在一些网站中可能会使用平铺图作为自己页面的背景。比如</p>
-<pre><code><span class="tag">body</span><span class="rules">{
-   <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(平铺图路径)</span></span>;
-   <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> repeat</span></span>;
-}</span>
-</code></pre><h3 id="background-position">background-position</h3><p>用来设置背景图在容器中的位置,比如将图片设置在body的右下角</p>
-<pre><code><span class="tag">body</span><span class="rules">{
-    <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(图片路径)</span></span>;
-    <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
-    <span class="rule"><span class="attribute">background-position</span>:<span class="value"> right bottom</span></span>;
-}</span>
-</code></pre><p>当然也可以使用数值来确定图片的位置，比如将图片设置在容器水平居中，距顶部200px的位置上。</p>
-<pre><code><span class="tag">body</span><span class="rules">{
-    <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(图片路径)</span></span>;
-    <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
-    <span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">50%</span> <span class="number">200px</span></span></span>;
-}</span>
-</code></pre><blockquote>
-<ul>
-<li>当background-position属性值只设置一个数值时，只应用于水平方向，而垂直方向以默认的50%为基准</li>
-<li>当background-position属性值为百分比时，以图片中心为基准来计算位置，属性值为像素值时，以图片左上角为基准来计算位置</li>
-<li>属性值也可以为负值</li>
-</ul>
-</blockquote>
-<p>background-position属性常常用在CSS Sprite中，后面会介绍到</p>
-<h3 id="background属性的简写">background属性的简写</h3><p>上面提到的属性可以用一行来简写</p>
-<pre><code><span class="tag">body</span><span class="rules">{
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#FFF</span> <span class="function">url</span>(images/demo.jpg) no-repeat right bottom</span></span>;
-}</span>
-</code></pre><p>设置body背景色为#FFF 背景图为demo 不平铺 图片设置在右下角</p>
-<h2 id="CSS_Sprite">CSS Sprite</h2><p>CSS Sprite是一种网页图片应用处理方式。它允许你将一个页面涉及到的所有零星图片都包含到一张大图中去，这样在访问该页面时，载入的图片不会像以前那样一幅一幅的慢慢显示出来。使用这种方式，大大减少了该页面的http请求的次数，减轻服务器压力，同时缩短了悬停加载图片所需要的时间延迟，使效果更流畅。</p>
-<p>CSS Sprite可以用在很多场合，大型网站将许多单独的图片组合起来从而便于维护和更新。图片之间通常会留出较大的空白，使图片不会影响图片的内容。但该方式大多使用于较固定的像素定位中，弹性差，守到定位等因素的制约，所以必须在可维护性和降低负载之间权衡利弊。<br>使用CSS Sprite过程中注意以下两点：</p>
-<ul>
-<li>固定容器的宽度和高度</li>
-<li>超出容器高度和宽度的部分需要隐藏</li>
-</ul>
-<p>利用下面这张图写个小例子<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/yahoo.gif" alt=""></p>
-<blockquote>
-<p>每个ICO纵向以40px为基准，横向以400px为基准</p>
-</blockquote>
-<p>HTML代码如下：</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"ico_list"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"note"</span>&gt;</span>笔记本<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"earth"</span>&gt;</span>地球<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"group"</span>&gt;</span>群组<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>然后就可以使用CSS Sprite方法了</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="class">.ico_list</span> <span class="tag">li</span> <span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">100px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">20px</span></span></span>; 
-        <span class="rule"><span class="attribute">overflow</span>:<span class="value">hidden</span></span>; 
-        <span class="rule"><span class="attribute">list-style</span>:<span class="value">none</span></span>; 
-        <span class="rule"><span class="attribute">text-indent</span>:<span class="value"><span class="number">20px</span></span></span>; 
-        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/yahoo.gif) no-repeat <span class="number">0</span> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="class">.ico_list</span> <span class="tag">li</span><span class="class">.note</span> <span class="rules">{
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">400px</span> -<span class="number">520px</span></span></span>;
-    }</span>
-    <span class="class">.ico_list</span> <span class="tag">li</span><span class="class">.earth</span> <span class="rules">{
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value"><span class="number">0</span> -<span class="number">200px</span></span></span>;
-    }</span>
-    <span class="class">.ico_list</span> <span class="tag">li</span><span class="class">.group</span> <span class="rules">{
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">400px</span> -<span class="number">200px</span></span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tx.jpg-blogImg" alt=""></p>
-<h1 id="图片和文字的混排">图片和文字的混排</h1><p>在上个新闻小例子中，我们的侧边栏就对图片和文字混排做了相关处理，可以参考下。</p>
-<blockquote>
-<p>今天偷懒就写到这里吧 咕~~(╯﹏╰)b</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p><em>今天任务多，偷点懒少写一些</em></p>
-<h1 id="背景图优化">背景图优化</h1><hr>
-<p>在网站页面中背景图片往往是必不可少的，它能帮助我们美化页面或者增加页面信息量。</p>
-<h2 id="图片格式">图片格式</h2><p>在网页中常用的图片格式有jpg gif以及png。</p>
-<h3 id="jpg格式">jpg格式</h3><p>jgp格式也称为JPEG格式，以24位颜色存储单个位图。它能够以牺牲图像质量为代价对图片进行压缩。所以jpg格式的图片比较小，下载速度快，在页面中很受欢迎。<br>]]>
     
     </summary>
     

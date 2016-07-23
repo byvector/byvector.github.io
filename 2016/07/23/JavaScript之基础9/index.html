@@ -66,7 +66,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="demo," />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -84,19 +84,31 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。
+
+能力检测 (特性检测)能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。
+if(object.someProperty){
+    //do something
+}">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://blog.supce.com/2015/08/11/hello-world/index.html">
+<meta property="og:title" content="客户端检测">
+<meta property="og:url" content="http://blog.supce.com/2016/07/23/JavaScript之基础9/index.html">
 <meta property="og:site_name" content="vector's blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2015-08-12T13:26:30.469Z">
+<meta property="og:description" content="不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。
+
+能力检测 (特性检测)能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。
+if(object.someProperty){
+    //do something
+}">
+<meta property="og:updated_time" content="2016-07-23T13:06:33.961Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="客户端检测">
+<meta name="twitter:description" content="不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。
+
+能力检测 (特性检测)能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。
+if(object.someProperty){
+    //do something
+}">
 
 
 
@@ -114,7 +126,7 @@ Quick">
   };
 </script>
 
-  <title> Hello World | vector's blog </title>
+  <title> 客户端检测 | vector's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -234,7 +246,7 @@ Quick">
             
             
               
-                Hello World
+                客户端检测
               
             
           </h1>
@@ -246,8 +258,8 @@ Quick">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-11T09:04:40+08:00" content="2015-08-11">
-              2015-08-11
+            <time itemprop="dateCreated" datetime="2016-07-23T00:00:00+08:00" content="2016-07-23">
+              2016-07-23
             </time>
           </span>
 
@@ -257,8 +269,8 @@ Quick">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/08/11/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/11/hello-world/" itemprop="commentsCount"></span>
+                <a href="/2016/07/23/JavaScript之基础9/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/23/JavaScript之基础9/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -281,15 +293,49 @@ Quick">
       
 
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a><br><a id="more"></a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。</p>
+<hr>
+<h1 id="能力检测_(特性检测)">能力检测 (特性检测)</h1><p>能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。</p>
+<pre><code><span class="keyword">if</span>(<span class="class"><span class="keyword">object</span>.<span class="title">someProperty</span>){</span>
+    <span class="comment">//do something</span>
+}
+</code></pre><a id="more"></a>
+<pre><code><span class="comment">//确定浏览器是否具有DOM1级规定的能力</span>
+<span class="keyword">var</span> hasDOM1 = !!(<span class="built_in">document</span>.getElementById &amp;&amp; <span class="built_in">document</span>.createElement &amp;&amp; <span class="built_in">document</span>.getElementsByTagName);
+<span class="built_in">console</span>.log(hasDOM1);
+</code></pre><p><em>能力检测作为确定下一步解决方案的依据，而不是用它来判断用户使用的是什么浏览器。</em></p>
+<hr>
+<h1 id="怪癖(quirk)检测">怪癖(quirk)检测</h1><p>怪癖检测主要是想知道浏览器存在哪些缺陷，通常会运行一小段代码，以确定浏览器的某个特性不能正常工作。<br>比如：IE8及更早版本与其他浏览器处理空白字符的方式不一样，IE9之前的版本不会为空白符创建节点</p>
+<pre><code><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"test"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> myList = <span class="built_in">document</span>.getElementById(<span class="string">"test"</span>);
+    <span class="keyword">var</span> copyList = myList.cloneNode(<span class="literal">true</span>);
+    <span class="built_in">console</span>.log(copyList.childNodes.length); 
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p>上面的代码中，IE&lt;9时，长度为3，而其他浏览器为7</p>
+<p>IE7及以下版本有一个有意思的怪癖：name特性与给定ID匹配的表单元素（<code>&lt;input&gt;,&lt;textarea&gt;,&lt;button&gt;及&lt;select&gt;</code>）也会被该方法返回</p>
+<pre><code><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">"myElement"</span> <span class="attribute">value</span>=<span class="value">"Text"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span>&gt;</span>div<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    alert(<span class="built_in">document</span>.getElementById(<span class="string">"myElement"</span>));
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p>IE&lt;8返回的是<code>input</code>,其他浏览器返回的为<code>div</code></p>
+<p>还有书上的一个例子：IE8及更早版本中存在一个bug，即如果某个实例属性与[[Enumerable]]标记为false的某个原型属性同名，那么该实例属性将不会出现在for—in循环当中<br>。</p>
+<hr>
+<h1 id="用户代理检测">用户代理检测</h1><p>用户代理检测主要是用来检测用户具体是什么浏览器、什么呈现引擎(内核)、什么版本、什么平台。<br>常见的浏览器内核分别为：</p>
+<ul>
+<li>Gecko (Firefox)</li>
+<li>WebKit (Safari)</li>
+<li>Blink (Opera Chrome)</li>
+<li>Trident (IE)<br><em>括号内为对应的浏览器</em></li>
+</ul>
+<blockquote>
+<p>完整的用户代理检测脚本在高级程序第九章中，这里就不贴了</p>
+</blockquote>
 
       
     </div>
@@ -310,7 +356,7 @@ Quick">
       
         <div class="post-tags">
           
-            <a href="/tags/demo/" rel="tag">#demo</a>
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
           
         </div>
       
@@ -319,17 +365,13 @@ Quick">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/18/JavaScript之基础4/" rel="next" title="IFE Task 04">
-                <i class="fa fa-chevron-left"></i> IFE Task 04
+              <a href="/2016/07/22/JavaScript之基础8/" rel="next" title="JavaScript BOM 知识整理 (二)">
+                <i class="fa fa-chevron-left"></i> JavaScript BOM 知识整理 (二)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/08/11/Test/" rel="prev" title="Test">
-                Test <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -355,8 +397,8 @@ Quick">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/08/11/hello-world/"
-           data-title="Hello World" data-url="http://blog.supce.com/2015/08/11/hello-world/">
+      <div class="ds-thread" data-thread-key="2016/07/23/JavaScript之基础9/"
+           data-title="客户端检测" data-url="http://blog.supce.com/2016/07/23/JavaScript之基础9/">
       </div>
     
   </div>
@@ -485,7 +527,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick_Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create_a_new_post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run_server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate_static_files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy_to_remote_sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#能力检测_(特性检测)"><span class="nav-number">1.</span> <span class="nav-text">能力检测 (特性检测)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怪癖(quirk)检测"><span class="nav-number">2.</span> <span class="nav-text">怪癖(quirk)检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户代理检测"><span class="nav-number">3.</span> <span class="nav-text">用户代理检测</span></a></li></ol></div>
             
           </div>
         </section>
