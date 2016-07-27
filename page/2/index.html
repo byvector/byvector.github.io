@@ -233,6 +233,119 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/14/JavaScript之基础6/" itemprop="url">
+                  函数表达式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-14T00:00:00+08:00" content="2016-07-14">
+              2016-07-14
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/14/JavaScript之基础6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/14/JavaScript之基础6/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="闭包">闭包</h1><hr>
+<p>闭包，在JavaScript中很有意思。JavaScript是链式作用域，所以可以将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把内部的函数返回，通过返回的函数就能够读取到函数内部的变量。<br>于是，可以把闭包简单理解成定义在一个函数内部的函数，并且该内部函数访问了外部的变量。</p>
+<pre><code>console.log(<span class="string">"-----闭包-----"</span>);
+function <span class="function"><span class="title">fun</span><span class="params">()</span>{</span>
+    <span class="variable"><span class="keyword">var</span> a</span> = <span class="number">1</span>;
+    <span class="keyword">return</span> function f(){
+        console.log(a);
+    };
+}
+<span class="variable"><span class="keyword">var</span> result</span> = <span class="function"><span class="title">fun</span><span class="params">()</span><span class="params">()</span>;</span>
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/14/JavaScript之基础6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/13/JavaScript之基础5/" itemprop="url">
                   对象的创建与继承
                 </a>
@@ -649,117 +762,6 @@ console.log(<span class="keyword">person</span>.sayName());
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/17/JavaScript之基础2/" itemprop="url">
-                  IFE Task 02
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-17T00:00:00+08:00" content="2016-05-17">
-              2016-05-17
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/17/JavaScript之基础2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/17/JavaScript之基础2/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>最近课题要结项，自由支配的时间越发宝贵了</p>
-</blockquote>
-<h1 id="任务目的">任务目的</h1><hr>
-<ul>
-<li>在上一任务基础上继续JavaScript的体验</li>
-<li>接触一下JavaScript中的高级选择器</li>
-<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
-<li>学习简单的字符串处理操作
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/05/17/JavaScript之基础2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -805,7 +807,7 @@ console.log(<span class="keyword">person</span>.sayName());
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
