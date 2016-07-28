@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-07-27T13:17:21.390Z</updated>
+  <updated>2016-07-28T03:25:22.829Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.supce.com/2016/07/26/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8011/"/>
     <id>http://blog.supce.com/2016/07/26/JavaScript之基础11/</id>
     <published>2016-07-25T16:00:00.000Z</published>
-    <updated>2016-07-27T13:17:21.390Z</updated>
+    <updated>2016-07-28T03:25:22.829Z</updated>
     <content type="html"><![CDATA[<hr>
 <blockquote>
 <p>这里主要记录下DOM基于CSS选择符和HTML5的一些扩展。</p>
@@ -348,6 +348,123 @@ div.parentNode.replaceChild<span class="params">(p, div)</span>;
 <pre><code><span class="comment">//作为前一个同辈元素插入</span>
 element.insertAdjacentHTML<span class="params">(<span class="string">"beforebegin"</span>, <span class="string">"&lt;p&gt;Hello world!&lt;/p&gt;"</span>)</span>;
 </code></pre><h2 id="scrollIntoView方法"><code>scrollIntoView</code>方法</h2><p>scrollIntoView()方法，通过滚动浏览器窗口或容器元素，以便在当前视窗的可见范围看见当前元素。如果参数为true，或者省略它，窗口会尽可能滚动到自身顶部与元素顶部平齐。<br>可以写一个导航栏固定，点击导航栏滚动到相应<code>div</code>的小例子：</p>
+<p>HTML代码为：</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"floatFix"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"red"</span>&gt;</span>第一部分<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>第二部分<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>第三部分<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"first_section"</span> <span class="attribute">class</span>=<span class="value">"section"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>第一部分<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"sec_section"</span> <span class="attribute">class</span>=<span class="value">"section"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>第二部分<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"third_section"</span> <span class="attribute">class</span>=<span class="value">"section"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>第三部分<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>CSS代码为：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+*<span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+}</span>
+<span class="id">#header</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">50px</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> fixed</span></span>;        
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="function">rgb</span>(<span class="number">83</span>,<span class="number">83</span>,<span class="number">83</span>)</span></span>;
+}</span>
+<span class="id">#nav</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto auto</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">60%</span></span></span>;
+}</span>
+<span class="id">#nav</span> <span class="tag">ul</span><span class="rules">{
+    <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;
+}</span>
+<span class="id">#nav</span> <span class="tag">li</span><span class="rules">{
+    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">30%</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">50px</span></span></span>;
+    <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">50px</span></span></span>;
+    <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
+}</span>
+<span class="rule"><span class="attribute">.floatFix</span>:<span class="value">after{
+    clear: both</span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+    <span class="rule"><span class="attribute">visibility</span>:<span class="value"> hidden</span></span>;
+    <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">""</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">0</span></span></span>;
+    ;<span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">0</span></span></span>;
+}
+<span class="class">.section</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+    <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
+}</span>
+<span class="id">#first_section</span><span class="rules">{
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> red</span></span>;
+}</span>
+<span class="id">#sec_section</span><span class="rules">{
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> green</span></span>;
+}</span>
+<span class="id">#third_section</span><span class="rules">{
+<span class="rule"><span class="attribute">background-color</span>:<span class="value"> yellow</span></span>;
+}</span>
+<span class="class">.red</span><span class="rules">{
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> red</span></span>;
+}</span>
+<span class="class">.green</span><span class="rules">{
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> green</span></span>;
+}</span>
+<span class="class">.yellow</span><span class="rules">{
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> yellow</span></span>;
+}</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>JavaScript代码：</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> $ = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>{
+        <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);
+    }
+    <span class="keyword">var</span> client_height = screen.availHeight;
+    <span class="keyword">var</span> array = [$(<span class="string">'first_section'</span>),$(<span class="string">'sec_section'</span>),$(<span class="string">'third_section'</span>)];
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++){
+        <span class="built_in">console</span>.log(array[i]);
+        array[i].style.height = (client_height - <span class="number">50</span>) + <span class="string">"px"</span>;
+        array[i].style.lineHeight = (client_height - <span class="number">50</span>) + <span class="string">"px"</span>;
+    }
+    <span class="keyword">var</span> li = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'li'</span>);
+    li[<span class="number">0</span>].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        li[<span class="number">0</span>].className = <span class="string">"red"</span>;
+        li[<span class="number">1</span>].className = <span class="string">" "</span>;
+        li[<span class="number">2</span>].className = <span class="string">" "</span>;
+        $(<span class="string">'first_section'</span>).scrollIntoView(<span class="literal">false</span>);
+    }
+    li[<span class="number">1</span>].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        li[<span class="number">0</span>].className = <span class="string">" "</span>;
+        li[<span class="number">1</span>].className = <span class="string">"green"</span>;
+        li[<span class="number">2</span>].className = <span class="string">" "</span>;
+        $(<span class="string">'sec_section'</span>).scrollIntoView(<span class="literal">false</span>);
+    }
+    li[<span class="number">2</span>].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        li[<span class="number">0</span>].className = <span class="string">" "</span>;
+        li[<span class="number">1</span>].className = <span class="string">" "</span>;
+        li[<span class="number">2</span>].className = <span class="string">"yellow"</span>;
+        $(<span class="string">'third_section'</span>).scrollIntoView(<span class="literal">false</span>);
+    }
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/dom6.jpg-blogImg" alt=""></p>
+<blockquote>
+<p>文章导图</p>
+</blockquote>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/DOM2.png-blogImg" alt=""></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<hr>
