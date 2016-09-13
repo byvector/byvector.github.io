@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-09-12T13:12:20.547Z</updated>
+  <updated>2016-09-13T13:04:59.411Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,105 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之半透明与多重边框]]></title>
+    <link href="http://blog.supce.com/2016/09/13/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%8D%8A%E9%80%8F%E6%98%8E%E4%B8%8E%E5%A4%9A%E9%87%8D%E8%BE%B9%E6%A1%86/"/>
+    <id>http://blog.supce.com/2016/09/13/CSS Secret 读书笔记之半透明与多重边框/</id>
+    <published>2016-09-12T16:00:00.000Z</published>
+    <updated>2016-09-13T13:04:59.411Z</updated>
+    <content type="html"><![CDATA[<h1 id="半透明边框">半透明边框</h1><p>由于背景色会侵入到边框所在的范围，如果想要半透明的边框，可以使用<code>background-clip</code>属性。这个属性规定背景的绘制区域，其初始值为<code>border-box</code>，如果将属性值设置为<code>padding-box</code>，背景就会被裁剪到内边距框。<br>HTML代码：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"parent"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"test"</span>&gt;
+        this <span class="keyword">is</span> a test
+    &lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><a id="more"></a>
+<p>CSS代码：</p>
+<pre><code><span class="class">.parent</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> deepskyblue</span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+}</span>
+<span class="class">.test</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">50px</span> auto</span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">50px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">50px</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">10px</span> solid <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">5</span>)</span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> white</span></span>;
+    <span class="rule"><span class="attribute">background-clip</span>:<span class="value"> padding-box</span></span>;
+}</span>
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tran1.jpg" alt=""></p>
+<h1 id="多重边框">多重边框</h1><p>想要使用多重边框，但是又不想添加无用的额外元素破坏HTML结构。可以使用<code>box-shadow</code>或者<code>outline</code>来模拟多重边框。</p>
+<h2 id="box-shadow方案"><code>box-shadow</code>方案</h2><p>想要模拟多重边框，可以利用<code>box-shadow</code>的第四个参数，用来设置阴影的尺寸。一个正值的阴影加上两个为零的偏移量以及为零的模糊值，得到的效果就像一道实线的边框。</p>
+<blockquote>
+<p>恰巧，box-shadow支持都好分隔语法，可以创建任意数量的阴影。</p>
+</blockquote>
+<p>于是可以模拟出多重边框。例如：<br>HTML代码：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"box-shadow-test"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS代码：</p>
+<pre><code>.box-shadow-test{
+    margin: <span class="number">50</span>px <span class="keyword">auto</span>;
+    padding: <span class="number">0</span>;
+    width: <span class="number">50</span>px;
+    height: <span class="number">50</span>px;
+}
+.box-shadow-test{
+    background: <span class="preprocessor">#<span class="number">6</span>b0;</span>
+    box-shadow: <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">5</span>px <span class="preprocessor">#<span class="number">655</span>,</span>
+    <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">10</span>px deeppink,
+    <span class="number">0</span>px <span class="number">2</span>px <span class="number">5</span>px <span class="number">15</span><span class="function">px <span class="title">rgba</span><span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.6</span>)</span></span>;
+}
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tran2.jpg" alt=""></p>
+<h2 id="outline方案"><code>outline</code>方案</h2><p><code>box-shadow</code>虽然可以模拟边框，但是有一个缺陷，就是只能模拟实线边框，不能模拟出虚线边框。而且，可以设置<code>outline-offset</code>属性来控制它和元素边缘之间的间距，如果设置成负值可以模拟出缝边效果。比如：<br>HTML代码：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"outline-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS代码：</p>
+<pre><code><span class="class">.outline-a</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">50px</span> auto</span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">50px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">50px</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> yellowgreen</span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">10px</span> solid <span class="hexcolor">#655</span></span></span>;
+        <span class="rule"><span class="attribute">outline</span>:<span class="value"> <span class="number">1px</span> dashed deeppink</span></span>;
+        <span class="rule"><span class="attribute">outline-offset</span>:<span class="value"> -<span class="number">5px</span></span></span>;
+        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">5px</span></span></span>;
+    }</span>
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tran3.jpg" alt=""></p>
+<blockquote>
+<p>可以看出来，使用outline方案，适用于两层边框的场景。如果需要更多的边框，只能使用box-shadow方案了。</p>
+</blockquote>
+<p><code>outline</code>还有一个缺陷，<code>outline</code>模拟的边框并不能贴合<code>border-radius</code>产生圆角。比如：</p>
+<p>代码：</p>
+<pre><code>&lt;div class="outline-b"&gt;&lt;/div&gt;
+.outline-b{
+    margin: 50px auto<span class="comment">;</span>
+    padding: 0<span class="comment">;</span>
+    width: 50px<span class="comment">;</span>
+    height: 50px<span class="comment">;</span>
+    background: yellowgreen<span class="comment">;</span>
+    border: 10px solid #655<span class="comment">;</span>
+    outline: 5px solid deeppink<span class="comment">;</span>
+    border-radius: 5px<span class="comment">;</span>
+}
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tran4.jpg" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="半透明边框">半透明边框</h1><p>由于背景色会侵入到边框所在的范围，如果想要半透明的边框，可以使用<code>background-clip</code>属性。这个属性规定背景的绘制区域，其初始值为<code>border-box</code>，如果将属性值设置为<code>padding-box</code>，背景就会被裁剪到内边距框。<br>HTML代码：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"parent"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"test"</span>&gt;
+        this <span class="keyword">is</span> a test
+    &lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret 读书笔记之弹性布局]]></title>
@@ -3012,6 +3111,140 @@ li{
   </entry>
   
   <entry>
+    <title><![CDATA[CSS学习笔记之滤镜]]></title>
+    <link href="http://blog.supce.com/2016/05/03/CSS%E4%B9%8B%E6%BB%A4%E9%95%9C/"/>
+    <id>http://blog.supce.com/2016/05/03/CSS之滤镜/</id>
+    <published>2016-05-02T16:00:00.000Z</published>
+    <updated>2016-05-03T11:03:43.434Z</updated>
+    <content type="html"><![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
+<p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
+<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
+<p>先是HTML代码：</p>
+<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
+&lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
+</code></pre><a id="more"></a>
+<p>然后是CSS的测试代码：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">img</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">400</span>x</span></span>;
+    }</span>
+    <span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> gray</span></span>;  <span class="comment">/*IE*/</span>
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj.jpg-blogImg" alt=""></p>
+<h2 id="高斯模糊">高斯模糊</h2><p>高斯模糊也就是我没带眼镜时的效果，用blur实现 取值范围为0-N px，其中0为无效果</p>
+<p>测试代码：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">blur</span>(<span class="number">2px</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
+    }</span> 
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj1.jpg-blogImg" alt=""></p>
+<h2 id="Speia滤镜">Speia滤镜</h2><p>Speia滤镜是对图片或元素整体进行棕褐色处理，就是老照片那种效果 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
+<p>测试代码：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
+    }</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj2.jpg-blogImg" alt=""></p>
+<h2 id="饱和度滤镜">饱和度滤镜</h2><p>看到饱和度让我想起了冷屏和暖屏之间的战争以及到底用不用三星A屏 可以利用saturate实现 取值范围&gt;=0的数字或百分数，1为无效果，0为灰度图</p>
+<p>测试代码:</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
+    }</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj3.jpg-blogImg" alt=""></p>
+<h2 id="反色滤镜">反色滤镜</h2><p>反色滤镜使用invert来实现 就是婴儿照那种胶片的感觉(好像把年龄暴漏了) 取值范围0~1或0~100%，0为无效果，1或100%表示最大效果</p>
+<p>测试代码：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
+    }</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj4.jpg-blogImg" alt=""></p>
+<h2 id="对比度滤镜">对比度滤镜</h2><p>对比度和亮度一般在显示器都可以调试，CSS3中对比度使用contrast 取值范围&gt;=0的数字或百分数，1为无效果</p>
+<p>测试代码：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
+    }</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj5.jpg-blogImg" alt=""></p>
+<h2 id="亮度滤镜">亮度滤镜</h2><p>亮度滤镜使用brightness 取值范围&gt;=0的数字或百分数，1为无效果</p>
+<p>测试代码：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
+    }</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj6.jpg-blogImg" alt=""></p>
+<h2 id="阴影滤镜">阴影滤镜</h2><p>阴影滤镜其实在表单写button的时候用过，可以增加元素的立体感 使用drop-shadow来实现<br>格式：</p>
+<blockquote>
+<p>filer: drop-shadow(x-offset y-offset 阴影模糊半径 阴影颜色)<br>x-offset和y-offset为阴影的相对于元素左上角的位移距离；</p>
+</blockquote>
+<p>测试代码:</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+    }</span>
+</code></pre><p>效果美美的：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj7.jpg-blogImg" alt=""></p>
+<blockquote>
+<p>注意：阴影的外观受border-radius样式的影响</p>
+</blockquote>
+<p>比如：</p>
+<pre><code><span class="class">.filter</span><span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
+        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
+        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    }</span>
+</code></pre><p>是不是更美了</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj8.jpg-blogImg" alt=""></p>
+<p>当然也可以结合border来进行更好的美化效果。这里就不贴代码和效果了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
+<p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
+<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
+<p>先是HTML代码：</p>
+<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
+&lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[CSS学习笔记之选项卡]]></title>
     <link href="http://blog.supce.com/2016/05/03/CSS%E4%B9%8B%E9%80%89%E9%A1%B9%E5%8D%A1/"/>
     <id>http://blog.supce.com/2016/05/03/CSS之选项卡/</id>
@@ -3196,140 +3429,6 @@ li{
     <summary type="html">
     <![CDATA[<h1 id="网页中的选项卡">网页中的选项卡</h1><hr>
 <p>在一些门户网站中，为了在有限的网页空间中尽可能的展示更多的信息，会采用tab选项卡的方式。比如<a href="http://www.163.com/">网易</a>首页就使用了大量的选项卡。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab.jpg-blogImg" alt=""><br>下面学习几种实现tab选项卡的方式</p>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之滤镜]]></title>
-    <link href="http://blog.supce.com/2016/05/03/CSS%E4%B9%8B%E6%BB%A4%E9%95%9C/"/>
-    <id>http://blog.supce.com/2016/05/03/CSS之滤镜/</id>
-    <published>2016-05-02T16:00:00.000Z</published>
-    <updated>2016-05-03T11:03:43.434Z</updated>
-    <content type="html"><![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
-<p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
-<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
-<p>先是HTML代码：</p>
-<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-&lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-</code></pre><a id="more"></a>
-<p>然后是CSS的测试代码：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">img</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">400</span>x</span></span>;
-    }</span>
-    <span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> gray</span></span>;  <span class="comment">/*IE*/</span>
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj.jpg-blogImg" alt=""></p>
-<h2 id="高斯模糊">高斯模糊</h2><p>高斯模糊也就是我没带眼镜时的效果，用blur实现 取值范围为0-N px，其中0为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">blur</span>(<span class="number">2px</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-    }</span> 
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj1.jpg-blogImg" alt=""></p>
-<h2 id="Speia滤镜">Speia滤镜</h2><p>Speia滤镜是对图片或元素整体进行棕褐色处理，就是老照片那种效果 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj2.jpg-blogImg" alt=""></p>
-<h2 id="饱和度滤镜">饱和度滤镜</h2><p>看到饱和度让我想起了冷屏和暖屏之间的战争以及到底用不用三星A屏 可以利用saturate实现 取值范围&gt;=0的数字或百分数，1为无效果，0为灰度图</p>
-<p>测试代码:</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj3.jpg-blogImg" alt=""></p>
-<h2 id="反色滤镜">反色滤镜</h2><p>反色滤镜使用invert来实现 就是婴儿照那种胶片的感觉(好像把年龄暴漏了) 取值范围0~1或0~100%，0为无效果，1或100%表示最大效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj4.jpg-blogImg" alt=""></p>
-<h2 id="对比度滤镜">对比度滤镜</h2><p>对比度和亮度一般在显示器都可以调试，CSS3中对比度使用contrast 取值范围&gt;=0的数字或百分数，1为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj5.jpg-blogImg" alt=""></p>
-<h2 id="亮度滤镜">亮度滤镜</h2><p>亮度滤镜使用brightness 取值范围&gt;=0的数字或百分数，1为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj6.jpg-blogImg" alt=""></p>
-<h2 id="阴影滤镜">阴影滤镜</h2><p>阴影滤镜其实在表单写button的时候用过，可以增加元素的立体感 使用drop-shadow来实现<br>格式：</p>
-<blockquote>
-<p>filer: drop-shadow(x-offset y-offset 阴影模糊半径 阴影颜色)<br>x-offset和y-offset为阴影的相对于元素左上角的位移距离；</p>
-</blockquote>
-<p>测试代码:</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-    }</span>
-</code></pre><p>效果美美的：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj7.jpg-blogImg" alt=""></p>
-<blockquote>
-<p>注意：阴影的外观受border-radius样式的影响</p>
-</blockquote>
-<p>比如：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    }</span>
-</code></pre><p>是不是更美了</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj8.jpg-blogImg" alt=""></p>
-<p>当然也可以结合border来进行更好的美化效果。这里就不贴代码和效果了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
-<p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
-<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
-<p>先是HTML代码：</p>
-<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-&lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-</code></pre>]]>
     
     </summary>
     
@@ -3863,241 +3962,6 @@ li{
 <p><em>权侵删</em></p>
 <h1 id="结构分析">结构分析</h1><hr>
 <p>首先把原网页结构搞明白<br>最上面是header，header里左侧是一个由li组成的导航栏，右侧是搜索、登录、注册和投稿按钮。<br>header下面是一个宽度为100%的图片。暂时把它称为img_wraper吧。<br>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之表格（一）]]></title>
-    <link href="http://blog.supce.com/2016/04/27/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(1)/"/>
-    <id>http://blog.supce.com/2016/04/27/CSS之表格(1)/</id>
-    <published>2016-04-26T16:00:00.000Z</published>
-    <updated>2016-04-28T09:44:49.202Z</updated>
-    <content type="html"><![CDATA[<h1 id="表格介绍">表格介绍</h1><hr>
-<p>表格由一行或者多行单元格组成，能够友好的对数据进行整理归类，以便对数据进行分析。<br>一个表格结构由以下标签组成：<br><code>&lt;table&gt;</code> | table标签可定义表格。在table标签内部可以放置表格的标题、行、列<br><code>&lt;caption&gt;</code> | caption可以定义一个表格标题。该标签紧跟在table标签后，每个表格只能定义一个标题。标题通常会显示在表格最上方<br><code>&lt;th&gt;</code> | 定义表格内的表头单元格 文本会显示为粗体居中<br><code>&lt;tr&gt;</code> | 在表格中定义行<br><code>&lt;td&gt;</code> | 在表格中定义列<br><code>&lt;thead&gt;</code> | 定义表格的表头<br><code>&lt;tbody&gt;</code> | 定义表格的主题<br><code>&lt;tfoo&gt;</code> | 定义表格的页脚<br><a id="more"></a></p>
-<h1 id="表格修饰">表格修饰</h1><p>首先创建一个table的框架</p>
-<pre><code><span class="tag">&lt;<span class="title">table</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">caption</span>&gt;</span>表格标题<span class="tag">&lt;/<span class="title">caption</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">thead</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">th</span>&gt;</span>标题1<span class="tag">&lt;/<span class="title">th</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">th</span>&gt;</span>标题2<span class="tag">&lt;/<span class="title">th</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">thead</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">tbody</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容A<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容B<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容C<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容D<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容E<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容F<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tbody</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">tfoot</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">td</span> <span class="attribute">colspan</span>=<span class="value">"2"</span>&gt;</span>这里是tfoot<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tfoot</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">table</span>&gt;</span>
-</code></pre><p>默认的表格样式如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg.jpg-blogImg" alt=""><br>惨不忍睹，下面就给表格添加样式</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">table</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
-        <span class="rule"><span class="attribute">font</span>:<span class="value">normal <span class="number">15px</span>/<span class="number">1.5</span> Arial</span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    }</span>
-    <span class="tag">caption</span><span class="rules">{
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    }</span>
-    <span class="tag">tfoot</span><span class="rules">{
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
-        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span>/<span class="number">1.5</span> <span class="string">"楷体"</span></span></span>;
-    }</span>
-    <span class="tag">th</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#CDCDCD</span></span></span>;
-    }</span>
-    <span class="tag">tbody</span> <span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#E8E8E8</span></span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>刷新下页面 美观多了<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg1.jpg-blogImg" alt=""><br>这里还可以利用之前说到的子选择器与相邻选择器的方式进行样式调整，比如将第一列字体设置为绿色，第二列为红色。</p>
-<pre><code><span class="tag">tr</span>&gt;<span class="tag">td</span><span class="rules">{
-    <span class="rule"><span class="attribute">color</span>:<span class="value"> green</span></span>;
-}</span>
-<span class="tag">tr</span>&gt;<span class="tag">td</span>+<span class="tag">td</span><span class="rules">{
-    <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
-}</span>
-</code></pre><p>非常容易实现我们想要的效果<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg2.jpg-blogImg" alt=""><br>下面把单元格的背景色去掉 给单元格添加边框：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">table</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
-        <span class="rule"><span class="attribute">font</span>:<span class="value">normal <span class="number">15px</span>/<span class="number">1.5</span> Arial</span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    }</span>
-    <span class="tag">caption</span><span class="rules">{
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    }</span>
-    <span class="tag">tfoot</span><span class="rules">{
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
-        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span>/<span class="number">1.5</span> <span class="string">"楷体"</span></span></span>;
-    }</span>
-    <span class="tag">th</span><span class="rules">{
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
-
-    }</span>
-    <span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#E8E8E8</span></span></span>;
-    }</span>
-    <span class="tag">tr</span>&gt;<span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> green</span></span>;
-    }</span>
-    <span class="tag">tr</span>&gt;<span class="tag">td</span>+<span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg3.jpg-blogImg" alt=""><br>但是表格单元格之间的空白并不是想要的。<br>可以在table中设置<code>border-collapse: collapse;</code>使边框合并<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg4.jpg-blogImg" alt=""></p>
-<h1 id="隔行换色表格">隔行换色表格</h1><p>有时候由于表格行数太多，为了增加表格数据的可视性，可以让表格隔行换色</p>
-<h2 id="使用相邻选择器">使用相邻选择器</h2><p>首先把HTML框架搭好,在原来的基础上复制几行<br>然后先使用相邻选择器的方式实现隔行换色：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">table</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
-        <span class="rule"><span class="attribute">font</span>:<span class="value">normal <span class="number">15px</span>/<span class="number">1.5</span> Arial</span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-        <span class="rule"><span class="attribute">border-collapse</span>:<span class="value"> collapse</span></span>;
-    }</span>
-    <span class="tag">caption</span><span class="rules">{
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    }</span>
-    <span class="tag">tfoot</span><span class="rules">{
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
-        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span>/<span class="number">1.5</span> <span class="string">"楷体"</span></span></span>;
-    }</span>
-    <span class="tag">th</span><span class="rules">{
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
-    }</span>
-    <span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#CDCDCD</span></span></span>;
-    }</span>
-    <span class="tag">tr</span>+<span class="tag">tr</span> <span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
-    }</span>
-    <span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span> <span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#CDCDCD</span></span></span>;
-    }</span>
-    <span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span> <span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
-    }</span>
-    <span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span> <span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#CDCDCD</span></span></span>;
-    }</span>
-    <span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span>+<span class="tag">tr</span> <span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>效果是实现了，但是行数过多的情况下要添加很多CSS样式代码，此时这种方式是行不通的<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg5.jpg-blogImg" alt=""></p>
-<h2 id="使用类选择器">使用类选择器</h2><p>可以给tr添加类选择器，这样就很简单了。</p>
-<pre><code><span class="tag">&lt;<span class="title">tbody</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">class</span>=<span class="value">"tr_bg1"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容A<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容B<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容C<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容D<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">class</span>=<span class="value">"tr_bg1"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容E<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容F<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容G<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容H<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">class</span>=<span class="value">"tr_bg1"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容I<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容J<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容K<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格内容L<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>    
-<span class="tag">&lt;/<span class="title">tbody</span>&gt;</span>
-</code></pre><p>CSS就少多了</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">table</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
-        <span class="rule"><span class="attribute">font</span>:<span class="value">normal <span class="number">15px</span>/<span class="number">1.5</span> Arial</span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-        <span class="rule"><span class="attribute">border-collapse</span>:<span class="value"> collapse</span></span>;
-    }</span>
-    <span class="tag">caption</span><span class="rules">{
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    }</span>
-    <span class="tag">tfoot</span><span class="rules">{
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
-        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span>/<span class="number">1.5</span> <span class="string">"楷体"</span></span></span>;
-    }</span>
-    <span class="tag">th</span><span class="rules">{
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
-    }</span>
-    <span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
-    }</span>
-    <span class="class">.tr_bg1</span> <span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#CDCDCD</span></span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><blockquote>
-<p>这时候效果跟刚才是一样的。但是如果要修改为隔N行换色就需要修改HTML了，当然也可以在类选择器的基础上添加相邻选择器来修改样式。具体用哪种方式要根据具体的条件背景和要求了。</p>
-</blockquote>
-<h2 id="使用背景图片">使用背景图片</h2><p>要使用背景图片，首先要准备一张平铺图 如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg6.jpg-blogImg" alt=""><br>修改CSS代码如下：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">table</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
-        <span class="rule"><span class="attribute">font</span>:<span class="value">normal <span class="number">12px</span>/<span class="number">1.5</span> Arial</span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-        <span class="rule"><span class="attribute">border-collapse</span>:<span class="value"> collapse</span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/td_bg.gif) repeat <span class="number">0</span> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="tag">caption</span><span class="rules">{
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    }</span>
-    <span class="tag">tfoot</span><span class="rules">{
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
-        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">12px</span>/<span class="number">1.5</span> <span class="string">"楷体"</span></span></span>;
-    }</span>
-    <span class="tag">th</span><span class="rules">{
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">20px</span></span></span>;
-        <span class="rule"><span class="attribute">border-right</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
-    }</span>
-    <span class="tag">td</span><span class="rules">{
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">20px</span></span></span>;
-        <span class="rule"><span class="attribute">border-right</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
-    }</span>       
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg7.jpg-blogImg" alt=""><br>但是这种方式需要精确计算图片大小、行高以及字体大小。比如我们将字体调大为26px 这是就会发生错位现象<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bg8.jpg-blogImg" alt=""></p>
-<blockquote>
-<p>除了隔行换色的方式，其实还可以给tr添加hover来增加表格的可视性，在一些炫酷的表格中还可以使用box-shadow来增加立体效果，当然这些都是CSS3的属性。这里就不展示了，以后应该会专门写一些CSS的学习笔记来展示</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="表格介绍">表格介绍</h1><hr>
-<p>表格由一行或者多行单元格组成，能够友好的对数据进行整理归类，以便对数据进行分析。<br>一个表格结构由以下标签组成：<br><code>&lt;table&gt;</code> | table标签可定义表格。在table标签内部可以放置表格的标题、行、列<br><code>&lt;caption&gt;</code> | caption可以定义一个表格标题。该标签紧跟在table标签后，每个表格只能定义一个标题。标题通常会显示在表格最上方<br><code>&lt;th&gt;</code> | 定义表格内的表头单元格 文本会显示为粗体居中<br><code>&lt;tr&gt;</code> | 在表格中定义行<br><code>&lt;td&gt;</code> | 在表格中定义列<br><code>&lt;thead&gt;</code> | 定义表格的表头<br><code>&lt;tbody&gt;</code> | 定义表格的主题<br><code>&lt;tfoo&gt;</code> | 定义表格的页脚<br>]]>
     
     </summary>
     

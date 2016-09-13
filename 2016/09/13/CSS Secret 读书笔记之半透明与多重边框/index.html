@@ -58,38 +58,29 @@
 
 
 
-<meta name="description" content="一、准备工作
-首先，我们准备一个存放诗句的div容器放在body中。
-&amp;lt;div class=&quot;poemBox&quot;&amp;gt;
-    &amp;lt;h1&amp;gt;《采桑子·长者》&amp;lt;/h1&amp;gt;
-    &amp;lt;address&amp;gt;当代·无名氏&amp;lt;/address&amp;gt;
-    &amp;lt;p&amp;gt;人间易老他不老，时刻一秒&amp;lt;/p&amp;gt;
-    &amp;lt;p&amp;gt;今又一秒，香江怒斥分外好">
+<meta name="description" content="半透明边框由于背景色会侵入到边框所在的范围，如果想要半透明的边框，可以使用background-clip属性。这个属性规定背景的绘制区域，其初始值为border-box，如果将属性值设置为padding-box，背景就会被裁剪到内边距框。HTML代码：
+&amp;lt;div class=&quot;parent&quot;&amp;gt;
+    &amp;lt;div class=&quot;test&quot;&amp;gt;
+        this is a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS学习笔记之容器的位置">
-<meta property="og:url" content="http://blog.supce.com/2016/04/12/CSS之容器/index.html">
+<meta property="og:title" content="CSS Secret 读书笔记之半透明与多重边框">
+<meta property="og:url" content="http://blog.supce.com/2016/09/13/CSS Secret 读书笔记之半透明与多重边框/index.html">
 <meta property="og:site_name" content="vector's blog">
-<meta property="og:description" content="一、准备工作
-首先，我们准备一个存放诗句的div容器放在body中。
-&amp;lt;div class=&quot;poemBox&quot;&amp;gt;
-    &amp;lt;h1&amp;gt;《采桑子·长者》&amp;lt;/h1&amp;gt;
-    &amp;lt;address&amp;gt;当代·无名氏&amp;lt;/address&amp;gt;
-    &amp;lt;p&amp;gt;人间易老他不老，时刻一秒&amp;lt;/p&amp;gt;
-    &amp;lt;p&amp;gt;今又一秒，香江怒斥分外好">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi.jpg-blogImg">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi1.jpg-blogImg">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi2.jpg-blogImg">
-<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi3.jpg-blogImg">
-<meta property="og:updated_time" content="2016-04-19T13:57:08.284Z">
+<meta property="og:description" content="半透明边框由于背景色会侵入到边框所在的范围，如果想要半透明的边框，可以使用background-clip属性。这个属性规定背景的绘制区域，其初始值为border-box，如果将属性值设置为padding-box，背景就会被裁剪到内边距框。HTML代码：
+&amp;lt;div class=&quot;parent&quot;&amp;gt;
+    &amp;lt;div class=&quot;test&quot;&amp;gt;
+        this is a">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/tran1.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/tran2.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/tran3.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/tran4.jpg">
+<meta property="og:updated_time" content="2016-09-13T13:04:59.411Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS学习笔记之容器的位置">
-<meta name="twitter:description" content="一、准备工作
-首先，我们准备一个存放诗句的div容器放在body中。
-&amp;lt;div class=&quot;poemBox&quot;&amp;gt;
-    &amp;lt;h1&amp;gt;《采桑子·长者》&amp;lt;/h1&amp;gt;
-    &amp;lt;address&amp;gt;当代·无名氏&amp;lt;/address&amp;gt;
-    &amp;lt;p&amp;gt;人间易老他不老，时刻一秒&amp;lt;/p&amp;gt;
-    &amp;lt;p&amp;gt;今又一秒，香江怒斥分外好">
+<meta name="twitter:title" content="CSS Secret 读书笔记之半透明与多重边框">
+<meta name="twitter:description" content="半透明边框由于背景色会侵入到边框所在的范围，如果想要半透明的边框，可以使用background-clip属性。这个属性规定背景的绘制区域，其初始值为border-box，如果将属性值设置为padding-box，背景就会被裁剪到内边距框。HTML代码：
+&amp;lt;div class=&quot;parent&quot;&amp;gt;
+    &amp;lt;div class=&quot;test&quot;&amp;gt;
+        this is a">
 
 
 
@@ -107,7 +98,7 @@
   };
 </script>
 
-  <title> CSS学习笔记之容器的位置 | vector's blog </title>
+  <title> CSS Secret 读书笔记之半透明与多重边框 | vector's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -227,7 +218,7 @@
             
             
               
-                CSS学习笔记之容器的位置
+                CSS Secret 读书笔记之半透明与多重边框
               
             
           </h1>
@@ -239,8 +230,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-12T00:00:00+08:00" content="2016-04-12">
-              2016-04-12
+            <time itemprop="dateCreated" datetime="2016-09-13T00:00:00+08:00" content="2016-09-13">
+              2016-09-13
             </time>
           </span>
 
@@ -250,8 +241,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/12/CSS之容器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/12/CSS之容器/" itemprop="commentsCount"></span>
+                <a href="/2016/09/13/CSS Secret 读书笔记之半透明与多重边框/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/13/CSS Secret 读书笔记之半透明与多重边框/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -274,71 +265,83 @@
       
 
       
-        <h1 id="一、准备工作">一、准备工作</h1><hr>
-<p>首先，我们准备一个存放诗句的div容器放在body中。</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"poemBox"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>《采桑子·长者》<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">address</span>&gt;</span>当代·无名氏<span class="tag">&lt;/<span class="title">address</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">p</span>&gt;</span>人间易老他不老，时刻一秒<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">p</span>&gt;</span>今又一秒，香江怒斥分外好<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">p</span>&gt;</span>苟利国家生死以，不若代表<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">p</span>&gt;</span>更若代表，西方国家谁未到<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>其效果如下图所示：<br><a id="more"></a><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi.jpg-blogImg" alt="未添加CSS样式"></p>
-<h1 id="二、容器居中显示">二、容器居中显示</h1><p>我们添加下面这段CSS样式代码：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">body</span><span class="rules">{
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>此时的诗句效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi1.jpg-blogImg" alt="居中后的诗"><br>内容虽然居中了，但是我们想看下div元素是否也是居中了。我们对div元素添加浅色背景,并且给div添加宽度。</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">body</span><span class="rules">{
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    }</span>
-    <span class="class">.poemBox</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>效果如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi2.jpg-blogImg" alt=""><br>定义宽度和背景色的div并没有居中显示，但div中的内容是居中显示的。我们想要让容器居中，可以设置容器的左右外边距为左右自适应。</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-        <span class="tag">body</span><span class="rules">{
-            <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-        }</span>
-        <span class="class">.poemBox</span><span class="rules">{
-            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-            <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
-            <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> auto</span></span>;
-            <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> auto</span></span>;
-        }</span>
-    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>此时的诗句效果是这样的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/rongqi3.jpg-blogImg" alt="居中的诗句"></p>
-<h1 id="三、容器居右显示">三、容器居右显示</h1><hr>
-<p>1、利用浮动方式将容器居右显示</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="class">.poemBox</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><blockquote>
-<p>注意：利用浮动会带来清除浮动问题，这个问题会在后面专门介绍。</p>
+        <h1 id="半透明边框">半透明边框</h1><p>由于背景色会侵入到边框所在的范围，如果想要半透明的边框，可以使用<code>background-clip</code>属性。这个属性规定背景的绘制区域，其初始值为<code>border-box</code>，如果将属性值设置为<code>padding-box</code>，背景就会被裁剪到内边距框。<br>HTML代码：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"parent"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"test"</span>&gt;
+        this <span class="keyword">is</span> a test
+    &lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><a id="more"></a>
+<p>CSS代码：</p>
+<pre><code><span class="class">.parent</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> deepskyblue</span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+}</span>
+<span class="class">.test</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">50px</span> auto</span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">50px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">50px</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">10px</span> solid <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">5</span>)</span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> white</span></span>;
+    <span class="rule"><span class="attribute">background-clip</span>:<span class="value"> padding-box</span></span>;
+}</span>
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tran1.jpg" alt=""></p>
+<h1 id="多重边框">多重边框</h1><p>想要使用多重边框，但是又不想添加无用的额外元素破坏HTML结构。可以使用<code>box-shadow</code>或者<code>outline</code>来模拟多重边框。</p>
+<h2 id="box-shadow方案"><code>box-shadow</code>方案</h2><p>想要模拟多重边框，可以利用<code>box-shadow</code>的第四个参数，用来设置阴影的尺寸。一个正值的阴影加上两个为零的偏移量以及为零的模糊值，得到的效果就像一道实线的边框。</p>
+<blockquote>
+<p>恰巧，box-shadow支持都好分隔语法，可以创建任意数量的阴影。</p>
 </blockquote>
-<p>2、利用定位方式将容器居右显示</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="class">.poemBox</span><span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-        <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0px</span></span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+<p>于是可以模拟出多重边框。例如：<br>HTML代码：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"box-shadow-test"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS代码：</p>
+<pre><code>.box-shadow-test{
+    margin: <span class="number">50</span>px <span class="keyword">auto</span>;
+    padding: <span class="number">0</span>;
+    width: <span class="number">50</span>px;
+    height: <span class="number">50</span>px;
+}
+.box-shadow-test{
+    background: <span class="preprocessor">#<span class="number">6</span>b0;</span>
+    box-shadow: <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">5</span>px <span class="preprocessor">#<span class="number">655</span>,</span>
+    <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">10</span>px deeppink,
+    <span class="number">0</span>px <span class="number">2</span>px <span class="number">5</span>px <span class="number">15</span><span class="function">px <span class="title">rgba</span><span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.6</span>)</span></span>;
+}
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tran2.jpg" alt=""></p>
+<h2 id="outline方案"><code>outline</code>方案</h2><p><code>box-shadow</code>虽然可以模拟边框，但是有一个缺陷，就是只能模拟实线边框，不能模拟出虚线边框。而且，可以设置<code>outline-offset</code>属性来控制它和元素边缘之间的间距，如果设置成负值可以模拟出缝边效果。比如：<br>HTML代码：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"outline-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS代码：</p>
+<pre><code><span class="class">.outline-a</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">50px</span> auto</span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">50px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">50px</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> yellowgreen</span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">10px</span> solid <span class="hexcolor">#655</span></span></span>;
+        <span class="rule"><span class="attribute">outline</span>:<span class="value"> <span class="number">1px</span> dashed deeppink</span></span>;
+        <span class="rule"><span class="attribute">outline-offset</span>:<span class="value"> -<span class="number">5px</span></span></span>;
+        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">5px</span></span></span>;
     }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><blockquote>
-<p>关于absolute的有关内容会在后面有更多的介绍</p>
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tran3.jpg" alt=""></p>
+<blockquote>
+<p>可以看出来，使用outline方案，适用于两层边框的场景。如果需要更多的边框，只能使用box-shadow方案了。</p>
 </blockquote>
-<p>通过上面几个实验，关容器位置的一些内容就先简单介绍到这里吧。</p>
+<p><code>outline</code>还有一个缺陷，<code>outline</code>模拟的边框并不能贴合<code>border-radius</code>产生圆角。比如：</p>
+<p>代码：</p>
+<pre><code>&lt;div class="outline-b"&gt;&lt;/div&gt;
+.outline-b{
+    margin: 50px auto<span class="comment">;</span>
+    padding: 0<span class="comment">;</span>
+    width: 50px<span class="comment">;</span>
+    height: 50px<span class="comment">;</span>
+    background: yellowgreen<span class="comment">;</span>
+    border: 10px solid #655<span class="comment">;</span>
+    outline: 5px solid deeppink<span class="comment">;</span>
+    border-radius: 5px<span class="comment">;</span>
+}
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tran4.jpg" alt=""></p>
 
       
     </div>
@@ -368,17 +371,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/11/CSS之盒模型/" rel="next" title="CSS学习笔记之盒模型">
-                <i class="fa fa-chevron-left"></i> CSS学习笔记之盒模型
+              <a href="/2016/09/12/CSS Secret 读书笔记之弹性布局/" rel="next" title="CSS Secret 读书笔记之弹性布局">
+                <i class="fa fa-chevron-left"></i> CSS Secret 读书笔记之弹性布局
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/13/CSS之两列布局(1)/" rel="prev" title="CSS学习笔记之两列页面布局（一）">
-                CSS学习笔记之两列页面布局（一） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -404,8 +403,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/12/CSS之容器/"
-           data-title="CSS学习笔记之容器的位置" data-url="http://blog.supce.com/2016/04/12/CSS之容器/">
+      <div class="ds-thread" data-thread-key="2016/09/13/CSS Secret 读书笔记之半透明与多重边框/"
+           data-title="CSS Secret 读书笔记之半透明与多重边框" data-url="http://blog.supce.com/2016/09/13/CSS Secret 读书笔记之半透明与多重边框/">
       </div>
     
   </div>
@@ -534,7 +533,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、准备工作"><span class="nav-number">1.</span> <span class="nav-text">一、准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、容器居中显示"><span class="nav-number">2.</span> <span class="nav-text">二、容器居中显示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、容器居右显示"><span class="nav-number">3.</span> <span class="nav-text">三、容器居右显示</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#半透明边框"><span class="nav-number">1.</span> <span class="nav-text">半透明边框</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多重边框"><span class="nav-number">2.</span> <span class="nav-text">多重边框</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#box-shadow方案"><span class="nav-number">2.1.</span> <span class="nav-text">box-shadow方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#outline方案"><span class="nav-number">2.2.</span> <span class="nav-text">outline方案</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
