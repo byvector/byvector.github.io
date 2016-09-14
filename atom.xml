@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-09-13T13:04:59.411Z</updated>
+  <updated>2016-09-14T12:27:01.556Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,106 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret读书笔记之灵活定位&边框内圆角]]></title>
+    <link href="http://blog.supce.com/2016/09/14/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%81%B5%E6%B4%BB%E5%AE%9A%E4%BD%8D&%E8%BE%B9%E6%A1%86%E5%86%85%E5%9C%86%E8%A7%92/"/>
+    <id>http://blog.supce.com/2016/09/14/CSS Secret 读书笔记之灵活定位&边框内圆角/</id>
+    <published>2016-09-13T16:00:00.000Z</published>
+    <updated>2016-09-14T12:27:01.556Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="灵活的背景定位">灵活的背景定位</h1><p>假设一种场景，需要对容器某个角对背景图片做偏移定位，比如说右下角。在定位的同时，也希望图片和容易边角之间能够够留出一定的空隙，以避免下图这种效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-1.jpg" alt=""><br>当容器的尺寸固定时，很好解决。但是容器的尺寸不固定时，可以利用下面三种方法来解决。<br><a id="more"></a></p>
+<h2 id="background-position的扩展语法方案"><code>background-position</code>的扩展语法方案</h2><p>在CSS3中，<code>background-position</code>已经得到扩展，它允许我们指定背景图片距离任意角的偏移量。</p>
+<blockquote>
+<p>当然，还需要一个合适的回退方案。避免浏览器的不支持。</p>
+</blockquote>
+<p>代码：</p>
+<pre><code>&lt;div class=<span class="string">"position"</span>&gt;
+    Code Pirate
+&lt;/div&gt;
+.position{
+    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
+    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">5</span>em;
+    margin: <span class="number">20</span>px auto;
+    padding: <span class="number">10</span>px;
+    <span class="built_in">color</span>: white;
+    font: <span class="number">100</span>%/<span class="number">1</span> sans-serif;
+    <span class="built_in">background</span>:url(http:<span class="comment">//csssecrets.io/images/code-pirate.svg) no-repeat bottom right #58a;   /*回退方案*/</span>
+}
+.position{
+    <span class="built_in">background</span>-position: right <span class="number">10</span>% bottom <span class="number">20</span>%;
+}
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-2.jpg" alt=""></p>
+<h2 id="background-origin方案"><code>background-origin</code>方案</h2><p>在上个方案中有一个缺陷，当修改容器的内边距时，需要在3处做出修改。希望有一种方式，能够让背景图片自动根据设定的内边距定位，而不用声明额外的偏移量。<br>在默认情况下<code>background-position</code>是以padding box为基准的。可以利用属性<code>background-origin</code>来改变这种行为。当把它的值设置为<code>content-box</code>时，<code>background-position</code>会以内容区边缘作为基准。此时，背景图片的距离的边角偏移量就可以和内边距保持一致了。<br>代码：</p>
+<pre><code>&lt;div class=<span class="string">"origin"</span>&gt;
+    Code Pirate
+&lt;/div&gt;
+.origin{
+    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
+    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">5</span>em;
+    margin: <span class="number">20</span>px auto;
+    padding: <span class="number">10</span>px;
+    <span class="built_in">color</span>: white;
+    font: <span class="number">100</span>%/<span class="number">1</span> sans-serif;
+    <span class="built_in">background</span>:url(http:<span class="comment">//csssecrets.io/images/code-pirate.svg) no-repeat bottom right #58a;</span>
+}
+.origin{
+    <span class="built_in">background</span>-origin: content-<span class="built_in">box</span>;
+ }
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-3.jpg" alt=""></p>
+<h2 id="calc()方案"><code>calc()</code>方案</h2><p>如果想把背景图片定位到距离底边10px 距离右边20px。可以使用<code>calc()</code><br>即：<code>background-position: calc(100% - 20px) calc(100% - 10px);</code>也可以达到同样的效果。</p>
+<blockquote>
+<p>注意：在calc()函数内部的- + 运算符两侧需要加一个空格符，否则会产生解析错误。</p>
+</blockquote>
+<hr>
+<h1 id="边框内圆角">边框内圆角</h1><p>考虑一种场景，需要一个容器，只在内侧有圆角，而<code>border</code>或者<code>outline</code>仍然是直角，可以用下面两种方式实现。</p>
+<h2 id="嵌套容器">嵌套容器</h2><p>这个方式很简单，直接在原容器外侧嵌套一个容器，设置内部容器有圆角即可<br>代码：</p>
+<pre><code>&lt;div class=<span class="string">"radius"</span>&gt;
+    &lt;div&gt;
+        <span class="keyword">this</span> is a test
+    &lt;/div&gt;
+&lt;/div&gt;
+.radius{
+    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
+    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">5</span>em;
+    margin: <span class="number">20</span>px auto;
+    padding: <span class="number">.8</span>em;
+    <span class="built_in">background</span>: #<span class="number">655</span>;
+}
+.radius &gt; div{
+    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">3.4</span>em;
+    <span class="built_in">background</span>: <span class="built_in">tan</span>;
+    border-radius: <span class="number">.8</span>em;
+    padding: <span class="number">1</span>em;
+}
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-5.jpg" alt=""></p>
+<h2 id="box-shadow填充"><code>box-shadow</code>填充</h2><p>有时候，可能稍微有些强迫症，不想破坏原有的HTML结构。可以使用<code>box-shadow</code>进行颜色填充。<br>之前已经知道，<code>outline</code>并不会沿着元素的圆角走。可以在元素外侧设置<code>outline</code><br>代码如下：</p>
+<pre><code>&lt;div class=<span class="string">"shadow_outline"</span>&gt;
+    <span class="keyword">this</span> is a test
+&lt;/div&gt;
+.shadow_outline{
+        <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
+        <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">5</span>em;
+        margin: <span class="number">20</span>px auto;
+        padding: <span class="number">.8</span>em;
+        <span class="built_in">background</span>: <span class="built_in">tan</span>;
+        border-radius: <span class="number">.8</span>em;
+        outline: <span class="number">.6</span>em solid #<span class="number">655</span>;
+    }
+</code></pre><p>此时的效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-07.jpg" alt=""><br>会发现在四个角会有空白，这个空白可以利用<code>box-shadow</code>进行颜色填充。由几何数学可知，当圆角的半径为r时，<code>box-shadow</code>的投影扩张值不能小于(√2-1)r。上面的<code>border-radius</code>为0.8，计算得约为0.33，<br>因此只要设置<code>box-shadow: 0 0 0 .34em #655;</code>即可。<br>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-6.jpg" alt=""></p>
+<blockquote>
+<p>最后说句题外话，Chrome v53.0.2785.113m版本的界面挺好看，没错，我就是扁平脑残粉。</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="灵活的背景定位">灵活的背景定位</h1><p>假设一种场景，需要对容器某个角对背景图片做偏移定位，比如说右下角。在定位的同时，也希望图片和容易边角之间能够够留出一定的空隙，以避免下图这种效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-1.jpg" alt=""><br>当容器的尺寸固定时，很好解决。但是容器的尺寸不固定时，可以利用下面三种方法来解决。<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret 读书笔记之半透明与多重边框]]></title>
@@ -107,6 +207,21 @@
 &lt;/<span class="keyword">div</span>&gt;
 </code></pre>]]>
     
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之背景定位&边框内圆角]]></title>
+    <link href="http://blog.supce.com/2016/09/13/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%83%8C%E6%99%AF%E5%AE%9A%E4%BD%8D&%E8%BE%B9%E6%A1%86%E5%86%85%E5%9C%86%E8%A7%92/"/>
+    <id>http://blog.supce.com/2016/09/13/CSS Secret 读书笔记之背景定位&边框内圆角/</id>
+    <published>2016-09-12T16:00:00.000Z</published>
+    <updated>2016-09-13T13:12:52.244Z</updated>
+    <content type="html"><![CDATA[<h1 id="灵活的背景定位">灵活的背景定位</h1><h1 id="边框内圆角">边框内圆角</h1>]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="灵活的背景定位">灵活的背景定位</h1><h1 id="边框内圆角">边框内圆角</h1>]]>
     </summary>
     
       <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
@@ -1698,23 +1813,6 @@ function <span class="function"><span class="title">fun</span><span class="param
   </entry>
   
   <entry>
-    <title><![CDATA[我胡汉三又回来了]]></title>
-    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
-    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
-    <published>2016-07-12T16:00:00.000Z</published>
-    <updated>2016-07-13T01:44:49.151Z</updated>
-    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]>
-    </summary>
-    
-      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[对象的创建与继承]]></title>
     <link href="http://blog.supce.com/2016/07/13/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%805/"/>
     <id>http://blog.supce.com/2016/07/13/JavaScript之基础5/</id>
@@ -1971,6 +2069,23 @@ console.log(<span class="keyword">person</span>.sayName());
     </summary>
     
       <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[我胡汉三又回来了]]></title>
+    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
+    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
+    <published>2016-07-12T16:00:00.000Z</published>
+    <updated>2016-07-13T01:44:49.151Z</updated>
+    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]>
+    </summary>
+    
+      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
     
   </entry>
   
@@ -3111,140 +3226,6 @@ li{
   </entry>
   
   <entry>
-    <title><![CDATA[CSS学习笔记之滤镜]]></title>
-    <link href="http://blog.supce.com/2016/05/03/CSS%E4%B9%8B%E6%BB%A4%E9%95%9C/"/>
-    <id>http://blog.supce.com/2016/05/03/CSS之滤镜/</id>
-    <published>2016-05-02T16:00:00.000Z</published>
-    <updated>2016-05-03T11:03:43.434Z</updated>
-    <content type="html"><![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
-<p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
-<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
-<p>先是HTML代码：</p>
-<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-&lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-</code></pre><a id="more"></a>
-<p>然后是CSS的测试代码：</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">img</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">400</span>x</span></span>;
-    }</span>
-    <span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">grayscale</span>(<span class="number">100%</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> gray</span></span>;  <span class="comment">/*IE*/</span>
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj.jpg-blogImg" alt=""></p>
-<h2 id="高斯模糊">高斯模糊</h2><p>高斯模糊也就是我没带眼镜时的效果，用blur实现 取值范围为0-N px，其中0为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value">  <span class="function">blur</span>(<span class="number">2px</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">2px</span>)</span></span>;
-    }</span> 
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj1.jpg-blogImg" alt=""></p>
-<h2 id="Speia滤镜">Speia滤镜</h2><p>Speia滤镜是对图片或元素整体进行棕褐色处理，就是老照片那种效果 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj2.jpg-blogImg" alt=""></p>
-<h2 id="饱和度滤镜">饱和度滤镜</h2><p>看到饱和度让我想起了冷屏和暖屏之间的战争以及到底用不用三星A屏 可以利用saturate实现 取值范围&gt;=0的数字或百分数，1为无效果，0为灰度图</p>
-<p>测试代码:</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">saturate</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj3.jpg-blogImg" alt=""></p>
-<h2 id="反色滤镜">反色滤镜</h2><p>反色滤镜使用invert来实现 就是婴儿照那种胶片的感觉(好像把年龄暴漏了) 取值范围0~1或0~100%，0为无效果，1或100%表示最大效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">invert</span>(<span class="number">1</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj4.jpg-blogImg" alt=""></p>
-<h2 id="对比度滤镜">对比度滤镜</h2><p>对比度和亮度一般在显示器都可以调试，CSS3中对比度使用contrast 取值范围&gt;=0的数字或百分数，1为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">contrast</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj5.jpg-blogImg" alt=""></p>
-<h2 id="亮度滤镜">亮度滤镜</h2><p>亮度滤镜使用brightness 取值范围&gt;=0的数字或百分数，1为无效果</p>
-<p>测试代码：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">brightness</span>(<span class="number">2</span>)</span></span>;
-    }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj6.jpg-blogImg" alt=""></p>
-<h2 id="阴影滤镜">阴影滤镜</h2><p>阴影滤镜其实在表单写button的时候用过，可以增加元素的立体感 使用drop-shadow来实现<br>格式：</p>
-<blockquote>
-<p>filer: drop-shadow(x-offset y-offset 阴影模糊半径 阴影颜色)<br>x-offset和y-offset为阴影的相对于元素左上角的位移距离；</p>
-</blockquote>
-<p>测试代码:</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-    }</span>
-</code></pre><p>效果美美的：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj7.jpg-blogImg" alt=""></p>
-<blockquote>
-<p>注意：阴影的外观受border-radius样式的影响</p>
-</blockquote>
-<p>比如：</p>
-<pre><code><span class="class">.filter</span><span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>; 
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">3px</span> <span class="hexcolor">#4D4DFF</span>)</span></span>;
-        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    }</span>
-</code></pre><p>是不是更美了</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/lj8.jpg-blogImg" alt=""></p>
-<p>当然也可以结合border来进行更好的美化效果。这里就不贴代码和效果了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="几个常见的CSS滤镜效果">几个常见的CSS滤镜效果</h1><hr>
-<p>今天学习几个CSS的滤镜效果，这里暂时只用CSS3的filter来实现，至于利用SVG和Canvas的坑以后再填</p>
-<h2 id="灰度图">灰度图</h2><p>在一些哀悼日，网页可能要设为全灰色。CSS3中用greyscale来实现 取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果</p>
-<p>先是HTML代码：</p>
-<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-&lt;<span class="tag">img</span> class=<span class="string">"filter"</span> src=<span class="string">"images/xi.jpg"</span>&gt;
-</code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[CSS学习笔记之选项卡]]></title>
     <link href="http://blog.supce.com/2016/05/03/CSS%E4%B9%8B%E9%80%89%E9%A1%B9%E5%8D%A1/"/>
     <id>http://blog.supce.com/2016/05/03/CSS之选项卡/</id>
@@ -3429,539 +3410,6 @@ li{
     <summary type="html">
     <![CDATA[<h1 id="网页中的选项卡">网页中的选项卡</h1><hr>
 <p>在一些门户网站中，为了在有限的网页空间中尽可能的展示更多的信息，会采用tab选项卡的方式。比如<a href="http://www.163.com/">网易</a>首页就使用了大量的选项卡。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab.jpg-blogImg" alt=""><br>下面学习几种实现tab选项卡的方式</p>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之表格（二）]]></title>
-    <link href="http://blog.supce.com/2016/04/29/CSS%E4%B9%8B%E8%A1%A8%E6%A0%BC(2)/"/>
-    <id>http://blog.supce.com/2016/04/29/CSS之表格(2)/</id>
-    <published>2016-04-28T16:00:00.000Z</published>
-    <updated>2016-05-03T11:06:22.554Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>虽然题目是表格，其实是想把之前的文本，列表，图片，表单结合一起写个简单的小例子。这次就写一个全国最大的同性交友网<a href="https://passport.bilibili.com/login" target="_blank" rel="external">B站</a>的登录页面吧,毕竟之前的页面写起来不过瘾</p>
-</blockquote>
-<p><em>权侵删</em></p>
-<h1 id="结构分析">结构分析</h1><hr>
-<p>首先把原网页结构搞明白<br>最上面是header，header里左侧是一个由li组成的导航栏，右侧是搜索、登录、注册和投稿按钮。<br>header下面是一个宽度为100%的图片。暂时把它称为img_wraper吧。<br><a id="more"></a><br>再往下是网页的content部分，而content内部又分为上左右三部分。上侧为横线和登录图片，左侧为APP下载二维码，右侧为一个登录表单。<br>content下面就是footer部分 footer内部也分为上左右三部分，上侧为分别为B站的相关链接传送门，左侧为合作机构和备案等法律信息，右侧为B站客户端下载和其他公共账号信息</p>
-<h1 id="HTML框架">HTML框架</h1><p>结构分析明白，HTML框架子还是很好写的</p>
-<pre><code><span class="tag">&lt;<span class="title">body</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"header_left"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"header_meau"</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"home"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>主站<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>画友<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>游戏中心<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>直播<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>周边<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"header_right"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>登录<span class="tag">&lt;/<span class="title">a</span>&gt;</span> |<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>注册<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">class</span>=<span class="value">"up"</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>投稿<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"search"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">form</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">value</span>=<span class="value">"搜索"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"submit"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">form</span>&gt;</span> 
-        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"img_wrap"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"header_banner"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"content"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"line"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"img_login"</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/t2.png"</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content_left"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"QR_Code"</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/qr-tips.png"</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"qr_title"</span>&gt;</span>扫描二维码登录<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"qr_text"</span>&gt;</span>请使用<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>哔哩哔哩客户端<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">img</span> <span class="attribute">class</span>=<span class="value">"content_bg"</span> <span class="attribute">src</span>=<span class="value">"images/2233login.png"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"vertical_line"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content_right"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">form</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"email"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">value</span>=<span class="value">"你的手机号/邮箱"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"pwd"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">value</span>=<span class="value">"密码"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"find_pwd"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>忘记密码?&gt;<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"check"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">value</span>=<span class="value">"验证码"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/captcha.jpg"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>换一张<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">p</span>&gt;</span> 
-                <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"remember"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>记住我<span class="tag">&lt;<span class="title">span</span>&gt;</span>不是自己的电脑上不要勾选此项<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">p</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"login_btn"</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"登录"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"regist_btn"</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">value</span>=<span class="value">"注册"</span>&gt;</span><span class="tag">&lt;/<span class="title">input</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">p</span>&gt;</span> 
-
-                    <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-                        <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"weibo"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>微博账号登录<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-                        <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"qq"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>QQ账号登录<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-                    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-
-            <span class="tag">&lt;/<span class="title">form</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"clear"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"footer"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"footer_top"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">li</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"tips"</span>&gt;</span>Bilibili<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>关于我们<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>友情链接<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">class</span>=<span class="value">"taobao"</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/b-taobao.png"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>联系我们<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>加入我们<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-
-                <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">li</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"tips"</span>&gt;</span>帮助<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>帮助中心<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card card_wide"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>补档认领处<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>资源免责声明<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>侵权申诉<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card longer"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>建议/BUG汇报<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">li</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"tips"</span>&gt;</span>传送门<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>高级弹幕<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>名人堂<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>活动专题页<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>资讯<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>壁纸站<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>分院帽计划<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"card"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>活动中心<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"footer_content"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"footer_left"</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"partner_banner"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"legal_info"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">p</span>&gt;</span>广播电视节目制作经营许可证：（沪）字第1248号<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">p</span>&gt;</span>网络文化经营许可证：沪网文[2013]0480-056号<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">p</span>&gt;</span>信息网络传播视听节目许可证：0910417<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"legal_info"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">p</span>&gt;</span>互联网ICP备案：沪ICP备13002172号-3<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">p</span>&gt;</span>沪ICP证：沪B2-20100043<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"footer_right"</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"phone_pic"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">span</span>&gt;</span>手机端下载<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"weibo_pic"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">span</span>&gt;</span>新浪微博<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"weixin_pic"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">span</span>&gt;</span>官方微信<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"clear"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-</code></pre><p>首先是没有CSS修饰的页面<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/B1.jpg-blogImg" alt=""></p>
-<h1 id="header部分CSS">header部分CSS</h1><p>为header部分添加CSS</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    *<span class="rules">{
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">font-family</span>:<span class="value"> <span class="string">'Microsoft YaHei'</span></span></span>;
-    }</span>
-    <span class="tag">ul</span><span class="rules">{
-        <span class="rule"><span class="attribute">list-style</span>:<span class="value">none</span></span>;
-        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-        <span class="rule"><span class="attribute">zoom</span>:<span class="value"><span class="number">1</span></span></span>;
-    }</span>
-    <span class="tag">ul</span> <span class="tag">li</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-    }</span>
-    <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#000</span></span></span>;
-        <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
-    }</span>
-    <span class="rule"><span class="attribute">a</span>:<span class="value">hover{
-        color: <span class="function">rgb</span>(<span class="number">0</span>,<span class="number">160</span>,<span class="number">216</span>)</span></span>;
-    }
-    <span class="class">.clear</span><span class="rules">{
-        <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;
-    }</span>
-    <span class="id">#header</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">980px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">42px</span></span></span>;
-        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">42px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> auto</span></span>;
-    }</span>
-    <span class="id">#header</span><span class="pseudo">:after</span><span class="rules">{
-        <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;
-        <span class="rule"><span class="attribute">visibility</span>:<span class="value"> none</span></span>;
-        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-        <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">""</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="class">.header_left</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
-    }</span>
-    <span class="class">.header_meau</span><span class="rules">{
-        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-        <span class="rule"><span class="attribute">zoom</span>:<span class="value"><span class="number">1</span></span></span>;
-    }</span>
-    <span class="class">.header_meau</span> <span class="tag">li</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> <span class="number">15px</span></span></span>;
-    }</span>
-    <span class="class">.header_meau</span> <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"><span class="number">14px</span></span></span>;
-        <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#000</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    }</span>
-    <span class="class">.home</span><span class="rules">{
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/icons.png) -<span class="number">910px</span> -<span class="number">74px</span></span></span>;
-    }</span>
-    <span class="class">.home</span> <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">50px</span></span></span>;
-        <span class="rule"><span class="attribute">padding-left</span>:<span class="value"><span class="number">20px</span></span></span>;
-        <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    }</span>
-    <span class="class">.header_right</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value">right</span></span>;
-    }</span>
-    <span class="class">.header_right</span> <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">14px</span></span></span>;
-    }</span>
-    <span class="class">.header_right</span> <span class="tag">li</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> <span class="number">10px</span></span></span>;
-    }</span>
-    <span class="class">.up</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">58px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">48px</span></span></span>;
-        <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/b-post.png)</span></span>;
-    }</span>
-    <span class="class">.search</span> <span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">120px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">32px</span></span></span>;
-        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">32px</span></span></span>;
-        <span class="rule"><span class="attribute">float</span>:<span class="value">right</span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">5px</span> <span class="number">20px</span> <span class="number">5px</span> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="class">.search</span> <span class="tag">form</span><span class="rules">{
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#ccd0d7</span></span></span>;
-        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">16px</span></span></span>;
-    }</span>
-    <span class="class">.search</span> <span class="tag">input</span><span class="rules">{
-        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">12px</span> Arial</span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value">none</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">78px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value">auto <span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">16px</span></span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#99a2aa</span></span></span>;
-    }</span>
-    <span class="class">.search</span> <span class="tag">button</span><span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-        <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">2px</span></span></span>;
-        <span class="rule"><span class="attribute">right</span>:<span class="value"><span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"> none</span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/icons.png) -<span class="number">786px</span> -<span class="number">721px</span></span></span>;
-    }</span>
-    <span class="id">#img_wrap</span><span class="rules">{
-        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/rl_topbg.png) repeat-x <span class="number">0</span> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="class">.header_banner</span> <span class="rules">{
-        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/rl_top.png)</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">980px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">106px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> auto</span></span>;
-    }</span></span>
-</code></pre><h1 id="content部分CSS">content部分CSS</h1><p>为content部分添加CSS</p>
-<pre><code><span class="id">#content</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">980px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> auto</span></span>;
-        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-    }</span>
-    <span class="class">.line</span><span class="rules">{
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">25px</span></span></span>;
-        <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"> <span class="number">2px</span> solid <span class="hexcolor">#ddd</span></span></span>;
-    }</span>
-    <span class="class">.img_login</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">120px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">47px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> auto</span></span>;
-    }</span>
-    <span class="class">.content_left</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">480px</span></span></span>;
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-        <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> <span class="number">50px</span></span></span>;
-    }</span>
-    <span class="class">.qr_title</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin-bottom</span>:<span class="value"> <span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    }</span>
-    <span class="class">.qr_text</span><span class="rules">{
-        <span class="rule"><span class="attribute">z-index</span>:<span class="value"> <span class="number">9</span></span></span>;
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">13px</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#717171</span></span></span>;
-    }</span>
-    <span class="class">.qr_text</span> <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="function">rgb</span>(<span class="number">0</span>,<span class="number">160</span>,<span class="number">216</span>)</span></span>;
-    }</span>
-    <span class="class">.qr_text</span> <span class="rule"><span class="attribute">a</span>:<span class="value">hover{
-        color: <span class="function">rgb</span>(<span class="number">250</span>,<span class="number">130</span>,<span class="number">170</span>)</span></span>;
-    }
-    <span class="class">.QR_Code</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">175px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">180px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">10px</span> auto</span></span>;
-    }</span>
-    <span class="class">.content_right</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
-        <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> <span class="number">50px</span></span></span>;
-    }</span>
-    <span class="class">.content_bg</span><span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value">absolute</span></span>;
-        <span class="rule"><span class="attribute">bottom</span>:<span class="value"> -<span class="number">70px</span></span></span>;
-    }</span>
-    <span class="class">.vertical_line</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">2px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">240px</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#ddd</span></span></span>;
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-        <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">right</span>:<span class="value">-<span class="number">15px</span></span></span>;
-    }</span>
-    <span class="class">.content_right</span> <span class="tag">p</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin-bottom</span>:<span class="value"><span class="number">20px</span></span></span>;
-    }</span>
-    <span class="class">.email</span>,<span class="class">.pwd</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">400px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">40px</span></span></span>; 
-        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#ddd</span></span></span>;
-        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">2px</span></span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#aaa</span></span></span>;
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">14px</span></span></span>;
-        <span class="rule"><span class="attribute">padding-left</span>:<span class="value"> <span class="number">10px</span></span></span>;
-    }</span>
-    <span class="class">.find_pwd</span><span class="rules">{
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">12px</span></span></span>;
-    }</span>
-    <span class="class">.find_pwd</span> <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="function">rgb</span>(<span class="number">0</span>,<span class="number">160</span>,<span class="number">215</span>)</span></span>;
-    }</span>
-    <span class="class">.find_pwd</span> <span class="rule"><span class="attribute">a</span>:<span class="value">hover{
-        color: <span class="function">rgb</span>(<span class="number">250</span>,<span class="number">130</span>,<span class="number">170</span>)</span></span>;
-    }
-    <span class="class">.check</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> -<span class="number">30px</span></span></span>;
-    }</span>
-    <span class="class">.check</span> <span class="tag">input</span><span class="rules">{
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">40px</span></span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#ddd</span></span></span>;
-        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">2px</span></span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#aaa</span></span></span>;
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">14px</span></span></span>;
-        <span class="rule"><span class="attribute">padding-left</span>:<span class="value"> <span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="function">rgb</span>(<span class="number">249</span>,<span class="number">250</span>,<span class="number">252</span>)</span></span>;
-    }</span>
-    <span class="class">.check</span> <span class="tag">img</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">5px</span></span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#ddd</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">35px</span></span></span>;
-        <span class="rule"><span class="attribute">vertical-align</span>:<span class="value">bottom</span></span>;
-    }</span>
-    <span class="class">.check</span> <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">5px</span></span></span>;
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">12px</span></span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="function">rgb</span>(<span class="number">0</span>,<span class="number">160</span>,<span class="number">215</span>)</span></span>;
-    }</span>
-    <span class="class">.remember</span> <span class="tag">input</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> <span class="number">10px</span></span></span>;
-    }</span>
-    <span class="class">.remember</span><span class="rules">{
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">12px</span></span></span>;
-    }</span>
-    <span class="class">.remember</span> <span class="tag">span</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">20px</span></span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#ddd</span></span></span>;
-    }</span>
-    <span class="class">.login_btn</span>,<span class="class">.regist_btn</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">184px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">36px</span></span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">2px</span></span></span>;
-        <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;
-    }</span>
-    <span class="class">.login_btn</span><span class="rules">{
-        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#0381AA</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#00A7DE</span></span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
-    }</span>
-    <span class="rule"><span class="attribute">.login_btn</span>:<span class="value">hover{
-        background-color: <span class="function">rgb</span>(<span class="number">0</span>,<span class="number">190</span>,<span class="number">230</span>)</span></span>;
-    }
-    <span class="class">.regist_btn</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">27px</span></span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#ccc</span></span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
-    }</span>
-    <span class="rule"><span class="attribute">.regist_btn</span>:<span class="value">hover{
-        background-color: <span class="function">rgb</span>(<span class="number">247</span>,<span class="number">247</span>,<span class="number">247</span>)</span></span>;
-    }
-    <span class="class">.weibo</span><span class="rules">{
-        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/snsicon.png) no-repeat <span class="number">0</span> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> <span class="number">40px</span></span></span>;
-    }</span>
-    <span class="class">.weibo</span> <span class="tag">a</span>,<span class="class">.qq</span> <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">12px</span></span></span>;
-        <span class="rule"><span class="attribute">padding-left</span>:<span class="value"> <span class="number">25px</span></span></span>;
-    }</span>
-    <span class="class">.qq</span><span class="rules">{
-        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/snsicon.png) no-repeat <span class="number">0</span> -<span class="number">41px</span></span></span>;
-    }</span>
-</code></pre><h1 id="footer部分CSS">footer部分CSS</h1><p>为footer添加CSS</p>
-<pre><code>#footer{
-        margin-top: 20px<span class="comment">;</span>
-        padding: 20px 0<span class="comment">;</span>
-        background-color: #f6f9fa<span class="comment">;</span>
-    }
-    .footer_top{
-        width: 980px<span class="comment">;</span>
-        margin:10px auto<span class="comment">;</span>
-        overflow: hidden<span class="comment">;</span>
-    }
-    .footer_top li{
-        float: left<span class="comment">;</span>
-        position: relative<span class="comment">;</span>
-        width: 296px<span class="comment">;</span>
-        height: 100px<span class="comment">;</span>
-        padding-left: 30px<span class="comment">;</span>
-        padding-right: 10px<span class="comment">;</span>
-        border-left: solid 1px #e5e9ef<span class="comment">;</span>
-    }
-    .footer_top li:first-child{
-        border: none<span class="comment">;</span>
-        padding-left: 0 !important<span class="comment">;</span>
-    }
-    .card{
-        float: left<span class="comment">;</span>
-        text-align: left<span class="comment">;</span>
-        width: 86px<span class="comment">;</span>
-        margin:4px 0px 3px 0<span class="comment">;</span>
-    }
-    .longer{
-        width: 100px<span class="comment">;</span>
-    }
-    .tips{
-        font-size: 14px<span class="comment">;</span>
-        line-height: 22px<span class="comment">;</span>
-        color: #717171<span class="comment">;</span>
-    }
-    .card a{
-        font-size: 14px<span class="comment">;</span>
-        display: block<span class="comment">;</span>
-    }
-    .taobao{
-        float:right<span class="comment">;</span>
-        margin: 10px 24px 0 0<span class="comment">;</span>
-    }
-    .card_wide{
-        margin-right: 25px<span class="comment">;</span>
-    }
-    .footer_content{
-        width: 980px<span class="comment">;</span>
-        margin:0 auto<span class="comment">;</span>
-    }
-    .footer_left{
-        float: left<span class="comment">;</span>
-    }
-    .footer_right{
-        float: right<span class="comment">;</span>
-    }
-    .partner_banner{
-        float: left<span class="comment">;</span>
-        width: 96px<span class="comment">;</span>
-        height: 70px<span class="comment">;</span>
-        background: url(images/footpic.gif) no-repeat<span class="comment">;</span>
-        margin-right: 10px<span class="comment">;</span>
-    }
-    .legal_info{
-        float: left<span class="comment">;</span>
-        line-height: 22px<span class="comment">;</span>
-        margin: 0 5px<span class="comment">;</span>
-        font-size: 12px<span class="comment">;</span>
-        color: #717171<span class="comment">;</span>
-    }
-    .footer_right {
-        width: 310px<span class="comment">;</span>
-        text-align: center<span class="comment">;</span>
-    }
-    .footer_right a{
-        float: left<span class="comment">;</span>
-    }
-    .footer_right span{
-        font-size: 12px<span class="comment">;</span>
-        padding-right: 20px<span class="comment">;</span>
-    }
-    .phone_pic,.weibo_pic,.weixin_pic{
-        width: 65px<span class="comment">;</span>
-        height: 65px<span class="comment">;</span>
-        margin-right: 25px<span class="comment">;</span>
-    }
-    .phone_pic{
-        background: url(images/icons.png) no-repeat -1020px -190px<span class="comment">;</span>
-    }
-    .weibo_pic{
-        background: url(images/icons.png) no-repeat -1020px -318px<span class="comment">;</span>
-    }
-    .weixin_pic{
-        background: url(images/icons.png) no-repeat -1020px -62px<span class="comment">;</span>
-    }   
-&lt;/style&gt;
-</code></pre><p>OK，刷新下页面 还是很像的 大概模仿了一个七八分吧 可以兼容IE B站的登录页面在IE11下排版是错位的<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/B2.jpg-blogImg" alt=""><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/B.jpg-blogImg" alt=""></p>
-<blockquote>
-<p>到JavaScript部分会专门在为这个网页添加相应的事件</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>虽然题目是表格，其实是想把之前的文本，列表，图片，表单结合一起写个简单的小例子。这次就写一个全国最大的同性交友网<a href="https://passport.bilibili.com/login">B站</a>的登录页面吧,毕竟之前的页面写起来不过瘾</p>
-</blockquote>
-<p><em>权侵删</em></p>
-<h1 id="结构分析">结构分析</h1><hr>
-<p>首先把原网页结构搞明白<br>最上面是header，header里左侧是一个由li组成的导航栏，右侧是搜索、登录、注册和投稿按钮。<br>header下面是一个宽度为100%的图片。暂时把它称为img_wraper吧。<br>]]>
     
     </summary>
     
