@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-09-14T12:27:01.556Z</updated>
+  <updated>2016-09-16T11:43:11.307Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,153 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之条纹背景&复杂背景]]></title>
+    <link href="http://blog.supce.com/2016/09/16/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%9D%A1%E7%BA%B9%E8%83%8C%E6%99%AF&%E5%A4%8D%E6%9D%82%E8%83%8C%E6%99%AF/"/>
+    <id>http://blog.supce.com/2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/</id>
+    <published>2016-09-15T16:00:00.000Z</published>
+    <updated>2016-09-16T11:43:11.307Z</updated>
+    <content type="html"><![CDATA[<h1 id="条纹背景">条纹背景</h1><p>通常条纹背景是由一个图片来代替，或者使用SVG。能不能利用CSS直接创建条纹图案呢，答案是肯定的。<br>假设背景是垂直线性渐变。比如：<code>background:linear-gradient(#fb3,#58a);</code><br>效果是这个样子的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-1.jpg" alt=""><br>如果让渐变区域变的更窄，产生一个无限小的渐变区域，比如：<code>background:linear-gradient(#fb3 50%,#58a 50%);</code> 就可以得到想要的结果了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-2.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="横向条纹">横向条纹</h2><p>利用上面的方法可以轻松利用CSS绘出横向条纹，同时还可以设置多种颜色的条纹，以及每个条纹的尺寸。<br>HTML代码：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"test-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"test-b"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"test-c"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS代码：</p>
+<pre><code><span class="tag">body</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+    <span class="rule"><span class="attribute">flex-flow</span>:<span class="value"> row wrap</span></span>;
+    <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> space-around</span></span>;
+}</span>
+<span class="tag">div</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span> <span class="number">20px</span></span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">10em</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">6em</span></span></span>;
+}</span>
+<span class="class">.test-a</span><span class="rules">{
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(<span class="hexcolor">#fb3</span> <span class="number">50%</span>, <span class="hexcolor">#58a</span> <span class="number">50%</span>)</span></span>;
+    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">100%</span> <span class="number">24px</span></span></span>;
+}</span>
+<span class="class">.test-b</span><span class="rules">{
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(<span class="hexcolor">#fb3</span> <span class="number">30%</span>, <span class="hexcolor">#58a</span> <span class="number">30%</span>)</span></span>;
+    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">100%</span> <span class="number">24px</span></span></span>;
+}</span>
+<span class="class">.test-c</span><span class="rules">{
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(<span class="hexcolor">#fb3</span> <span class="number">33.3%</span>,<span class="hexcolor">#58a</span> <span class="number">0</span>,<span class="hexcolor">#58a</span> <span class="number">66.6%</span>,yellowgreen <span class="number">0</span>)</span></span>;
+    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">100%</span> <span class="number">36px</span></span></span>;
+}</span>
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-3.jpg" alt=""></p>
+<h2 id="垂直条纹">垂直条纹</h2><p>幸好<code>linear-gradient</code>足够的灵活，利用它可以轻松创建出垂直条纹。<br>代码：</p>
+<pre><code>&lt;<span class="operator">div</span> class=<span class="string">"test-d"</span>&gt;&lt;/<span class="operator">div</span>&gt;
+.test-d{
+    background: linear-gradient(<span class="built_in">to</span> <span class="constant">right</span>,<span class="comment">#fb3 50%,#58a 50%);</span>
+    <span class="comment">/*background: linear-gradient(90deg,#fb3 50%,#58a 50%);*/</span>
+    background-size: <span class="number">32</span>px <span class="number">100</span>%;   <span class="comment">/*颠倒下宽度和高度值*/</span>
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-11.jpg" alt=""></p>
+<h2 id="斜向条纹">斜向条纹</h2><p>在绘制斜向条纹之前，如果对<code>linear-gradient</code>的斜向线性渐变不太理解，可以参考下张鑫旭大神的这篇<a href="http://www.zhangxinxu.com/wordpress/?p=3639" target="_blank" rel="external">博文</a><br>在完成水平和垂直条纹后，好像斜向条纹也很就简单，稍微修改下渐变方向和<code>background-size</code>的值就可以了。</p>
+<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">linear-gradient</span>(<span class="number">45deg</span>,<span class="hexcolor">#fb3</span> <span class="number">50%</span>,<span class="hexcolor">#58a</span> <span class="number">50%</span>)</span></span>;
+<span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">32px</span> <span class="number">32px</span></span></span>;
+</code></pre><p>但是得到的结果并不是想要的。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-4.jpg" alt=""><br>如果观察下斜向条纹，会发现斜向条纹是由四条条纹的“贴片”组成的。如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-5.jpg" alt=""><br>这样的话解决思路就有了。</p>
+<pre><code>background:linear-gradient(<span class="number">45</span>deg,<span class="preprocessor">#fb3 <span class="number">25</span>%,#<span class="number">58</span>a <span class="number">0</span>,#<span class="number">58</span>a <span class="number">50</span>%,#fb3 <span class="number">0</span>,#fb3 <span class="number">75</span>%,#<span class="number">58</span>a <span class="number">0</span>);</span>
+background-size: <span class="number">32</span>px <span class="number">32</span>px;
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-6.jpg" alt=""><br>但是会发现条纹的宽度并不是16像素，因为<code>background-size</code>指定的长度是最左下角的直角三角形的直角边长度。而条纹的宽度是直角三角形的高，对于45度的三角形，要想高为16px，直角边设置为16√2，即<code>background-size</code>设置为2*16√2的约值。<br>好了，45度的斜向条纹完成了，好像其他度数的条纹比葫芦画瓢轻松得来，设置度数为60度</p>
+<pre><code>background:linear-gradient(<span class="number">60</span>deg,<span class="preprocessor">#fb3 <span class="number">25</span>%,#<span class="number">58</span>a <span class="number">0</span>,#<span class="number">58</span>a <span class="number">50</span>%,#fb3 <span class="number">0</span>,#fb3 <span class="number">75</span>%,#<span class="number">58</span>a <span class="number">0</span>);</span>
+background-size: <span class="number">32</span>px <span class="number">32</span>px;
+</code></pre><p>结果是这个样子：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-7.jpg" alt=""><br>看来得换个思路了。<br>这时候可以祭出<code>repeating-linear-gradient()</code>了，它的工作方式与<code>linear-gradient</code>类似，只有一点不同，色标是无限循环重复的，直至填满整个背景。比如：</p>
+<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">repeating-linear-gradient</span>(<span class="number">45deg</span>, <span class="hexcolor">#fb3</span>,<span class="hexcolor">#58a</span> <span class="number">30px</span>)</span></span>;
+</code></pre><p>就等于</p>
+<pre><code>background:repeating-linear-gradient(<span class="number">45</span>deg,
+                    <span class="preprocessor">#fb3,#<span class="number">58</span>a <span class="number">30</span>px,</span>
+                    <span class="preprocessor">#fb3 <span class="number">30</span>px,#<span class="number">58</span>a <span class="number">60</span>px,</span>
+                    <span class="preprocessor">#fb3 <span class="number">60</span>px,#<span class="number">58</span>a <span class="number">90</span>px,</span>
+                    <span class="preprocessor">#fb3 <span class="number">90</span>px,#<span class="number">58</span>a <span class="number">120</span>px,...);</span>
+</code></pre><p>45°斜向条纹就可以轻松创建了</p>
+<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">repeating-linear-gradient</span>(<span class="number">45deg</span>, <span class="hexcolor">#fb3</span>,<span class="hexcolor">#fb3a</span> <span class="number">16px</span>,<span class="hexcolor">#58a</span> <span class="number">0</span>,<span class="hexcolor">#58a</span> <span class="number">32px</span>)</span></span>;
+</code></pre><p>同时<code>background-size</code>也不用设置，因为长度就是直接在渐变轴上进行度量的。<br>现在试试60°的斜向条纹</p>
+<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">repeating-linear-gradient</span>(<span class="number">60deg</span>, <span class="hexcolor">#fb3</span>,<span class="hexcolor">#fb3</span> <span class="number">16px</span>,<span class="hexcolor">#58a</span> <span class="number">0</span>,<span class="hexcolor">#58a</span> <span class="number">32px</span>)</span></span>;
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-8.jpg" alt=""></p>
+<h2 id="灵活的同色系条纹">灵活的同色系条纹</h2><p>存在这样一种场景，我们想要的条纹图案并不是由差异极大的几种颜色组成的，而是由同色系但亮度不同的条纹组成。比如：</p>
+<pre><code><span class="attribute">background</span>: <span class="function"><span class="title">repeating-linear-gradient</span><span class="params">(<span class="number">30deg</span>,<span class="hexcolor">#79b</span>,<span class="hexcolor">#79b</span> <span class="number">16px</span>,<span class="hexcolor">#58a</span> <span class="number">0</span>,<span class="hexcolor">#58a</span> <span class="number">32px</span>)</span></span>
+</code></pre><p>是这种效果<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-9.jpg" alt=""><br>但是，如果想要修改颜色，就需要对上面的代码进行4处修改。身为懒癌患者，这是不能忍受的。于是诞生了下面这种方式：<br>先把最深的颜色指定为背景色，同时把半透明的白色条纹叠加在背景色之上来得到浅色条纹。</p>
+<pre><code>background: <span class="preprocessor">#<span class="number">58</span>a;</span>
+background-image: repeating-linear-gradient(<span class="number">30</span>deg,hsla(<span class="number">0</span>,<span class="number">0</span>%,<span class="number">100</span>%,<span class="number">.1</span>),hsla(<span class="number">0</span>,<span class="number">0</span>%,<span class="number">100</span>%,<span class="number">.1</span>) <span class="number">16</span>px,
+transparent <span class="number">16</span>px, transparent <span class="number">32</span>px);
+</code></pre><p>这样就舒服多了：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-10.jpg" alt=""></p>
+<h1 id="复杂的背景图案">复杂的背景图案</h1><p>这里所说的复杂背景图案是指下面的网格、波点和棋盘背景。其实这些都是<code>gradient</code>的一些扩展应用。</p>
+<h2 id="网格">网格</h2><p>有了上面的水平和垂直条纹，网格背景其实就是两者的结合。举个最简单的例子。</p>
+<pre><code>background: white;
+background-image: linear-gradient(<span class="number">90</span>deg,rgba(<span class="number">200</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.5</span>) <span class="number">50</span>%,transparent <span class="number">50</span>%),
+    linear-gradient(rgba(<span class="number">200</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.5</span>) <span class="number">50</span>%,transparent <span class="number">50</span>%);
+background-size: <span class="number">32</span>px <span class="number">32</span>px;
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-12.jpg" alt=""><br>常用的可能会需要下面这种细线条单色网格背景。</p>
+<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#58a</span></span></span>;
+<span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">linear-gradient</span>(white <span class="number">1px</span>,transparent <span class="number">1px</span>),
+                      <span class="function">linear-gradient</span>(<span class="number">90deg</span>,white <span class="number">1px</span>,transparent <span class="number">0</span>)</span></span>;
+<span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">32px</span> <span class="number">32px</span></span></span>;
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-13.jpg" alt=""></p>
+<p>偶尔还可能会用到两幅不同线宽的网格图案。显得更为真实一些，比如：</p>
+<pre><code>background: <span class="preprocessor">#<span class="number">58</span>a;</span>
+background-image: linear-gradient(white <span class="number">2</span>px,transparent <span class="number">0</span>),
+                linear-gradient(<span class="number">90</span>deg,white <span class="number">2</span>px,transparent <span class="number">0</span>),
+                linear-gradient(hsla(<span class="number">0</span>,<span class="number">0</span>%,<span class="number">100</span>%,<span class="number">.3</span>) <span class="number">1</span>px,transparent <span class="number">0</span>),
+                linear-gradient(<span class="number">90</span>deg,hsla(<span class="number">0</span>,<span class="number">0</span>%,<span class="number">100</span>%,<span class="number">.3</span>) <span class="number">1</span>px,transparent <span class="number">0</span>);
+background-size: <span class="number">48</span>px <span class="number">48</span>px,<span class="number">48</span>px <span class="number">48</span>px,<span class="number">16</span>px <span class="number">16</span>px,<span class="number">16</span>px <span class="number">16</span>px;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-14.jpg" alt=""></p>
+<h2 id="波点">波点</h2><p>相对于网格背景，我个人更偏向于波点背景，波点背景其实是利用的径向渐变。最简单的就是圆点的阵列。</p>
+<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#655</span></span></span>;
+<span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">radial-gradient</span>(tan <span class="number">30%</span>,transparent <span class="number">0</span>)</span></span>;
+<span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">32px</span> <span class="number">32px</span></span></span>;
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-15.jpg" alt=""><br>但是，这样看起来不是很自然。这时候可以考虑把两个径向渐变图像错位相排。</p>
+<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#655</span></span></span>;
+<span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">radial-gradient</span>(tan <span class="number">30%</span>,transparent <span class="number">0</span>),
+                <span class="function">radial-gradient</span>(tan <span class="number">30%</span>,transparent <span class="number">0</span>)</span></span>;
+<span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">32px</span> <span class="number">32px</span></span></span>;
+<span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">0px</span> <span class="number">0px</span>,<span class="number">16px</span> <span class="number">16px</span></span></span>; 
+</code></pre><p>这样的话就比较自然了<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-16.jpg" alt=""><br>但是这段代码的可维护性确实很差，幸好Sass大法好。</p>
+<pre><code><span class="at_rule">@<span class="keyword">mixin</span><span class="preprocessor"> polka</span>(<span class="variable">$size</span>,<span class="variable">$dot</span>,<span class="variable">$base</span>,<span class="variable">$accent</span>){</span>
+    <span class="attribute">background</span><span class="value">: <span class="variable">$base</span>;</span>
+    <span class="attribute">background-image</span><span class="value">: <span class="function">radial-gradient</span>(<span class="variable">$accent</span> <span class="variable">$dot</span>,transparent <span class="number">0</span>),
+                      <span class="function">radial-gradient</span>(<span class="variable">$accent</span> <span class="variable">$dot</span>,transparent <span class="number">0</span>);</span>
+    <span class="attribute">background-size</span><span class="value">: <span class="variable">$size</span> <span class="variable">$size</span>;</span>
+    <span class="attribute">background-position</span><span class="value">: <span class="number">0</span> <span class="number">0</span>, <span class="variable">$size</span>/<span class="number">2</span> <span class="variable">$size</span>/<span class="number">2</span>
+}
+@include <span class="function">polka</span>(<span class="number">32px</span>,<span class="number">30%</span>,<span class="hexcolor">#655</span>,tan);</span>
+</code></pre><blockquote>
+<p>每次$dot都打成$dota</p>
+</blockquote>
+<h2 id="棋盘">棋盘</h2><p>棋盘的话，见得并不多，调试的时候可以看见透明色就是用灰色棋盘来表示的。<br>棋盘的实现稍微复杂些，首先，利用渐变绘制出如图案：</p>
+<pre><code>background: <span class="preprocessor">#eee;</span>
+background-image: linear-gradient(<span class="number">45</span>deg,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">25</span>%,
+            transparent <span class="number">0</span>,transparent <span class="number">75</span>%,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">0</span>);
+background-size: <span class="number">32</span>px <span class="number">32</span>px;
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-17.jpg" alt=""><br>这时候会发现，再绘制一份相同的背景，然后错下位就可以实现棋盘效果了。</p>
+<pre><code>background: <span class="preprocessor">#eee;</span>
+background-image: linear-gradient(<span class="number">45</span>deg,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">25</span>%,transparent <span class="number">0</span>,transparent <span class="number">75</span>%,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">0</span>),
+                  linear-gradient(<span class="number">45</span>deg,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">25</span>%,transparent <span class="number">0</span>,transparent <span class="number">75</span>%,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">0</span>);
+background-size: <span class="number">32</span>px <span class="number">32</span>px;
+background-position: <span class="number">0</span> <span class="number">0</span> ,<span class="number">16</span>px <span class="number">16</span>px;
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-18.jpg" alt=""></p>
+<p>当然在懒人癌的作用下，利用Sass处理下：</p>
+<pre><code><span class="at_rule">@<span class="keyword">mixin</span><span class="preprocessor"> checkerboard</span>(<span class="variable">$size</span>,<span class="variable">$base</span>,<span class="variable">$accent</span>){</span>
+    <span class="attribute">background</span><span class="value">: <span class="variable">$base</span>;</span>
+    <span class="attribute">background-image</span><span class="value">: <span class="function">linear-gradient</span>(<span class="number">45deg</span>,<span class="variable">$accent</span> <span class="number">25%</span>,transparent <span class="number">0</span>, transparent <span class="number">75%</span>,<span class="variable">$accent</span> <span class="number">0</span>),
+    <span class="function">linear-gradient</span>(<span class="number">45deg</span>,<span class="variable">$accent</span> <span class="number">25%</span>,transparent <span class="number">0</span>, transparent <span class="number">75%</span>,<span class="variable">$accent</span> <span class="number">0</span>);</span>
+    <span class="attribute">background-size</span><span class="value">: <span class="number">2</span>*<span class="variable">$size</span> <span class="number">2</span>*<span class="variable">$size</span>;</span>
+    <span class="attribute">background-position</span><span class="value">: <span class="number">0</span> <span class="number">0</span>, <span class="variable">$size</span> <span class="variable">$size</span>;</span>
+}
+<span class="at_rule">@<span class="keyword">include</span><span class="preprocessor"> checkerboard</span>(<span class="number">16px</span>,<span class="hexcolor">#eee</span>,<span class="function">rgba</span>(<span class="number">200</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">5</span>));</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="条纹背景">条纹背景</h1><p>通常条纹背景是由一个图片来代替，或者使用SVG。能不能利用CSS直接创建条纹图案呢，答案是肯定的。<br>假设背景是垂直线性渐变。比如：<code>background:linear-gradient(#fb3,#58a);</code><br>效果是这个样子的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-1.jpg" alt=""><br>如果让渐变区域变的更窄，产生一个无限小的渐变区域，比如：<code>background:linear-gradient(#fb3 50%,#58a 50%);</code> 就可以得到想要的结果了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-2.jpg" alt=""><br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret读书笔记之灵活定位&边框内圆角]]></title>
@@ -115,6 +262,21 @@
   </entry>
   
   <entry>
+    <title><![CDATA[CSS Secret 读书笔记之背景定位&边框内圆角]]></title>
+    <link href="http://blog.supce.com/2016/09/13/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%83%8C%E6%99%AF%E5%AE%9A%E4%BD%8D&%E8%BE%B9%E6%A1%86%E5%86%85%E5%9C%86%E8%A7%92/"/>
+    <id>http://blog.supce.com/2016/09/13/CSS Secret 读书笔记之背景定位&边框内圆角/</id>
+    <published>2016-09-12T16:00:00.000Z</published>
+    <updated>2016-09-13T13:12:52.244Z</updated>
+    <content type="html"><![CDATA[<h1 id="灵活的背景定位">灵活的背景定位</h1><h1 id="边框内圆角">边框内圆角</h1>]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="灵活的背景定位">灵活的背景定位</h1><h1 id="边框内圆角">边框内圆角</h1>]]>
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[CSS Secret 读书笔记之半透明与多重边框]]></title>
     <link href="http://blog.supce.com/2016/09/13/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%8D%8A%E9%80%8F%E6%98%8E%E4%B8%8E%E5%A4%9A%E9%87%8D%E8%BE%B9%E6%A1%86/"/>
     <id>http://blog.supce.com/2016/09/13/CSS Secret 读书笔记之半透明与多重边框/</id>
@@ -207,21 +369,6 @@
 &lt;/<span class="keyword">div</span>&gt;
 </code></pre>]]>
     
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之背景定位&边框内圆角]]></title>
-    <link href="http://blog.supce.com/2016/09/13/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%83%8C%E6%99%AF%E5%AE%9A%E4%BD%8D&%E8%BE%B9%E6%A1%86%E5%86%85%E5%9C%86%E8%A7%92/"/>
-    <id>http://blog.supce.com/2016/09/13/CSS Secret 读书笔记之背景定位&边框内圆角/</id>
-    <published>2016-09-12T16:00:00.000Z</published>
-    <updated>2016-09-13T13:12:52.244Z</updated>
-    <content type="html"><![CDATA[<h1 id="灵活的背景定位">灵活的背景定位</h1><h1 id="边框内圆角">边框内圆角</h1>]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="灵活的背景定位">灵活的背景定位</h1><h1 id="边框内圆角">边框内圆角</h1>]]>
     </summary>
     
       <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
@@ -1813,6 +1960,23 @@ function <span class="function"><span class="title">fun</span><span class="param
   </entry>
   
   <entry>
+    <title><![CDATA[我胡汉三又回来了]]></title>
+    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
+    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
+    <published>2016-07-12T16:00:00.000Z</published>
+    <updated>2016-07-13T01:44:49.151Z</updated>
+    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]>
+    </summary>
+    
+      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[对象的创建与继承]]></title>
     <link href="http://blog.supce.com/2016/07/13/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%805/"/>
     <id>http://blog.supce.com/2016/07/13/JavaScript之基础5/</id>
@@ -2073,23 +2237,6 @@ console.log(<span class="keyword">person</span>.sayName());
   </entry>
   
   <entry>
-    <title><![CDATA[我胡汉三又回来了]]></title>
-    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
-    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
-    <published>2016-07-12T16:00:00.000Z</published>
-    <updated>2016-07-13T01:44:49.151Z</updated>
-    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]>
-    </summary>
-    
-      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[RegExp类型]]></title>
     <link href="http://blog.supce.com/2016/05/25/JavaScript%E4%B9%8BRegExp%E7%B1%BB%E5%9E%8B/"/>
     <id>http://blog.supce.com/2016/05/25/JavaScript之RegExp类型/</id>
@@ -2162,6 +2309,112 @@ $(<span class="string">"test"</span>).innerHTML += <span class="string">"&lt;/br
 <ul>
 <li>字面量<br><code>var p = /pattern/attributes;</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = /[bc]at/i;</code></li>
 <li>RegExp构造函数<br><code>var p = new RegExp(pattern,attributes);</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = new RegExp(&quot;[bc]at&quot;,&quot;i&quot;);</code>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[IFE Task 02]]></title>
+    <link href="http://blog.supce.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%802/"/>
+    <id>http://blog.supce.com/2016/05/17/JavaScript之基础2/</id>
+    <published>2016-05-16T16:00:00.000Z</published>
+    <updated>2016-05-17T13:44:34.091Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>最近课题要结项，自由支配的时间越发宝贵了</p>
+</blockquote>
+<h1 id="任务目的">任务目的</h1><hr>
+<ul>
+<li>在上一任务基础上继续JavaScript的体验</li>
+<li>接触一下JavaScript中的高级选择器</li>
+<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
+<li>学习简单的字符串处理操作<a id="more"></a>
+</li>
+</ul>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>参考以下示例代码，读取页面上已有的source列表，从中提取出城市以及对应的空气质量</li>
+<li>将数据按照某种顺序排序后，在resort列表中按照顺序显示出来</li>
+</ul>
+<h1 id="任务最终代码">任务最终代码</h1><pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> $ = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>{
+      <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);
+    }
+    <span class="comment">/**
+     + getData方法
+     + 读取id为source的列表，获取其中城市名字及城市对应的空气质量
+     + 返回一个数组，格式见函数中示例
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>{
+      <span class="comment">/*
+      coding here
+      */</span>
+      <span class="comment">/*
+      data = [
+        ["北京", 90],
+        ["北京", 90]
+        ……
+      ]
+      */</span>
+      <span class="keyword">var</span> data = [];
+      <span class="keyword">var</span> li = $(<span class="string">'source'</span>).getElementsByTagName(<span class="string">'li'</span>);
+      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;li.length; i++){
+        <span class="keyword">var</span> city = li[i].innerHTML.split(<span class="string">"空气质量："</span>)[<span class="number">0</span>];
+
+        <span class="keyword">var</span> num = li[i].getElementsByTagName(<span class="string">'b'</span>)[<span class="number">0</span>].innerHTML;
+        <span class="comment">//var num = Number(li.children[0].innerHTML);</span>
+
+        data[data.length] = [city,num];
+        <span class="comment">//data.push([city,num]);</span>
+      }
+      <span class="built_in">console</span>.log(data.length);
+      <span class="keyword">return</span> data;
+    }
+    <span class="comment">/**
+     + sortAqiData
+     + 按空气质量对data进行从小到大的排序
+     + 返回一个排序后的数组
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">sortAqiData</span>(<span class="params">data</span>) </span>{
+      data.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>{
+        <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];
+      });
+      <span class="keyword">return</span> data;
+    }
+    <span class="comment">/**
+     + render
+     + 将排好序的城市及空气质量指数，输出显示到id位resort的列表中
+     + 格式见ul中的注释的部分
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">data</span>) </span>{
+      <span class="keyword">var</span> chineseNum = [<span class="string">"零"</span>, <span class="string">"一"</span>, <span class="string">"二"</span>, <span class="string">"三"</span>, <span class="string">"四"</span>, <span class="string">"五"</span>, <span class="string">"六"</span>, <span class="string">"七"</span>, <span class="string">"八"</span>, <span class="string">"九"</span>];
+      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;data.length; i++){
+        $(<span class="string">"resort"</span>).innerHTML += <span class="string">"&lt;li&gt;第"</span> + chineseNum[i+<span class="number">1</span>] +　<span class="string">"名："</span> + data[i][<span class="number">0</span>] + <span class="string">"空气质量：&lt;b&gt;"</span> + data[i][<span class="number">1</span>] + <span class="string">"&lt;/b&gt;&lt;/li&gt;"</span>;
+      }
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">btnHandle</span>(<span class="params"></span>) </span>{
+      <span class="keyword">var</span> aqiData = getData();
+      aqiData = sortAqiData(aqiData);
+      render(aqiData);
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>{
+      <span class="comment">// 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数</span>
+      $(<span class="string">"sort-btn"</span>).addEventListener(<span class="string">"click"</span>,btnHandle,<span class="literal">false</span>);
+    }
+    init();
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>最近课题要结项，自由支配的时间越发宝贵了</p>
+</blockquote>
+<h1 id="任务目的">任务目的</h1><hr>
+<ul>
+<li>在上一任务基础上继续JavaScript的体验</li>
+<li>接触一下JavaScript中的高级选择器</li>
+<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
+<li>学习简单的字符串处理操作]]>
     
     </summary>
     
@@ -2294,112 +2547,6 @@ init<span class="params">()</span>;
 <li>学习事件代理机制</li>
 <li>学习简单的表单验证功能</li>
 <li>学习外部加载JavaScript文件]]>
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[IFE Task 02]]></title>
-    <link href="http://blog.supce.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%802/"/>
-    <id>http://blog.supce.com/2016/05/17/JavaScript之基础2/</id>
-    <published>2016-05-16T16:00:00.000Z</published>
-    <updated>2016-05-17T13:44:34.091Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>最近课题要结项，自由支配的时间越发宝贵了</p>
-</blockquote>
-<h1 id="任务目的">任务目的</h1><hr>
-<ul>
-<li>在上一任务基础上继续JavaScript的体验</li>
-<li>接触一下JavaScript中的高级选择器</li>
-<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
-<li>学习简单的字符串处理操作<a id="more"></a>
-</li>
-</ul>
-<h1 id="任务描述">任务描述</h1><ul>
-<li>参考以下示例代码，读取页面上已有的source列表，从中提取出城市以及对应的空气质量</li>
-<li>将数据按照某种顺序排序后，在resort列表中按照顺序显示出来</li>
-</ul>
-<h1 id="任务最终代码">任务最终代码</h1><pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> $ = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>{
-      <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);
-    }
-    <span class="comment">/**
-     + getData方法
-     + 读取id为source的列表，获取其中城市名字及城市对应的空气质量
-     + 返回一个数组，格式见函数中示例
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>{
-      <span class="comment">/*
-      coding here
-      */</span>
-      <span class="comment">/*
-      data = [
-        ["北京", 90],
-        ["北京", 90]
-        ……
-      ]
-      */</span>
-      <span class="keyword">var</span> data = [];
-      <span class="keyword">var</span> li = $(<span class="string">'source'</span>).getElementsByTagName(<span class="string">'li'</span>);
-      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;li.length; i++){
-        <span class="keyword">var</span> city = li[i].innerHTML.split(<span class="string">"空气质量："</span>)[<span class="number">0</span>];
-
-        <span class="keyword">var</span> num = li[i].getElementsByTagName(<span class="string">'b'</span>)[<span class="number">0</span>].innerHTML;
-        <span class="comment">//var num = Number(li.children[0].innerHTML);</span>
-
-        data[data.length] = [city,num];
-        <span class="comment">//data.push([city,num]);</span>
-      }
-      <span class="built_in">console</span>.log(data.length);
-      <span class="keyword">return</span> data;
-    }
-    <span class="comment">/**
-     + sortAqiData
-     + 按空气质量对data进行从小到大的排序
-     + 返回一个排序后的数组
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">sortAqiData</span>(<span class="params">data</span>) </span>{
-      data.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>{
-        <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];
-      });
-      <span class="keyword">return</span> data;
-    }
-    <span class="comment">/**
-     + render
-     + 将排好序的城市及空气质量指数，输出显示到id位resort的列表中
-     + 格式见ul中的注释的部分
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">data</span>) </span>{
-      <span class="keyword">var</span> chineseNum = [<span class="string">"零"</span>, <span class="string">"一"</span>, <span class="string">"二"</span>, <span class="string">"三"</span>, <span class="string">"四"</span>, <span class="string">"五"</span>, <span class="string">"六"</span>, <span class="string">"七"</span>, <span class="string">"八"</span>, <span class="string">"九"</span>];
-      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;data.length; i++){
-        $(<span class="string">"resort"</span>).innerHTML += <span class="string">"&lt;li&gt;第"</span> + chineseNum[i+<span class="number">1</span>] +　<span class="string">"名："</span> + data[i][<span class="number">0</span>] + <span class="string">"空气质量：&lt;b&gt;"</span> + data[i][<span class="number">1</span>] + <span class="string">"&lt;/b&gt;&lt;/li&gt;"</span>;
-      }
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">btnHandle</span>(<span class="params"></span>) </span>{
-      <span class="keyword">var</span> aqiData = getData();
-      aqiData = sortAqiData(aqiData);
-      render(aqiData);
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>{
-      <span class="comment">// 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数</span>
-      $(<span class="string">"sort-btn"</span>).addEventListener(<span class="string">"click"</span>,btnHandle,<span class="literal">false</span>);
-    }
-    init();
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>最近课题要结项，自由支配的时间越发宝贵了</p>
-</blockquote>
-<h1 id="任务目的">任务目的</h1><hr>
-<ul>
-<li>在上一任务基础上继续JavaScript的体验</li>
-<li>接触一下JavaScript中的高级选择器</li>
-<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
-<li>学习简单的字符串处理操作]]>
     
     </summary>
     
@@ -3218,198 +3365,6 @@ li{
     <![CDATA[<h1 id="一个简易的相册">一个简易的相册</h1><hr>
 <p>在上一次模仿新闻页的时候，学习了一种对图片进行处理的方式，这次换个思路，写一个简易的相册。</p>
 <h2 id="第一种思路">第一种思路</h2><p>惯例 HTML框架<br>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之选项卡]]></title>
-    <link href="http://blog.supce.com/2016/05/03/CSS%E4%B9%8B%E9%80%89%E9%A1%B9%E5%8D%A1/"/>
-    <id>http://blog.supce.com/2016/05/03/CSS之选项卡/</id>
-    <published>2016-05-02T16:00:00.000Z</published>
-    <updated>2016-05-03T13:07:24.593Z</updated>
-    <content type="html"><![CDATA[<h1 id="网页中的选项卡">网页中的选项卡</h1><hr>
-<p>在一些门户网站中，为了在有限的网页空间中尽可能的展示更多的信息，会采用tab选项卡的方式。比如<a href="http://www.163.com/" target="_blank" rel="external">网易</a>首页就使用了大量的选项卡。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab.jpg-blogImg" alt=""><br>下面学习几种实现tab选项卡的方式</p>
-<a id="more"></a>
-<h2 id="Iframe框架">Iframe框架</h2><p>记得以前在很多XX后台管理系统中会使用iframe框架来实现在同一个页面中相同的位置显示不同的内容<br>先是HTML框架子：</p>
-<pre><code><span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://163.com"</span> <span class="attribute">target</span>=<span class="value">"web_wrapper"</span>&gt;</span>网易<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://baidu.com"</span> <span class="attribute">target</span>=<span class="value">"web_wrapper"</span>&gt;</span>百度<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://sohu.com"</span> <span class="attribute">target</span>=<span class="value">"web_wrapper"</span>&gt;</span>搜狐<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://sina.com.cn"</span> <span class="attribute">target</span>=<span class="value">"web_wrapper"</span>&gt;</span>新浪<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-<span class="tag">&lt;<span class="title">iframe</span> <span class="attribute">scrolling</span>=<span class="value">"no"</span> <span class="attribute">src</span>=<span class="value">"http://163.com"</span> <span class="attribute">name</span>=<span class="value">"web_wrapper"</span>&gt;</span><span class="tag">&lt;/<span class="title">iframe</span>&gt;</span>
-</code></pre><p>简单修改下样式</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    <span class="tag">ul</span><span class="rules">{
-        <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
-    }</span>
-    <span class="tag">li</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> <span class="number">10px</span></span></span>;
-    }</span>
-    <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
-    }</span>
-    <span class="tag">iframe</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">960px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">400px</span></span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>简单粗暴：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab1.jpg-blogImg" alt=""></p>
-<h2 id="利用JS实现tab选项卡">利用JS实现tab选项卡</h2><p>iframe感觉并不是很好用，可以利用JS实现一个更加灵活的tab选项卡。选项卡主要由多个选项卡标题和选项卡内容区域组成，通过浮动或者定位将选项卡标题和内容分别控制在某个区域，然后通过JS来给我们的选项卡标题添加事件以实现控制选项卡内容<br>大概就是下图这个意思：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab2.jpg-blogImg" alt=""><br>首先还是我们的HTML框架子</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"tab"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">class</span>=<span class="value">"selected"</span> <span class="attribute">onmouseover</span>=<span class="value">"go(1)"</span>&gt;</span>选项卡一<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"block"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>习近平:构建不敢腐不能腐不想腐的机制<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>这些年习近平的劳动节 国平 网信专题 这三年<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>李克强在北大讲了啥 校长教授们连鼓四次掌<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>中央军委与卫计委等部门调查北京市武警二院<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>外交部:"西藏流亡政府"不合法"选举"是场闹剧<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">onmouseover</span>=<span class="value">"go(2)"</span>&gt;</span>选项卡二<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>莆田人承包了中国90%寺庙？网帖系旧文拼凑<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>江西"头号老赖"引爆官场地震 苏荣等官员涉案<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>中国最高过山车半空停车 28人悬50米高空(图)<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>准新娘宴客时被邻桌砸满身血 工作人员未阻拦<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>母女大闹机场被拘10天 女儿自称"市政协委员"<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">onmouseover</span>=<span class="value">"go(3)"</span>&gt;</span>选项卡三<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>学者：中国实际控制黄岩岛已4年 填了更好<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>巴斯钢铁造船厂将建造首艘伯克III型驱逐舰<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>澳媒:澳买潜艇对付中国?中方觉得没啥要紧的<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>澳新潜艇将装哪些美式装备 已采购战斧导弹<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>周琦优劣势明显难坏NBA 莱斯特的"平凡"之路<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>  
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab3.jpg-blogImg" alt=""><br>然后添加样式</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    *<span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="id">#tab</span><span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">333px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">15px</span></span></span>;
-    }</span>
-    <span class="tag">h3</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
-        <span class="rule"><span class="attribute">border-left</span>:<span class="value"> none</span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#c0c0c0</span></span></span>;
-        <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;
-    }</span>
-    <span class="tag">h3</span><span class="pseudo">:first-child</span><span class="rules">{
-        <span class="rule"><span class="attribute">border-left</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
-    }</span>
-    <span class="class">.selected</span><span class="rules">{
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
-    }</span>
-    <span class="tag">ul</span><span class="rules">{
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">5px</span></span></span>;
-        <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
-    }</span>
-    <span class="tag">ul</span> <span class="tag">li</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"><span class="number">1px</span> dashed <span class="hexcolor">#a8a8a8</span></span></span>;
-    }</span>
-    <span class="id">#tab</span> <span class="tag">div</span><span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-        <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">30px</span></span></span>;
-        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;
-    }</span>
-    <span class="id">#tab</span> <span class="class">.block</span><span class="rules">{
-        <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    }</span></span>
-</code></pre><p>利用JS添加mouseover事件</p>
-<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> h = <span class="built_in">document</span>.getElementById(<span class="string">"tab"</span>).getElementsByTagName(<span class="string">"h3"</span>);
-    <span class="keyword">var</span> d = <span class="built_in">document</span>.getElementById(<span class="string">"tab"</span>).getElementsByTagName(<span class="string">"div"</span>);
-    <span class="function"><span class="keyword">function</span> <span class="title">go</span>(<span class="params">num</span>)</span>{
-        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;h.length;i++){
-            <span class="keyword">if</span> (num-<span class="number">1</span> == i) {
-                h[i].className+=<span class="string">" selected"</span>;
-                d[i].className+=<span class="string">" block"</span>;
-            }<span class="keyword">else</span>{
-                h[i].className=<span class="string">" "</span>;
-                d[i].className=<span class="string">" "</span>;
-            }
-        }
-    }
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre><p>刷新下页面：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab4.jpg-blogImg" alt=""></p>
-<h2 id="对选项卡进行优化">对选项卡进行优化</h2><p>这时候会发现刚才的例子由于利用了float和absolute定位的方式，我们即使清除浮动也无法使父元素的高度自适应，想办法只使用float不使用absolute，这时就需要修改HTML代码的结构了<br>修改后的HTML结构如下：</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"tab"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">class</span>=<span class="value">"selected"</span> <span class="attribute">onmouseover</span>=<span class="value">"go(1)"</span>&gt;</span>选项卡一<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">onmouseover</span>=<span class="value">"go(2)"</span>&gt;</span>选项卡二<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h3</span> <span class="attribute">onmouseover</span>=<span class="value">"go(3)"</span>&gt;</span>选项卡三<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"block"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>习近平:构建不敢腐不能腐不想腐的机制<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>这些年习近平的劳动节 国平 网信专题 这三年<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>李克强在北大讲了啥 校长教授们连鼓四次掌<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>中央军委与卫计委等部门调查北京市武警二院<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>外交部:"西藏流亡政府"不合法"选举"是场闹剧<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>莆田人承包了中国90%寺庙？网帖系旧文拼凑<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>江西"头号老赖"引爆官场地震 苏荣等官员涉案<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>中国最高过山车半空停车 28人悬50米高空(图)<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>准新娘宴客时被邻桌砸满身血 工作人员未阻拦<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>母女大闹机场被拘10天 女儿自称"市政协委员"<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>学者：中国实际控制黄岩岛已4年 填了更好<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>巴斯钢铁造船厂将建造首艘伯克III型驱逐舰<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>澳媒:澳买潜艇对付中国?中方觉得没啥要紧的<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>澳新潜艇将装哪些美式装备 已采购战斧导弹<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>周琦优劣势明显难坏NBA 莱斯特的"平凡"之路<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>  
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>样式稍作修改</p>
-<pre><code><span class="id">#tab</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">333px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">15px</span></span></span>;
-        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-    }</span>
-<span class="id">#tab</span> <span class="tag">div</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;
-    }</span>
-</code></pre><p>其他保持不变，刷新页面会发现父元素可以自适应高度了<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab5.jpg-blogImg" alt=""><br>但是这样又带来另一个问题，那就是渐进增强与平稳退化。比如当某些原因导致我们的CSS不能加载时，没有样式的HTML页面变成了这样：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab6.jpg-blogImg" alt=""></p>
-<blockquote>
-<p>这样的结构其实并不如上一个HTML结构优秀。但为了向父元素高度自适应妥协，也暂时只好这样了。</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="网页中的选项卡">网页中的选项卡</h1><hr>
-<p>在一些门户网站中，为了在有限的网页空间中尽可能的展示更多的信息，会采用tab选项卡的方式。比如<a href="http://www.163.com/">网易</a>首页就使用了大量的选项卡。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/tab.jpg-blogImg" alt=""><br>下面学习几种实现tab选项卡的方式</p>]]>
     
     </summary>
     
