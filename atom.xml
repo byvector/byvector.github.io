@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-09-16T13:22:32.378Z</updated>
+  <updated>2016-09-16T13:34:24.303Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.supce.com/2016/09/16/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BC%AA%E9%9A%8F%E6%9C%BA%E8%83%8C%E6%99%AF&%E5%9B%BE%E5%83%8F%E8%BE%B9%E6%A1%86/"/>
     <id>http://blog.supce.com/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/</id>
     <published>2016-09-15T16:00:00.000Z</published>
-    <updated>2016-09-16T13:22:32.378Z</updated>
+    <updated>2016-09-16T13:34:24.303Z</updated>
     <content type="html"><![CDATA[<hr>
 <h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
 <pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
@@ -85,14 +85,14 @@ background-size: <span class="number">41</span>px <span class="number">100</span
 <p>既然可以使用渐变那就可以模拟更多的边框效果了~ 比如下面这种：</p>
 <pre><code>background: linear-gradient(white,white) padding-box,
                 repeating-linear-gradient(-<span class="number">45</span>deg,red <span class="number">0</span>,red <span class="number">12.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">25</span>%,<span class="preprocessor">#<span class="number">58</span>a <span class="number">0</span>,</span>
-                    <span class="preprocessor">#<span class="number">58</span>a <span class="number">37.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">50</span>%) <span class="number">0</span>/<span class="number">5</span>em <span class="number">5</span>em;</span>
+                    <span class="preprocessor">#<span class="number">58</span>a <span class="number">37.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">50</span>%) <span class="number">0</span> <span class="number">0</span> / <span class="number">4</span>em <span class="number">4</span>em;</span>
 </code></pre><p>一种漂亮的信封效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-8.jpg" alt=""></p>
 <p>当然，也可以给边框添加动画。</p>
 <pre><code><span class="at_rule">@<span class="keyword">keyframes</span> ants </span>{<span class="tag">to</span> <span class="rules">{<span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">100%</span>}}
 .border-c{
     border: <span class="number">1px</span> solid transparent</span></span>;
     <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(white,white) padding-box,
-                <span class="function">repeating-linear-gradient</span>(-<span class="number">45deg</span>,black <span class="number">0</span>,black <span class="number">25%</span>,white <span class="number">0</span>,white <span class="number">50%</span>) <span class="number">0</span> / .<span class="number">6em</span> .<span class="number">6em</span></span></span>;
+                <span class="function">repeating-linear-gradient</span>(-<span class="number">45deg</span>,black <span class="number">0</span>,black <span class="number">25%</span>,white <span class="number">0</span>,white <span class="number">50%</span>) <span class="number">0</span> <span class="number">0</span> / .<span class="number">6em</span> .<span class="number">6em</span></span></span>;
     <span class="rule"><span class="attribute">animation</span>:<span class="value"> ants <span class="number">12s</span> ease-out infinite</span></span>;
 }</span>
 </code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-9.jpg" alt=""><br>可惜图片看不出动画效果了。</p>
