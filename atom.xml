@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-09-16T13:34:24.303Z</updated>
+  <updated>2016-09-17T03:35:13.305Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,178 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之自适应椭圆&平行四边形]]></title>
+    <link href="http://blog.supce.com/2016/09/17/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%87%AA%E9%80%82%E5%BA%94%E6%A4%AD%E5%9C%86&%E5%B9%B3%E8%A1%8C%E5%9B%9B%E8%BE%B9%E5%BD%A2/"/>
+    <id>http://blog.supce.com/2016/09/17/CSS Secret 读书笔记之自适应椭圆&平行四边形/</id>
+    <published>2016-09-16T16:00:00.000Z</published>
+    <updated>2016-09-17T03:35:13.305Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="自适应椭圆">自适应椭圆</h1><p>对于一个正方形的元素，如果设置其属性<code>border-radius</code>的值大于等于边长的一半，那么该元素会变成一个圆形。</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"round-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+body{
+    display: flex;
+    flex-flow: row wrap; 
+    justify-content: <span class="constant">space</span>-<span class="keyword">around</span>;
+}
+.<span class="command">round</span>-a{
+    background: <span class="comment">#fb3;</span>
+    width: <span class="number">10</span>em;
+    height: <span class="number">10</span>em;
+    border-radius: <span class="number">50</span>%;
+}
+</code></pre><a id="more"></a>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-1.jpg" alt=""></p>
+<p>那么对于矩形设置合适的水平与垂直<code>border-radius</code>就可以创建出一个椭圆了。<br>恰好<code>border-radius</code>可以单独指定水平和垂直半径，只要用一个斜杠(/)分隔这两个值即可。比如对于<code>200px * 150px</code>的元素，把它圆角的两个半径值分别设为宽高的一般(<code>border-radius: 100px / 75px</code>)，就可以得到一个椭圆了。<br>为了创建能够自适应的椭圆，只要把参数改为百分比。</p>
+<pre><code><span class="class">.round-b</span>{
+    <span class="attribute">margin</span>: <span class="number">20px</span> <span class="number">20px</span>;
+    <span class="attribute">background</span>: <span class="hexcolor">#fb3</span>;
+    <span class="attribute">width</span>: <span class="number">10em</span>;
+    <span class="attribute">height</span>: <span class="number">6em</span>;
+}
+<span class="class">.round-b</span>{
+    <span class="attribute">border-radius</span>: <span class="number">50%</span> / <span class="number">50%</span>;
+    <span class="comment">/*border-radius: 50%;*/</span>   <span class="comment">//简写</span>
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-2.jpg" alt=""></p>
+<h2 id="半椭圆">半椭圆</h2><p>由于<code>border-radius</code>的灵活性为我们创建半椭圆提供了可能性。<br>首先，它支持给每个角指定不同的半径。即展开式属性：</p>
+<ul>
+<li>border-top-left-radius</li>
+<li>border-top-right-radius</li>
+<li>border-bottom-right-radius</li>
+<li>border-bottom-left-radius</li>
+</ul>
+<p>当然，也可以一次提供用空格分开的多个值来简写。</p>
+<ul>
+<li>如果指定四个值，则按照左上，右上，右下，左下 这种逆时针指定。</li>
+<li>如果指定三个值，则第一个表左上，第二个表示右上与左下，第三个表示右下。</li>
+<li>如果指定两个值，则第一个表示左上与右下，第二个表示右上与左下。</li>
+<li>如果指定一个值，则表示四个角均为该值。</li>
+</ul>
+<p>但是<code>border-radius</code>比我之前想到的更加灵活，除了可以指定每个角为不同的半径，还可以为四个角提供完全不同的水平和垂直半径。<br>方法是在斜杠前指定1-4个值表示水平半径，在斜杠后指定1-4个值表示垂直半径。这两组值的简写规则与之前不同，是单独展开为四个值的。比如<code>border-radius: 10px / 5px 20px;</code>效果相当于<code>border-radius: 10px 10px 10px 10px / 5px 20px 5px 20px;</code></p>
+<p>有了上面这些，就可以轻松创建一个沿横轴的半椭圆了：</p>
+<pre><code>.round-c{
+    border-radius: <span class="number">50</span>% / <span class="number">100</span>% <span class="number">100</span>% <span class="number">0</span> <span class="number">0</span>;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-3.jpg" alt=""></p>
+<p>也创建一个沿纵轴的半椭圆：</p>
+<pre><code>.round-d{
+    border-radius: <span class="number">0</span> <span class="number">100</span>% <span class="number">100</span>% <span class="number">0</span> / <span class="number">50</span>%;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-4.jpg" alt=""></p>
+<h2 id="四分之一椭圆">四分之一椭圆</h2><p>按照上面的思路，要创建一个四分之一椭圆，其中一个角的水平和垂直半径都需要是100%，其他的三个角不能设为圆角。于是：</p>
+<pre><code><span class="class">.round-e</span><span class="rules">{
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">100%</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-5.jpg" alt=""></p>
+<hr>
+<h1 id="平行四边形">平行四边形</h1><p>在导航栏有时候会用到平行四边形。之前也写过几种实现的方法，当时用到了背景图片，这里用纯CSS实现下。<br>最简单的方法就是对于一个普通的矩形进行斜向拉伸：</p>
+<pre><code>&lt;div class="para-a"&gt;this is a test&lt;/div&gt;
+.para-a{
+    margin: 20px 20px<span class="comment">;</span>
+    width: 10em<span class="comment">;</span>
+    height: 4em<span class="comment">;</span>
+    background: #58a<span class="comment">;</span>
+    color: white<span class="comment">;</span>
+    text-align: center<span class="comment">;</span>
+    font: 125%/4em sans-serif<span class="comment">;</span>
+}
+.para-a{
+    transform: skewX(-45deg)<span class="comment">;</span>
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-6.jpg" alt=""><br>但是这样带来一个问题，就是文字也随着被斜向拉伸了，可以用下面两种方式，只让容器形状倾斜，同时保持内容不被拉伸。</p>
+<h2 id="嵌套元素方案">嵌套元素方案</h2><p>最容易想到的方法就是嵌套一个元素了。对容器内部的元素再进行一次反向拉伸，抵消外部容器的拉伸效果。</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"para-b"</span>&gt;
+    &lt;<span class="keyword">div</span>&gt;this <span class="keyword">is</span> a test&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+.para-b{
+    margin: <span class="number">20</span>px <span class="number">20</span>px;
+    width: <span class="number">10</span>em;
+    height: <span class="number">4</span>em;
+    background: <span class="comment">#58a;</span>
+    color: white;
+    <span class="type">text</span>-align: center;
+    font: <span class="number">125</span>%/<span class="number">4</span>em sans-serif;
+}
+.para-b{
+    transform: skewX(-<span class="number">45</span>deg);
+}
+.para-b &gt; <span class="keyword">div</span>{
+    transform: skewX(<span class="number">45</span>deg);
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-7.jpg" alt=""></p>
+<h2 id="伪元素方案">伪元素方案</h2><p>根据之前的经验，既然可以嵌套元素，那么应该也可以使用伪元素来避免污染原有的HTML结构。</p>
+<pre><code>&lt;div class="para-c"&gt;this is a test&lt;/div&gt;
+.para-c{
+    margin: 20px 20px<span class="comment">;</span>
+    width: 10em<span class="comment">;</span>
+    height: 4em<span class="comment">;</span>
+    color: white<span class="comment">;</span>
+    text-align: center<span class="comment">;</span>
+    font: 125%/4em sans-serif<span class="comment">;</span>
+    position: relative<span class="comment">;</span>
+}
+.para-<span class="number">c::bef</span>ore{
+    content: ""<span class="comment">;</span>
+    position: absolute<span class="comment">;</span>
+    top: 0<span class="comment">;right: 0;bottom: 0;left: 0;</span>
+    background: #58a<span class="comment">;</span>
+    z-index: -1<span class="comment">;</span>
+    transform: skewX(-45deg)<span class="comment">;</span>
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-8.jpg" alt=""></p>
+<blockquote>
+<p>注意，这种方式虽然在视觉上是平行四边形，但是他实际所占据的仍然是个矩形。</p>
+</blockquote>
+<h1 id="内边框圆角">内边框圆角</h1><p>利用这种思路，可以给之前的内边框圆角增加一种实现方式</p>
+<pre><code>&lt;div class="bor-ra"&gt;this is a test&lt;/div&gt;
+.bor-ra{
+    margin: 20px 20px<span class="comment">;</span>
+    width: 10em<span class="comment">;</span>
+    height: 4em<span class="comment">;</span>
+    color: white<span class="comment">;</span>
+    text-align: center<span class="comment">;</span>
+    font: 125%/4em sans-serif<span class="comment">;</span>
+    position: relative<span class="comment">;</span>
+}
+.bor-ra{
+    background: tan<span class="comment">;</span>
+    border-radius: .8em<span class="comment">;</span>
+    outline: .6em solid #655<span class="comment">;</span>
+}
+.bor-r<span class="number">a::bef</span>ore{
+    content: ""<span class="comment">;</span>
+    position: absolute<span class="comment">;</span>
+    top: 0<span class="comment">;right: 0;bottom: 0;left: 0;</span>
+    background: #655<span class="comment">;</span>
+    z-index: -1<span class="comment">;</span>
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-9.jpg" alt=""></p>
+<p>OK 搞定~</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="自适应椭圆">自适应椭圆</h1><p>对于一个正方形的元素，如果设置其属性<code>border-radius</code>的值大于等于边长的一半，那么该元素会变成一个圆形。</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"round-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+body{
+    display: flex;
+    flex-flow: row wrap; 
+    justify-content: <span class="constant">space</span>-<span class="keyword">around</span>;
+}
+.<span class="command">round</span>-a{
+    background: <span class="comment">#fb3;</span>
+    width: <span class="number">10</span>em;
+    height: <span class="number">10</span>em;
+    border-radius: <span class="number">50</span>%;
+}
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret 读书笔记之伪随机背景&图像边框]]></title>
@@ -2055,23 +2227,6 @@ function <span class="function"><span class="title">fun</span><span class="param
   </entry>
   
   <entry>
-    <title><![CDATA[我胡汉三又回来了]]></title>
-    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
-    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
-    <published>2016-07-12T16:00:00.000Z</published>
-    <updated>2016-07-13T01:44:49.151Z</updated>
-    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]>
-    </summary>
-    
-      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[对象的创建与继承]]></title>
     <link href="http://blog.supce.com/2016/07/13/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%805/"/>
     <id>http://blog.supce.com/2016/07/13/JavaScript之基础5/</id>
@@ -2332,6 +2487,23 @@ console.log(<span class="keyword">person</span>.sayName());
   </entry>
   
   <entry>
+    <title><![CDATA[我胡汉三又回来了]]></title>
+    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
+    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
+    <published>2016-07-12T16:00:00.000Z</published>
+    <updated>2016-07-13T01:44:49.151Z</updated>
+    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]>
+    </summary>
+    
+      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[RegExp类型]]></title>
     <link href="http://blog.supce.com/2016/05/25/JavaScript%E4%B9%8BRegExp%E7%B1%BB%E5%9E%8B/"/>
     <id>http://blog.supce.com/2016/05/25/JavaScript之RegExp类型/</id>
@@ -2404,112 +2576,6 @@ $(<span class="string">"test"</span>).innerHTML += <span class="string">"&lt;/br
 <ul>
 <li>字面量<br><code>var p = /pattern/attributes;</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = /[bc]at/i;</code></li>
 <li>RegExp构造函数<br><code>var p = new RegExp(pattern,attributes);</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = new RegExp(&quot;[bc]at&quot;,&quot;i&quot;);</code>]]>
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[IFE Task 02]]></title>
-    <link href="http://blog.supce.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%802/"/>
-    <id>http://blog.supce.com/2016/05/17/JavaScript之基础2/</id>
-    <published>2016-05-16T16:00:00.000Z</published>
-    <updated>2016-05-17T13:44:34.091Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>最近课题要结项，自由支配的时间越发宝贵了</p>
-</blockquote>
-<h1 id="任务目的">任务目的</h1><hr>
-<ul>
-<li>在上一任务基础上继续JavaScript的体验</li>
-<li>接触一下JavaScript中的高级选择器</li>
-<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
-<li>学习简单的字符串处理操作<a id="more"></a>
-</li>
-</ul>
-<h1 id="任务描述">任务描述</h1><ul>
-<li>参考以下示例代码，读取页面上已有的source列表，从中提取出城市以及对应的空气质量</li>
-<li>将数据按照某种顺序排序后，在resort列表中按照顺序显示出来</li>
-</ul>
-<h1 id="任务最终代码">任务最终代码</h1><pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> $ = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>{
-      <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);
-    }
-    <span class="comment">/**
-     + getData方法
-     + 读取id为source的列表，获取其中城市名字及城市对应的空气质量
-     + 返回一个数组，格式见函数中示例
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>{
-      <span class="comment">/*
-      coding here
-      */</span>
-      <span class="comment">/*
-      data = [
-        ["北京", 90],
-        ["北京", 90]
-        ……
-      ]
-      */</span>
-      <span class="keyword">var</span> data = [];
-      <span class="keyword">var</span> li = $(<span class="string">'source'</span>).getElementsByTagName(<span class="string">'li'</span>);
-      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;li.length; i++){
-        <span class="keyword">var</span> city = li[i].innerHTML.split(<span class="string">"空气质量："</span>)[<span class="number">0</span>];
-
-        <span class="keyword">var</span> num = li[i].getElementsByTagName(<span class="string">'b'</span>)[<span class="number">0</span>].innerHTML;
-        <span class="comment">//var num = Number(li.children[0].innerHTML);</span>
-
-        data[data.length] = [city,num];
-        <span class="comment">//data.push([city,num]);</span>
-      }
-      <span class="built_in">console</span>.log(data.length);
-      <span class="keyword">return</span> data;
-    }
-    <span class="comment">/**
-     + sortAqiData
-     + 按空气质量对data进行从小到大的排序
-     + 返回一个排序后的数组
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">sortAqiData</span>(<span class="params">data</span>) </span>{
-      data.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>{
-        <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];
-      });
-      <span class="keyword">return</span> data;
-    }
-    <span class="comment">/**
-     + render
-     + 将排好序的城市及空气质量指数，输出显示到id位resort的列表中
-     + 格式见ul中的注释的部分
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">data</span>) </span>{
-      <span class="keyword">var</span> chineseNum = [<span class="string">"零"</span>, <span class="string">"一"</span>, <span class="string">"二"</span>, <span class="string">"三"</span>, <span class="string">"四"</span>, <span class="string">"五"</span>, <span class="string">"六"</span>, <span class="string">"七"</span>, <span class="string">"八"</span>, <span class="string">"九"</span>];
-      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;data.length; i++){
-        $(<span class="string">"resort"</span>).innerHTML += <span class="string">"&lt;li&gt;第"</span> + chineseNum[i+<span class="number">1</span>] +　<span class="string">"名："</span> + data[i][<span class="number">0</span>] + <span class="string">"空气质量：&lt;b&gt;"</span> + data[i][<span class="number">1</span>] + <span class="string">"&lt;/b&gt;&lt;/li&gt;"</span>;
-      }
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">btnHandle</span>(<span class="params"></span>) </span>{
-      <span class="keyword">var</span> aqiData = getData();
-      aqiData = sortAqiData(aqiData);
-      render(aqiData);
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>{
-      <span class="comment">// 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数</span>
-      $(<span class="string">"sort-btn"</span>).addEventListener(<span class="string">"click"</span>,btnHandle,<span class="literal">false</span>);
-    }
-    init();
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>最近课题要结项，自由支配的时间越发宝贵了</p>
-</blockquote>
-<h1 id="任务目的">任务目的</h1><hr>
-<ul>
-<li>在上一任务基础上继续JavaScript的体验</li>
-<li>接触一下JavaScript中的高级选择器</li>
-<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
-<li>学习简单的字符串处理操作]]>
     
     </summary>
     
@@ -2642,6 +2708,112 @@ init<span class="params">()</span>;
 <li>学习事件代理机制</li>
 <li>学习简单的表单验证功能</li>
 <li>学习外部加载JavaScript文件]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[IFE Task 02]]></title>
+    <link href="http://blog.supce.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%802/"/>
+    <id>http://blog.supce.com/2016/05/17/JavaScript之基础2/</id>
+    <published>2016-05-16T16:00:00.000Z</published>
+    <updated>2016-05-17T13:44:34.091Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>最近课题要结项，自由支配的时间越发宝贵了</p>
+</blockquote>
+<h1 id="任务目的">任务目的</h1><hr>
+<ul>
+<li>在上一任务基础上继续JavaScript的体验</li>
+<li>接触一下JavaScript中的高级选择器</li>
+<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
+<li>学习简单的字符串处理操作<a id="more"></a>
+</li>
+</ul>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>参考以下示例代码，读取页面上已有的source列表，从中提取出城市以及对应的空气质量</li>
+<li>将数据按照某种顺序排序后，在resort列表中按照顺序显示出来</li>
+</ul>
+<h1 id="任务最终代码">任务最终代码</h1><pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> $ = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>{
+      <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);
+    }
+    <span class="comment">/**
+     + getData方法
+     + 读取id为source的列表，获取其中城市名字及城市对应的空气质量
+     + 返回一个数组，格式见函数中示例
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>{
+      <span class="comment">/*
+      coding here
+      */</span>
+      <span class="comment">/*
+      data = [
+        ["北京", 90],
+        ["北京", 90]
+        ……
+      ]
+      */</span>
+      <span class="keyword">var</span> data = [];
+      <span class="keyword">var</span> li = $(<span class="string">'source'</span>).getElementsByTagName(<span class="string">'li'</span>);
+      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;li.length; i++){
+        <span class="keyword">var</span> city = li[i].innerHTML.split(<span class="string">"空气质量："</span>)[<span class="number">0</span>];
+
+        <span class="keyword">var</span> num = li[i].getElementsByTagName(<span class="string">'b'</span>)[<span class="number">0</span>].innerHTML;
+        <span class="comment">//var num = Number(li.children[0].innerHTML);</span>
+
+        data[data.length] = [city,num];
+        <span class="comment">//data.push([city,num]);</span>
+      }
+      <span class="built_in">console</span>.log(data.length);
+      <span class="keyword">return</span> data;
+    }
+    <span class="comment">/**
+     + sortAqiData
+     + 按空气质量对data进行从小到大的排序
+     + 返回一个排序后的数组
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">sortAqiData</span>(<span class="params">data</span>) </span>{
+      data.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>{
+        <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];
+      });
+      <span class="keyword">return</span> data;
+    }
+    <span class="comment">/**
+     + render
+     + 将排好序的城市及空气质量指数，输出显示到id位resort的列表中
+     + 格式见ul中的注释的部分
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">data</span>) </span>{
+      <span class="keyword">var</span> chineseNum = [<span class="string">"零"</span>, <span class="string">"一"</span>, <span class="string">"二"</span>, <span class="string">"三"</span>, <span class="string">"四"</span>, <span class="string">"五"</span>, <span class="string">"六"</span>, <span class="string">"七"</span>, <span class="string">"八"</span>, <span class="string">"九"</span>];
+      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;data.length; i++){
+        $(<span class="string">"resort"</span>).innerHTML += <span class="string">"&lt;li&gt;第"</span> + chineseNum[i+<span class="number">1</span>] +　<span class="string">"名："</span> + data[i][<span class="number">0</span>] + <span class="string">"空气质量：&lt;b&gt;"</span> + data[i][<span class="number">1</span>] + <span class="string">"&lt;/b&gt;&lt;/li&gt;"</span>;
+      }
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">btnHandle</span>(<span class="params"></span>) </span>{
+      <span class="keyword">var</span> aqiData = getData();
+      aqiData = sortAqiData(aqiData);
+      render(aqiData);
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>{
+      <span class="comment">// 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数</span>
+      $(<span class="string">"sort-btn"</span>).addEventListener(<span class="string">"click"</span>,btnHandle,<span class="literal">false</span>);
+    }
+    init();
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>最近课题要结项，自由支配的时间越发宝贵了</p>
+</blockquote>
+<h1 id="任务目的">任务目的</h1><hr>
+<ul>
+<li>在上一任务基础上继续JavaScript的体验</li>
+<li>接触一下JavaScript中的高级选择器</li>
+<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
+<li>学习简单的字符串处理操作]]>
     
     </summary>
     
@@ -3276,190 +3448,6 @@ alert(sum)  <span class="comment">//15;</span>
     <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 </code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之相册]]></title>
-    <link href="http://blog.supce.com/2016/05/05/CSS%E4%B9%8B%E7%9B%B8%E5%86%8C/"/>
-    <id>http://blog.supce.com/2016/05/05/CSS之相册/</id>
-    <published>2016-05-04T16:00:00.000Z</published>
-    <updated>2016-05-05T03:18:11.733Z</updated>
-    <content type="html"><![CDATA[<h1 id="一个简易的相册">一个简易的相册</h1><hr>
-<p>在上一次模仿新闻页的时候，学习了一种对图片进行处理的方式，这次换个思路，写一个简易的相册。</p>
-<h2 id="第一种思路">第一种思路</h2><p>惯例 HTML框架<br><a id="more"></a></p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"photo"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h4</span>&gt;</span>简易相册<span class="tag">&lt;/<span class="title">h4</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/1.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/2.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/3.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/4.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/5.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/6.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/7.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/8.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"images/photo/9.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>然后可以先给整个div添加样式</p>
-<pre><code><span class="id">#photo</span><span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">800px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">590px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> auto</span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="function">rgb</span>(<span class="number">39</span>,<span class="number">40</span>,<span class="number">34</span>)</span></span>;
-        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">15px</span></span></span>;
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
-    }</span>
-</code></pre><p>设置整个div为relative，以方便我们对img和h4进行定位</p>
-<p>然后为div内部元素添加样式</p>
-<pre><code><span class="tag">h4</span><span class="rules">{
-    <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span> <span class="string">"楷体"</span></span></span>;
-    <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">15px</span></span></span>;
-    <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">15px</span></span></span>;
-}</span>
-<span class="tag">ul</span><span class="rules">{
-    <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">168px</span></span></span>;
-    <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none
-}
-li{
-    float: left</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">60px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">60px</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span></span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">2px</span> solid <span class="hexcolor">#CDCDCD</span></span></span>;
-    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-}</span>
-<span class="tag">a</span><span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">60px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">60px</span></span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-}</span>
-<span class="tag">img</span><span class="rules">{
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> -<span class="number">160px</span> <span class="number">0</span> <span class="number">0</span> -<span class="number">80px</span></span></span>;
-}</span>
-<span class="rule"><span class="attribute">a</span>:<span class="value">hover img{
-    position: absolute</span></span>;
-    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">10px</span></span></span>;
-    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">10px</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">2px</span> solid <span class="hexcolor">#CDCDCD</span></span></span>;
-}
-</code></pre><p>刷新一下页面：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/xc.jpg-blogImg" alt=""></p>
-<h2 id="第二种思路">第二种思路</h2><p>当然，刚才只是一种思路，我们也可以设置页面默认展示第一个图片，但是这种思路有一个缺点，当图片的大小不一样时，其他图片不能覆盖第一张图片。所以，另一种方式可以仿照tab标签那一部分的思路，结合我们的JavaScript，就能写出更加美观的相册<br>首选对HTML结构进行修改：</p>
-<pre><code>&lt;<span class="tag">div</span> id=<span class="string">"photo"</span>&gt;
-    &lt;h4&gt;简易相册&lt;/h4&gt;
-    &lt;ul&gt;
-        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(1)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/1.jpg"</span>&gt;&lt;/li&gt;
-        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(2)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/2.jpg"</span>&gt;&lt;/li&gt;
-        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(3)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/3.jpg"</span>&gt;&lt;/li&gt;
-        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(4)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/4.jpg"</span>&gt;&lt;/li&gt;
-        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(5)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/5.jpg"</span>&gt;&lt;/li&gt;
-        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(6)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/6.jpg"</span>&gt;&lt;/li&gt;
-        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(7)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/7.jpg"</span>&gt;&lt;/li&gt;
-        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(8)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/8.jpg"</span>&gt;&lt;/li&gt;
-        &lt;<span class="tag">li</span> onmouseover=<span class="string">"go(9)"</span>&gt;&lt;<span class="tag">img</span> src=<span class="string">"images/photo/9.jpg"</span>&gt;&lt;/li&gt;
-
-    &lt;/ul&gt;
-    &lt;<span class="tag">img</span> class=<span class="string">"img_detail block"</span> src=<span class="string">"images/photo/1.jpg"</span>&gt;
-    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/2.jpg"</span>&gt;
-    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/3.jpg"</span>&gt;
-    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/4.jpg"</span>&gt;
-    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/5.jpg"</span>&gt;
-    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/6.jpg"</span>&gt;
-    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/7.jpg"</span>&gt;
-    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/8.jpg"</span>&gt;
-    &lt;<span class="tag">img</span> class=<span class="string">"img_detail"</span> src=<span class="string">"images/photo/9.jpg"</span>&gt;
-&lt;/div&gt;
-</code></pre><p>然后修改CSS</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    *<span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="id">#photo</span><span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">800px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">590px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> auto</span></span>;
-        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="function">rgb</span>(<span class="number">39</span>,<span class="number">40</span>,<span class="number">34</span>)</span></span>;
-        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">15px</span></span></span>;
-        <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
-        <span class="rule"><span class="attribute">-ms-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
-        <span class="rule"><span class="attribute">-moz-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
-        <span class="rule"><span class="attribute">-o-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
-        <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="hexcolor">#8f8fbd</span>)</span></span>;
-    }</span>
-    <span class="tag">h4</span><span class="rules">{
-        <span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">15px</span> <span class="string">"楷体"</span></span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFF</span></span></span>;
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-        <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">15px</span></span></span>;
-        <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">15px</span></span></span>;
-    }</span>
-    <span class="tag">ul</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">168px</span></span></span>;
-        <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none
-    }
-    li{
-        float: left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">60px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">60px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">2px</span> solid <span class="hexcolor">#CDCDCD</span></span></span>;
-        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-    }</span>
-
-    <span class="tag">img</span><span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> -<span class="number">160px</span> <span class="number">0</span> <span class="number">0</span> -<span class="number">80px</span></span></span>;
-    }</span>
-    <span class="class">.img_detail</span><span class="rules">{
-        <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;
-    }</span>
-    <span class="class">.block</span><span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-        <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">2px</span> solid <span class="hexcolor">#CDCDCD</span></span></span>;
-    }</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>最后添加JavaScript</p>
-<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> li = <span class="built_in">document</span>.getElementById(<span class="string">"photo"</span>).getElementsByTagName(<span class="string">"li"</span>);
-    <span class="keyword">var</span> img_detail = <span class="built_in">document</span>.getElementsByClassName(<span class="string">"img_detail"</span>);
-    <span class="function"><span class="keyword">function</span> <span class="title">go</span>(<span class="params">num</span>)</span>{
-        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;li.length;i++){
-            <span class="keyword">if</span>(num-<span class="number">1</span>==i){
-                img_detail[i].className=<span class="string">"img_detail block"</span>;
-            }<span class="keyword">else</span>{
-                img_detail[i].className=<span class="string">"img_detail"</span>;
-            }
-        }
-    }
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre><p>刷新一下页面，效果就好多了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="一个简易的相册">一个简易的相册</h1><hr>
-<p>在上一次模仿新闻页的时候，学习了一种对图片进行处理的方式，这次换个思路，写一个简易的相册。</p>
-<h2 id="第一种思路">第一种思路</h2><p>惯例 HTML框架<br>]]>
     
     </summary>
     
