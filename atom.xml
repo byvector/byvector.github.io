@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-09-17T03:35:13.305Z</updated>
+  <updated>2016-09-18T12:41:23.314Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,162 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之菱形图片&切角效果]]></title>
+    <link href="http://blog.supce.com/2016/09/18/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%8F%B1%E5%BD%A2%E5%9B%BE%E7%89%87&%E5%88%87%E8%A7%92%E6%95%88%E6%9E%9C/"/>
+    <id>http://blog.supce.com/2016/09/18/CSS Secret 读书笔记之菱形图片&切角效果/</id>
+    <published>2016-09-17T16:00:00.000Z</published>
+    <updated>2016-09-18T12:41:23.314Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="菱形图片">菱形图片</h1><p>有时候可能会遇到菱形图片的需求，可以用下面两种方式实现。</p>
+<h2 id="基于变形的方案">基于变形的方案</h2><p>这种方式与之前平行四边形的解决方案类似，需要把图片用一个div包裹，然后div和img进行相反的变形。</p>
+<pre><code>&lt;div class=<span class="string">"diamond-a"</span>&gt;
+    &lt;img src=<span class="string">"cat.jpg"</span>&gt;
+&lt;/div&gt;
+.diamond-a{
+    margin: <span class="number">100</span>px;
+    <span class="variable">width</span>: <span class="number">250</span>px;
+    <span class="variable">height</span>:<span class="number">250</span>px;
+    transform: <span class="built_in">rotate</span>(<span class="number">45</span>deg);
+    overflow: hidden;
+}
+.diamond-a &gt; img{
+    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">100</span>%;
+    transform: <span class="built_in">rotate</span>(-<span class="number">45</span>deg);
+}
+</code></pre><a id="more"></a>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-1.jpg" alt=""><br>得到的结果是个八角形。原因就是<code>max-width: 100%;</code>会解析为外部容器的边长，如果图片的宽度与容器的菱形对角线长度相同，就会成为一个菱形。也就是设置宽度为外部容器边长的√2倍，即约为1.42倍。</p>
+<pre><code><span class="class">.diamond-a</span> &gt; <span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+    <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(-<span class="number">45deg</span>) <span class="function">scale</span>(<span class="number">1.42</span>)</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-2.jpg" alt=""></p>
+<h2 id="裁切路径方案">裁切路径方案</h2><p>上面的方法首先破坏了原有的HTML结构，而且要求图片必须是正方形。<br>这里就可以用裁切的方法来实现。而且可以给图片添加动画，当鼠标悬停时，图片扩展为完整的面积。</p>
+<pre><code>&lt;img <span class="keyword">class</span>=<span class="string">"diamond-b"</span> src=<span class="string">"cat.jpg"</span> /&gt;
+.diamond-b{
+    width: <span class="number">250</span>px;
+    -webkit-clip-path: polygon(<span class="number">50</span>% <span class="number">0</span>,<span class="number">100</span>% <span class="number">50</span>%,<span class="number">50</span>% <span class="number">100</span>%,<span class="number">0</span> <span class="number">50</span>%);
+    clip-path: polygon(<span class="number">50</span>% <span class="number">0</span>, <span class="number">100</span>% <span class="number">50</span>%, <span class="number">50</span>% <span class="number">100</span>%, <span class="number">0</span> <span class="number">50</span>%);
+    transition: <span class="number">1</span>s;
+}
+.diamond-b:hover{
+    -webkit-clip-path: polygon(<span class="number">0</span> <span class="number">0</span>, <span class="number">100</span>% <span class="number">0</span>, <span class="number">100</span>% <span class="number">100</span>%, <span class="number">0</span> <span class="number">100</span>%);
+    clip-path: polygon(<span class="number">0</span> <span class="number">0</span>, <span class="number">100</span>% <span class="number">0</span>, <span class="number">100</span>% <span class="number">100</span>%, <span class="number">0</span> <span class="number">100</span>%);
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-4.gif" alt=""></p>
+<hr>
+<h1 id="切角效果">切角效果</h1><p>之前的切角效果大多是使用背景图片来达到目的，比如使用三角形盖住元素的顶角来模拟切角效果(当网页背景是纯色时)，或者使用一张或者多张已经切过角的图片来作为整个元素的背景。这些方法增加了额外的HTTP请求，而且也不够灵活，不易维护。<br>这时候可以根据场景用下面几种方式来实现。</p>
+<h2 id="渐变方案">渐变方案</h2><p>在之前渐变已经帮助我们实现了好多特效比如条纹背景，复杂背景以及图像边框等。这次来帮助我们实现切角效果，后面也还有它大展神通的地方！<br>渐变方案很简单，把一个透明色放在切角处即可，以右下角为例：</p>
+<pre><code>&lt;div class=<span class="string">"rad-a"</span>&gt;<span class="keyword">this</span> is a test&lt;/div&gt;
+.rad-a{
+    margin: <span class="number">20</span>px;
+    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
+    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">6</span>em;
+    font: <span class="number">125</span>%/<span class="number">6</span>em sans-serif;
+    <span class="built_in">text</span>-align: center;
+    <span class="built_in">color</span>: white;
+}
+.rad-a{
+    <span class="built_in">background</span>: linear-gradient(-<span class="number">45</span>deg,transparent <span class="number">15</span>px,#<span class="number">58</span>a <span class="number">15</span>px);
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-5.jpg" alt=""></p>
+<p>假设需要裁剪底部两个角。最初的想法可能会是这样：</p>
+<pre><code>.rad-b{
+    background: linear-gradient(-<span class="number">45</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#<span class="number">58</span>a <span class="number">15</span>px),</span>
+                linear-gradient(<span class="number">45</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#fb3 <span class="number">15</span>px);   </span>
+}
+</code></pre><p>但会发现结果是这样的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-6.jpg" alt=""><br>这是因为两层渐变互相覆盖的结果。<br>那可以对每层渐变进行位置和大小的修改来实现：</p>
+<pre><code><span class="class">.rad-b</span><span class="rules">{
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(-<span class="number">45deg</span>,transparent <span class="number">15px</span>,<span class="hexcolor">#58a</span> <span class="number">15px</span>) right,
+                <span class="function">linear-gradient</span>(<span class="number">45deg</span>,transparent <span class="number">15px</span>,<span class="hexcolor">#fb3</span> <span class="number">15px</span>) left</span></span>;
+    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">50%</span> <span class="number">100%</span></span></span>;
+    <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-7.jpg" alt=""></p>
+<p>那么也可以做出切出四角的效果了:</p>
+<pre><code>.rad-c{
+    background: linear-gradient(-<span class="number">45</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#<span class="number">58</span>a <span class="number">15</span>px) bottom right,</span>
+                linear-gradient(<span class="number">45</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#<span class="number">58</span>a <span class="number">15</span>px) bottom left,</span>
+                linear-gradient(<span class="number">135</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#<span class="number">58</span>a <span class="number">15</span>px) top left,</span>
+                linear-gradient(-<span class="number">135</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#<span class="number">48</span>a <span class="number">15</span>px) top right;</span>
+    background-size: <span class="number">50</span>% <span class="number">50</span>%;
+    background-repeat: no-repeat;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-8.jpg" alt=""></p>
+<blockquote>
+<p>可以用SCSS预处理下，需要的时候直接调用</p>
+</blockquote>
+<h2 id="弧形切角">弧形切角</h2><p>既然有了<code>linear-gradient</code>，那使用<code>radial-gradient</code>就可以创建出弧形切角</p>
+<pre><code><span class="class">.rad-d</span><span class="rules">{
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">radial-gradient</span>(circle at top left,transparent <span class="number">15px</span>,<span class="hexcolor">#58a</span> <span class="number">15px</span>) top left,
+                <span class="function">radial-gradient</span>(circle at top right,transparent <span class="number">15px</span>,<span class="hexcolor">#58a</span> <span class="number">15px</span>) top right,
+                <span class="function">radial-gradient</span>(circle at bottom left,transparent <span class="number">15px</span>,<span class="hexcolor">#58a</span> <span class="number">15px</span>) bottom left,
+                <span class="function">radial-gradient</span>(circle at  bottom right,transparent <span class="number">15px</span>,<span class="hexcolor">#58a</span> <span class="number">15px</span>) bottom right</span></span>;
+    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">50%</span> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-9.jpg" alt=""></p>
+<h2 id="内联SVG与border-image方案">内联SVG与border-image方案</h2><p>这个方式，是利用<code>border-image</code>的缩放，设置SVG为一个八角形，那么得出的效果就是我们需要的切角效果。</p>
+<pre><code><span class="class">.rad-e</span><span class="rules">{
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> black</span></span>;
+    <span class="comment">/*border:20px solid transparent;*/</span>
+    <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">20px</span> solid <span class="hexcolor">#58a</span></span></span>;
+    <span class="rule"><span class="attribute">border-image</span>:<span class="value"> <span class="number">1</span> <span class="function">url</span>(<span class="string">'data:image/svg+xml,\
+                  &lt;svg xmlns="http://www.w3.org/2000/svg" width="3" height="3" fill="%2358a"&gt;\
+                  &lt;polygon points="0,1 1,0 2,0 3,1 3,2 2,3 1,3 0,2" /&gt;\
+                  &lt;/svg&gt;'</span>)</span></span>;
+    <span class="comment">/*background: #58a;*/</span>
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">radial-gradient</span>(circle at center,<span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">5</span>),<span class="hexcolor">#58a</span>)</span></span>;
+    <span class="rule"><span class="attribute">background-clip</span>:<span class="value"> padding-box</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-10.jpg" alt=""></p>
+<blockquote>
+<p>注意，由于背景色会延伸到边框，所以一定要记着设置background-clip的值。为了平稳退化，防止浏览器不支持border-image，可以设置border的颜色与背景色相同</p>
+</blockquote>
+<h2 id="裁切路径方案-1">裁切路径方案</h2><p>跟上面提到的菱形一样，也可以用裁切路径的方案</p>
+<pre><code>.rad-f{
+    <span class="comment">/*background: #58a;*/</span>
+    background: url(cat.jpg);
+    background-size: <span class="number">100</span>% <span class="number">100</span>%;
+    clip-path: polygon(<span class="number">20</span>px <span class="number">0</span>, calc(<span class="number">100</span>% - <span class="number">20</span>px) <span class="number">0</span>, <span class="number">100</span>% <span class="number">20</span>px, <span class="number">100</span>% calc(<span class="number">100</span>% - <span class="number">20</span>px),calc(<span class="number">100</span>% - <span class="number">20</span>px) <span class="number">100</span>%,
+                               <span class="number">20</span>px <span class="number">100</span>%, <span class="number">0</span> calc(<span class="number">100</span>% - <span class="number">20</span>px), <span class="number">0</span> <span class="number">20</span>px);
+    -webkit-clip-path: polygon(<span class="number">20</span>px <span class="number">0</span>, calc(<span class="number">100</span>% - <span class="number">20</span>px) <span class="number">0</span>, <span class="number">100</span>% <span class="number">20</span>px, <span class="number">100</span>% calc(<span class="number">100</span>% - <span class="number">20</span>px),calc(<span class="number">100</span>% - <span class="number">20</span>px) <span class="number">100</span>%,
+                               <span class="number">20</span>px <span class="number">100</span>%, <span class="number">0</span> calc(<span class="number">100</span>% - <span class="number">20</span>px), <span class="number">0</span> <span class="number">20</span>px);
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-11.jpg" alt=""></p>
+<ul>
+<li>使用这个方式的好处显而易见，就是可以使用任意类型的背景，就如上面的例子背景如果是图片也可以进行剪裁。而且想菱形那里设置hover动画效果等。</li>
+</ul>
+<ul>
+<li>但是，它有一个缺点，当内边距不够宽时，它会裁切掉文本。因为它只能对元素做出统一的裁切，并不能区分元素的部分。而在渐变方案中，允许字体溢出并超出切角区域(因为它只是背景图案)，而<code>border-image</code>会起到普通边框的作用，使文字折行。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="菱形图片">菱形图片</h1><p>有时候可能会遇到菱形图片的需求，可以用下面两种方式实现。</p>
+<h2 id="基于变形的方案">基于变形的方案</h2><p>这种方式与之前平行四边形的解决方案类似，需要把图片用一个div包裹，然后div和img进行相反的变形。</p>
+<pre><code>&lt;div class=<span class="string">"diamond-a"</span>&gt;
+    &lt;img src=<span class="string">"cat.jpg"</span>&gt;
+&lt;/div&gt;
+.diamond-a{
+    margin: <span class="number">100</span>px;
+    <span class="variable">width</span>: <span class="number">250</span>px;
+    <span class="variable">height</span>:<span class="number">250</span>px;
+    transform: <span class="built_in">rotate</span>(<span class="number">45</span>deg);
+    overflow: hidden;
+}
+.diamond-a &gt; img{
+    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">100</span>%;
+    transform: <span class="built_in">rotate</span>(-<span class="number">45</span>deg);
+}
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret 读书笔记之自适应椭圆&平行四边形]]></title>
@@ -2227,6 +2383,23 @@ function <span class="function"><span class="title">fun</span><span class="param
   </entry>
   
   <entry>
+    <title><![CDATA[我胡汉三又回来了]]></title>
+    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
+    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
+    <published>2016-07-12T16:00:00.000Z</published>
+    <updated>2016-07-13T01:44:49.151Z</updated>
+    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
+]]>
+    </summary>
+    
+      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[对象的创建与继承]]></title>
     <link href="http://blog.supce.com/2016/07/13/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%805/"/>
     <id>http://blog.supce.com/2016/07/13/JavaScript之基础5/</id>
@@ -2487,23 +2660,6 @@ console.log(<span class="keyword">person</span>.sayName());
   </entry>
   
   <entry>
-    <title><![CDATA[我胡汉三又回来了]]></title>
-    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
-    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
-    <published>2016-07-12T16:00:00.000Z</published>
-    <updated>2016-07-13T01:44:49.151Z</updated>
-    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]>
-    </summary>
-    
-      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[RegExp类型]]></title>
     <link href="http://blog.supce.com/2016/05/25/JavaScript%E4%B9%8BRegExp%E7%B1%BB%E5%9E%8B/"/>
     <id>http://blog.supce.com/2016/05/25/JavaScript之RegExp类型/</id>
@@ -2576,6 +2732,112 @@ $(<span class="string">"test"</span>).innerHTML += <span class="string">"&lt;/br
 <ul>
 <li>字面量<br><code>var p = /pattern/attributes;</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = /[bc]at/i;</code></li>
 <li>RegExp构造函数<br><code>var p = new RegExp(pattern,attributes);</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = new RegExp(&quot;[bc]at&quot;,&quot;i&quot;);</code>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[IFE Task 02]]></title>
+    <link href="http://blog.supce.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%802/"/>
+    <id>http://blog.supce.com/2016/05/17/JavaScript之基础2/</id>
+    <published>2016-05-16T16:00:00.000Z</published>
+    <updated>2016-05-17T13:44:34.091Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>最近课题要结项，自由支配的时间越发宝贵了</p>
+</blockquote>
+<h1 id="任务目的">任务目的</h1><hr>
+<ul>
+<li>在上一任务基础上继续JavaScript的体验</li>
+<li>接触一下JavaScript中的高级选择器</li>
+<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
+<li>学习简单的字符串处理操作<a id="more"></a>
+</li>
+</ul>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>参考以下示例代码，读取页面上已有的source列表，从中提取出城市以及对应的空气质量</li>
+<li>将数据按照某种顺序排序后，在resort列表中按照顺序显示出来</li>
+</ul>
+<h1 id="任务最终代码">任务最终代码</h1><pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> $ = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>{
+      <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);
+    }
+    <span class="comment">/**
+     + getData方法
+     + 读取id为source的列表，获取其中城市名字及城市对应的空气质量
+     + 返回一个数组，格式见函数中示例
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>{
+      <span class="comment">/*
+      coding here
+      */</span>
+      <span class="comment">/*
+      data = [
+        ["北京", 90],
+        ["北京", 90]
+        ……
+      ]
+      */</span>
+      <span class="keyword">var</span> data = [];
+      <span class="keyword">var</span> li = $(<span class="string">'source'</span>).getElementsByTagName(<span class="string">'li'</span>);
+      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;li.length; i++){
+        <span class="keyword">var</span> city = li[i].innerHTML.split(<span class="string">"空气质量："</span>)[<span class="number">0</span>];
+
+        <span class="keyword">var</span> num = li[i].getElementsByTagName(<span class="string">'b'</span>)[<span class="number">0</span>].innerHTML;
+        <span class="comment">//var num = Number(li.children[0].innerHTML);</span>
+
+        data[data.length] = [city,num];
+        <span class="comment">//data.push([city,num]);</span>
+      }
+      <span class="built_in">console</span>.log(data.length);
+      <span class="keyword">return</span> data;
+    }
+    <span class="comment">/**
+     + sortAqiData
+     + 按空气质量对data进行从小到大的排序
+     + 返回一个排序后的数组
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">sortAqiData</span>(<span class="params">data</span>) </span>{
+      data.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>{
+        <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];
+      });
+      <span class="keyword">return</span> data;
+    }
+    <span class="comment">/**
+     + render
+     + 将排好序的城市及空气质量指数，输出显示到id位resort的列表中
+     + 格式见ul中的注释的部分
+     */</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">data</span>) </span>{
+      <span class="keyword">var</span> chineseNum = [<span class="string">"零"</span>, <span class="string">"一"</span>, <span class="string">"二"</span>, <span class="string">"三"</span>, <span class="string">"四"</span>, <span class="string">"五"</span>, <span class="string">"六"</span>, <span class="string">"七"</span>, <span class="string">"八"</span>, <span class="string">"九"</span>];
+      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;data.length; i++){
+        $(<span class="string">"resort"</span>).innerHTML += <span class="string">"&lt;li&gt;第"</span> + chineseNum[i+<span class="number">1</span>] +　<span class="string">"名："</span> + data[i][<span class="number">0</span>] + <span class="string">"空气质量：&lt;b&gt;"</span> + data[i][<span class="number">1</span>] + <span class="string">"&lt;/b&gt;&lt;/li&gt;"</span>;
+      }
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">btnHandle</span>(<span class="params"></span>) </span>{
+      <span class="keyword">var</span> aqiData = getData();
+      aqiData = sortAqiData(aqiData);
+      render(aqiData);
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>{
+      <span class="comment">// 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数</span>
+      $(<span class="string">"sort-btn"</span>).addEventListener(<span class="string">"click"</span>,btnHandle,<span class="literal">false</span>);
+    }
+    init();
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>最近课题要结项，自由支配的时间越发宝贵了</p>
+</blockquote>
+<h1 id="任务目的">任务目的</h1><hr>
+<ul>
+<li>在上一任务基础上继续JavaScript的体验</li>
+<li>接触一下JavaScript中的高级选择器</li>
+<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
+<li>学习简单的字符串处理操作]]>
     
     </summary>
     
@@ -2708,112 +2970,6 @@ init<span class="params">()</span>;
 <li>学习事件代理机制</li>
 <li>学习简单的表单验证功能</li>
 <li>学习外部加载JavaScript文件]]>
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[IFE Task 02]]></title>
-    <link href="http://blog.supce.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%802/"/>
-    <id>http://blog.supce.com/2016/05/17/JavaScript之基础2/</id>
-    <published>2016-05-16T16:00:00.000Z</published>
-    <updated>2016-05-17T13:44:34.091Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>最近课题要结项，自由支配的时间越发宝贵了</p>
-</blockquote>
-<h1 id="任务目的">任务目的</h1><hr>
-<ul>
-<li>在上一任务基础上继续JavaScript的体验</li>
-<li>接触一下JavaScript中的高级选择器</li>
-<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
-<li>学习简单的字符串处理操作<a id="more"></a>
-</li>
-</ul>
-<h1 id="任务描述">任务描述</h1><ul>
-<li>参考以下示例代码，读取页面上已有的source列表，从中提取出城市以及对应的空气质量</li>
-<li>将数据按照某种顺序排序后，在resort列表中按照顺序显示出来</li>
-</ul>
-<h1 id="任务最终代码">任务最终代码</h1><pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> $ = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>{
-      <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(id);
-    }
-    <span class="comment">/**
-     + getData方法
-     + 读取id为source的列表，获取其中城市名字及城市对应的空气质量
-     + 返回一个数组，格式见函数中示例
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>{
-      <span class="comment">/*
-      coding here
-      */</span>
-      <span class="comment">/*
-      data = [
-        ["北京", 90],
-        ["北京", 90]
-        ……
-      ]
-      */</span>
-      <span class="keyword">var</span> data = [];
-      <span class="keyword">var</span> li = $(<span class="string">'source'</span>).getElementsByTagName(<span class="string">'li'</span>);
-      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;li.length; i++){
-        <span class="keyword">var</span> city = li[i].innerHTML.split(<span class="string">"空气质量："</span>)[<span class="number">0</span>];
-
-        <span class="keyword">var</span> num = li[i].getElementsByTagName(<span class="string">'b'</span>)[<span class="number">0</span>].innerHTML;
-        <span class="comment">//var num = Number(li.children[0].innerHTML);</span>
-
-        data[data.length] = [city,num];
-        <span class="comment">//data.push([city,num]);</span>
-      }
-      <span class="built_in">console</span>.log(data.length);
-      <span class="keyword">return</span> data;
-    }
-    <span class="comment">/**
-     + sortAqiData
-     + 按空气质量对data进行从小到大的排序
-     + 返回一个排序后的数组
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">sortAqiData</span>(<span class="params">data</span>) </span>{
-      data.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>{
-        <span class="keyword">return</span> a[<span class="number">1</span>] - b[<span class="number">1</span>];
-      });
-      <span class="keyword">return</span> data;
-    }
-    <span class="comment">/**
-     + render
-     + 将排好序的城市及空气质量指数，输出显示到id位resort的列表中
-     + 格式见ul中的注释的部分
-     */</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">data</span>) </span>{
-      <span class="keyword">var</span> chineseNum = [<span class="string">"零"</span>, <span class="string">"一"</span>, <span class="string">"二"</span>, <span class="string">"三"</span>, <span class="string">"四"</span>, <span class="string">"五"</span>, <span class="string">"六"</span>, <span class="string">"七"</span>, <span class="string">"八"</span>, <span class="string">"九"</span>];
-      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;data.length; i++){
-        $(<span class="string">"resort"</span>).innerHTML += <span class="string">"&lt;li&gt;第"</span> + chineseNum[i+<span class="number">1</span>] +　<span class="string">"名："</span> + data[i][<span class="number">0</span>] + <span class="string">"空气质量：&lt;b&gt;"</span> + data[i][<span class="number">1</span>] + <span class="string">"&lt;/b&gt;&lt;/li&gt;"</span>;
-      }
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">btnHandle</span>(<span class="params"></span>) </span>{
-      <span class="keyword">var</span> aqiData = getData();
-      aqiData = sortAqiData(aqiData);
-      render(aqiData);
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>{
-      <span class="comment">// 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数</span>
-      $(<span class="string">"sort-btn"</span>).addEventListener(<span class="string">"click"</span>,btnHandle,<span class="literal">false</span>);
-    }
-    init();
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>最近课题要结项，自由支配的时间越发宝贵了</p>
-</blockquote>
-<h1 id="任务目的">任务目的</h1><hr>
-<ul>
-<li>在上一任务基础上继续JavaScript的体验</li>
-<li>接触一下JavaScript中的高级选择器</li>
-<li>学习JavaScript中的数组对象遍历、读写、排序等操作</li>
-<li>学习简单的字符串处理操作]]>
     
     </summary>
     
@@ -3196,258 +3352,6 @@ alert(sum)  <span class="comment">//15;</span>
     <![CDATA[<p><em>这次把之前的坑填上 主要探究下浮动的清除</em></p>
 <h1 id="为什么要清除浮动">为什么要清除浮动</h1><hr>
 <p>浮动是一个CSS样式中的常用属性，<code>float</code>属性有三个属性值，分别为 none left和right。顾名思义，none即设置对象不浮动  left设置元素向左浮动，若多个元素同时设置了该属性则呈现一个从左到右的页面布局 right设置元素向右浮动，若多个元素同时设置了该属性则呈现一个从右到左的页面布局<br>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS学习笔记之导航栏]]></title>
-    <link href="http://blog.supce.com/2016/05/06/CSS%E4%B9%8B%E5%AF%BC%E8%88%AA%E6%A0%8F/"/>
-    <id>http://blog.supce.com/2016/05/06/CSS之导航栏/</id>
-    <published>2016-05-05T16:00:00.000Z</published>
-    <updated>2016-05-06T13:53:58.135Z</updated>
-    <content type="html"><![CDATA[<h1 id="导航栏结构分析">导航栏结构分析</h1><hr>
-<p>有的网页导航栏直接将a标签放在div中，比如：百度和网易等。</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Home<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>About<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><a id="more"></a>
-<p>有的网页导航栏将a标签放在li中，比如搜狐和B站等</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
-   <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Home<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>About<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-  <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>导航经常会有好几级的情况，li可以很好的展现项目级别关系，直接用a无法突出元素之间的关联，同时使用ul+li方式可以增加对搜索引擎的友好度。但在单级导航栏直接用a标签也不是不可以。下面几个简单例子直接使用a标签的方式，利用纯CSS，不引入JavaScript和jQuery。</p>
-<h2 id="引入CSS精灵的导航栏">引入CSS精灵的导航栏</h2><p>首先用上之前的CSS Sprite。<em>这里引用下别人的图</em><br>简单的HTML框架：</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"index"</span>&gt;</span>首页<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"intro"</span>&gt;</span>公司简介<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"honor"</span>&gt;</span>企业荣誉<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"flow"</span>&gt;</span>工艺流程<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"product"</span>&gt;</span>产品展示<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"sale"</span>&gt;</span>销售网络<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"buy"</span>&gt;</span>网上订购<span class="tag">&lt;/<span class="title">a</span>&gt;</span> 
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"contact"</span>&gt;</span>联系我们<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>然后是CSS</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    *<span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="id">#nav</span><span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">800px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">31px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> auto</span></span>;
-        <span class="rule"><span class="attribute">padding-left</span>:<span class="value"> <span class="number">21px</span></span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/bg_nav1.png) no-repeat <span class="number">0</span> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-    }</span>
-    <span class="id">#nav</span> <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">92px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">31px</span></span></span>;
-        <span class="rule"><span class="attribute">text-indent</span>:<span class="value"> -<span class="number">9999px</span></span></span>; <span class="comment">/*将文本缩进进行隐藏*/</span>
-        <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/bg_nav1.png) no-repeat <span class="number">1000px</span> <span class="number">1000px</span></span></span>;
-    }</span>
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a</span>:<span class="value">hover {
-        position:relative</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">120px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.index</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">11px</span> -<span class="number">31px</span></span></span>;
-    }
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.intro</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">103px</span> -<span class="number">62px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.honor</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">195px</span> -<span class="number">93px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.flow</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">287px</span> -<span class="number">124px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.product</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">379px</span> -<span class="number">155px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.sale</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">471px</span> -<span class="number">186px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.buy</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">563px</span> -<span class="number">217px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.contact</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">655px</span> -<span class="number">248px</span></span></span>;
-    } </span>
-</code></pre><p>刷新下页面，效果还是不错的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/dhl.jpg-blogImg" alt=""></p>
-<h2 id="引入绝对定位的导航栏">引入绝对定位的导航栏</h2><p>在上一个例子中，锚点a设置为浮动的，在a的边缘处可能会指向相邻的a锚点，这时候可以尝试使用绝对定位的方式，使每个a锚点准确“空降”到指定位置，从而避免这个问题。保持HTML结构不变，对CSS稍加修改即可。</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    *<span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="id">#nav</span><span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">800px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">31px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> auto</span></span>;
-        <span class="rule"><span class="attribute">padding-left</span>:<span class="value"> <span class="number">21px</span></span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/bg_nav1.png) no-repeat <span class="number">0</span> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-    }</span>
-    <span class="id">#nav</span> <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-        <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">92px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">31px</span></span></span>;
-        <span class="rule"><span class="attribute">text-indent</span>:<span class="value"> -<span class="number">9999px</span></span></span>; <span class="comment">/*将文本缩进进行隐藏*/</span>
-        <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/bg_nav1.png) no-repeat <span class="number">1000px</span> <span class="number">1000px</span></span></span>;
-    }</span>
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a</span>:<span class="value">hover {
-        width:<span class="number">120px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="tag">div</span> <span class="tag">a</span><span class="class">.index</span> <span class="rules">{
-        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">21px</span></span></span>;    
-    }</span>
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.index</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">11px</span> -<span class="number">31px</span></span></span>;
-    }
-    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.intro</span> <span class="rules">{
-        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">113px</span></span></span>;    <span class="comment">/*21+92*/</span>
-    }</span>
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.intro</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">103px</span> -<span class="number">62px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.honor</span> <span class="rules">{
-        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">205px</span></span></span>; 
-    }</span>
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.honor</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">195px</span> -<span class="number">93px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.flow</span> <span class="rules">{
-        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">297px</span></span></span>; 
-    }</span>
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.flow</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">287px</span> -<span class="number">124px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.product</span> <span class="rules">{
-        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">389px</span></span></span>; 
-    }</span>
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.product</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">379px</span> -<span class="number">155px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.sale</span> <span class="rules">{
-        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">481px</span></span></span>; 
-    }</span>
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.sale</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">471px</span> -<span class="number">186px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.buy</span> <span class="rules">{
-        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">573px</span></span></span>; 
-    }</span>
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.buy</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">563px</span> -<span class="number">217px</span></span></span>;
-    } 
-    <span class="id">#nav</span> <span class="tag">a</span><span class="class">.contact</span> <span class="rules">{
-        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">665px</span></span></span>; 
-    }</span>
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a.contact</span>:<span class="value">hover {
-        margin-left:-<span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">background-position</span>:<span class="value">-<span class="number">655px</span> -<span class="number">248px</span></span></span>;
-    } 
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre><p>效果跟刚才是一个的，好麻烦的说，感觉还是用JS与JQuery比较好。这种纯CSS就当练手了</p>
-<h2 id="涉及层叠的导航栏">涉及层叠的导航栏</h2><p>有一些导航栏具有层叠的效果，因为这里用了层叠，所以把a标签放在li中比直接使用a更好控制。上次B站登录页在关于图片和文字的部分使用了层叠属性。<br><em>关于CSS的层叠级别介绍以后会专门写一篇来介绍</em><br>先是HTML</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航1<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航2<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航3<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航4<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航5<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航6<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航7<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>导航8<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>为我们的HTML框架添加样式</p>
-<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
-    *<span class="rules">{
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
-    }</span>
-    <span class="id">#nav</span> <span class="rules">{
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">700px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> auto</span></span>;
-    }</span>
-    <span class="tag">ul</span><span class="rules">{
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">25px</span></span></span>;
-        <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
-    }</span>
-    <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
-    }</span>
-    <span class="id">#nav</span> <span class="tag">li</span><span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">25px</span></span></span>;
-        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> -<span class="number">7px</span></span></span>; <span class="comment">/*利用负边距产生层叠属性*/</span>
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    }</span>
-    <span class="id">#nav</span> <span class="tag">a</span> <span class="rules">{
-        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>; 
-        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">86px</span></span></span>;
-        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">25px</span></span></span>;
-        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">25px</span></span></span>;
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/btn2.gif) center center no-repeat</span></span>;
-    }</span>
-    <span class="id">#nav</span> <span class="rule"><span class="attribute">a</span>:<span class="value">hover {
-        position: relative</span></span>; <span class="comment">/*设置容器为相对定位，是元素获得层叠属性*/</span>
-        <span class="rule"><span class="attribute">z-index</span>:<span class="value"> <span class="number">99</span></span></span>; <span class="comment">/* 提升锚点a标签的层叠级别 */</span>
-        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#000000</span></span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(images/nav/btn1.gif) <span class="number">0</span> <span class="number">0</span> no-repeat</span></span>; 
-    }</span>
-</code></pre><p>对于包含有<code>position:relative/position:absolute</code>的定位元素，当其z-index值不是auto的时候，会创建层叠上下文。</p>
-<p>刷新下页面效果如下：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/dhl1.jpg-blogImg" alt=""></p>
-<blockquote>
-<p>零零碎碎的时间凑出来真是不容易 时间真是越来越不够用了 咕~~(╯﹏╰)b</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="导航栏结构分析">导航栏结构分析</h1><hr>
-<p>有的网页导航栏直接将a标签放在div中，比如：百度和网易等。</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Home<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>About<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre>]]>
     
     </summary>
     
