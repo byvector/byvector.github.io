@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-09-20T12:55:58.107Z</updated>
+  <updated>2016-09-21T13:27:23.467Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,163 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之染色效果&毛玻璃效果]]></title>
+    <link href="http://blog.supce.com/2016/09/21/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%9F%93%E8%89%B2%E6%95%88%E6%9E%9C&%E6%AF%9B%E7%8E%BB%E7%92%83%E6%95%88%E6%9E%9C/"/>
+    <id>http://blog.supce.com/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/</id>
+    <published>2016-09-20T16:00:00.000Z</published>
+    <updated>2016-09-21T13:27:23.467Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="染色效果">染色效果</h1><p>有时候会遇到这样一种场景:需要给图片增加染色效果，当发生hover或者交互时再把染色效果去除。<br>最容易想到的是以下两种方式：</p>
+<ul>
+<li>把图片做成两个版本，然后用CSS使得两个版本交替呈现。这种方式会导致更大的文件体积和额外的HTTP请求，同时也不便于维护(想改变染色主色调时需要重新制作图片)。</li>
+<li>还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式会降低图片的对比度。</li>
+</ul>
+<p>为了避免上面两种方式带来的问题，可以用下面这两种纯CSS的方式解决<br><a id="more"></a></p>
+<h2 id="基于滤镜的方案">基于滤镜的方案</h2><p>要想给图片染色，这里用到了三个滤镜，分别式<code>sepia()</code>、<code>saturate()</code>和<code>hue-rotate()</code></p>
+<ul>
+<li>sepia会增加一种将饱和度的橙黄色染色特效，这种特效会将图片复古成黑白老照片。</li>
+<li>saturate会改变像素的饱和度。</li>
+<li>hue-rotate会把每个像素的色相以指定的度数进行偏移。</li>
+</ul>
+<p>当然，给图片染色还可以用<code>grayscale</code>、<code>contrast</code>等。</p>
+<p>比如下面的例子给图片增加一种暖色染色效果，出发hover时恢复原图：<br>HTML:</p>
+<pre><code>&lt;<span class="tag">div</span> class=<span class="string">"test-a"</span>&gt;
+    &lt;<span class="tag">img</span> src=<span class="string">"test.jpg"</span>&gt;
+&lt;/div&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="tag">body</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+    <span class="rule"><span class="attribute">flex-flow</span>:<span class="value"> row wrap</span></span>;
+    <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> space-around</span></span>;
+}</span>
+<span class="tag">div</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;
+}</span>
+<span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+}</span>
+<span class="class">.test-a</span> &gt; <span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>) <span class="function">saturate</span>(<span class="number">3</span>) <span class="function">hue-rotate</span>(<span class="number">300deg</span>)</span></span>;
+    <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>) <span class="function">saturate</span>(<span class="number">3</span>) <span class="function">hue-rotate</span>(<span class="number">300deg</span>)</span></span>;
+    <span class="comment">/*transition: 5s -webkit-filter;*/</span>
+}</span>
+<span class="class">.test-a</span>&gt;<span class="rule"><span class="attribute">img</span>:<span class="value">hover,.test-a&gt;img:focus{
+    -webkit-filter: none</span></span>;
+    <span class="rule"><span class="attribute">filter</span>:<span class="value"> none</span></span>;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-1.gif" alt=""></p>
+<h2 id="基于混合模式的方案">基于混合模式的方案</h2><p>滤镜方案虽然可以染色，但是有一定的限制，它比较适合染褪色之类的效果。如果想消除这种褪色的染色效果，可以使用<code>saturate</code>增加饱和度，但是又会得到一种不自然的、过渡风格化的效果。这时候可以利用混合模式。</p>
+<p>混合模式是指，当两个元素叠加时，该模式控制了上层元素的颜色与下层颜色进行混合。用它来实现染色效果时，需要用到的混合模式是<code>luminosity</code>、这种<code>luminosity</code>的混合模式会保留上层元素的HSL亮度信息，并从它的下层吸取色相和饱和度信息。这时候只需要将下层设置为想要的主色调，并把图片放在上层即可。</p>
+<p>可以用两种方式实现混合模式：<br>第一种是把图片包裹在一个容器里，并把容器的背景色设置为需要的背景色。<br>第二种是不用img标签，而是使用div，把div第一层背景设置为要染色的图片，第二层设置为想要的主色调。<br>HTML:</p>
+<pre><code>&lt;<span class="tag">div</span> class=<span class="string">"test-b"</span>&gt;
+    &lt;<span class="tag">img</span> src=<span class="string">"test.jpg"</span>&gt;
+&lt;/div&gt;
+</code></pre><p>CSS：</p>
+<pre><code><span class="class">.test-b</span><span class="rules">{
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#655</span></span></span>;
+}</span>
+<span class="class">.test-b</span>&gt;<span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">mix-blend-mode</span>:<span class="value"> luminosity</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-2.jpg" alt=""></p>
+<p>因为<code>mix-blend-mode</code>是把整个元素向下进行混合，而不管它的下层是什么。因此第一种方式无法使用动画效果对图片进行还原。如果使用第二种方式，使用<code>background-blend-mode</code>属性，可以让每层背景跟它的下层背景混合，并且不关心元素之外的颜色。如果设置主色调为透明，就会还原到原来的图片。这样就可以使用动画对图片进行还原了。</p>
+<pre><code>&lt;div class=<span class="string">"test-c"</span>&gt;&lt;/div&gt;
+.test-c{
+    <span class="built_in">background</span>-<span class="built_in">image</span>: url(test.jpg);
+    <span class="built_in">background</span>-<span class="built_in">size</span>: cover;
+    <span class="built_in">background</span>-<span class="built_in">color</span>: #<span class="number">655</span>;
+    <span class="built_in">background</span>-<span class="built_in">blend</span>-mode: luminosity;
+    transition: <span class="number">3</span>s <span class="built_in">background</span>-<span class="built_in">color</span>;
+}
+.test-c:hover{
+    <span class="built_in">background</span>-<span class="built_in">color</span>: transparent;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-3.gif" alt=""></p>
+<hr>
+<h1 id="毛玻璃效果">毛玻璃效果</h1><p>半透明作为某个元素的背景，把它放在一张照片或者花哨的背景之上，是一种很美的设计效果，但是可能会导致文字比较难以阅读。比如下面这种情况：<br>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"blur-a"</span>&gt;
+    &lt;blockquote&gt;
+        “The only way <span class="keyword">to</span> <span class="keyword">get</span> rid <span class="keyword">of</span> a temptation <span class="keyword">is</span> <span class="keyword">to</span> yield <span class="keyword">to</span> <span class="keyword">it</span>. Resist <span class="keyword">it</span>, <span class="keyword">and</span> your soul grows sick <span class="keyword">with</span> longing <span class="keyword">for</span> <span class="keyword">the</span> things <span class="keyword">it</span> has forbidden <span class="keyword">to</span> itself, <span class="keyword">with</span> desire <span class="keyword">for</span> what <span class="keyword">its</span> monstrous laws have made monstrous <span class="keyword">and</span> unlawful.”
+        &lt;cite&gt;— Oscar Wilde, The Picture <span class="keyword">of</span> Dorian Gray&lt;/cite&gt;
+    &lt;/blockquote&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS：</p>
+<pre><code><span class="class">.blur-a</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40em</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">20em</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(tiger.jpg)</span></span>;
+    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> cover</span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+}</span>
+<span class="class">.blur-a</span>&gt;<span class="tag">blockquote</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">1em</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">80%</span></span></span>;<span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70%</span></span></span>;
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> italic bold <span class="number">140%</span>/<span class="number">140%</span> sans-serif</span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>)</span></span>;
+    <span class="comment">/*-webkit-filter:blur(2px);*/</span>
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> .<span class="number">3em</span></span></span>;
+    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>) inset,
+        <span class="number">0</span> .<span class="number">5em</span> <span class="number">1em</span> <span class="function">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.6</span>)</span></span>;
+    <span class="rule"><span class="attribute">text-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>)</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-4.jpg" alt=""></p>
+<p>这个时候可以使用模糊滤镜(<code>filter:blur(2px)</code>)产生一种毛玻璃的效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-5.jpg" alt=""><br>结果发现文字也被模糊了，如果想要不模糊文字，同时又有毛玻璃效果就可以使用下面这种方式。<br>首先要求背景图片的<code>background-attachment</code>为fixed，然后设置一个伪元素，将其定位到元素的下层，再对伪元素进行模糊。<br>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"blur-b"</span>&gt;
+    &lt;blockquote&gt;
+        “The only way <span class="keyword">to</span> <span class="keyword">get</span> rid <span class="keyword">of</span> a temptation <span class="keyword">is</span> <span class="keyword">to</span> yield <span class="keyword">to</span> <span class="keyword">it</span>. Resist <span class="keyword">it</span>, <span class="keyword">and</span> your soul grows sick <span class="keyword">with</span> longing <span class="keyword">for</span> <span class="keyword">the</span> things <span class="keyword">it</span> has forbidden <span class="keyword">to</span> itself, <span class="keyword">with</span> desire <span class="keyword">for</span> what <span class="keyword">its</span> monstrous laws have made monstrous <span class="keyword">and</span> unlawful.”
+        &lt;cite&gt;— Oscar Wilde, The Picture <span class="keyword">of</span> Dorian Gray&lt;/cite&gt;
+    &lt;/blockquote&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS：</p>
+<pre><code><span class="class">.blur-b</span><span class="rules">{
+    <span class="rule"><span class="attribute">z-index</span>:<span class="value"> -<span class="number">2</span></span></span>;
+}</span>
+<span class="class">.blur-b</span>&gt;<span class="tag">blockquote</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">1em</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">80%</span></span></span>;<span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70%</span></span></span>;
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> italic bold <span class="number">140%</span>/<span class="number">140%</span> sans-serif</span></span>;
+    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> .<span class="number">3em</span></span></span>;
+    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>) inset,
+        <span class="number">0</span> .<span class="number">5em</span> <span class="number">1em</span> <span class="function">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.6</span>)</span></span>;
+    <span class="rule"><span class="attribute">text-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>)</span></span>;
+}</span>
+<span class="class">.blur-b</span>&gt;<span class="rule"><span class="attribute">blockquote</span>:<span class="value">:before{
+    content: <span class="string">""</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;<span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>; <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">0</span></span></span>;<span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(tiger.jpg) <span class="number">0</span> / cover fixed</span></span>;
+    <span class="rule"><span class="attribute">z-index</span>:<span class="value"> -<span class="number">1</span></span></span>;
+    <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">10px</span>)</span></span>;
+    <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">10px</span>)</span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> -<span class="number">30px</span></span></span>;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-6.jpg" alt=""></p>
+<blockquote>
+<p>这里有个坑，就是在背景图不是fixed的情况下使用毛玻璃，以后会填上的。</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="染色效果">染色效果</h1><p>有时候会遇到这样一种场景:需要给图片增加染色效果，当发生hover或者交互时再把染色效果去除。<br>最容易想到的是以下两种方式：</p>
+<ul>
+<li>把图片做成两个版本，然后用CSS使得两个版本交替呈现。这种方式会导致更大的文件体积和额外的HTTP请求，同时也不便于维护(想改变染色主色调时需要重新制作图片)。</li>
+<li>还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式会降低图片的对比度。</li>
+</ul>
+<p>为了避免上面两种方式带来的问题，可以用下面这两种纯CSS的方式解决<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret 读书笔记之单侧投影&不规则投影]]></title>
@@ -3147,138 +3304,6 @@ $(<span class="string">"test"</span>).innerHTML += <span class="string">"&lt;/br
 <ul>
 <li>字面量<br><code>var p = /pattern/attributes;</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = /[bc]at/i;</code></li>
 <li>RegExp构造函数<br><code>var p = new RegExp(pattern,attributes);</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = new RegExp(&quot;[bc]at&quot;,&quot;i&quot;);</code>]]>
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[IFE Task 03]]></title>
-    <link href="http://blog.supce.com/2016/05/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%803/"/>
-    <id>http://blog.supce.com/2016/05/17/JavaScript之基础3/</id>
-    <published>2016-05-16T16:00:00.000Z</published>
-    <updated>2016-05-18T02:36:55.056Z</updated>
-    <content type="html"><![CDATA[<h1 id="任务目的">任务目的</h1><hr>
-<ul>
-<li>在上一任务基础上继续JavaScript的体验</li>
-<li>深入学习JavaScript的事件机制及DOM操作</li>
-<li>学习事件代理机制</li>
-<li>学习简单的表单验证功能</li>
-<li>学习外部加载JavaScript文件<a id="more"></a>
-</li>
-</ul>
-<h1 id="任务描述">任务描述</h1><ul>
-<li>参考以下示例代码，用户输入城市名称和空气质量指数后，点击“确认添加”按钮后，就会将用户的输入在进行验证后，添加到下面的表格中，新增一行进行显示</li>
-<li>用户输入的城市名必须为中英文字符，空气质量指数必须为整数</li>
-<li>用户输入的城市名字和空气质量指数需要进行前后去空格及空字符处理（trim）</li>
-<li>用户输入不合规格时，需要给出提示（允许用alert，也可以自行定义提示方式）</li>
-<li>用户可以点击表格列中的“删除”按钮，删掉那一行的数据</li>
-</ul>
-<h1 id="最终代码">最终代码</h1><h2 id="html">html</h2><pre><code><span class="doctype">&lt;!DOCTYPE&gt;</span>
-<span class="tag">&lt;<span class="title">html</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">head</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">title</span>&gt;</span>IFE JavaScript Task 01<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"js/task16.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-  <span class="tag">&lt;/<span class="title">head</span>&gt;</span>
-<span class="tag">&lt;<span class="title">body</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">label</span>&gt;</span>城市名称：<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"aqi-city-input"</span> <span class="attribute">type</span>=<span class="value">"text"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;<span class="title">br</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">label</span>&gt;</span>空气质量指数：<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"aqi-value-input"</span> <span class="attribute">type</span>=<span class="value">"text"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;<span class="title">br</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"add-btn"</span>&gt;</span>确认添加<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">table</span> <span class="attribute">id</span>=<span class="value">"aqi-table"</span>&gt;</span>
-  <span class="comment">&lt;!-- 
-    &lt;tr&gt;
-      &lt;td&gt;城市&lt;/td&gt;&lt;td&gt;空气质量&lt;/td&gt;&lt;td&gt;操作&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;北京&lt;/td&gt;&lt;td&gt;90&lt;/td&gt;&lt;td&gt;&lt;button&gt;删除&lt;/button&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;北京&lt;/td&gt;&lt;td&gt;90&lt;/td&gt;&lt;td&gt;&lt;button&gt;删除&lt;/button&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-   --&gt;</span>
-  <span class="tag">&lt;/<span class="title">table</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
-</code></pre><h2 id="js">js</h2><pre><code><span class="comment">/**
- + aqiData，存储用户输入的空气指数数据
- + 示例格式：
- + aqiData = {
- +    "北京": 90,
- +    "上海": 40
- + };
- */</span>
- var $ = <span class="function"><span class="keyword">function</span><span class="params">(id)</span>{</span>
-  return document.getElementById<span class="params">(id)</span>;
- }
-var aqiData = {};
-<span class="comment">/**
- + 从用户输入中获取数据，向aqiData中增加一条数据
- + 然后渲染aqi-list列表，增加新增的数据
- */</span>
-<span class="function"><span class="keyword">function</span> <span class="title">addAqiData</span><span class="params">()</span> {</span>
-  var city = $<span class="params">(<span class="string">"aqi-city-input"</span>)</span>.value.trim<span class="params">()</span>;
-  var num = $<span class="params">(<span class="string">"aqi-value-input"</span>)</span>.value.trim<span class="params">()</span>;
-  <span class="keyword">if</span><span class="params">(!city.match<span class="params">(/^[A-Za-z\u4E00-\u9FA5]+$/)</span>)</span>{
-    alert<span class="params">(<span class="string">"城市名必须为中英文字符"</span>)</span>;
-    return;
-  }
-  <span class="keyword">if</span><span class="params">(!num.match<span class="params">(/^[<span class="number">0</span>-<span class="number">9</span>]*$/)</span>)</span>{
-    alert<span class="params">(<span class="string">"空气质量指数必须为整数"</span>)</span>;
-    return;
-  }
-  aqiData[city] = num;
-}
-<span class="comment">/**
- + 渲染aqi-table表格
- */</span>
-<span class="function"><span class="keyword">function</span> <span class="title">renderAqiList</span><span class="params">()</span> {</span>
-  var items = <span class="string">"&lt;tr&gt;&lt;td&gt;城市&lt;/td&gt;&lt;td&gt;空气质量&lt;/td&gt;&lt;td&gt;操作&lt;/td&gt;&lt;/tr&gt;"</span>;
-  <span class="keyword">for</span><span class="params">(value in aqiData)</span>{
-    items += <span class="string">"&lt;tr&gt;&lt;td&gt;"</span> + value + <span class="string">"&lt;/td&gt;&lt;td&gt;"</span> + aqiData[value] 
-    - <span class="string">"&lt;/td&gt;&lt;td&gt;"</span> + <span class="string">"&lt;button onclick='delBtnHandle(\""</span> +value+<span class="string">"\")'&gt;删除&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;"</span>;
-  }
-  $<span class="params">(<span class="string">"aqi-table"</span>)</span>.innerHTML = items;
-}
-<span class="comment">/**
- + 点击add-btn时的处理逻辑
- + 获取用户输入，更新数据，并进行页面呈现的更新
- */</span>
-<span class="function"><span class="keyword">function</span> <span class="title">addBtnHandle</span><span class="params">()</span> {</span>
-  addAqiData<span class="params">()</span>;
-  renderAqiList<span class="params">()</span>;
-}
-<span class="comment">/**
- + 点击各个删除按钮的时候的处理逻辑
- + 获取哪个城市数据被删，删除数据，更新表格显示
- */</span>
-<span class="function"><span class="keyword">function</span> <span class="title">delBtnHandle</span><span class="params">(city)</span> {</span>
-  <span class="comment">// do sth.</span>
-  delete aqiData[city];
-  renderAqiList<span class="params">()</span>;
-}
-<span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span> {</span>
-  <span class="comment">// 在这下面给add-btn绑定一个点击事件，点击时触发addBtnHandle函数</span>
-  $<span class="params">(<span class="string">"add-btn"</span>)</span>.addEventListener<span class="params">(<span class="string">"click"</span>,addBtnHandle,<span class="literal">false</span>)</span>;
-  <span class="comment">// 想办法给aqi-table中的所有删除按钮绑定事件，触发delBtnHandle函数</span>
-}
-init<span class="params">()</span>;
-</code></pre><blockquote>
-<p>搞定~</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="任务目的">任务目的</h1><hr>
-<ul>
-<li>在上一任务基础上继续JavaScript的体验</li>
-<li>深入学习JavaScript的事件机制及DOM操作</li>
-<li>学习事件代理机制</li>
-<li>学习简单的表单验证功能</li>
-<li>学习外部加载JavaScript文件]]>
     
     </summary>
     

@@ -1,0 +1,751 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="EM_nzu8-nfb0oJOmKGJImt--r_PtBs7qZz_bWTFRWZQ" />
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="vector's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="染色效果有时候会遇到这样一种场景:需要给图片增加染色效果，当发生hover或者交互时再把染色效果去除。最容易想到的是以下两种方式：
+
+把图片做成两个版本，然后用CSS使得两个版本交替呈现。这种方式会导致更大的文件体积和额外的HTTP请求，同时也不便于维护(想改变染色主色调时需要重新制作图片)。
+还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS Secret 读书笔记之染色效果&毛玻璃效果">
+<meta property="og:url" content="http://blog.supce.com/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/index.html">
+<meta property="og:site_name" content="vector's blog">
+<meta property="og:description" content="染色效果有时候会遇到这样一种场景:需要给图片增加染色效果，当发生hover或者交互时再把染色效果去除。最容易想到的是以下两种方式：
+
+把图片做成两个版本，然后用CSS使得两个版本交替呈现。这种方式会导致更大的文件体积和额外的HTTP请求，同时也不便于维护(想改变染色主色调时需要重新制作图片)。
+还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-1.gif">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-2.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-3.gif">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-4.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-5.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-6.jpg">
+<meta property="og:updated_time" content="2016-09-21T13:27:23.467Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS Secret 读书笔记之染色效果&毛玻璃效果">
+<meta name="twitter:description" content="染色效果有时候会遇到这样一种场景:需要给图片增加染色效果，当发生hover或者交互时再把染色效果去除。最容易想到的是以下两种方式：
+
+把图片做成两个版本，然后用CSS使得两个版本交替呈现。这种方式会导致更大的文件体积和额外的HTTP请求，同时也不便于维护(想改变染色主色调时需要重新制作图片)。
+还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> CSS Secret 读书笔记之染色效果&毛玻璃效果 | vector's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">vector's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS Secret 读书笔记之染色效果&毛玻璃效果
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T00:00:00+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h1 id="染色效果">染色效果</h1><p>有时候会遇到这样一种场景:需要给图片增加染色效果，当发生hover或者交互时再把染色效果去除。<br>最容易想到的是以下两种方式：</p>
+<ul>
+<li>把图片做成两个版本，然后用CSS使得两个版本交替呈现。这种方式会导致更大的文件体积和额外的HTTP请求，同时也不便于维护(想改变染色主色调时需要重新制作图片)。</li>
+<li>还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式会降低图片的对比度。</li>
+</ul>
+<p>为了避免上面两种方式带来的问题，可以用下面这两种纯CSS的方式解决<br><a id="more"></a></p>
+<h2 id="基于滤镜的方案">基于滤镜的方案</h2><p>要想给图片染色，这里用到了三个滤镜，分别式<code>sepia()</code>、<code>saturate()</code>和<code>hue-rotate()</code></p>
+<ul>
+<li>sepia会增加一种将饱和度的橙黄色染色特效，这种特效会将图片复古成黑白老照片。</li>
+<li>saturate会改变像素的饱和度。</li>
+<li>hue-rotate会把每个像素的色相以指定的度数进行偏移。</li>
+</ul>
+<p>当然，给图片染色还可以用<code>grayscale</code>、<code>contrast</code>等。</p>
+<p>比如下面的例子给图片增加一种暖色染色效果，出发hover时恢复原图：<br>HTML:</p>
+<pre><code>&lt;<span class="tag">div</span> class=<span class="string">"test-a"</span>&gt;
+    &lt;<span class="tag">img</span> src=<span class="string">"test.jpg"</span>&gt;
+&lt;/div&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="tag">body</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+    <span class="rule"><span class="attribute">flex-flow</span>:<span class="value"> row wrap</span></span>;
+    <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> space-around</span></span>;
+}</span>
+<span class="tag">div</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;
+}</span>
+<span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+}</span>
+<span class="class">.test-a</span> &gt; <span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>) <span class="function">saturate</span>(<span class="number">3</span>) <span class="function">hue-rotate</span>(<span class="number">300deg</span>)</span></span>;
+    <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>) <span class="function">saturate</span>(<span class="number">3</span>) <span class="function">hue-rotate</span>(<span class="number">300deg</span>)</span></span>;
+    <span class="comment">/*transition: 5s -webkit-filter;*/</span>
+}</span>
+<span class="class">.test-a</span>&gt;<span class="rule"><span class="attribute">img</span>:<span class="value">hover,.test-a&gt;img:focus{
+    -webkit-filter: none</span></span>;
+    <span class="rule"><span class="attribute">filter</span>:<span class="value"> none</span></span>;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-1.gif" alt=""></p>
+<h2 id="基于混合模式的方案">基于混合模式的方案</h2><p>滤镜方案虽然可以染色，但是有一定的限制，它比较适合染褪色之类的效果。如果想消除这种褪色的染色效果，可以使用<code>saturate</code>增加饱和度，但是又会得到一种不自然的、过渡风格化的效果。这时候可以利用混合模式。</p>
+<p>混合模式是指，当两个元素叠加时，该模式控制了上层元素的颜色与下层颜色进行混合。用它来实现染色效果时，需要用到的混合模式是<code>luminosity</code>、这种<code>luminosity</code>的混合模式会保留上层元素的HSL亮度信息，并从它的下层吸取色相和饱和度信息。这时候只需要将下层设置为想要的主色调，并把图片放在上层即可。</p>
+<p>可以用两种方式实现混合模式：<br>第一种是把图片包裹在一个容器里，并把容器的背景色设置为需要的背景色。<br>第二种是不用img标签，而是使用div，把div第一层背景设置为要染色的图片，第二层设置为想要的主色调。<br>HTML:</p>
+<pre><code>&lt;<span class="tag">div</span> class=<span class="string">"test-b"</span>&gt;
+    &lt;<span class="tag">img</span> src=<span class="string">"test.jpg"</span>&gt;
+&lt;/div&gt;
+</code></pre><p>CSS：</p>
+<pre><code><span class="class">.test-b</span><span class="rules">{
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#655</span></span></span>;
+}</span>
+<span class="class">.test-b</span>&gt;<span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">mix-blend-mode</span>:<span class="value"> luminosity</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-2.jpg" alt=""></p>
+<p>因为<code>mix-blend-mode</code>是把整个元素向下进行混合，而不管它的下层是什么。因此第一种方式无法使用动画效果对图片进行还原。如果使用第二种方式，使用<code>background-blend-mode</code>属性，可以让每层背景跟它的下层背景混合，并且不关心元素之外的颜色。如果设置主色调为透明，就会还原到原来的图片。这样就可以使用动画对图片进行还原了。</p>
+<pre><code>&lt;div class=<span class="string">"test-c"</span>&gt;&lt;/div&gt;
+.test-c{
+    <span class="built_in">background</span>-<span class="built_in">image</span>: url(test.jpg);
+    <span class="built_in">background</span>-<span class="built_in">size</span>: cover;
+    <span class="built_in">background</span>-<span class="built_in">color</span>: #<span class="number">655</span>;
+    <span class="built_in">background</span>-<span class="built_in">blend</span>-mode: luminosity;
+    transition: <span class="number">3</span>s <span class="built_in">background</span>-<span class="built_in">color</span>;
+}
+.test-c:hover{
+    <span class="built_in">background</span>-<span class="built_in">color</span>: transparent;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-3.gif" alt=""></p>
+<hr>
+<h1 id="毛玻璃效果">毛玻璃效果</h1><p>半透明作为某个元素的背景，把它放在一张照片或者花哨的背景之上，是一种很美的设计效果，但是可能会导致文字比较难以阅读。比如下面这种情况：<br>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"blur-a"</span>&gt;
+    &lt;blockquote&gt;
+        “The only way <span class="keyword">to</span> <span class="keyword">get</span> rid <span class="keyword">of</span> a temptation <span class="keyword">is</span> <span class="keyword">to</span> yield <span class="keyword">to</span> <span class="keyword">it</span>. Resist <span class="keyword">it</span>, <span class="keyword">and</span> your soul grows sick <span class="keyword">with</span> longing <span class="keyword">for</span> <span class="keyword">the</span> things <span class="keyword">it</span> has forbidden <span class="keyword">to</span> itself, <span class="keyword">with</span> desire <span class="keyword">for</span> what <span class="keyword">its</span> monstrous laws have made monstrous <span class="keyword">and</span> unlawful.”
+        &lt;cite&gt;— Oscar Wilde, The Picture <span class="keyword">of</span> Dorian Gray&lt;/cite&gt;
+    &lt;/blockquote&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS：</p>
+<pre><code><span class="class">.blur-a</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40em</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">20em</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(tiger.jpg)</span></span>;
+    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> cover</span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+}</span>
+<span class="class">.blur-a</span>&gt;<span class="tag">blockquote</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">1em</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">80%</span></span></span>;<span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70%</span></span></span>;
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> italic bold <span class="number">140%</span>/<span class="number">140%</span> sans-serif</span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>)</span></span>;
+    <span class="comment">/*-webkit-filter:blur(2px);*/</span>
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> .<span class="number">3em</span></span></span>;
+    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>) inset,
+        <span class="number">0</span> .<span class="number">5em</span> <span class="number">1em</span> <span class="function">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.6</span>)</span></span>;
+    <span class="rule"><span class="attribute">text-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>)</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-4.jpg" alt=""></p>
+<p>这个时候可以使用模糊滤镜(<code>filter:blur(2px)</code>)产生一种毛玻璃的效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-5.jpg" alt=""><br>结果发现文字也被模糊了，如果想要不模糊文字，同时又有毛玻璃效果就可以使用下面这种方式。<br>首先要求背景图片的<code>background-attachment</code>为fixed，然后设置一个伪元素，将其定位到元素的下层，再对伪元素进行模糊。<br>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"blur-b"</span>&gt;
+    &lt;blockquote&gt;
+        “The only way <span class="keyword">to</span> <span class="keyword">get</span> rid <span class="keyword">of</span> a temptation <span class="keyword">is</span> <span class="keyword">to</span> yield <span class="keyword">to</span> <span class="keyword">it</span>. Resist <span class="keyword">it</span>, <span class="keyword">and</span> your soul grows sick <span class="keyword">with</span> longing <span class="keyword">for</span> <span class="keyword">the</span> things <span class="keyword">it</span> has forbidden <span class="keyword">to</span> itself, <span class="keyword">with</span> desire <span class="keyword">for</span> what <span class="keyword">its</span> monstrous laws have made monstrous <span class="keyword">and</span> unlawful.”
+        &lt;cite&gt;— Oscar Wilde, The Picture <span class="keyword">of</span> Dorian Gray&lt;/cite&gt;
+    &lt;/blockquote&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS：</p>
+<pre><code><span class="class">.blur-b</span><span class="rules">{
+    <span class="rule"><span class="attribute">z-index</span>:<span class="value"> -<span class="number">2</span></span></span>;
+}</span>
+<span class="class">.blur-b</span>&gt;<span class="tag">blockquote</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">1em</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">80%</span></span></span>;<span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70%</span></span></span>;
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> italic bold <span class="number">140%</span>/<span class="number">140%</span> sans-serif</span></span>;
+    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> .<span class="number">3em</span></span></span>;
+    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>) inset,
+        <span class="number">0</span> .<span class="number">5em</span> <span class="number">1em</span> <span class="function">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.6</span>)</span></span>;
+    <span class="rule"><span class="attribute">text-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>)</span></span>;
+}</span>
+<span class="class">.blur-b</span>&gt;<span class="rule"><span class="attribute">blockquote</span>:<span class="value">:before{
+    content: <span class="string">""</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;<span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>; <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">0</span></span></span>;<span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(tiger.jpg) <span class="number">0</span> / cover fixed</span></span>;
+    <span class="rule"><span class="attribute">z-index</span>:<span class="value"> -<span class="number">1</span></span></span>;
+    <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">10px</span>)</span></span>;
+    <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">10px</span>)</span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> -<span class="number">30px</span></span></span>;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-6.jpg" alt=""></p>
+<blockquote>
+<p>这里有个坑，就是在背景图不是fixed的情况下使用毛玻璃，以后会填上的。</p>
+</blockquote>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/20/CSS Secret 读书笔记之单侧投影&不规则投影/" rel="next" title="CSS Secret 读书笔记之单侧投影&不规则投影">
+                <i class="fa fa-chevron-left"></i> CSS Secret 读书笔记之单侧投影&不规则投影
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/"
+           data-title="CSS Secret 读书笔记之染色效果&毛玻璃效果" data-url="http://blog.supce.com/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
+               alt="vector" />
+          <p class="site-author-name" itemprop="name">vector</p>
+          <p class="site-description motion-element" itemprop="description">We are all in the gutter, but some of us are looking at the stars.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/byvector" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/BestionMiko" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.instagram.com/go_vector/" target="_blank" title="instagram">
+                  
+                    <i class="fa fa-instagram"></i>
+                  
+                  instagram
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/byvector/" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#染色效果"><span class="nav-number">1.</span> <span class="nav-text">染色效果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于滤镜的方案"><span class="nav-number">1.1.</span> <span class="nav-text">基于滤镜的方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于混合模式的方案"><span class="nav-number">1.2.</span> <span class="nav-text">基于混合模式的方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#毛玻璃效果"><span class="nav-number">2.</span> <span class="nav-text">毛玻璃效果</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vector</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"byvector"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

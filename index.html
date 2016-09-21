@@ -207,6 +207,115 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/" itemprop="url">
+                  CSS Secret 读书笔记之染色效果&毛玻璃效果
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T00:00:00+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<h1 id="染色效果">染色效果</h1><p>有时候会遇到这样一种场景:需要给图片增加染色效果，当发生hover或者交互时再把染色效果去除。<br>最容易想到的是以下两种方式：</p>
+<ul>
+<li>把图片做成两个版本，然后用CSS使得两个版本交替呈现。这种方式会导致更大的文件体积和额外的HTTP请求，同时也不便于维护(想改变染色主色调时需要重新制作图片)。</li>
+<li>还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式会降低图片的对比度。</li>
+</ul>
+<p>为了避免上面两种方式带来的问题，可以用下面这两种纯CSS的方式解决<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/20/CSS Secret 读书笔记之单侧投影&不规则投影/" itemprop="url">
                   CSS Secret 读书笔记之单侧投影&不规则投影
                 </a>
@@ -654,127 +763,6 @@ body{
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/" itemprop="url">
-                  CSS Secret 读书笔记之伪随机背景&图像边框
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-16T00:00:00+08:00" content="2016-09-16">
-              2016-09-16
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <hr>
-<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
-<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
-body{
-    display: flex<span class="comment">;</span>
-    flex-flow: row wrap<span class="comment">;</span>
-    justify-content: space-around<span class="comment">;</span>
-}
-div{
-    margin: 20px 20px<span class="comment">;</span>
-    padding: 0<span class="comment">;</span>
-    min-width: 20em<span class="comment">;</span>
-    min-height: 6em<span class="comment">;</span>
-}
-.rb-a{
-    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
-    background-size: 80px 100%<span class="comment">;</span>
-}
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -820,7 +808,7 @@ div{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
