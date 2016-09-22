@@ -207,6 +207,115 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/22/CSS Secret 读书笔记之折角效果&连字符断行/" itemprop="url">
+                  CSS Secret 读书笔记之折角效果&连字符断行
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-22T00:00:00+08:00" content="2016-09-22">
+              2016-09-22
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/22/CSS Secret 读书笔记之折角效果&连字符断行/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/22/CSS Secret 读书笔记之折角效果&连字符断行/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<h1 id="折角效果">折角效果</h1><p>有时候会把一个元素的右上角进行折叠，使元素显得更加有立体感。<br>要实现这种效果通常可以在右上角增加两个三角形：一个三角形来体现折页的形状，另一个三角形遮住元素的一角，用来模拟翻折所产生的缺口。但是这两种方式有以下两个缺陷：</p>
+<ul>
+<li>当折角元素之下的背景不是纯色而是一幅图案、一层纹理、一张照片或者渐变等，上面这种方式就不能完美实现了。</li>
+<li>当折角不是45°时也不能够完美实现。</li>
+</ul>
+<p>这时候可以用下面这种方式解决<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/22/CSS Secret 读书笔记之折角效果&连字符断行/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/" itemprop="url">
                   CSS Secret 读书笔记之染色效果&毛玻璃效果
                 </a>
@@ -646,123 +755,6 @@ div{
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/17/CSS Secret 读书笔记之自适应椭圆&平行四边形/" itemprop="url">
-                  CSS Secret 读书笔记之自适应椭圆&平行四边形
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-17T00:00:00+08:00" content="2016-09-17">
-              2016-09-17
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/17/CSS Secret 读书笔记之自适应椭圆&平行四边形/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/17/CSS Secret 读书笔记之自适应椭圆&平行四边形/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <hr>
-<h1 id="自适应椭圆">自适应椭圆</h1><p>对于一个正方形的元素，如果设置其属性<code>border-radius</code>的值大于等于边长的一半，那么该元素会变成一个圆形。</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"round-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
-body{
-    display: flex;
-    flex-flow: row wrap; 
-    justify-content: <span class="constant">space</span>-<span class="keyword">around</span>;
-}
-.<span class="command">round</span>-a{
-    background: <span class="comment">#fb3;</span>
-    width: <span class="number">10</span>em;
-    height: <span class="number">10</span>em;
-    border-radius: <span class="number">50</span>%;
-}
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/17/CSS Secret 读书笔记之自适应椭圆&平行四边形/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -808,7 +800,7 @@ body{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
