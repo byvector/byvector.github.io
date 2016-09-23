@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-09-22T13:08:49.524Z</updated>
+  <updated>2016-09-23T12:39:21.503Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,86 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之合适光标&扩大可点击区域]]></title>
+    <link href="http://blog.supce.com/2016/09/23/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%90%88%E9%80%82%E5%85%89%E6%A0%87&%E6%89%A9%E5%A4%A7%E5%8F%AF%E7%82%B9%E5%87%BB%E5%8C%BA%E5%9F%9F/"/>
+    <id>http://blog.supce.com/2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/</id>
+    <published>2016-09-22T16:00:00.000Z</published>
+    <updated>2016-09-23T12:39:21.503Z</updated>
+    <content type="html"><![CDATA[<p><em>今天莫名的累，借此机会水一篇好了</em></p>
+<hr>
+<h1 id="合适的鼠标光标">合适的鼠标光标</h1><p>为了给用户带来良好的体验，鼠标在网页中有着不可忽视的作用。不同的鼠标光标暗示着不同的信息。下图是CSS3中新的一批内建光标：</p>
+<a id="more"></a>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-12-1.jpg" alt=""><br>下面就简单实现几个：</p>
+<pre><code><span class="comment">&lt;!--禁用状态--&gt;</span>
+<span class="tag">&lt;<span class="title">button</span>&gt;</span>可用<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">disabled</span>&gt;</span>禁用<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="comment">&lt;!--隐藏光标 适用于公共触摸屏--&gt;</span>
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"dis-cursor"</span>&gt;</span>隐藏光标<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+</code></pre><p>CSS：</p>
+<pre><code><span class="pseudo">:disabled</span><span class="rules">{        <span class="comment">/*disable选择器*/</span>
+    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> not-allowed</span></span>;
+}</span>
+<span class="class">.dis-cursor</span><span class="rules">{
+    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> none</span></span>;
+}</span>
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-12-2.gif" alt=""></p>
+<hr>
+<h1 id="扩大可点击区域">扩大可点击区域</h1><p>美国心理学家 Paul Fitts 层提出Fitts法则：人类移动到某个目标区域所需的最短时间是由目标距离与目标宽度之比所构成的对数函数。<br>即：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-12-3.jpg" alt=""><br>其中，T表示所需时间，D是从起点到目标中心的距离，W是目标区域的宽度，a和b是常数。<br>对于网页中那些较小的、难以瞄准的控件来说，如果不能把视觉尺寸放大时，可以把可点击区域放大以增加用户体验和提升交互性。</p>
+<h2 id="利用透明边框">利用透明边框</h2><p>首先想到的就是透明边框，因为鼠标也会对边框出发鼠标事件。<br>但是要注意，利用<code>background-clip</code>把背景色限制在原本的区域。<br>如果想要给元素添加边框，可以利用内嵌投影来模拟边框。<br>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"extend-a"</span>&gt;+&lt;/<span class="keyword">div</span>&gt;       
+</code></pre><p>CSS：</p>
+<pre><code><span class="class">.extend-a</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">5px</span> auto</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">2em</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">2em</span></span></span>;
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> <span class="number">250%</span>/<span class="number">2em</span> sans-serif</span></span>;
+    <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#58a</span></span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
+    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">10px</span> solid transparent</span></span>; <span class="comment">/*透明边框扩大可点击区域*/</span>
+    <span class="rule"><span class="attribute">background-clip</span>:<span class="value"> padding-box</span></span>;
+    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">5</span>) inset</span></span>;  <span class="comment">/*内嵌投影模拟边框*/</span>
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-12-4.gif" alt=""></p>
+<h2 id="利用伪元素">利用伪元素</h2><p>利用边框心里面总感觉怪怪的，有点别扭。这时候可以试试伪元素了，毕竟边框有时候会影响整体的布局，而伪元素不会。<br>可以在按钮的上层覆盖一层透明的伪元素，并且让伪元素在四个方向都比宿主元素大10px<br>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"extend-b"</span>&gt;+&lt;/<span class="keyword">div</span>&gt;        
+</code></pre><p>CSS：</p>
+<pre><code><span class="class">.extend-b</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">5px</span> auto</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">2em</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">2em</span></span></span>;
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> <span class="number">250%</span>/<span class="number">2em</span> sans-serif</span></span>;
+    <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#58a</span></span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
+    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;
+}</span>
+<span class="rule"><span class="attribute">.extend-b</span>:<span class="value">:before{
+    content: <span class="string">""</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value">-<span class="number">10px</span></span></span>; <span class="rule"><span class="attribute">right</span>:<span class="value">-<span class="number">10px</span></span></span>; <span class="rule"><span class="attribute">bottom</span>:<span class="value">-<span class="number">10px</span></span></span>; <span class="rule"><span class="attribute">left</span>:<span class="value">-<span class="number">10px</span></span></span>;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-12-5.gif" alt=""></p>
+<blockquote>
+<p>就偷偷的划一次水</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><em>今天莫名的累，借此机会水一篇好了</em></p>
+<hr>
+<h1 id="合适的鼠标光标">合适的鼠标光标</h1><p>为了给用户带来良好的体验，鼠标在网页中有着不可忽视的作用。不同的鼠标光标暗示着不同的信息。下图是CSS3中新的一批内建光标：</p>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret 读书笔记之折角效果&连字符断行]]></title>
@@ -1056,116 +1136,6 @@ body{
   </entry>
   
   <entry>
-    <title><![CDATA[CSS Secret 读书笔记之伪随机背景&图像边框]]></title>
-    <link href="http://blog.supce.com/2016/09/16/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BC%AA%E9%9A%8F%E6%9C%BA%E8%83%8C%E6%99%AF&%E5%9B%BE%E5%83%8F%E8%BE%B9%E6%A1%86/"/>
-    <id>http://blog.supce.com/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/</id>
-    <published>2016-09-15T16:00:00.000Z</published>
-    <updated>2016-09-16T13:34:24.303Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
-<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
-body{
-    display: flex<span class="comment">;</span>
-    flex-flow: row wrap<span class="comment">;</span>
-    justify-content: space-around<span class="comment">;</span>
-}
-div{
-    margin: 20px 20px<span class="comment">;</span>
-    padding: 0<span class="comment">;</span>
-    min-width: 20em<span class="comment">;</span>
-    min-height: 6em<span class="comment">;</span>
-}
-.rb-a{
-    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
-    background-size: 80px 100%<span class="comment">;</span>
-}
-</code></pre><a id="more"></a>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-1.jpg" alt=""><br>从效果图中可以看出这个背景图的重复规律非常明显，每水平80px就会重复一次。<br>这时候可以考虑另一种思路：<br>把这组条纹从一个平面图拆散为多个图层，一种颜色作为底色，另外三种颜色作为条纹，然后再让条纹以不同的间隔进行重复平铺，同时利用<code>background-size</code>控制条纹的间距。</p>
-<pre><code>background: hsl(<span class="number">20</span>,<span class="number">40</span>%,<span class="number">90</span>%);
-background-image: linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#fb3 <span class="number">10</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#ab4 <span class="number">20</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#<span class="number">655</span> <span class="number">20</span>px,transparent <span class="number">0</span>);</span>
-background-size: <span class="number">80</span>px <span class="number">100</span>%,<span class="number">60</span>px <span class="number">100</span>%,<span class="number">40</span>px <span class="number">100</span>%;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-2.jpg" alt=""><br>随机的效果好了很多，但是仔细观察会发现每隔240px像素就会重复一次，且240正好是40 60 80 的最小公倍数。<br>如果我们将背景的宽度设置为质数，那么它们的最小公倍数就会很大，当大于屏幕宽度时就可以在视觉上满足随机背景了。于是将背景的宽度修改一下</p>
-<pre><code>background: hsl(<span class="number">20</span>,<span class="number">40</span>%,<span class="number">90</span>%);
-background-image: linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#fb3 <span class="number">11</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#ab4 <span class="number">23</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#<span class="number">655</span> <span class="number">41</span>px,transparent <span class="number">0</span>);</span>
-background-size: <span class="number">41</span>px <span class="number">100</span>%,<span class="number">61</span>px <span class="number">100</span>%,<span class="number">83</span>px <span class="number">100</span>%;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-3.jpg" alt=""><br>这时候的最小公倍数为41<em>61</em>83=207583，已经可以满足我们的需求了。</p>
-<hr>
-<h1 id="图像边框">图像边框</h1><p>图片经常作为容器的背景，但是有时候想把一副图片作为边框。也就是说一张图片被剪裁到边框所在的方形环状区域。同时，也希望图片能够随着元素的大小进行缩放并完整的覆盖边框的区域。<br>但是<code>border-image</code>是一种九宫格伸缩法，将图片裁剪为九块，放到边框所对应的变和角，显然是不符合我们的要求的。<br>可以尝试设置元素的背景色为白色，然后给元素外部嵌套一个父元素，并设置背景为图片。</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"border-test"</span>&gt;
-    &lt;<span class="keyword">div</span>&gt;this <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a test
-    this <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a test&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-.border-test{
-    background: url(stone-art.jpg);
-    background-size: cover;
-    padding: <span class="number">.5</span>em;
-}
-.border-test &gt; <span class="keyword">div</span>{
-    background: white;
-    padding: <span class="number">1</span>em;
-}
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-4.jpg" alt=""><br>在强迫症的作用下，并不想嵌套一个父元素，就得换一个思路了。<br>首先设置元素的背景为图片，然后在背景图之上叠加一层纯色的实色背景。设置背景边框为透明，并且为两层背景指定不同的<code>background-clip</code>的值。由于只能在多重背景的最底层设置背景色，因此需要用一道从白色过渡到白色的CSS渐变来模拟出纯白色背景的效果。</p>
-<pre><code>&lt;div class=<span class="string">"border-a"</span>&gt;<span class="keyword">this</span> is a testthis is a testthis is a testthis is a testthis is a testthis is a testthis is a test&lt;/div&gt;
-.border-a,.border-b{
-    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">20</span>em;
-    <span class="built_in">max</span>-<span class="variable">height</span>: <span class="number">10</span>em;
-    padding: <span class="number">1</span>em;
-    border: <span class="number">1</span>em solid transparent;
-}
-.border-a{
-    <span class="built_in">background</span>: linear-gradient(white,white),
-                url(stone-art.jpg);
-    <span class="built_in">background</span>-<span class="built_in">size</span>: cover; 
-    <span class="built_in">background</span>-clip: padding-<span class="built_in">box</span>,border-<span class="built_in">box</span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-5.jpg" alt=""><br><code>background-origin</code> 属性规定 <code>background-position</code> 属性相对于什么位置来定位。其默认值为<code>padding-box</code>，因此边框的图片出现了奇怪的拼接效果。于是添加一条属性：<br><code>background-origin: border-box;</code><br>就可以到达下面这个结果了：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-7.jpg" alt=""></p>
-<p>既然可以使用渐变那就可以模拟更多的边框效果了~ 比如下面这种：</p>
-<pre><code>background: linear-gradient(white,white) padding-box,
-                repeating-linear-gradient(-<span class="number">45</span>deg,red <span class="number">0</span>,red <span class="number">12.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">25</span>%,<span class="preprocessor">#<span class="number">58</span>a <span class="number">0</span>,</span>
-                    <span class="preprocessor">#<span class="number">58</span>a <span class="number">37.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">50</span>%) <span class="number">0</span> <span class="number">0</span> / <span class="number">4</span>em <span class="number">4</span>em;</span>
-</code></pre><p>一种漂亮的信封效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-8.jpg" alt=""></p>
-<p>当然，也可以给边框添加动画。</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> ants </span>{<span class="tag">to</span> <span class="rules">{<span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">100%</span>}}
-.border-c{
-    border: <span class="number">1px</span> solid transparent</span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(white,white) padding-box,
-                <span class="function">repeating-linear-gradient</span>(-<span class="number">45deg</span>,black <span class="number">0</span>,black <span class="number">25%</span>,white <span class="number">0</span>,white <span class="number">50%</span>) <span class="number">0</span> <span class="number">0</span> / .<span class="number">6em</span> .<span class="number">6em</span></span></span>;
-    <span class="rule"><span class="attribute">animation</span>:<span class="value"> ants <span class="number">12s</span> ease-out infinite</span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-9.jpg" alt=""><br>可惜图片看不出动画效果了。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
-<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
-body{
-    display: flex<span class="comment">;</span>
-    flex-flow: row wrap<span class="comment">;</span>
-    justify-content: space-around<span class="comment">;</span>
-}
-div{
-    margin: 20px 20px<span class="comment">;</span>
-    padding: 0<span class="comment">;</span>
-    min-width: 20em<span class="comment">;</span>
-    min-height: 6em<span class="comment">;</span>
-}
-.rb-a{
-    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
-    background-size: 80px 100%<span class="comment">;</span>
-}
-</code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[CSS Secret 读书笔记之条纹背景&复杂背景]]></title>
     <link href="http://blog.supce.com/2016/09/16/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%9D%A1%E7%BA%B9%E8%83%8C%E6%99%AF&%E5%A4%8D%E6%9D%82%E8%83%8C%E6%99%AF/"/>
     <id>http://blog.supce.com/2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/</id>
@@ -1305,6 +1275,116 @@ background-position: <span class="number">0</span> <span class="number">0</span>
 </code></pre>]]></content>
     <summary type="html">
     <![CDATA[<h1 id="条纹背景">条纹背景</h1><p>通常条纹背景是由一个图片来代替，或者使用SVG。能不能利用CSS直接创建条纹图案呢，答案是肯定的。<br>假设背景是垂直线性渐变。比如：<code>background:linear-gradient(#fb3,#58a);</code><br>效果是这个样子的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-1.jpg" alt=""><br>如果让渐变区域变的更窄，产生一个无限小的渐变区域，比如：<code>background:linear-gradient(#fb3 50%,#58a 50%);</code> 就可以得到想要的结果了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-2.jpg" alt=""><br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之伪随机背景&图像边框]]></title>
+    <link href="http://blog.supce.com/2016/09/16/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BC%AA%E9%9A%8F%E6%9C%BA%E8%83%8C%E6%99%AF&%E5%9B%BE%E5%83%8F%E8%BE%B9%E6%A1%86/"/>
+    <id>http://blog.supce.com/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/</id>
+    <published>2016-09-15T16:00:00.000Z</published>
+    <updated>2016-09-16T13:34:24.303Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
+<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
+body{
+    display: flex<span class="comment">;</span>
+    flex-flow: row wrap<span class="comment">;</span>
+    justify-content: space-around<span class="comment">;</span>
+}
+div{
+    margin: 20px 20px<span class="comment">;</span>
+    padding: 0<span class="comment">;</span>
+    min-width: 20em<span class="comment">;</span>
+    min-height: 6em<span class="comment">;</span>
+}
+.rb-a{
+    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
+    background-size: 80px 100%<span class="comment">;</span>
+}
+</code></pre><a id="more"></a>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-1.jpg" alt=""><br>从效果图中可以看出这个背景图的重复规律非常明显，每水平80px就会重复一次。<br>这时候可以考虑另一种思路：<br>把这组条纹从一个平面图拆散为多个图层，一种颜色作为底色，另外三种颜色作为条纹，然后再让条纹以不同的间隔进行重复平铺，同时利用<code>background-size</code>控制条纹的间距。</p>
+<pre><code>background: hsl(<span class="number">20</span>,<span class="number">40</span>%,<span class="number">90</span>%);
+background-image: linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#fb3 <span class="number">10</span>px,transparent <span class="number">0</span>),</span>
+                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#ab4 <span class="number">20</span>px,transparent <span class="number">0</span>),</span>
+                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#<span class="number">655</span> <span class="number">20</span>px,transparent <span class="number">0</span>);</span>
+background-size: <span class="number">80</span>px <span class="number">100</span>%,<span class="number">60</span>px <span class="number">100</span>%,<span class="number">40</span>px <span class="number">100</span>%;
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-2.jpg" alt=""><br>随机的效果好了很多，但是仔细观察会发现每隔240px像素就会重复一次，且240正好是40 60 80 的最小公倍数。<br>如果我们将背景的宽度设置为质数，那么它们的最小公倍数就会很大，当大于屏幕宽度时就可以在视觉上满足随机背景了。于是将背景的宽度修改一下</p>
+<pre><code>background: hsl(<span class="number">20</span>,<span class="number">40</span>%,<span class="number">90</span>%);
+background-image: linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#fb3 <span class="number">11</span>px,transparent <span class="number">0</span>),</span>
+                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#ab4 <span class="number">23</span>px,transparent <span class="number">0</span>),</span>
+                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#<span class="number">655</span> <span class="number">41</span>px,transparent <span class="number">0</span>);</span>
+background-size: <span class="number">41</span>px <span class="number">100</span>%,<span class="number">61</span>px <span class="number">100</span>%,<span class="number">83</span>px <span class="number">100</span>%;
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-3.jpg" alt=""><br>这时候的最小公倍数为41<em>61</em>83=207583，已经可以满足我们的需求了。</p>
+<hr>
+<h1 id="图像边框">图像边框</h1><p>图片经常作为容器的背景，但是有时候想把一副图片作为边框。也就是说一张图片被剪裁到边框所在的方形环状区域。同时，也希望图片能够随着元素的大小进行缩放并完整的覆盖边框的区域。<br>但是<code>border-image</code>是一种九宫格伸缩法，将图片裁剪为九块，放到边框所对应的变和角，显然是不符合我们的要求的。<br>可以尝试设置元素的背景色为白色，然后给元素外部嵌套一个父元素，并设置背景为图片。</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"border-test"</span>&gt;
+    &lt;<span class="keyword">div</span>&gt;this <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a test
+    this <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a test&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+.border-test{
+    background: url(stone-art.jpg);
+    background-size: cover;
+    padding: <span class="number">.5</span>em;
+}
+.border-test &gt; <span class="keyword">div</span>{
+    background: white;
+    padding: <span class="number">1</span>em;
+}
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-4.jpg" alt=""><br>在强迫症的作用下，并不想嵌套一个父元素，就得换一个思路了。<br>首先设置元素的背景为图片，然后在背景图之上叠加一层纯色的实色背景。设置背景边框为透明，并且为两层背景指定不同的<code>background-clip</code>的值。由于只能在多重背景的最底层设置背景色，因此需要用一道从白色过渡到白色的CSS渐变来模拟出纯白色背景的效果。</p>
+<pre><code>&lt;div class=<span class="string">"border-a"</span>&gt;<span class="keyword">this</span> is a testthis is a testthis is a testthis is a testthis is a testthis is a testthis is a test&lt;/div&gt;
+.border-a,.border-b{
+    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">20</span>em;
+    <span class="built_in">max</span>-<span class="variable">height</span>: <span class="number">10</span>em;
+    padding: <span class="number">1</span>em;
+    border: <span class="number">1</span>em solid transparent;
+}
+.border-a{
+    <span class="built_in">background</span>: linear-gradient(white,white),
+                url(stone-art.jpg);
+    <span class="built_in">background</span>-<span class="built_in">size</span>: cover; 
+    <span class="built_in">background</span>-clip: padding-<span class="built_in">box</span>,border-<span class="built_in">box</span>;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-5.jpg" alt=""><br><code>background-origin</code> 属性规定 <code>background-position</code> 属性相对于什么位置来定位。其默认值为<code>padding-box</code>，因此边框的图片出现了奇怪的拼接效果。于是添加一条属性：<br><code>background-origin: border-box;</code><br>就可以到达下面这个结果了：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-7.jpg" alt=""></p>
+<p>既然可以使用渐变那就可以模拟更多的边框效果了~ 比如下面这种：</p>
+<pre><code>background: linear-gradient(white,white) padding-box,
+                repeating-linear-gradient(-<span class="number">45</span>deg,red <span class="number">0</span>,red <span class="number">12.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">25</span>%,<span class="preprocessor">#<span class="number">58</span>a <span class="number">0</span>,</span>
+                    <span class="preprocessor">#<span class="number">58</span>a <span class="number">37.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">50</span>%) <span class="number">0</span> <span class="number">0</span> / <span class="number">4</span>em <span class="number">4</span>em;</span>
+</code></pre><p>一种漂亮的信封效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-8.jpg" alt=""></p>
+<p>当然，也可以给边框添加动画。</p>
+<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> ants </span>{<span class="tag">to</span> <span class="rules">{<span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">100%</span>}}
+.border-c{
+    border: <span class="number">1px</span> solid transparent</span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(white,white) padding-box,
+                <span class="function">repeating-linear-gradient</span>(-<span class="number">45deg</span>,black <span class="number">0</span>,black <span class="number">25%</span>,white <span class="number">0</span>,white <span class="number">50%</span>) <span class="number">0</span> <span class="number">0</span> / .<span class="number">6em</span> .<span class="number">6em</span></span></span>;
+    <span class="rule"><span class="attribute">animation</span>:<span class="value"> ants <span class="number">12s</span> ease-out infinite</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-9.jpg" alt=""><br>可惜图片看不出动画效果了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
+<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
+body{
+    display: flex<span class="comment">;</span>
+    flex-flow: row wrap<span class="comment">;</span>
+    justify-content: space-around<span class="comment">;</span>
+}
+div{
+    margin: 20px 20px<span class="comment">;</span>
+    padding: 0<span class="comment">;</span>
+    min-width: 20em<span class="comment">;</span>
+    min-height: 6em<span class="comment">;</span>
+}
+.rb-a{
+    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
+    background-size: 80px 100%<span class="comment">;</span>
+}
+</code></pre>]]>
     
     </summary>
     
@@ -3365,86 +3445,6 @@ person1.friends.push(<span class="string">"Mimo"</span>);
 var <span class="keyword">person</span> = CreatePerson(<span class="string">"Nico"</span>,28);
 console.log(<span class="keyword">person</span>.sayName());
 </code></pre><p>工厂模式虽然解决了对象的创建问题，但是并没有解决对象的识别问题。<br><code>alert(person.constructor);</code> 得到的并不是想要的结果。<br>]]>
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[RegExp类型]]></title>
-    <link href="http://blog.supce.com/2016/05/25/JavaScript%E4%B9%8BRegExp%E7%B1%BB%E5%9E%8B/"/>
-    <id>http://blog.supce.com/2016/05/25/JavaScript之RegExp类型/</id>
-    <published>2016-05-24T16:00:00.000Z</published>
-    <updated>2016-05-25T03:51:07.516Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>今天用到了JavaScript的RegExp，顺便把这部分内容复习了下，敲了敲demo<br>课题组要结题，断更了一段时间，以后会慢慢恢复正常</p>
-</blockquote>
-<h1 id="RegExp类型">RegExp类型</h1><hr>
-<p>RegExp 对象表示正则表达式，它是对字符串执行模式匹配的强大工具。有两种创建方式</p>
-<ul>
-<li>字面量<br><code>var p = /pattern/attributes;</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = /[bc]at/i;</code></li>
-<li>RegExp构造函数<br><code>var p = new RegExp(pattern,attributes);</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = new RegExp(&quot;[bc]at&quot;,&quot;i&quot;);</code><a id="more"></a>
-</li>
-</ul>
-<blockquote>
-<p>注意双重转义</p>
-</blockquote>
-<pre><code><span class="keyword">var</span> pattern1 = <span class="regexp">/\[bc\]at/i</span>;
-<span class="keyword">var</span> pattern2 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"\\[bc\\]at"</span>,<span class="string">"i"</span>);  <span class="comment">//由于是字符串所以要进行双重转义</span>
-</code></pre><h1 id="RegExp实例方法">RegExp实例方法</h1><p>RegExp对象的主要方法是exec和test</p>
-<pre><code>$(<span class="string">"test"</span>).innerHTML += <span class="string">"&lt;/br&gt;-------无全局标识--------&lt;/br&gt;"</span>;
-<span class="keyword">var</span> text = <span class="string">"cat, bat, sat, fat"</span>;
-<span class="keyword">var</span> patter3 = <span class="regexp">/.at/</span>;
-<span class="keyword">var</span> matches = patter3.exec(text);
-$(<span class="string">"test"</span>).innerHTML += <span class="string">"mathches.index："</span>+matches.index + <span class="string">" matches[0]："</span> + matches[<span class="number">0</span>] + <span class="string">" lastIndex："</span> +patter3.lastIndex + <span class="string">"&lt;/br&gt;"</span>;
-<span class="keyword">var</span> text = <span class="string">"cat, bat, sat, fat"</span>;
-<span class="keyword">var</span> patter3 = <span class="regexp">/.at/</span>;
-<span class="keyword">var</span> matches = patter3.exec(text);
-$(<span class="string">"test"</span>).innerHTML += <span class="string">"mathches.index："</span>+matches.index + <span class="string">" matches[0]："</span> + matches[<span class="number">0</span>] + <span class="string">" lastIndex："</span> +patter3.lastIndex;
-$(<span class="string">"test"</span>).innerHTML += <span class="string">"&lt;/br&gt;------带全局标识---------&lt;/br&gt;"</span>;
-<span class="keyword">var</span> patter4 = <span class="regexp">/.at/g</span>;
-<span class="keyword">var</span> matches = patter4.exec(text);
-$(<span class="string">"test"</span>).innerHTML += <span class="string">"mathches.index："</span>+matches.index + <span class="string">" matches[0]："</span> + matches[<span class="number">0</span>] + <span class="string">" lastIndex："</span> +patter3.lastIndex + <span class="string">"&lt;/br&gt;"</span>;
-<span class="keyword">var</span> text = <span class="string">"cat, bat, sat, fat"</span>;
-<span class="keyword">var</span> patter3 = <span class="regexp">/.at/</span>;
-<span class="keyword">var</span> matches = patter4.exec(text);
-$(<span class="string">"test"</span>).innerHTML += <span class="string">"mathches.index："</span>+matches.index + <span class="string">" matches[0]："</span> + matches[<span class="number">0</span>] + <span class="string">" lastIndex："</span> +patter4.lastIndex;
-$(<span class="string">"test"</span>).innerHTML += <span class="string">"&lt;/br&gt;------test方法---------&lt;/br&gt;"</span>;
-<span class="keyword">var</span> text = <span class="string">"000-00-0000"</span>;
-<span class="keyword">var</span> patter4 = <span class="regexp">/\d{3}-\d{2}-\d{4}/</span>;
-<span class="keyword">if</span>(patter4.test(text)){
-    $(<span class="string">"test"</span>).innerHTML +=  <span class="string">"The pattern was matched"</span>;
-}<span class="keyword">else</span>{
-    $(<span class="string">"test"</span>).innerHTML +=  <span class="string">"The pattern was not matched"</span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/js1.jpg" alt=""></p>
-<h1 id="RegExp构造函数属性">RegExp构造函数属性</h1><p>RegExp构造函数包含一些属性，这些适用于作用域中的所有正则表达式，并且基于所执行的最近一次正则表达式操作而变化。</p>
-<pre><code>$(<span class="string">"test"</span>).innerHTML += <span class="string">"&lt;/br&gt;------RegExp构造函数属性---------&lt;/br&gt;"</span>;
-<span class="keyword">var</span> text = <span class="string">"this has been a short summer"</span>;
-<span class="keyword">var</span> patter5 = <span class="regexp">/(.)hort/g</span>;
-<span class="keyword">if</span>(patter5.test(text)){
-    $(<span class="string">"test"</span>).innerHTML += <span class="string">"input:"</span> + <span class="built_in">RegExp</span>.input +  <span class="string">"&lt;/br&gt;leftContext:"</span> + <span class="built_in">RegExp</span>.leftContext + 
-    <span class="string">"&lt;/br&gt;rightContext:"</span> + <span class="built_in">RegExp</span>.rightContext + <span class="string">"&lt;/br&gt;lastMatch:"</span> + <span class="built_in">RegExp</span>.lastMatch +
-     <span class="string">"&lt;/br&gt;lastParen:"</span> + <span class="built_in">RegExp</span>.lastParen + <span class="string">"&lt;/br&gt;multiline:"</span> + <span class="built_in">RegExp</span>.multiline;  <span class="comment">//不支持multiline</span>
-}   
-$(<span class="string">"test"</span>).innerHTML += <span class="string">"&lt;/br&gt;------存储捕获组的构造函数属性---------&lt;/br&gt;"</span>;
-<span class="keyword">var</span> patter6 = <span class="regexp">/(..)or(.)/g</span>;
-<span class="keyword">if</span>(patter6.test(text)){
-    $(<span class="string">"test"</span>).innerHTML += <span class="string">"$1："</span> + <span class="built_in">RegExp</span>.$<span class="number">1</span> + <span class="string">"&lt;/br&gt;$2："</span> + <span class="built_in">RegExp</span>.$<span class="number">2</span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/js2.jpg" alt=""></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>今天用到了JavaScript的RegExp，顺便把这部分内容复习了下，敲了敲demo<br>课题组要结题，断更了一段时间，以后会慢慢恢复正常</p>
-</blockquote>
-<h1 id="RegExp类型">RegExp类型</h1><hr>
-<p>RegExp 对象表示正则表达式，它是对字符串执行模式匹配的强大工具。有两种创建方式</p>
-<ul>
-<li>字面量<br><code>var p = /pattern/attributes;</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = /[bc]at/i;</code></li>
-<li>RegExp构造函数<br><code>var p = new RegExp(pattern,attributes);</code><br>比如：匹配第一个“bat”或“cat”，不区分大小写<br><code>var pattern = new RegExp(&quot;[bc]at&quot;,&quot;i&quot;);</code>]]>
     
     </summary>
     
