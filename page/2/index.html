@@ -207,6 +207,118 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/20/CSS Secret 读书笔记之单侧投影&不规则投影/" itemprop="url">
+                  CSS Secret 读书笔记之单侧投影&不规则投影
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-20T00:00:00+08:00" content="2016-09-20">
+              2016-09-20
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/20/CSS Secret 读书笔记之单侧投影&不规则投影/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/20/CSS Secret 读书笔记之单侧投影&不规则投影/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<h1 id="单侧投影">单侧投影</h1><p>有时候会遇到给元素设置单侧投影的情形。要想实现单侧投影，首先得了解<code>box-shadow</code>的工作原理。<br>平时使用<code>box-shadow</code>的方法是指定三个长度值和一个颜色值：</p>
+<pre><code>box-shadow: <span class="number">2</span>px <span class="number">3</span>px <span class="number">4</span><span class="function">px <span class="title">rgba</span><span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.5</span>)</span></span>;
+</code></pre><p>此时，shadow是通过下面四个步骤绘制的：</p>
+<ul>
+<li>以该元素相同的尺寸和位置，画一个rgba(0,0,0,.5)的矩形</li>
+<li>把它向右移2px，向下移3px</li>
+<li>使用高斯模糊算法(或者类似算法)将它进行4px的模糊处理。模糊算法本质上是在阴影边缘发生阴影色和纯色透明色之间的颜色过渡，其长度近似于模糊半径的两倍(这里是8px)</li>
+<li>最后，将模糊后的矩形与原始元素的交集部分切除掉，因此模糊的部分看起来是在该元素的后面，其实是和原始元素位于同一层。</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/20/CSS Secret 读书笔记之单侧投影&不规则投影/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/19/CSS Secret 读书笔记之梯形标签页&饼图/" itemprop="url">
                   CSS Secret 读书笔记之梯形标签页&饼图
                 </a>
@@ -645,127 +757,6 @@ body{
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/" itemprop="url">
-                  CSS Secret 读书笔记之伪随机背景&图像边框
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-16T00:00:00+08:00" content="2016-09-16">
-              2016-09-16
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <hr>
-<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
-<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
-body{
-    display: flex<span class="comment">;</span>
-    flex-flow: row wrap<span class="comment">;</span>
-    justify-content: space-around<span class="comment">;</span>
-}
-div{
-    margin: 20px 20px<span class="comment">;</span>
-    padding: 0<span class="comment">;</span>
-    min-width: 20em<span class="comment">;</span>
-    min-height: 6em<span class="comment">;</span>
-}
-.rb-a{
-    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
-    background-size: 80px 100%<span class="comment">;</span>
-}
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -811,7 +802,7 @@ div{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

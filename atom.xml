@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-09-24T12:00:00.511Z</updated>
+  <updated>2016-09-25T12:14:50.929Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,139 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之模糊弱化背景&滚动提示]]></title>
+    <link href="http://blog.supce.com/2016/09/25/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%A8%A1%E7%B3%8A%E5%BC%B1%E5%8C%96%E8%83%8C%E6%99%AF&%E6%BB%9A%E5%8A%A8%E6%8F%90%E7%A4%BA/"/>
+    <id>http://blog.supce.com/2016/09/25/CSS Secret 读书笔记之模糊弱化背景&滚动提示/</id>
+    <published>2016-09-24T16:00:00.000Z</published>
+    <updated>2016-09-25T12:14:50.929Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="通过模糊弱化背景">通过模糊弱化背景</h1><p>昨天实现了阴影弱化背景，这里换个方式实现模糊弱化背景。<br>下面这种方式主要利用了<code>box-shadow</code>的扩展参数，把元素的投影向各个方向延伸放大。并且利用了viewport单位<code>vmax</code>。</p>
+<p><em>1vmax相当于1vw和1vh两者中的较大值。100vw等于整个viewport的宽度，100vh等于整个viewport的高度</em></p>
+<p>HTML:</p>
+<pre><code>&lt;main&gt;
+    &lt;button&gt;show dialog&lt;/button&gt;
+    &lt;p&gt;
+         <span class="number">2016</span> presidential campaign truly <span class="keyword">is</span> a product <span class="keyword">of</span> <span class="keyword">its</span> <span class="property">time</span>. When one presidential candidate loves <span class="keyword">to</span> communicate <span class="keyword">with</span> his voters <span class="keyword">through</span> <span class="number">140</span>-<span class="property">character</span> bursts <span class="function_start"><span class="keyword">on</span></span> Twitter, <span class="keyword">and</span> a hasty tweet can cause an international scandal, <span class="keyword">the</span> other side has <span class="keyword">to</span> be quick <span class="keyword">to</span> respond <span class="keyword">in</span> similar fashion. Hence a new internet gem courtesy <span class="keyword">of</span> Hillary Clinton’s campaign website: “Donald Trump, Pepe <span class="keyword">the</span> frog, <span class="keyword">and</span> white supremacists: an explainer.”
+    &lt;/p&gt;
+&lt;/main&gt;
+&lt;dialog&gt;this <span class="keyword">is</span> a test this <span class="keyword">is</span> a test click <span class="keyword">me</span> click <span class="keyword">me</span>&lt;/dialog&gt;
+</code></pre><a id="more"></a>
+<p>CSS:</p>
+<pre><code><span class="tag">main</span><span class="rules">{
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> <span class="number">150%</span>/<span class="number">1.6</span> sans-serif</span></span>;
+    <span class="rule"><span class="attribute">transition</span>:<span class="value"> .<span class="number">5s</span> filter</span></span>;
+}</span>
+<span class="tag">main</span><span class="class">.emphasized</span><span class="rules">{
+    <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">5px</span>)</span></span>;
+    <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">5px</span>)</span></span>;
+
+    <span class="comment">/*filter: blur(5px) contrast(.8) brightness(.8);
+    -webkit-filter: blur(5px) contrast(.8) brightness(.8);*/</span>
+}</span>
+<span class="tag">dialog</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> fixed</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">25%</span></span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">7.5em</span></span></span>;
+    <span class="rule"><span class="attribute">z-index</span>:<span class="value"> <span class="number">1</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">15em</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">4em</span></span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">1em</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid black</span></span>;
+    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0</span> .<span class="number">2em</span> .<span class="number">5em</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">5</span>),
+                <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">100vmax</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">2</span>)</span></span>;
+}</span>
+<span class="rule"><span class="attribute">dialog</span>:<span class="value"><span class="function">not</span>([open]){
+    display: none</span></span>;
+}
+</code></pre><p>JS:</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">selector,context</span>)</span>{
+        context = context || <span class="built_in">document</span>;
+        <span class="keyword">return</span> context.querySelector(selector);
+    }
+    <span class="keyword">var</span> main = $(<span class="string">'main'</span>);
+    <span class="keyword">var</span> dialog = $(<span class="string">'dialog'</span>);
+    $(<span class="string">'button'</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        dialog.setAttribute(<span class="string">'open'</span>,<span class="string">'true'</span>);
+        main.classList.add(<span class="string">'emphasized'</span>);
+    }
+    dialog.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="keyword">if</span>(dialog.close){
+            dialog.close();
+        }<span class="keyword">else</span>{
+            dialog.removeAttribute(<span class="string">'open'</span>);
+        }
+        main.classList.remove(<span class="string">'emphasized'</span>);
+    }
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-14-1.gif" alt=""></p>
+<hr>
+<h1 id="滚动提示">滚动提示</h1><p>这里模拟一种滚动提示，这种滚动提示类似于Android 4.0+设置列表中的滚动提示。当列表滚动到最底部(最顶部)时会有阴影效果。</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-14-2.jpg" alt=""></p>
+<p>首先，创建一个无序列表，设置好最基本的样式。然后就轮到径像渐变大展身手了。在列表的顶部添加一个渐变阴影。<br>HTML:</p>
+<pre><code><span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>高坂穗乃果<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>园田海末<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>南琴梨<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>小泉花阳<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>西木野真姬<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>星空凛<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>绚濑绘里<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>东条希<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>矢泽妮可<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+</code></pre><p>CSS:</p>
+<pre><code><span class="tag">ul</span><span class="rules">{
+    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> auto</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">10em</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">4em</span></span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> .<span class="number">3em</span> .<span class="number">5em</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid silver</span></span>;
+    <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
+
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">radial-gradient</span>(at top,<span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">3</span>),transparent <span class="number">60%</span>) no-repeat</span></span>;
+    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">100%</span> <span class="number">25px</span></span></span>;
+}</span>
+</code></pre><p>这时候的效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-14-3.gif" alt=""><br>当列表滚动时，上面的阴影会一直停留在相同的位置。如果设置<code>background-attachment</code>为local时会出现一个相反的效果：当我们滚动到最顶端时，能看到阴影。向下滚动时阴影就消失了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-14-4.gif" alt=""><br>这时候可以换一种思路，再添加一层与背景色相同的矩形遮盖层，用于遮盖阴影。将阴影背景的<code>background-attachment</code>设置为默认值，将矩形遮盖层设置为local。这样，它就会在我们滚动到最顶部时遮盖住阴影，向下滚动时露出阴影。</p>
+<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(white,<span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,<span class="number">0</span>)),
+            <span class="function">radial-gradient</span>(at top,<span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">3</span>),transparent <span class="number">60%</span>)</span></span>;
+<span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
+<span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">100%</span> <span class="number">25px</span></span></span>;
+<span class="rule"><span class="attribute">background-attachment</span>:<span class="value"> local,scroll</span></span>;
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-14-5.gif" alt=""></p>
+<p>最后再用相同的思路给底部添加上双层阴影，最终代码如下：</p>
+<pre><code>background: linear-gradient(white,hsla(<span class="number">0</span>,<span class="number">0</span>%,<span class="number">100</span>%,<span class="number">0</span>)) <span class="number">0</span> <span class="number">0</span>,
+            radial-gradient(at top,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.3</span>),transparent <span class="number">60</span>%) <span class="number">0</span> <span class="number">0</span>,
+            linear-gradient(hsla(<span class="number">0</span>,<span class="number">0</span>%,<span class="number">100</span>%,<span class="number">0</span>),white) bottom,
+            radial-gradient(at bottom,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.3</span>),transparent <span class="number">60</span>%) bottom;
+background-size: <span class="number">100</span>% <span class="number">50</span>px, <span class="number">100</span>% <span class="number">25</span>px,<span class="number">100</span>% <span class="number">50</span>px, <span class="number">100</span>% <span class="number">25</span>px;
+background-repeat: no-repeat;
+background-attachment: local,scroll,local,scroll;
+</code></pre><p>效果图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-14-6.gif" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="通过模糊弱化背景">通过模糊弱化背景</h1><p>昨天实现了阴影弱化背景，这里换个方式实现模糊弱化背景。<br>下面这种方式主要利用了<code>box-shadow</code>的扩展参数，把元素的投影向各个方向延伸放大。并且利用了viewport单位<code>vmax</code>。</p>
+<p><em>1vmax相当于1vw和1vh两者中的较大值。100vw等于整个viewport的宽度，100vh等于整个viewport的高度</em></p>
+<p>HTML:</p>
+<pre><code>&lt;main&gt;
+    &lt;button&gt;show dialog&lt;/button&gt;
+    &lt;p&gt;
+         <span class="number">2016</span> presidential campaign truly <span class="keyword">is</span> a product <span class="keyword">of</span> <span class="keyword">its</span> <span class="property">time</span>. When one presidential candidate loves <span class="keyword">to</span> communicate <span class="keyword">with</span> his voters <span class="keyword">through</span> <span class="number">140</span>-<span class="property">character</span> bursts <span class="function_start"><span class="keyword">on</span></span> Twitter, <span class="keyword">and</span> a hasty tweet can cause an international scandal, <span class="keyword">the</span> other side has <span class="keyword">to</span> be quick <span class="keyword">to</span> respond <span class="keyword">in</span> similar fashion. Hence a new internet gem courtesy <span class="keyword">of</span> Hillary Clinton’s campaign website: “Donald Trump, Pepe <span class="keyword">the</span> frog, <span class="keyword">and</span> white supremacists: an explainer.”
+    &lt;/p&gt;
+&lt;/main&gt;
+&lt;dialog&gt;this <span class="keyword">is</span> a test this <span class="keyword">is</span> a test click <span class="keyword">me</span> click <span class="keyword">me</span>&lt;/dialog&gt;
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret 读书笔记之自定义复选框&阴影弱化背景]]></title>
@@ -3319,23 +3452,6 @@ function <span class="function"><span class="title">fun</span><span class="param
     </summary>
     
       <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[我胡汉三又回来了]]></title>
-    <link href="http://blog.supce.com/2016/07/13/Comeback/"/>
-    <id>http://blog.supce.com/2016/07/13/Comeback/</id>
-    <published>2016-07-12T16:00:00.000Z</published>
-    <updated>2016-07-13T01:44:49.151Z</updated>
-    <content type="html"><![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>今天开始有时间写一些自己的东西了 O(∩_∩)O哈！</p>
-]]>
-    </summary>
-    
-      <category term="心情杂记" scheme="http://blog.supce.com/tags/%E5%BF%83%E6%83%85%E6%9D%82%E8%AE%B0/"/>
     
   </entry>
   
