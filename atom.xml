@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-09-25T12:14:50.929Z</updated>
+  <updated>2016-09-26T12:50:45.385Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,119 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之交互式的图片对比控件]]></title>
+    <link href="http://blog.supce.com/2016/09/26/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%9A%84%E5%9B%BE%E7%89%87%E5%AF%B9%E6%AF%94%E6%8E%A7%E4%BB%B6/"/>
+    <id>http://blog.supce.com/2016/09/26/CSS Secret 读书笔记之交互式的图片对比控件/</id>
+    <published>2016-09-25T16:00:00.000Z</published>
+    <updated>2016-09-26T12:50:45.385Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="交互式的图片对比控件">交互式的图片对比控件</h1><p>利用CSS可以模拟一种图片对比滑动控件，这个控件会把两张图片叠加起来，允许用户拖动分割条来控制这两张图片的显露区域。这种控件可以理解为两层结构：<br>下层是一张固定的图片，上层的图片则可以在水平方向上调整大小，从而能够显示下层的图片。<br>一般这种需求是可以利用JavaScript解决的。但是也可以利用下面这两种CSS方式。</p>
+<h2 id="resize方案"><code>resize</code>方案</h2><p>可以利用CSS3中的<code>resize</code>属性。这个属性就算没听说过，但是也肯定接触过它的行为，因为对于<code>&lt;textarea&gt;</code>元素来说，整个属性被默认设置为<code>both</code>，这就使得<code>&lt;textarea&gt;</code>元素在水平和垂直方向上是可以调整大小的。<br>对于任何一个<code>overflow</code>属性不是<code>visible</code>的元素来说，<code>resize</code>属性都是适用的。大部分元素<code>resize</code>属性的默认值是none，即禁止调整大小。该属性也接受<code>horizontal</code>和<code>vertical</code>来限制元素调整大小的方向。<br><a id="more"></a><br>搞清楚<code>resize</code>属性，问题就很好解决了。<br>首先想到的是两个img元素，但是直接对一个img元素应用<code>resize</code>会导致图片变形失真。这时候可以在它外面包裹一个div，然后对div设置<code>resize</code>进行大小调整。</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"image-slider"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"bad.jpg"</span> /&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"good.jpg"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>然后给元素设置一些基本的样式，并设置好对应div元素的<code>resize</code>属性值：</p>
+<pre><code><span class="class">.image-slider</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> inline-block</span></span>;
+}</span>
+<span class="class">.image-slider</span>&gt;<span class="tag">div</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>;<span class="rule"><span class="attribute">bottom</span>:<span class="value"><span class="number">0</span></span></span>;<span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40%</span></span></span>;  <span class="comment">/*初始宽度*/</span>
+    <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+    <span class="rule"><span class="attribute">resize</span>:<span class="value"> horizontal</span></span>;
+}</span>
+<span class="class">.image-slider</span> <span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;  <span class="comment">/*img是一种类似text的元素，在结束的时候，
+                        会在末尾加上一个空白符，所以就会多出3px 设置为block可解决*/</span>
+}</span>
+</code></pre><p>这时候的效果是这样的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-15-1.gif" alt=""><br>虽然在上层图片的右下角有一个调节的手柄，但是并不容易辨认。这时候可以利用一个伪元素，将其覆盖在初始的调节手柄之上。最后对伪元素进行美化：</p>
+<pre><code><span class="tag">image-slider</span>&gt;<span class="rule"><span class="attribute">div</span>:<span class="value">:before{
+    content: <span class="string">""</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">bottom</span>:<span class="value"><span class="number">0</span></span></span>;<span class="rule"><span class="attribute">right</span>:<span class="value"><span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">12px</span></span></span>;<span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">12px</span></span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">5px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(-<span class="number">45deg</span>,white <span class="number">50%</span>,transparent <span class="number">0</span>)</span></span>;
+    <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">0</span> <span class="number">0</span> <span class="number">2px</span> black)</span></span>;
+    <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">0</span> <span class="number">0</span> <span class="number">2px</span> black)</span></span>;
+    <span class="rule"><span class="attribute">background-clip</span>:<span class="value"> content-box</span></span>;
+    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> ew-resize</span></span>;
+}
+</code></pre><p><em><code>cursor: ew-resize</code>提供额外的自释性，可以提示用户这个区域可以进行水平方向的拖动</em></p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-15-2.gif" alt=""></p>
+<h2 id="范围输入控件方案">范围输入控件方案</h2><p>利用<code>resize</code>属性很简单就实现了我们的需求，但是这个方案有下面几个不足：</p>
+<ul>
+<li>利用<code>resize</code>方案对于键盘来说是不可访问的</li>
+<li>只能通过拖动来调整上层图片。用户不能点击到某个点来调整宽度。</li>
+<li>用户只能在上层图片的右上角进行大小的调整，有可能被用户忽略。</li>
+</ul>
+<p>为了解决上面三个问题，可以利用一点JS，将一个原生的滑动控件覆盖在图片上，用这个控件来控制上层图片的伸缩。<br>下面可以优化下HTML代码结构，通过JS来添加相应的元素和控件。</p>
+<pre><code>&lt;<span class="tag">div</span> class=<span class="string">"image-slider-2"</span>&gt;
+    &lt;<span class="tag">img</span> src=<span class="string">"bad.jpg"</span> /&gt;
+    &lt;<span class="tag">img</span> src=<span class="string">"good.jpg"</span> /&gt;
+&lt;/div&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="class">.image-slider-2</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> inline-block</span></span>;
+}</span>
+<span class="class">.image-slider-2</span> &gt; <span class="tag">div</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>;<span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+}</span>
+<span class="class">.image-slider-2</span> <span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+}</span>
+<span class="class">.image-slider-2</span> <span class="tag">input</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>; <span class="rule"><span class="attribute">bottom</span>:<span class="value"><span class="number">5px</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="comment">/*filter: contrast(.5);
+    mix-blend-mode: luminosity;*/</span>
+}</span>
+</code></pre><p>JS:</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> slider = <span class="built_in">document</span>.querySelector(<span class="string">'.image-slider-2'</span>);
+    <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);
+    slider.appendChild(div);
+    <span class="keyword">var</span> img = slider.querySelector(<span class="string">'img'</span>);
+    slider.insertBefore(img,div);
+    div.appendChild(img);
+    <span class="comment">//创建滑动控件</span>
+    <span class="keyword">var</span> range = <span class="built_in">document</span>.createElement(<span class="string">'input'</span>);
+    range.type = <span class="string">'range'</span>;
+    range.oninput = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        div.style.width = <span class="keyword">this</span>.value + <span class="string">'%'</span>;
+    }
+    slider.appendChild(range);
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p>最终效果如下：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-15-3.gif" alt=""></p>
+<blockquote>
+<p>最后真的希望雾霾问题能够解决，能够给后代留一个蓝天。</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="交互式的图片对比控件">交互式的图片对比控件</h1><p>利用CSS可以模拟一种图片对比滑动控件，这个控件会把两张图片叠加起来，允许用户拖动分割条来控制这两张图片的显露区域。这种控件可以理解为两层结构：<br>下层是一张固定的图片，上层的图片则可以在水平方向上调整大小，从而能够显示下层的图片。<br>一般这种需求是可以利用JavaScript解决的。但是也可以利用下面这两种CSS方式。</p>
+<h2 id="resize方案"><code>resize</code>方案</h2><p>可以利用CSS3中的<code>resize</code>属性。这个属性就算没听说过，但是也肯定接触过它的行为，因为对于<code>&lt;textarea&gt;</code>元素来说，整个属性被默认设置为<code>both</code>，这就使得<code>&lt;textarea&gt;</code>元素在水平和垂直方向上是可以调整大小的。<br>对于任何一个<code>overflow</code>属性不是<code>visible</code>的元素来说，<code>resize</code>属性都是适用的。大部分元素<code>resize</code>属性的默认值是none，即禁止调整大小。该属性也接受<code>horizontal</code>和<code>vertical</code>来限制元素调整大小的方向。<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret 读书笔记之模糊弱化背景&滚动提示]]></title>
@@ -3272,181 +3385,6 @@ console.log(<span class="literal">result</span>[<span class="string">"a"</span>]
 <span class="keyword">delete</span> <span class="built_in">window</span>.name;
 <span class="built_in">console</span>.log(<span class="built_in">window</span>.age);   <span class="comment">//22</span>
 <span class="built_in">console</span>.log(<span class="built_in">window</span>.name);  <span class="comment">//undefined</span>
-</code></pre>]]>
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[函数表达式]]></title>
-    <link href="http://blog.supce.com/2016/07/14/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%806/"/>
-    <id>http://blog.supce.com/2016/07/14/JavaScript之基础6/</id>
-    <published>2016-07-13T16:00:00.000Z</published>
-    <updated>2016-07-14T11:46:08.233Z</updated>
-    <content type="html"><![CDATA[<h1 id="闭包">闭包</h1><hr>
-<p>闭包，在JavaScript中很有意思。JavaScript是链式作用域，所以可以将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把内部的函数返回，通过返回的函数就能够读取到函数内部的变量。<br>于是，可以把闭包简单理解成定义在一个函数内部的函数，并且该内部函数访问了外部的变量。</p>
-<pre><code>console.log(<span class="string">"-----闭包-----"</span>);
-function <span class="function"><span class="title">fun</span><span class="params">()</span>{</span>
-    <span class="variable"><span class="keyword">var</span> a</span> = <span class="number">1</span>;
-    <span class="keyword">return</span> function f(){
-        console.log(a);
-    };
-}
-<span class="variable"><span class="keyword">var</span> result</span> = <span class="function"><span class="title">fun</span><span class="params">()</span><span class="params">()</span>;</span>
-</code></pre><a id="more"></a>
-<h2 id="闭包与变量">闭包与变量</h2><p>链式作用域会带来一个问题，在闭包中，取得的包含函数的变量，是其最终值。举个例子</p>
-<pre><code>console.log(<span class="string">"-----闭包与变量-----"</span>);
-function createFunctions(){
-    <span class="keyword">var</span> <span class="type">array</span> = new <span class="type">Array</span>();
-    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++){
-        <span class="type">array</span>[i] = function(){
-            <span class="keyword">return</span> i;
-        }
-    }
-    <span class="keyword">return</span> <span class="type">array</span>;
-}
-<span class="keyword">var</span> <span class="literal">result</span> = createFunctions();
-console.log(<span class="literal">result</span>[<span class="number">0</span>]());  //<span class="number">10</span>
-</code></pre><p>上面的例子中，得到的是10并不是0<br>可以通过建立一个匿名函数。并且立即执行该匿名函数来解决</p>
-<pre><code>function createFunctions(){
-    <span class="keyword">var</span> <span class="type">array</span> = new <span class="type">Array</span>();
-    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++){
-        <span class="type">array</span>[i] = function(num){
-            <span class="keyword">return</span> function(){
-                <span class="keyword">return</span> num;
-            }
-        }(i);
-    }
-    <span class="keyword">return</span> <span class="type">array</span>;
-}
-<span class="keyword">var</span> <span class="literal">result</span> = createFunctions();
-console.log(<span class="literal">result</span>[<span class="number">0</span>]());  //<span class="number">0</span>
-</code></pre><h2 id="关于this对象">关于this对象</h2><pre><code><span class="built_in">console</span>.log(<span class="string">"-----关于this对象-----"</span>);
-<span class="keyword">var</span> name = <span class="string">"The Windows"</span>;
-<span class="keyword">var</span> o = {
-    name : <span class="string">"The O"</span>,
-    getNameFun : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-            <span class="keyword">return</span> <span class="keyword">this</span>.name;
-        };
-    }
-}
-<span class="built_in">console</span>.log(o.getNameFun()());  <span class="comment">//The Windows</span>
-<span class="keyword">var</span> object = {
-    name : <span class="string">"The Object"</span>,
-    getNameFun : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-        <span class="keyword">var</span> that = <span class="keyword">this</span>;
-        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-            <span class="keyword">return</span> that.name;
-        };
-    }
-}
-<span class="built_in">console</span>.log(object.getNameFun()());  <span class="comment">//The Object</span>
-<span class="keyword">var</span> myObject = {
-    name :  <span class="string">"myObject"</span>,
-    getName : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-        <span class="keyword">return</span> <span class="keyword">this</span>.name;
-    }
-}
-<span class="built_in">console</span>.log(myObject.getName());
-<span class="built_in">console</span>.log((fun=myObject.getName)());  <span class="comment">//The Windows</span>
-</code></pre><h1 id="模仿块级作用域">模仿块级作用域</h1><p>JavaScript 没有块级作用域的概念。这意味着在块语句中定义的变量，实际上是在包含在函数中而非语句中创建的</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">fun</span><span class="params">(num)</span>{</span>
-    <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>;i&lt;num;i++)</span>{
-        <span class="comment">//do something</span>
-    }
-    console.<span class="built_in">log</span><span class="params">(i)</span>;
-}
-fun<span class="params">(<span class="number">5</span>)</span>;  <span class="comment">//5</span>
-</code></pre><p>可以看出变量i并不会如同在C++和Java等语言中，随着循环的结束而销毁，即便是重新声明，不初始化，也不会改变它的值。<br>可以利用匿名函数来膜（模？）仿块级作用域来解决这个问题</p>
-<pre><code><span class="list">(<span class="keyword">function</span><span class="list">()</span><span class="collection">{
-    //块级作用域
-}</span>)</span><span class="list">()</span><span class="comment">;</span>
-</code></pre><p>使用这种方式，可以限制向全局作用域中添加过多的变量和函数，同时减少闭包占用内存的问题。</p>
-<h1 id="私有变量">私有变量</h1><p>JavaScript中任何在函数中定义的变量，都可以认为是私有变量，因为不能在函数的外部访问这些变量，但是可以通过闭包来访问这些变量。私有变量包括函数的参数、局部变量和在函数内部定义的其他函数。</p>
-<pre><code>console.log(<span class="string">"---私有变量---"</span>);
-function <span class="keyword">Person</span>(name){
-    this.age = 22;
-    this.getName = function(){
-        return name;
-    };
-    this.setName = function(value){
-        name = value;
-    }
-}
-var <span class="keyword">person</span> = new <span class="keyword">Person</span>(<span class="string">"Nico"</span>);
-console.log(<span class="keyword">person</span>.age);         //22
-console.log(<span class="keyword">person</span>.name);        //undefined
-console.log(<span class="keyword">person</span>.getName());   //Nico
-</code></pre><p>上面的例子中有个问题，就是每个实例都会创建一组相同的方法。为了解决这个问题，可以使用静态私有变量。</p>
-<h2 id="静态私有变量">静态私有变量</h2><pre><code>console.log(<span class="string">"-----静态私有变量-----"</span>);
-(function(){
-    var name = <span class="string">""</span>;
-    <span class="keyword">Person</span> = function(value){
-        name = value;
-    }
-    <span class="keyword">Person</span>.prototype.getName = function(){
-        return name;
-    };
-    <span class="keyword">Person</span>.prototype.setName = function(value){
-        name = value;
-    }
-})();
-var staticPerson1 = new <span class="keyword">Person</span>(<span class="string">"Nico"</span>);
-var staticPerson2 = new <span class="keyword">Person</span>(<span class="string">"Sora"</span>);
-console.log(staticPerson1.getName());   //Sora
-</code></pre><p>这个例子中的 Person 构造函数与 getName() 和 setName()方法一样，都有权访问私有变量 name 。在这种模式下，变量 name就变成了一个静态的、由所有实例共享的属性。也就是说，在一个实例上调用 setName() 会影响所有实例。而调用 setName() 或新建一个 Person 实例都会赋予 name属性一个新值。结果就是所有实例都会返回相同的值。<br>以这种方式创建静态私有变量会因为使用原型而增进代码复用，但每个实例都没有自己的私有变量。</p>
-<h2 id="模块模式">模块模式</h2><p>模块模式主要是为单列创建私有变量和特权方法的。其语法如下：</p>
-<pre><code><span class="built_in">console</span>.log(<span class="string">"-----模块模式-----"</span>);
-<span class="keyword">var</span> single = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-    <span class="keyword">var</span> privateProperty = <span class="string">"private"</span>;
-    <span class="function"><span class="keyword">function</span> <span class="title">privateFun</span>(<span class="params"></span>)</span>{
-        <span class="keyword">return</span> <span class="string">"privateFun"</span>
-    };
-    <span class="keyword">return</span> {
-        publicProperty : <span class="string">"public"</span>,
-        publicFun : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-            <span class="keyword">return</span> <span class="string">"publicFun"</span>;
-        },
-        getPrivate : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-            <span class="keyword">return</span> privateProperty;
-        }
-    };
-}();
-<span class="built_in">console</span>.log(single.publicFun());   <span class="comment">//publicFun</span>
-<span class="built_in">console</span>.log(single.getPrivate());  <span class="comment">//private</span>
-</code></pre><p>模块模式使用了一个返回对象的匿名函数。在这个匿名函数内部，首先定义了私有变量和函数。然后，将一个对象字面量作为函数的值返回。返回的对象字面量中只包含可以公开的属性和方法。<br>由于这个对象是在匿名函数内部定义的，因此它的公有方法有权访问私有变量和函数。从本质上来讲，这个对象字面量定义的是单例的公共接口。这种模式在需要对单例进行某些初始化，同时又需要维护其私有变量时是非常有用的。例如：</p>
-<pre><code><span class="keyword">var</span> application = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-    <span class="keyword">var</span> components = <span class="keyword">new</span> <span class="built_in">Array</span>();   <span class="comment">//私有变量</span>
-    components.push(<span class="keyword">new</span> BaseComponent());  <span class="comment">//私有变量初始化</span>
-    <span class="comment">//公共方法</span>
-    <span class="keyword">return</span> {
-        getComponentCount : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-            <span class="keyword">return</span> components.length;
-        },
-        registerComponent : <span class="function"><span class="keyword">function</span>(<span class="params">component</span>)</span>{
-            <span class="keyword">if</span>(<span class="keyword">typeof</span> component == <span class="string">"object"</span>){
-                components.push(component);
-            }
-        }
-    };
-}();
-</code></pre><p>对于必须创建一个对象并以某些数据对其进行初始化，同时还要公开一些能够访问这些私有数据的方法，适合模块模式。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="闭包">闭包</h1><hr>
-<p>闭包，在JavaScript中很有意思。JavaScript是链式作用域，所以可以将函数内部与函数外部连接起来。由于在Javascript中，只有函数内部的子函数才能读取函数内部的变量，因此可以把内部的函数返回，通过返回的函数就能够读取到函数内部的变量。<br>于是，可以把闭包简单理解成定义在一个函数内部的函数，并且该内部函数访问了外部的变量。</p>
-<pre><code>console.log(<span class="string">"-----闭包-----"</span>);
-function <span class="function"><span class="title">fun</span><span class="params">()</span>{</span>
-    <span class="variable"><span class="keyword">var</span> a</span> = <span class="number">1</span>;
-    <span class="keyword">return</span> function f(){
-        console.log(a);
-    };
-}
-<span class="variable"><span class="keyword">var</span> result</span> = <span class="function"><span class="title">fun</span><span class="params">()</span><span class="params">()</span>;</span>
 </code></pre>]]>
     
     </summary>
