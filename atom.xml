@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-10-01T13:31:30.640Z</updated>
+  <updated>2016-10-09T12:25:32.015Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,331 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之水平居中&垂直居中]]></title>
+    <link href="http://blog.supce.com/2016/10/09/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD&%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD/"/>
+    <id>http://blog.supce.com/2016/10/09/CSS Secret 读书笔记之水平居中&垂直居中/</id>
+    <published>2016-10-08T16:00:00.000Z</published>
+    <updated>2016-10-09T12:25:32.015Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="水平居中">水平居中</h1><h2 id="行内元素">行内元素</h2><p>对于<code>&lt;span&gt;</code> <code>img</code> <code>&lt;input&gt;</code>等行内元素，只需要给父元素设置<code>text-align: center</code></p>
+<h2 id="定宽块级元素">定宽块级元素</h2><p>对于<code>div</code> <code>p</code> 等块级元素，如果是定宽，只需要给该元素设置左右<code>margin</code>为<code>auto</code></p>
+<h2 id="不定宽块级元素">不定宽块级元素</h2><ul>
+<li>方法一：改变块级元素<code>display</code>为<code>inline</code>或者<code>inline-block</code>，然后设置父元素<code>text-align</code>为<code>center</code></li>
+</ul>
+<a id="more"></a>
+<p>比如：</p>
+<pre><code>&lt;div&gt;
+    &lt;ul&gt;
+        &lt;<span class="keyword">li</span>&gt;<span class="keyword">test</span> <span class="keyword">one</span>&lt;/<span class="keyword">li</span>&gt;
+    &lt;/ul&gt;
+    &lt;ul&gt;
+        &lt;<span class="keyword">li</span>&gt;<span class="keyword">test</span> <span class="keyword">one</span>&lt;/<span class="keyword">li</span>&gt;
+        &lt;<span class="keyword">li</span>&gt;<span class="keyword">test</span> <span class="keyword">two</span>&lt;/<span class="keyword">li</span>&gt;
+    &lt;/ul&gt;
+    &lt;ul&gt;
+        &lt;<span class="keyword">li</span>&gt;<span class="keyword">test</span> <span class="keyword">one</span>&lt;/<span class="keyword">li</span>&gt;
+        &lt;<span class="keyword">li</span>&gt;<span class="keyword">test</span> <span class="keyword">two</span>&lt;/<span class="keyword">li</span>&gt;
+        &lt;<span class="keyword">li</span>&gt;<span class="keyword">test</span> three&lt;/<span class="keyword">li</span>&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="tag">div</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">500px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> dashed <span class="hexcolor">#333</span></span></span>;
+}</span>
+<span class="tag">ul</span><span class="rules">{
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">5px</span></span></span>;
+    <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+}</span>
+<span class="tag">li</span><span class="rules">{
+    <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#333</span></span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> inline</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-01.jpg" alt=""></p>
+<p><em>这种方法虽然实现了居中，但是会导致块级元素功能的缺失，上面例子中已经无法给li设置宽和高（虽然可以利用margin和padding产生视觉上的宽和高）当然也可以直接设置li为inline-block</em></p>
+<ul>
+<li>方法二：通过给父元素设置float，然后父元素设置position:relative和left:50%，子元素设置position:relative和left:-50%来实现水平居中。</li>
+</ul>
+<p>其基本原理如下：</p>
+<p>1、没有浮动的div：大家都知道div是一个块元素，其默认的宽度就是100%：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-02.jpg" alt=""><br>2、如果div设置了浮动之后，他的内容有多宽度就会撑开有多大的容器（除了显式设置元素宽度值）：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-03.jpg" alt=""><br>3、设置ul浮动到左侧：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-04.jpg" alt=""><br>4、然后设置ul的position为relative，让其在原来的位置右移50%(left:50%)<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-05.jpg" alt=""><br>5、最后我们在li上设置<code>position:relative</code>，但其移动的方向和ul移动的方向刚好是反方向，而其移动的值保持一致:<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-06.jpg" alt=""></p>
+<p>保持HTML不变CSS代码如下：</p>
+<pre><code><span class="tag">div</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">500px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> dashed <span class="hexcolor">#333</span></span></span>;
+}</span>
+<span class="tag">ul</span><span class="rules">{
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">5px</span></span></span>;
+    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;  <span class="comment">/*清除浮动*/</span>
+}</span>
+<span class="tag">li</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">2px</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> -<span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#333</span></span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-07.jpg" alt=""></p>
+<ul>
+<li>方法三：在元素外加入table标签（包括 table、tbody、tr、td），该元素写在 td 内，然后设置左右margin的值为auto</li>
+</ul>
+<blockquote>
+<p>在CSS Secret 读书笔记之结构与布局(一)中知道，如果是默认的自动表格布局算法，单元格的宽度是根据内容的宽度来进行分配的，这恰好是使用该方法的前提。</p>
+</blockquote>
+<p>HTML:</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">table</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tbody</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">td</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">li</span>&gt;</span>test one<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">li</span>&gt;</span>test two<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">li</span>&gt;</span>test three<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+                    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">tbody</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">table</span>&gt;</span>    
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>CSS:</p>
+<pre><code><span class="tag">div</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">500px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> dashed <span class="hexcolor">#333</span></span></span>;
+    }</span>
+    <span class="tag">table</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+    }</span>
+    <span class="tag">ul</span><span class="rules">{
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">5px</span></span></span>;
+        <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
+    }</span>
+    <span class="tag">li</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">2px</span></span></span>;
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#333</span></span></span>;
+    }</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-08.jpg" alt=""></p>
+<hr>
+<h1 id="垂直居中">垂直居中</h1><p>1、对于父元素高度不确定的文本，图片和块级元素：：<br>设置父元素的上下内边距相同。<br>HTML: </p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"parent one"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"centered"</span>&gt;
+        &lt;h3&gt;this <span class="keyword">is</span> a test&lt;/h3&gt;
+        &lt;p&gt;this <span class="keyword">div</span> <span class="keyword">is</span> centered&lt;/p&gt;
+    &lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="class">.parent</span><span class="rules">{
+    <span class="rule"><span class="attribute">padding-top</span>:<span class="value"> <span class="number">50px</span></span></span>;
+    <span class="rule"><span class="attribute">padding-bottom</span>:<span class="value"> <span class="number">50px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#ccc</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#c0c0c0</span></span></span>;
+}</span>
+<span class="class">.centered</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">20em</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="hexcolor">#a0a0a0</span> solid <span class="number">1px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#f5f5f5</span></span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-09.jpg" alt=""></p>
+<p>2、对于父元素高度确定的单行文本：<br>设置父元素的<code>height</code>与<code>line-height</code>两个属性的值相同。</p>
+<p><em>当<code>line-height</code>的值大于<code>font-size</code>时，会将大于的部分平均分配到文字的上下两端</em></p>
+<p>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"single_line"</span>&gt;
+    this <span class="keyword">is</span> a test. 
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="class">.single_line</span><span class="rules">{
+    <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">15px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">40px</span></span></span>;
+    <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid black</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-10.jpg" alt=""></p>
+<p>3、对于多行文本：<br>设置父元素display为table，要被居中的元素display为table-cell和vertical-algin为middle<br>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"out"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"in"</span>&gt;
+        这是一个多行文本，这是一个多行文本，这是一个多行文本
+    &lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="class">.out</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">250px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#ccc</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#c0c0c0</span></span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> table</span></span>;
+}</span>
+<span class="class">.in</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> table-cell</span></span>;
+    <span class="rule"><span class="attribute">vertical-align</span>:<span class="value"> middle</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-11.jpg" alt=""></p>
+<p>4、inline-block方法：<br>设置元素<code>display:inline-block;</code> <code>vertical-align:middle</code>，为父元素设置after伪元素，将伪元素的display和vertical属性分别设置为inline-block和middle，最后设置伪元素高度与父元素高度相同(<code>height:100%</code>)</p>
+<p><em>由于行内框的高度是由最高的行内框决定的，设置伪元素高度与父元素高度一致，然后利用vertical-algin即可</em></p>
+<p>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"container one"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"centered-one centered"</span>&gt;
+        &lt;h1&gt;this <span class="keyword">is</span> a test&lt;/h1&gt;
+        &lt;p&gt;this <span class="keyword">div</span> <span class="keyword">is</span> centered&lt;/p&gt;
+    &lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="class">.container</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">250px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#ccc</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#c0c0c0</span></span></span>;
+}</span>
+<span class="class">.centered</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">20em</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="hexcolor">#a0a0a0</span> solid <span class="number">1px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#f5f5f5</span></span></span>;
+}</span>
+<span class="class">.centered-one</span>,<span class="rule"><span class="attribute">.one</span>:<span class="value">after{
+    display: inline-block</span></span>;
+    <span class="rule"><span class="attribute">vertical-align</span>:<span class="value"> middle</span></span>;
+}
+<span class="rule"><span class="attribute">.one</span>:<span class="value">after{
+    content: <span class="string">''</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-12.jpg" alt=""></p>
+<p>5、对于宽高确定的元素：</p>
+<p>方法一：利用绝对定位<br>设置父元素的position为relative，设置要垂直居中的元素position为absolute，top和bottom为0，上下外边距为auto。</p>
+<blockquote>
+<p>元素在过度受限情况下，将margin设置为auto，浏览器会重算margin的值，过度受限指的是同时设置top/bottom与height或者left/right与width</p>
+</blockquote>
+<p>计算公式为：</p>
+<blockquote>
+<p>‘top’ + ‘margin-top’ + ‘border-top-width’ + ‘padding-top’ + ‘height’ + ‘padding-bottom’ + ‘border-bottom-width’ + ‘margin-bottom’ + ‘bottom’ = 包含块的高度，在其他值不是auto的时候，margin-top和margin-bottom是可以根据上式算出的</p>
+</blockquote>
+<p>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"container two"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"centered-two centered"</span>&gt;
+        &lt;h1&gt;this <span class="keyword">is</span> a test&lt;/h1&gt;
+        &lt;p&gt;this <span class="keyword">div</span> <span class="keyword">is</span> centered&lt;/p&gt;
+    &lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="class">.container</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">250px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#ccc</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#c0c0c0</span></span></span>;
+}</span>
+<span class="class">.centered</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">20em</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="hexcolor">#a0a0a0</span> solid <span class="number">1px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#f5f5f5</span></span></span>;
+}</span>
+<span class="class">.two</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+}</span>
+<span class="class">.centered-two</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">150px</span></span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>; <span class="rule"><span class="attribute">bottom</span>:<span class="value"><span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value">auto <span class="number">0</span></span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-13.jpg" alt=""></p>
+<p>方法二：利用负边距<br>设置父元素的position为relative，设置要垂直居中的元素position为absolute，top为50%，margin-top为高度的一般。</p>
+<p><em>通过设置top为50%，将元素的左上角放在父元素的垂直中心，在利用margin-top为高度的一半，将元素的垂直中心与父元素的垂直中心重合</em></p>
+<p>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"container three"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"centered-three centered"</span>&gt;
+        &lt;h1&gt;this <span class="keyword">is</span> a test&lt;/h1&gt;
+        &lt;p&gt;this <span class="keyword">div</span> <span class="keyword">is</span> centered&lt;/p&gt;
+    &lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="class">.container</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">250px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#ccc</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#c0c0c0</span></span></span>;
+}</span>
+<span class="class">.centered</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">20em</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="hexcolor">#a0a0a0</span> solid <span class="number">1px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#f5f5f5</span></span></span>;
+}</span>
+<span class="class">.three</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+}</span>
+<span class="class">.centered-three</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">150px</span></span></span>;
+    <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> -<span class="number">75px</span></span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-14.jpg" alt=""></p>
+<blockquote>
+<p>如果想要水平也居中，可以同时设置left为50%，margin-left为负的宽度的一半。</p>
+</blockquote>
+<p>如果支持CSS3的话，为了增强自适应性，可以使用<code>translateY()</code>变形函数，这个函数支持百分比。<br>修改CSS代码如下：</p>
+<pre><code><span class="class">.centered-three</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="comment">/*width: 300px;
+    height: 150px;
+    margin-top: -75px;*/</span>
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">20em</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">10em</span></span></span>;
+    <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(-<span class="number">50%</span>)</span></span>;
+}</span>
+</code></pre><blockquote>
+<p>想要水平垂直居中，可以同时设置<code>left:50%</code>,<code>transform:transform(-50%,-50%)</code></p>
+</blockquote>
+<p>6、Flex布局<br>这个比较简单<br>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"container four"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"centered-four centered"</span>&gt;
+        &lt;h1&gt;this <span class="keyword">is</span> a test&lt;/h1&gt;
+        &lt;p&gt;this <span class="keyword">div</span> <span class="keyword">is</span> centered&lt;/p&gt;
+    &lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="class">.four</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+    <span class="rule"><span class="attribute">align-items</span>:<span class="value"> center</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-15.jpg" alt=""></p>
+<p>如果想要水平垂直居中，只需修改CSS代码如下：</p>
+<pre><code><span class="class">.four</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+    <span class="comment">/*align-items: center;*/</span>
+}</span>
+<span class="class">.centered-four</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-18-16.jpg" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="水平居中">水平居中</h1><h2 id="行内元素">行内元素</h2><p>对于<code>&lt;span&gt;</code> <code>img</code> <code>&lt;input&gt;</code>等行内元素，只需要给父元素设置<code>text-align: center</code></p>
+<h2 id="定宽块级元素">定宽块级元素</h2><p>对于<code>div</code> <code>p</code> 等块级元素，如果是定宽，只需要给该元素设置左右<code>margin</code>为<code>auto</code></p>
+<h2 id="不定宽块级元素">不定宽块级元素</h2><ul>
+<li>方法一：改变块级元素<code>display</code>为<code>inline</code>或者<code>inline-block</code>，然后设置父元素<code>text-align</code>为<code>center</code></li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret 读书笔记之结构与布局(二)]]></title>
@@ -1918,116 +2243,6 @@ body{
   </entry>
   
   <entry>
-    <title><![CDATA[CSS Secret 读书笔记之伪随机背景&图像边框]]></title>
-    <link href="http://blog.supce.com/2016/09/16/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BC%AA%E9%9A%8F%E6%9C%BA%E8%83%8C%E6%99%AF&%E5%9B%BE%E5%83%8F%E8%BE%B9%E6%A1%86/"/>
-    <id>http://blog.supce.com/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/</id>
-    <published>2016-09-15T16:00:00.000Z</published>
-    <updated>2016-09-16T13:34:24.303Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
-<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
-body{
-    display: flex<span class="comment">;</span>
-    flex-flow: row wrap<span class="comment">;</span>
-    justify-content: space-around<span class="comment">;</span>
-}
-div{
-    margin: 20px 20px<span class="comment">;</span>
-    padding: 0<span class="comment">;</span>
-    min-width: 20em<span class="comment">;</span>
-    min-height: 6em<span class="comment">;</span>
-}
-.rb-a{
-    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
-    background-size: 80px 100%<span class="comment">;</span>
-}
-</code></pre><a id="more"></a>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-1.jpg" alt=""><br>从效果图中可以看出这个背景图的重复规律非常明显，每水平80px就会重复一次。<br>这时候可以考虑另一种思路：<br>把这组条纹从一个平面图拆散为多个图层，一种颜色作为底色，另外三种颜色作为条纹，然后再让条纹以不同的间隔进行重复平铺，同时利用<code>background-size</code>控制条纹的间距。</p>
-<pre><code>background: hsl(<span class="number">20</span>,<span class="number">40</span>%,<span class="number">90</span>%);
-background-image: linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#fb3 <span class="number">10</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#ab4 <span class="number">20</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#<span class="number">655</span> <span class="number">20</span>px,transparent <span class="number">0</span>);</span>
-background-size: <span class="number">80</span>px <span class="number">100</span>%,<span class="number">60</span>px <span class="number">100</span>%,<span class="number">40</span>px <span class="number">100</span>%;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-2.jpg" alt=""><br>随机的效果好了很多，但是仔细观察会发现每隔240px像素就会重复一次，且240正好是40 60 80 的最小公倍数。<br>如果我们将背景的宽度设置为质数，那么它们的最小公倍数就会很大，当大于屏幕宽度时就可以在视觉上满足随机背景了。于是将背景的宽度修改一下</p>
-<pre><code>background: hsl(<span class="number">20</span>,<span class="number">40</span>%,<span class="number">90</span>%);
-background-image: linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#fb3 <span class="number">11</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#ab4 <span class="number">23</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#<span class="number">655</span> <span class="number">41</span>px,transparent <span class="number">0</span>);</span>
-background-size: <span class="number">41</span>px <span class="number">100</span>%,<span class="number">61</span>px <span class="number">100</span>%,<span class="number">83</span>px <span class="number">100</span>%;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-3.jpg" alt=""><br>这时候的最小公倍数为41<em>61</em>83=207583，已经可以满足我们的需求了。</p>
-<hr>
-<h1 id="图像边框">图像边框</h1><p>图片经常作为容器的背景，但是有时候想把一副图片作为边框。也就是说一张图片被剪裁到边框所在的方形环状区域。同时，也希望图片能够随着元素的大小进行缩放并完整的覆盖边框的区域。<br>但是<code>border-image</code>是一种九宫格伸缩法，将图片裁剪为九块，放到边框所对应的变和角，显然是不符合我们的要求的。<br>可以尝试设置元素的背景色为白色，然后给元素外部嵌套一个父元素，并设置背景为图片。</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"border-test"</span>&gt;
-    &lt;<span class="keyword">div</span>&gt;this <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a test
-    this <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a test&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-.border-test{
-    background: url(stone-art.jpg);
-    background-size: cover;
-    padding: <span class="number">.5</span>em;
-}
-.border-test &gt; <span class="keyword">div</span>{
-    background: white;
-    padding: <span class="number">1</span>em;
-}
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-4.jpg" alt=""><br>在强迫症的作用下，并不想嵌套一个父元素，就得换一个思路了。<br>首先设置元素的背景为图片，然后在背景图之上叠加一层纯色的实色背景。设置背景边框为透明，并且为两层背景指定不同的<code>background-clip</code>的值。由于只能在多重背景的最底层设置背景色，因此需要用一道从白色过渡到白色的CSS渐变来模拟出纯白色背景的效果。</p>
-<pre><code>&lt;div class=<span class="string">"border-a"</span>&gt;<span class="keyword">this</span> is a testthis is a testthis is a testthis is a testthis is a testthis is a testthis is a test&lt;/div&gt;
-.border-a,.border-b{
-    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">20</span>em;
-    <span class="built_in">max</span>-<span class="variable">height</span>: <span class="number">10</span>em;
-    padding: <span class="number">1</span>em;
-    border: <span class="number">1</span>em solid transparent;
-}
-.border-a{
-    <span class="built_in">background</span>: linear-gradient(white,white),
-                url(stone-art.jpg);
-    <span class="built_in">background</span>-<span class="built_in">size</span>: cover; 
-    <span class="built_in">background</span>-clip: padding-<span class="built_in">box</span>,border-<span class="built_in">box</span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-5.jpg" alt=""><br><code>background-origin</code> 属性规定 <code>background-position</code> 属性相对于什么位置来定位。其默认值为<code>padding-box</code>，因此边框的图片出现了奇怪的拼接效果。于是添加一条属性：<br><code>background-origin: border-box;</code><br>就可以到达下面这个结果了：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-7.jpg" alt=""></p>
-<p>既然可以使用渐变那就可以模拟更多的边框效果了~ 比如下面这种：</p>
-<pre><code>background: linear-gradient(white,white) padding-box,
-                repeating-linear-gradient(-<span class="number">45</span>deg,red <span class="number">0</span>,red <span class="number">12.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">25</span>%,<span class="preprocessor">#<span class="number">58</span>a <span class="number">0</span>,</span>
-                    <span class="preprocessor">#<span class="number">58</span>a <span class="number">37.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">50</span>%) <span class="number">0</span> <span class="number">0</span> / <span class="number">4</span>em <span class="number">4</span>em;</span>
-</code></pre><p>一种漂亮的信封效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-8.jpg" alt=""></p>
-<p>当然，也可以给边框添加动画。</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> ants </span>{<span class="tag">to</span> <span class="rules">{<span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">100%</span>}}
-.border-c{
-    border: <span class="number">1px</span> solid transparent</span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(white,white) padding-box,
-                <span class="function">repeating-linear-gradient</span>(-<span class="number">45deg</span>,black <span class="number">0</span>,black <span class="number">25%</span>,white <span class="number">0</span>,white <span class="number">50%</span>) <span class="number">0</span> <span class="number">0</span> / .<span class="number">6em</span> .<span class="number">6em</span></span></span>;
-    <span class="rule"><span class="attribute">animation</span>:<span class="value"> ants <span class="number">12s</span> ease-out infinite</span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-9.jpg" alt=""><br>可惜图片看不出动画效果了。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
-<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
-body{
-    display: flex<span class="comment">;</span>
-    flex-flow: row wrap<span class="comment">;</span>
-    justify-content: space-around<span class="comment">;</span>
-}
-div{
-    margin: 20px 20px<span class="comment">;</span>
-    padding: 0<span class="comment">;</span>
-    min-width: 20em<span class="comment">;</span>
-    min-height: 6em<span class="comment">;</span>
-}
-.rb-a{
-    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
-    background-size: 80px 100%<span class="comment">;</span>
-}
-</code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[CSS Secret 读书笔记之条纹背景&复杂背景]]></title>
     <link href="http://blog.supce.com/2016/09/16/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%9D%A1%E7%BA%B9%E8%83%8C%E6%99%AF&%E5%A4%8D%E6%9D%82%E8%83%8C%E6%99%AF/"/>
     <id>http://blog.supce.com/2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/</id>
@@ -2167,6 +2382,116 @@ background-position: <span class="number">0</span> <span class="number">0</span>
 </code></pre>]]></content>
     <summary type="html">
     <![CDATA[<h1 id="条纹背景">条纹背景</h1><p>通常条纹背景是由一个图片来代替，或者使用SVG。能不能利用CSS直接创建条纹图案呢，答案是肯定的。<br>假设背景是垂直线性渐变。比如：<code>background:linear-gradient(#fb3,#58a);</code><br>效果是这个样子的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-1.jpg" alt=""><br>如果让渐变区域变的更窄，产生一个无限小的渐变区域，比如：<code>background:linear-gradient(#fb3 50%,#58a 50%);</code> 就可以得到想要的结果了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-2.jpg" alt=""><br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之伪随机背景&图像边框]]></title>
+    <link href="http://blog.supce.com/2016/09/16/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BC%AA%E9%9A%8F%E6%9C%BA%E8%83%8C%E6%99%AF&%E5%9B%BE%E5%83%8F%E8%BE%B9%E6%A1%86/"/>
+    <id>http://blog.supce.com/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/</id>
+    <published>2016-09-15T16:00:00.000Z</published>
+    <updated>2016-09-16T13:34:24.303Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
+<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
+body{
+    display: flex<span class="comment">;</span>
+    flex-flow: row wrap<span class="comment">;</span>
+    justify-content: space-around<span class="comment">;</span>
+}
+div{
+    margin: 20px 20px<span class="comment">;</span>
+    padding: 0<span class="comment">;</span>
+    min-width: 20em<span class="comment">;</span>
+    min-height: 6em<span class="comment">;</span>
+}
+.rb-a{
+    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
+    background-size: 80px 100%<span class="comment">;</span>
+}
+</code></pre><a id="more"></a>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-1.jpg" alt=""><br>从效果图中可以看出这个背景图的重复规律非常明显，每水平80px就会重复一次。<br>这时候可以考虑另一种思路：<br>把这组条纹从一个平面图拆散为多个图层，一种颜色作为底色，另外三种颜色作为条纹，然后再让条纹以不同的间隔进行重复平铺，同时利用<code>background-size</code>控制条纹的间距。</p>
+<pre><code>background: hsl(<span class="number">20</span>,<span class="number">40</span>%,<span class="number">90</span>%);
+background-image: linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#fb3 <span class="number">10</span>px,transparent <span class="number">0</span>),</span>
+                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#ab4 <span class="number">20</span>px,transparent <span class="number">0</span>),</span>
+                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#<span class="number">655</span> <span class="number">20</span>px,transparent <span class="number">0</span>);</span>
+background-size: <span class="number">80</span>px <span class="number">100</span>%,<span class="number">60</span>px <span class="number">100</span>%,<span class="number">40</span>px <span class="number">100</span>%;
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-2.jpg" alt=""><br>随机的效果好了很多，但是仔细观察会发现每隔240px像素就会重复一次，且240正好是40 60 80 的最小公倍数。<br>如果我们将背景的宽度设置为质数，那么它们的最小公倍数就会很大，当大于屏幕宽度时就可以在视觉上满足随机背景了。于是将背景的宽度修改一下</p>
+<pre><code>background: hsl(<span class="number">20</span>,<span class="number">40</span>%,<span class="number">90</span>%);
+background-image: linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#fb3 <span class="number">11</span>px,transparent <span class="number">0</span>),</span>
+                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#ab4 <span class="number">23</span>px,transparent <span class="number">0</span>),</span>
+                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#<span class="number">655</span> <span class="number">41</span>px,transparent <span class="number">0</span>);</span>
+background-size: <span class="number">41</span>px <span class="number">100</span>%,<span class="number">61</span>px <span class="number">100</span>%,<span class="number">83</span>px <span class="number">100</span>%;
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-3.jpg" alt=""><br>这时候的最小公倍数为41<em>61</em>83=207583，已经可以满足我们的需求了。</p>
+<hr>
+<h1 id="图像边框">图像边框</h1><p>图片经常作为容器的背景，但是有时候想把一副图片作为边框。也就是说一张图片被剪裁到边框所在的方形环状区域。同时，也希望图片能够随着元素的大小进行缩放并完整的覆盖边框的区域。<br>但是<code>border-image</code>是一种九宫格伸缩法，将图片裁剪为九块，放到边框所对应的变和角，显然是不符合我们的要求的。<br>可以尝试设置元素的背景色为白色，然后给元素外部嵌套一个父元素，并设置背景为图片。</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"border-test"</span>&gt;
+    &lt;<span class="keyword">div</span>&gt;this <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a test
+    this <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a test&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+.border-test{
+    background: url(stone-art.jpg);
+    background-size: cover;
+    padding: <span class="number">.5</span>em;
+}
+.border-test &gt; <span class="keyword">div</span>{
+    background: white;
+    padding: <span class="number">1</span>em;
+}
+</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-4.jpg" alt=""><br>在强迫症的作用下，并不想嵌套一个父元素，就得换一个思路了。<br>首先设置元素的背景为图片，然后在背景图之上叠加一层纯色的实色背景。设置背景边框为透明，并且为两层背景指定不同的<code>background-clip</code>的值。由于只能在多重背景的最底层设置背景色，因此需要用一道从白色过渡到白色的CSS渐变来模拟出纯白色背景的效果。</p>
+<pre><code>&lt;div class=<span class="string">"border-a"</span>&gt;<span class="keyword">this</span> is a testthis is a testthis is a testthis is a testthis is a testthis is a testthis is a test&lt;/div&gt;
+.border-a,.border-b{
+    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">20</span>em;
+    <span class="built_in">max</span>-<span class="variable">height</span>: <span class="number">10</span>em;
+    padding: <span class="number">1</span>em;
+    border: <span class="number">1</span>em solid transparent;
+}
+.border-a{
+    <span class="built_in">background</span>: linear-gradient(white,white),
+                url(stone-art.jpg);
+    <span class="built_in">background</span>-<span class="built_in">size</span>: cover; 
+    <span class="built_in">background</span>-clip: padding-<span class="built_in">box</span>,border-<span class="built_in">box</span>;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-5.jpg" alt=""><br><code>background-origin</code> 属性规定 <code>background-position</code> 属性相对于什么位置来定位。其默认值为<code>padding-box</code>，因此边框的图片出现了奇怪的拼接效果。于是添加一条属性：<br><code>background-origin: border-box;</code><br>就可以到达下面这个结果了：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-7.jpg" alt=""></p>
+<p>既然可以使用渐变那就可以模拟更多的边框效果了~ 比如下面这种：</p>
+<pre><code>background: linear-gradient(white,white) padding-box,
+                repeating-linear-gradient(-<span class="number">45</span>deg,red <span class="number">0</span>,red <span class="number">12.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">25</span>%,<span class="preprocessor">#<span class="number">58</span>a <span class="number">0</span>,</span>
+                    <span class="preprocessor">#<span class="number">58</span>a <span class="number">37.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">50</span>%) <span class="number">0</span> <span class="number">0</span> / <span class="number">4</span>em <span class="number">4</span>em;</span>
+</code></pre><p>一种漂亮的信封效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-8.jpg" alt=""></p>
+<p>当然，也可以给边框添加动画。</p>
+<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> ants </span>{<span class="tag">to</span> <span class="rules">{<span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">100%</span>}}
+.border-c{
+    border: <span class="number">1px</span> solid transparent</span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(white,white) padding-box,
+                <span class="function">repeating-linear-gradient</span>(-<span class="number">45deg</span>,black <span class="number">0</span>,black <span class="number">25%</span>,white <span class="number">0</span>,white <span class="number">50%</span>) <span class="number">0</span> <span class="number">0</span> / .<span class="number">6em</span> .<span class="number">6em</span></span></span>;
+    <span class="rule"><span class="attribute">animation</span>:<span class="value"> ants <span class="number">12s</span> ease-out infinite</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-9.jpg" alt=""><br>可惜图片看不出动画效果了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
+<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
+body{
+    display: flex<span class="comment">;</span>
+    flex-flow: row wrap<span class="comment">;</span>
+    justify-content: space-around<span class="comment">;</span>
+}
+div{
+    margin: 20px 20px<span class="comment">;</span>
+    padding: 0<span class="comment">;</span>
+    min-width: 20em<span class="comment">;</span>
+    min-height: 6em<span class="comment">;</span>
+}
+.rb-a{
+    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
+    background-size: 80px 100%<span class="comment">;</span>
+}
+</code></pre>]]>
     
     </summary>
     
@@ -3289,71 +3614,6 @@ console.<span class="built_in">log</span><span class="params">(element.childNode
 <li>包含在 HTML 元素中的文本是文本节点 </li>
 <li>每一个 HTML 属性是一个属性节点 </li>
 <li>注释属于注释节点]]>
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[客户端检测]]></title>
-    <link href="http://blog.supce.com/2016/07/23/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%809/"/>
-    <id>http://blog.supce.com/2016/07/23/JavaScript之基础9/</id>
-    <published>2016-07-22T16:00:00.000Z</published>
-    <updated>2016-07-23T13:06:33.961Z</updated>
-    <content type="html"><![CDATA[<p>不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。</p>
-<hr>
-<h1 id="能力检测_(特性检测)">能力检测 (特性检测)</h1><p>能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。</p>
-<pre><code><span class="keyword">if</span>(<span class="class"><span class="keyword">object</span>.<span class="title">someProperty</span>){</span>
-    <span class="comment">//do something</span>
-}
-</code></pre><a id="more"></a>
-<pre><code><span class="comment">//确定浏览器是否具有DOM1级规定的能力</span>
-<span class="keyword">var</span> hasDOM1 = !!(<span class="built_in">document</span>.getElementById &amp;&amp; <span class="built_in">document</span>.createElement &amp;&amp; <span class="built_in">document</span>.getElementsByTagName);
-<span class="built_in">console</span>.log(hasDOM1);
-</code></pre><p><em>能力检测作为确定下一步解决方案的依据，而不是用它来判断用户使用的是什么浏览器。</em></p>
-<hr>
-<h1 id="怪癖(quirk)检测">怪癖(quirk)检测</h1><p>怪癖检测主要是想知道浏览器存在哪些缺陷，通常会运行一小段代码，以确定浏览器的某个特性不能正常工作。<br>比如：IE8及更早版本与其他浏览器处理空白字符的方式不一样，IE9之前的版本不会为空白符创建节点</p>
-<pre><code><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"test"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> myList = <span class="built_in">document</span>.getElementById(<span class="string">"test"</span>);
-    <span class="keyword">var</span> copyList = myList.cloneNode(<span class="literal">true</span>);
-    <span class="built_in">console</span>.log(copyList.childNodes.length); 
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre><p>上面的代码中，IE&lt;9时，长度为3，而其他浏览器为7</p>
-<p>IE7及以下版本有一个有意思的怪癖：name特性与给定ID匹配的表单元素（<code>&lt;input&gt;,&lt;textarea&gt;,&lt;button&gt;及&lt;select&gt;</code>）也会被该方法返回</p>
-<pre><code><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">"myElement"</span> <span class="attribute">value</span>=<span class="value">"Text"</span> /&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span>&gt;</span>div<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    alert(<span class="built_in">document</span>.getElementById(<span class="string">"myElement"</span>));
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre><p>IE&lt;8返回的是<code>input</code>,其他浏览器返回的为<code>div</code></p>
-<p>还有书上的一个例子：IE8及更早版本中存在一个bug，即如果某个实例属性与[[Enumerable]]标记为false的某个原型属性同名，那么该实例属性将不会出现在for—in循环当中<br>。</p>
-<hr>
-<h1 id="用户代理检测">用户代理检测</h1><p>用户代理检测主要是用来检测用户具体是什么浏览器、什么呈现引擎(内核)、什么版本、什么平台。<br>常见的浏览器内核分别为：</p>
-<ul>
-<li>Gecko (Firefox)</li>
-<li>WebKit (Safari)</li>
-<li>Blink (Opera Chrome)</li>
-<li>Trident (IE)<br><em>括号内为对应的浏览器</em></li>
-</ul>
-<blockquote>
-<p>完整的用户代理检测脚本在高级程序第九章中，这里就不贴了</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。</p>
-<hr>
-<h1 id="能力检测_(特性检测)">能力检测 (特性检测)</h1><p>能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。</p>
-<pre><code><span class="keyword">if</span>(<span class="class"><span class="keyword">object</span>.<span class="title">someProperty</span>){</span>
-    <span class="comment">//do something</span>
-}
-</code></pre>]]>
     
     </summary>
     
