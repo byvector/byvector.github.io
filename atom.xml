@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-10-09T12:25:32.015Z</updated>
+  <updated>2016-10-10T12:58:20.596Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,170 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之缓动效果]]></title>
+    <link href="http://blog.supce.com/2016/10/10/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%BC%93%E5%8A%A8%E5%8A%A8%E7%94%BB/"/>
+    <id>http://blog.supce.com/2016/10/10/CSS Secret 读书笔记之缓动动画/</id>
+    <published>2016-10-09T16:00:00.000Z</published>
+    <updated>2016-10-10T12:58:20.596Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="弹跳动画">弹跳动画</h1><p>在现实世界里，物体的移动往往不是匀速的。因此，给动画和过渡加上缓动效果会使界面显得更加真实。<br>回弹是一种常用的缓动效果，对回弹的过程进行分析会发现，回弹就是当一个过渡达到最终值时，往回倒一点，然后再次回到最终值，如此往复一次或者多次，并逐渐收敛。最终稳定在终值。<br>回弹往往会用在有尺寸变化的元素上，比如对于页面弹出框，先放大再缩小。下面就利用回弹模拟一个下落的弹性小球。</p>
+<p>HTML：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"ball_bg"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"ball ball-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><a id="more"></a>
+<p>CSS:</p>
+<pre><code><span class="class">.ball_bg</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">30px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">330px</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> skyblue</span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(skyblue,white <span class="number">320px</span>,yellowgreen <span class="number">0</span>)</span></span>;
+}</span>
+<span class="class">.ball</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> red</span></span>;  <span class="comment">/*平稳回退*/</span>
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">radial-gradient</span>(at <span class="number">30%</span> <span class="number">30%</span>,<span class="hexcolor">#fdd</span>,red)</span></span>;   
+}</span>
+<span class="at_rule">@<span class="keyword">keyframes</span> bounce-a</span>{
+    60%,80%,<span class="tag">to</span> <span class="rules">{
+        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(<span class="number">300px</span>)</span></span>;
+    }</span>
+    70% <span class="rules">{<span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(<span class="number">200px</span>)</span></span>;}</span>
+    90% <span class="rules">{<span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(<span class="number">250px</span>)</span></span>;}</span>
+}
+<span class="class">.ball-a</span><span class="rules">{
+    <span class="rule"><span class="attribute">animation</span>:<span class="value"> bounce-a <span class="number">3s</span> forwards</span></span>;
+}</span>
+</code></pre><p>迫不及待地刷新页面:</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-19-1.gif" alt=""><br>但是实际的效果令人很失望，小球的移动显得很不真实。这是由于默认的调速函数时这样的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-19-02.jpg" alt=""><br>还有四种内置的缓动曲线如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-19-03.jpg" alt=""><br>如上图，ease-in和ease-out是相反的版本。这对组合正好满足回弹效果：小球的运动相反时，调速函数也是相反的。于是，修改上面的代码：</p>
+<pre><code><span class="class">.ball-a</span><span class="rules">{
+    <span class="comment">/*animation: bounce-a 3s forwards;*/</span>
+    <span class="rule"><span class="attribute">animation</span>:<span class="value"> bounce-a <span class="number">3s</span> ease-in forwards</span></span>;
+}</span>
+<span class="at_rule">@<span class="keyword">keyframes</span> bounce-a</span>{
+    60%,80%,<span class="tag">to</span> <span class="rules">{
+        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(<span class="number">300px</span>)</span></span>;
+        <span class="rule"><span class="attribute">animation-timing-function</span>:<span class="value"> ease-out</span></span>;
+    }</span>
+    70% <span class="rules">{<span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(<span class="number">200px</span>)</span></span>;}</span>
+    90% <span class="rules">{<span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(<span class="number">250px</span>)</span></span>;}</span>
+}
+</code></pre><p>效果会真是很多：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-19-4.gif" alt=""></p>
+<p>上面提到的五种曲线都是通过三次贝塞尔曲线来指定的。这种曲线由一定数量的路径片段组成，每个片段的每一端由一个锚点来控制曲率。在CSS的调速函数中，都是只有一个片段的贝塞尔曲线，因此调速函数只有两个控制曲率的锚点。</p>
+<p>为了对预定义的曲线进行补充，CSS提供了<code>cubic-bezier()</code>函数，允许开发者指定自定义的调速函数。该函数接收四个参数，分别表示两个控制锚点的坐标值。<br>比如：<code>cubic-bezier(x1,y1,x2,y2)</code>，则(x1,y1)表示第一个锚点坐标，(x2,y2)表示第二个锚点坐标。曲线片段的两端分别固定在(0,0)和(1,1)，因此参数的取值范围为[0-1]<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-19-05.jpg" alt=""><br>我们也可以利用chrome或者<a href="http://cubic-bezier.com/" target="_blank" rel="external">图形化工具</a>来设置这四个参数使过渡更加逼真。</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-19-06.jpg" alt=""></p>
+<hr>
+<h1 id="弹性过渡">弹性过渡</h1><p>弹性过渡通常用在表单登录的提示框上，下面模拟一个文本输入框，每当它被聚焦时，都需要展示一个提示框。这个提示框用来向用户提示格式等信息。<br>首先是HTML:</p>
+<pre><code>&lt;label&gt;password:&lt;/label&gt;
+&lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"pwd"</span>&gt;
+    &lt;input <span class="class"><span class="keyword">type</span>=</span><span class="string">"text"</span> value=<span class="string">"your password"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"uname-b"</span>&gt;
+    &lt;span <span class="class"><span class="keyword">class</span>=</span><span class="string">"callout-b callout"</span>&gt;
+    <span class="type">Only</span> letters, numbers, underscores (_) and hyphens (-) allowed!
+    &lt;/span&gt;
+&lt;/div&gt;
+</code></pre><p>然后添加样式，先用动画模拟上面提到的效果：</p>
+<pre><code><span class="class">.name</span>,<span class="class">.pwd</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+}</span>
+<span class="class">.callout</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">178px</span></span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">20em</span></span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> .<span class="number">6em</span> .<span class="number">8em</span></span></span>;
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> .<span class="number">4em</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#fb3</span></span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> <span class="number">80%</span>/<span class="number">1</span> sans-serif</span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">3</span>)</span></span>;
+    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> .<span class="number">05em</span> .<span class="number">2em</span> .<span class="number">6em</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">2</span>)</span></span>;
+}</span>
+<span class="rule"><span class="attribute">.callout</span>:<span class="value">before{
+    content: <span class="string">""</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> .<span class="number">4em</span></span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> -.<span class="number">5em</span></span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> .<span class="number">4em</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> inherit</span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> inherit</span></span>;
+    <span class="rule"><span class="attribute">border-top</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">border-right</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(<span class="number">45deg</span>)</span></span>;
+    <span class="comment">/*border: 1em solid transparent;
+    border-right-color: #fb3;
+    border-left-width: 0;*/</span>
+}
+<span class="at_rule">@<span class="keyword">keyframes</span> elastic-grow</span>{
+    <span class="tag">from</span> <span class="rules">{<span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">scale</span>(<span class="number">0</span>)</span></span>;}</span>
+    70% <span class="rules">{
+        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">scale</span>(<span class="number">1.1</span>)</span></span>;
+        <span class="rule"><span class="attribute">animation-timing-function</span>:<span class="value"> <span class="function">cubic-bezier</span>(.<span class="number">1</span>,.<span class="number">25</span>,.<span class="number">1</span>,.<span class="number">25</span>)</span></span>;
+    }</span>
+}
+<span class="rule"><span class="attribute">.uname-b</span>:<span class="value"><span class="function">not</span>(:focus) + .callout-b{
+    transform: <span class="function">scale</span>(<span class="number">0</span>)</span></span>;
+}
+<span class="rule"><span class="attribute">.uname-b</span>:<span class="value">focus + .callout-b{
+    animation: elastic-grow .<span class="number">5s</span></span></span>;
+}
+<span class="class">.callout-b</span><span class="rules">{
+    <span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> <span class="number">0%</span> <span class="number">10%</span></span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-19-7.gif" alt=""><br>虽然用动画可以模拟出刚开始的需求，但是有种大材小用的感觉，那么就换一个思路，利用上节所提到的过渡来增加弹性的效果。<br>这个思路主要还是利用<code>cubic-bezier()</code>，由上节知道x1,x2只能在区间[0-1]上取值。但是我们可以在垂直方向上突破0-1区间，从而让过渡达到低于0或者高于100%的程度。这就意味着在从scale(0)变形到scale(1)的过程中，可以在中间经历一个scale(1.1)。<br>在上面的代码中，要增加弹性效果，只需要把调速函数先达到110%，再过渡到100%，利用上节所提到的可视化工具，把第二个锚点向上移，跳到<code>cubic-bezier(.25,.1,.3,1.5)</code>的程度。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-19-08.jpg" alt=""><br>如上图，这个过渡会在50%的时间点到达100%，在70%达到110%，在最后回到100%。<br>我们为了便于对比，重新写一个demo<br>HTML：</p>
+<pre><code>&lt;label&gt;username:&lt;/label&gt;
+&lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"name"</span>&gt;
+    &lt;input <span class="class"><span class="keyword">type</span>=</span><span class="string">"text"</span> value=<span class="string">"your name"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"uname-a"</span>&gt;
+    &lt;span <span class="class"><span class="keyword">class</span>=</span><span class="string">"callout-a callout"</span>&gt;
+    只允许字母、数字、下划线(_)和连字符(-)
+    &lt;/span&gt;
+&lt;/div&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="rule"><span class="attribute">.uname-a</span>:<span class="value"><span class="function">not</span>(:focus) + .callout-a{
+    transform: <span class="function">scale</span>(<span class="number">0</span>)</span></span>;
+}
+<span class="class">.callout-a</span><span class="rules">{
+    <span class="rule"><span class="attribute">transition</span>:<span class="value"> .<span class="number">5s</span> <span class="function">cubic-bezier</span>(.<span class="number">25</span>,.<span class="number">1</span>,.<span class="number">3</span>,<span class="number">1.5</span>)</span></span>;
+    <span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> <span class="number">0%</span> <span class="number">10%</span></span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-19-9.gif" alt=""></p>
+<p>仔细观察会发现，提示框在弹出的时候没问题，但是当失去焦点消失时，这个过程会将原来的110%变形(scale(1.1))解析为scale(-0.1)，造成视觉上是从原始大小(scale(1))到消失(scale(-0.1))然后再稍微放大些，最后再消失(scale(0))。</p>
+<p>要解决这个问题，只需要在失去焦点的时候，把调速函数覆盖为ease。</p>
+<p>修改代码：</p>
+<pre><code>.uname-a:not(:focus) + .callout-a{
+    transform: scale(<span class="number">0</span>);
+    transition-timing-<span class="function"><span class="keyword">function</span><span class="type">: ease</span></span>;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-19-10.gif" alt=""></p>
+<p>但是稍微有些强迫症的人可能会发现，提示框关闭的动作要比弹出时慢一些。这是因为提示框弹出时在进行到50%(即250ms)就已经达到100%，而提示框的关闭过程需要500ms。这时候只需要显示的指定<code>transition-duration</code>即可。</p>
+<pre><code>.uname-a:not(:focus) + .callout-a{
+    transform: scale(<span class="number">0</span>);
+    transition-timing-<span class="function"><span class="keyword">function</span><span class="type">: ease</span></span>;
+    transition-duration: <span class="number">.25</span>s;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-19-11.gif" alt=""></p>
+<p>问题完美解决~</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="弹跳动画">弹跳动画</h1><p>在现实世界里，物体的移动往往不是匀速的。因此，给动画和过渡加上缓动效果会使界面显得更加真实。<br>回弹是一种常用的缓动效果，对回弹的过程进行分析会发现，回弹就是当一个过渡达到最终值时，往回倒一点，然后再次回到最终值，如此往复一次或者多次，并逐渐收敛。最终稳定在终值。<br>回弹往往会用在有尺寸变化的元素上，比如对于页面弹出框，先放大再缩小。下面就利用回弹模拟一个下落的弹性小球。</p>
+<p>HTML：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"ball_bg"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"ball ball-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret 读书笔记之水平居中&垂直居中]]></title>
@@ -3354,266 +3518,6 @@ element.insertAdjacentHTML<span class="params">(<span class="string">"beforebegi
 </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
 </code></pre></li>
 </ul>]]>
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[DOM(一)]]></title>
-    <link href="http://blog.supce.com/2016/07/24/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8010/"/>
-    <id>http://blog.supce.com/2016/07/24/JavaScript之基础10/</id>
-    <published>2016-07-23T16:00:00.000Z</published>
-    <updated>2016-07-24T12:31:16.805Z</updated>
-    <content type="html"><![CDATA[<hr>
-<p>DOM是document object model的缩写，即：文档对象模型。DOM将HTML和XML描述为一个具有层次结构的节点树。DOM作为一个接口，可以对HTML或者XML进行添加，删除和修改。<br>根据 DOM，HTML 文档中的每个成分都是一个节点。DOM 是这样规定的： </p>
-<ul>
-<li>整个文档是一个文档节点 </li>
-<li>每个 HTML 标签是一个元素节点 </li>
-<li>包含在 HTML 元素中的文本是文本节点 </li>
-<li>每一个 HTML 属性是一个属性节点 </li>
-<li>注释属于注释节点<a id="more"></a>
-</li>
-</ul>
-<h1 id="节点类型">节点类型</h1><p>JavaScript中总共有12种节点类型，这些节点类型全部继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法。<br>节点类型有在Node类型中定义的12个数值常量来表示：</p>
-<pre><code>Node<span class="class">.ELEMENT_NODE</span> (<span class="number">1</span>)
-Node<span class="class">.ATTRIBUTE_NODE</span> (<span class="number">2</span>)
-Node<span class="class">.TEXT_NODE</span> (<span class="number">3</span>)
-Node<span class="class">.CDATA_SECTION_NODE</span> (<span class="number">4</span>)
-Node<span class="class">.ENTITY_REFERENCE_NODE</span> (<span class="number">5</span>)
-Node<span class="class">.ENTITY_NODE</span> (<span class="number">6</span>)
-Node<span class="class">.PROCESSING_INSTRUCTION_NODE</span> (<span class="number">7</span>)
-Node<span class="class">.COMMENT_NODE</span> (<span class="number">8</span>)
-Node<span class="class">.DOCUMENT_NODE</span> (<span class="number">9</span>)
-Node<span class="class">.DOCUMENT_TYPE_NODE</span> (<span class="number">10</span>)
-Node<span class="class">.DOCUMENT_FRAGMENT_NODE</span> (<span class="number">11</span>)
-Node<span class="class">.NOTATION_NODE</span> (<span class="number">12</span>)
-</code></pre><h2 id="常用属性">常用属性</h2><h3 id="nodeType属性">nodeType属性</h3><p>每个节点都有一个nodeType属性，可以确定节点的类型。</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"test"</span>&gt;<span class="keyword">div</span>&lt;/<span class="keyword">div</span>&gt;
-var test = document.getElementById(<span class="string">"test"</span>);
-<span class="keyword">if</span>(test.nodeType == <span class="number">1</span>){
-    console.<span class="command">log</span>(<span class="string">"This node is an element"</span>);
-}
-</code></pre><h3 id="nodeName属性">nodeName属性</h3><p>nodeName属性保存的是元素的标签名</p>
-<pre><code>&lt;div id=<span class="string">"test"</span>&gt;div&lt;/div&gt;
-<span class="keyword">var</span> <span class="keyword">test</span> = document.getElementById(<span class="string">"test"</span>);
-<span class="keyword">if</span>(<span class="keyword">test</span>.nodeType == 1){
-    console.<span class="literal">log</span>(<span class="keyword">test</span>.nodeName);  <span class="comment">//DIV</span>
-}
-</code></pre><h2 id="节点关系">节点关系</h2><p>节点的关系类似于家谱。<br>每个节点都有一个childNodes属性来表示子节点，其中保存着一个NodeList对象。NodeList 是一种类数组对象，用于保存一组有序的节点，可以通过位置或者<code>item()</code>方法来访问这些节点。</p>
-<pre><code><span class="variable"><span class="keyword">var</span> firstChild</span> = someNode.childNodes[<span class="number">0</span>];
-<span class="variable"><span class="keyword">var</span> secondChild</span> = someNode.childNodes.item(<span class="number">2</span>);
-<span class="variable"><span class="keyword">var</span> length</span> = someNode.childNodes.length;
-</code></pre><p><em>请注意，虽然可以通过方括号语法来访问 NodeList 的值，而且这个对象也有 length 属性，但它并不是 Array 的实例。可以通过一个函数把它转换为数组</em></p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">convert2Array</span><span class="params">(nodes)</span></span>{
-    <span class="keyword">try</span>{
-        <span class="keyword">return</span> <span class="keyword">Array</span>.prototype.slice.call(nodes,<span class="number">0</span>);
-    }<span class="keyword">catch</span>(ex){
-        <span class="keyword">var</span> <span class="keyword">array</span> = [];
-        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;nodes.length;i++){
-            <span class="keyword">array</span>[i] = nodes[i];
-        }
-        <span class="keyword">return</span> <span class="keyword">array</span>;
-    }
-}
-console.log(convert2Array({length:<span class="number">2</span>,<span class="number">0</span>:<span class="string">'first'</span>,<span class="number">1</span>:<span class="string">'second'</span>})); <span class="comment">//["first", "second"]</span>
-</code></pre><p>还有一些其他关系</p>
-<ul>
-<li>parentNode 父节点</li>
-<li>previousSibling 该节点的前一个兄弟节点</li>
-<li>nextSibling 该节点的后一个兄弟节点</li>
-</ul>
-<h2 id="节点操作">节点操作</h2><h3 id="appendChild()">appendChild()</h3><p>该方法用于向childNodes列表末尾添加一个节点。返回值为新增的节点。比如：</p>
-<pre><code>&lt;ul id=<span class="string">"list"</span>&gt;
-    &lt;<span class="keyword">li</span>&gt;item1&lt;/<span class="keyword">li</span>&gt;
-    &lt;<span class="keyword">li</span>&gt;item2&lt;/<span class="keyword">li</span>&gt;
-&lt;/ul&gt;
-<span class="keyword">var</span> <span class="keyword">list</span> = document.getElementById(<span class="string">"list"</span>);
-<span class="keyword">var</span> item = document.createElement(<span class="string">"li"</span>);
-item.appendChild(document.createTextNode(<span class="string">"itme3"</span>));
-<span class="keyword">list</span>.appendChild(item);   <span class="comment">//向ul中添加了一个li</span>
-</code></pre><p>如果传入到 appendChild() 中的节点已经是文档的一部分了，那结果就是将该节点从原来的位置转移到新位置。比如将item1与item2互换：</p>
-<pre><code>&lt;ul id=<span class="string">"list"</span>&gt;
-    &lt;<span class="keyword">li</span>&gt;item1&lt;/<span class="keyword">li</span>&gt;
-    &lt;<span class="keyword">li</span>&gt;item2&lt;/<span class="keyword">li</span>&gt;
-&lt;/ul&gt;
-<span class="keyword">var</span> <span class="keyword">list</span> = document.getElementById(<span class="string">"list"</span>);
-<span class="keyword">var</span> item = <span class="keyword">list</span>.childNodes[1];  <span class="comment">//0为空白文本节点</span>
-<span class="keyword">list</span>.appendChild(item);
-</code></pre><p>有时候，空白文本几点会影响操作，可以写一个函数把空白文本节点删除。</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">cleanWhitespace</span><span class="params">(element)</span>{</span>   
-    <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>; i&lt;element.childNodes.length; i++)</span>   
-    {   
-        var node = element.childNodes[i];   
-        <span class="keyword">if</span><span class="params">(node.nodeType == <span class="number">3</span> &amp;&amp; !/\S/.test<span class="params">(node.nodeValue)</span>)</span>   
-        {   
-            node.parentNode.removeChild<span class="params">(node)</span>;   
-        }   
-    }   
-} 
-</code></pre><h3 id="insertBefore()">insertBefore()</h3><p>这个方法接受两个参数：要插入的节点和作为参照的节点。插入节点后，被插入的节点会变成参照节点的前一个同胞节点(previousSibling)，同时被方法返回。如果参照节点是null则<code>insertBefore()</code>与<code>appendChild()</code>执行相同的操作。比如在item1前面插入item0：</p>
-<pre><code>&lt;ul id=<span class="string">"list"</span>&gt;
-    &lt;<span class="keyword">li</span>&gt;item1&lt;/<span class="keyword">li</span>&gt;
-    &lt;<span class="keyword">li</span>&gt;item2&lt;/<span class="keyword">li</span>&gt;
-&lt;/ul&gt;
-<span class="keyword">var</span> <span class="keyword">list</span> = document.getElementById(<span class="string">"list"</span>);
-<span class="keyword">var</span> item = document.createElement(<span class="string">"li"</span>);
-item.appendChild(document.createTextNode(<span class="string">"item0"</span>));
-<span class="keyword">list</span>.insertBefore(item,<span class="keyword">list</span>.firstChild);
-</code></pre><h3 id="replaceChild()">replaceChild()</h3><p><code>replaceChild()</code>方法接收两个参数：要插入的节点和要替换的节点。要替换的节点将由这个方法返回并从文档树中被移除，同时由要插入的节点占据其位置。</p>
-<h3 id="removeChild()">removeChild()</h3><p><code>removeChild()</code>方法为移除某个节点，参数为要移除的节点</p>
-<h3 id="cloneNode()">cloneNode()</h3><p>该方法用于复制调用该方法的节点，接收两个参数。</p>
-<ul>
-<li>当参数为true时，复制该节点和该节点下的整个子节点树</li>
-<li>当参数为false时，只复制当前节点本身</li>
-</ul>
-<p><em>详细介绍可以参考上篇文章</em></p>
-<h3 id="normalize()">normalize()</h3><p>这个方法唯一的作用就是处理文档树中的文本节点。由于解析器的实现或DOM操作等原因，可能会出现文本节点不包含文本，或者接连出现两个文本节点的情况。当在某个节点上调用这个方法时，就会在该节点的后代节点中查找上述两种情况。如果找到了空文本节点，则删除它；如果找到相邻的文本节点，则将它们合并为一个文本节点。</p>
-<hr>
-<h1 id="Document类型">Document类型</h1><p>Document类型表示文档。而我们常用的document对象是HTMLDocument(继承自Document类型)的一个实例。document对象也是window对象的一个属性，因此可以将其作为全局的对象来访问。</p>
-<h2 id="document对象的常用属性">document对象的常用属性</h2><ul>
-<li>documentElement属性用来获取页面中的<code>&lt;html&gt;</code>元素 </li>
-<li><p>body属性可以直接获取页面中的<code>body</code>元素 </p>
-<pre><code><span class="tag">var</span> <span class="tag">body</span> = document.body
-</code></pre></li>
-<li><p>doctype属性可以获取对<code>&lt;!DOCTYPE&gt;</code>的引用</p>
-<pre><code>console.log(document.doctype); //<span class="doctype">&lt;!DOCTYPE html&gt;</span>
-</code></pre></li>
-<li><p>title属性可以获取网页的<code>&lt;title&gt;</code>元素</p>
-<pre><code><span class="comment">//获取title</span>
-<span class="keyword">var</span> title = <span class="built_in">document</span>.title;
-<span class="comment">//设置title</span>
-<span class="built_in">document</span>.title = <span class="string">"new title"</span>;
-</code></pre></li>
-<li><p>URL属性可以获取当前页面完整的url</p>
-</li>
-<li>domain属性可以获取当前页面的域名</li>
-</ul>
-<p>比如google首页：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/dom.jpg-blogImg" alt=""></p>
-<h2 id="document对象的常用方法">document对象的常用方法</h2><p>在开发过程中，经常需要取得摸个元素的引用，再执行某些操作。Document类型为此提供了两个方法。</p>
-<ul>
-<li><code>getElementById()</code>参数为元素的ID名<br><em>IE8 及较低版本不区分 ID 的大小写。如果页面中多个元素的 ID 值相同， getElementById() 只返回文档中第一次出现的元素</em></li>
-<li><p><code>getElementsByTagName()</code>参数为元素的标签名，在HTML文档中该方法返回的是包含零个或多个元素的HTMLCollection对象。</p>
-<pre><code>&lt;img src=<span class="string">"#1"</span> name=<span class="string">"user_name"</span>&gt;
-&lt;img src=<span class="string">"#2"</span> name=<span class="string">"user_age"</span>&gt;
-&lt;img src=<span class="string">"#3"</span> name=<span class="string">"user_sex"</span>&gt;
-<span class="comment">//获取页面中所有的&lt;img&gt;元素</span>
-var images = document.getElementsByTagName<span class="params">(<span class="string">"img"</span>)</span>;
-<span class="comment">//获取长度</span>
-console.<span class="built_in">log</span><span class="params">(images.length)</span>;
-<span class="comment">//通过索引获取src</span>
-console.<span class="built_in">log</span><span class="params">(images[<span class="number">0</span>].src)</span>;
-<span class="comment">//通过name获取src</span>
-console.<span class="built_in">log</span><span class="params">(images[<span class="string">"user_age"</span>].src)</span>;
-</code></pre></li>
-<li><p><code>getElementsByName()</code>这个方法会返回带有给定name特性的所有元素。</p>
-</li>
-</ul>
-<h2 id="特殊集合">特殊集合</h2><p>除了属性和方法，document对象还有一些特殊的集合。这些集合都是 HTMLCollection 对象，为访问文档常用的部分提供了快捷方式。</p>
-<table>
-<thead>
-<tr>
-<th>集合</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>document.anchors</td>
-<td>包含文档中所有带 name 特性的 <code>&lt;a&gt;</code> 元素；</td>
-</tr>
-<tr>
-<td>document.forms</td>
-<td>包含文档中所有的 <code>&lt;form&gt;</code> 元素</td>
-</tr>
-<tr>
-<td>document.images</td>
-<td>包含文档中所有的 <code>&lt;img&gt;</code> 元素</td>
-</tr>
-<tr>
-<td>document.links</td>
-<td>包含文档中所有带href特性的 <code>&lt;a&gt;</code> 元素</td>
-</tr>
-</tbody>
-</table>
-<h2 id="文档写入">文档写入</h2><p><code>write()</code>和<code>writeln()</code><br>这两个方法都会接受一个字符串参数。在页面被加载的过程中，可以使用这两个方法向页面中动态地加入内容。<code>writeln()</code>方法会在写入末尾添加一个换行符。</p>
-<pre><code>current date and <span class="tag">time</span> is :
-&lt;script type=<span class="string">"text/javascript"</span>&gt;
-    document.<span class="function"><span class="title">write</span><span class="params">(<span class="string">"&lt;p&gt;"</span> + (new Date()</span></span>).<span class="function"><span class="title">toString</span><span class="params">()</span></span> +<span class="string">"&lt;/p&gt;"</span>)
-&lt;/script&gt;
-</code></pre><hr>
-<h1 id="Element类型">Element类型</h1><p>Element类型提供了对元素标签名、子节点及特性的访问。常见的属性为<code>id,title,classname</code>等</p>
-<h2 id="元素的创建">元素的创建</h2><p>可以通过<code>document.createElement()</code>方法创建新元素。比如创建一个<code>div</code>元素</p>
-<pre><code><span class="keyword">var</span> <span class="keyword">div</span> = document.createElement(<span class="variable">"div"</span>);
-</code></pre><h2 id="元素特性的相关操作">元素特性的相关操作</h2><h3 id="取得特性">取得特性</h3><p><code>getAttribute()</code>方法来取得属性值。</p>
-<pre><code>&lt;div id=<span class="string">"my_test_div"</span> class=<span class="string">"div_class"</span> title=<span class="string">"div_title"</span> align=<span class="string">"left"</span>&gt;&lt;/div&gt;
-var div = document.getElementById<span class="params">(<span class="string">"my_test_div"</span>)</span>;
-console.<span class="built_in">log</span><span class="params">(div.getAttribute<span class="params">(<span class="string">"id"</span>)</span>)</span>;  <span class="comment">//或者div.id</span>
-console.<span class="built_in">log</span><span class="params">(div.getAttribute<span class="params">(<span class="string">"class"</span>)</span>)</span>;<span class="comment">//或者div.class</span>
-console.<span class="built_in">log</span><span class="params">(div.getAttribute<span class="params">(<span class="string">"title"</span>)</span>)</span>;<span class="comment">//或者div.title</span>
-console.<span class="built_in">log</span><span class="params">(div.getAttribute<span class="params">(<span class="string">"align"</span>)</span>)</span>;<span class="comment">//或者div.align</span>
-</code></pre><p>通过<code>getAttribute()</code>方法也可以取得自定义特性的值，以下面的元素为例：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"my_test_div"</span> my_special_attribute=<span class="string">"hello!"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>这个元素包含一个名为 my_special_attribute 的自定义特性，它的值是 “hello!” 。可以像取得其他特性一样取得这个值:</p>
-<pre><code><span class="keyword">var</span> value = <span class="keyword">div</span>.getAttribute(<span class="variable">"my_special_attribute"</span>);
-</code></pre><h3 id="设置特性">设置特性</h3><p><code>setAttribute()</code>用于设置特性，这个方法接受两个参数：要设置的特性名和<br>值。如果特性已经存在，<code>setAttribute()</code>会以指定的值替换现有的值；如果特性不存在，<code>setAttribute()</code>则创建该属性并设置相应的值。</p>
-<pre><code>&lt;<span class="keyword">div</span> id=<span class="variable">"my_test_div"</span> &gt;&lt;/<span class="keyword">div</span>&gt;
-<span class="keyword">var</span> <span class="keyword">div</span> = document.getElementById(<span class="variable">"my_test_div"</span>);
-<span class="keyword">div</span>.setAttribute(<span class="variable">"class"</span>,<span class="variable">"div_class"</span>);//或者<span class="keyword">div</span>.class=<span class="variable">"div_class"</span>
-<span class="keyword">div</span>.setAttribute(<span class="variable">"title"</span>,<span class="variable">"div_title"</span>);//或者<span class="keyword">div</span>.title=<span class="variable">"div_title"</span>
-<span class="keyword">div</span>.setAttribute(<span class="variable">"align"</span>,<span class="variable">"right"</span>);//或者<span class="keyword">div</span>.align=<span class="variable">"right"</span>
-</code></pre><h3 id="删除特性">删除特性</h3><p><code>removeAttribute()</code>，这个方法用于彻底删除元素的特性。调用这个方法不仅会清除特性的值，而且也会从元素中完全删除特性。</p>
-<h2 id="元素子节点">元素子节点</h2><blockquote>
-<p>元素子节点部分见节点关系部分。</p>
-</blockquote>
-<hr>
-<h1 id="Text类型">Text类型</h1><p>正如之前用到过的例子中，有时候需要向文档树中添加文本节点。<br>文本节点由Text类型表示，包含的是可以照字面解释的纯文本内容。纯文本中可以包含转义后的HTML字符，但不能包含HTML代码。<br>在默认情况下，每个可以包含内容的元素最多只能有一个文本节点，而且必须确实有内容存在。</p>
-<pre><code>&lt;<span class="keyword">div</span>&gt;&lt;/<span class="keyword">div</span>&gt;<span class="comment">//没有内容，没有文本节点</span>
-&lt;<span class="keyword">div</span>&gt; &lt;/<span class="keyword">div</span>&gt;<span class="comment">//有空格，有一个文本节点</span>
-&lt;<span class="keyword">div</span>&gt;hello world!&lt;/<span class="keyword">div</span>&gt;<span class="comment">//有内容，有一个文本节点</span>
-</code></pre><p>可以获取文本节点的引用并利用<code>nodeValue</code>修改它。</p>
-<pre><code><span class="keyword">var</span> textNode = <span class="keyword">div</span>.firstChild;
-textNode.nodeValue = <span class="variable">"this is a test"</span>;
-</code></pre><p>如果没有文本节点，可以创建一个文本节点，并插入到元素中</p>
-<pre><code><span class="keyword">var</span> element = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);
-element.className = <span class="string">"test"</span>;
-<span class="keyword">var</span> text = <span class="built_in">document</span>.createTextNode(<span class="string">"hello world"</span>);
-element.appendChild(text);
-<span class="built_in">document</span>.body.appendChild(element);
-</code></pre><p>DOM文档中存在相邻的同胞文本节点很容易导致混乱，因为分不清哪个文本节点表示哪个字符串。另外，DOM文档中出现相邻文本节点的情况也不在少数，于是就催生了一个能够将相邻文本节点合并的方法<code>normalize()</code>。<br>这个方法是由 Node类型定义的。如果在一个包含两个或多个文本节点的父元素上调用<code>normalize()</code>方法，则会将所有文本节点合并成一个节点，结果节点的<code>nodeValue</code> 等于将合并前每个文本节点的<code>nodeValue</code>值拼接起来的值。比如：</p>
-<pre><code>var element = document.createElement<span class="params">(<span class="string">"div"</span>)</span>;
-element.className = <span class="string">"message"</span>;
-var textNode = document.createTextNode<span class="params">(<span class="string">"Hello world!"</span>)</span>;
-element.appendChild<span class="params">(textNode)</span>;
-var anotherTextNode = document.createTextNode<span class="params">(<span class="string">"Nico!"</span>)</span>;
-element.appendChild<span class="params">(anotherTextNode)</span>;
-document.body.appendChild<span class="params">(element)</span>;
-console.<span class="built_in">log</span><span class="params">(element.childNodes.length)</span>; <span class="comment">//2</span>
-element.normalize<span class="params">()</span>;
-console.<span class="built_in">log</span><span class="params">(element.childNodes.length)</span>; <span class="comment">//1</span>
-console.<span class="built_in">log</span><span class="params">(element.firstChild.nodeValue)</span>; <span class="comment">// "Hello world!Nico!"</span>
-</code></pre><p>Text 类型提供了一个作用与<code>normalize()</code>相反的方法:<code>splitText()</code>。<br>这个方法会将一个文本节点分成两个文本节点，即按照指定的位置分割<code>nodeValue</code>值。原来的文本节点将包含从开始到指定位置之前的内容，新文本节点将包含剩下的文本。这个方法会返回一个新文本节点，该节点与原节点的<code>parentNode</code>相同。</p>
-<pre><code>var element = document.createElement<span class="params">(<span class="string">"div"</span>)</span>;
-element.className = <span class="string">"test"</span>;
-var <span class="built_in">text</span> = document.createTextNode<span class="params">(<span class="string">"Nico&amp;Sora"</span>)</span>;
-element.appendChild<span class="params">(text)</span>;
-document.body.appendChild<span class="params">(element)</span>;
-var newNode = element.childNodes[<span class="number">0</span>].splitText<span class="params">(<span class="number">4</span>)</span>;
-console.<span class="built_in">log</span><span class="params">(element.childNodes[<span class="number">0</span>].nodeValue)</span>;  <span class="comment">//Nico</span>
-console.<span class="built_in">log</span><span class="params">(newNode.nodeValue)</span>;  <span class="comment">//&amp;Sora</span>
-console.<span class="built_in">log</span><span class="params">(element.childNodes.length)</span>; <span class="comment">//2</span>
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<p>DOM是document object model的缩写，即：文档对象模型。DOM将HTML和XML描述为一个具有层次结构的节点树。DOM作为一个接口，可以对HTML或者XML进行添加，删除和修改。<br>根据 DOM，HTML 文档中的每个成分都是一个节点。DOM 是这样规定的： </p>
-<ul>
-<li>整个文档是一个文档节点 </li>
-<li>每个 HTML 标签是一个元素节点 </li>
-<li>包含在 HTML 元素中的文本是文本节点 </li>
-<li>每一个 HTML 属性是一个属性节点 </li>
-<li>注释属于注释节点]]>
     
     </summary>
     
