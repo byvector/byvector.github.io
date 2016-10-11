@@ -328,6 +328,109 @@ div{
             
               
                 
+                <a class="post-title-link" href="/2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/" itemprop="url">
+                  CSS Secret 读书笔记之条纹背景&复杂背景
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-16T00:00:00+08:00" content="2016-09-16">
+              2016-09-16
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="条纹背景">条纹背景</h1><p>通常条纹背景是由一个图片来代替，或者使用SVG。能不能利用CSS直接创建条纹图案呢，答案是肯定的。<br>假设背景是垂直线性渐变。比如：<code>background:linear-gradient(#fb3,#58a);</code><br>效果是这个样子的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-1.jpg" alt=""><br>如果让渐变区域变的更窄，产生一个无限小的渐变区域，比如：<code>background:linear-gradient(#fb3 50%,#58a 50%);</code> 就可以得到想要的结果了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-2.jpg" alt=""><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/14/CSS Secret 读书笔记之灵活定位&边框内圆角/" itemprop="url">
                   CSS Secret读书笔记之灵活定位&边框内圆角
                 </a>
@@ -645,127 +748,6 @@ div{
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/26/JavaScript之基础11/" itemprop="url">
-                  DOM(二)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-26T00:00:00+08:00" content="2016-07-26">
-              2016-07-26
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/26/JavaScript之基础11/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/JavaScript之基础11/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <hr>
-<blockquote>
-<p>这里主要记录下DOM基于CSS选择符和HTML5的一些扩展。</p>
-</blockquote>
-<h1 id="基于CSS选择符的扩展">基于CSS选择符的扩展</h1><p>有时候需要通过 CSS 选择符查询 DOM 文档取得元素的引用，可以使用以下两种方法：</p>
-<ul>
-<li><p><code>querySelector()</code></p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>this is header<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"footer"</span>&gt;</span>this is footer<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-<span class="built_in">console</span>.log(<span class="built_in">document</span>.querySelector(<span class="string">"#header"</span>).firstChild.nodeValue);
-<span class="keyword">var</span> text = <span class="built_in">document</span>.createTextNode(<span class="string">"this is a paragraph."</span>);
-<span class="built_in">document</span>.querySelector(<span class="string">"p"</span>).appendChild(text);
-<span class="comment">//获取类为footer的第一个元素</span>
-<span class="built_in">document</span>.body.querySelector(<span class="string">".footer"</span>);
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre></li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/26/JavaScript之基础11/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -811,7 +793,7 @@ div{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-count">59</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
