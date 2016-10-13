@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-10-11T12:40:17.345Z</updated>
+  <updated>2016-10-13T13:36:56.429Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,170 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之沿环形路径转动的动画]]></title>
+    <link href="http://blog.supce.com/2016/10/13/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%B2%BF%E7%8E%AF%E5%BD%A2%E8%B7%AF%E5%BE%84%E5%B9%B3%E7%A7%BB%E7%9A%84%E5%8A%A8%E7%94%BB/"/>
+    <id>http://blog.supce.com/2016/10/13/CSS Secret 读书笔记之沿环形路径平移的动画/</id>
+    <published>2016-10-12T16:00:00.000Z</published>
+    <updated>2016-10-13T13:36:56.429Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="沿环形路径转动的动画">沿环形路径转动的动画</h1><p>今天利用CSS实现一种沿着环形路径转动的动画。为了便于演示，我们让一个头像图片沿着环形路径转动。<br>首先是一个img标签，用来保存头像图片，外面嵌套一个div用来设置背景。</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"path"</span>&gt;
+    &lt;img src=<span class="string">"test.jpg"</span> <span class="type">class</span>=<span class="string">"avatar"</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><a id="more"></a>
+<p>然后设置基本的样式：</p>
+<pre><code><span class="class">.path</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">20px</span> auto</span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">20px</span></span></span>;
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#fb3</span></span></span>;
+}</span>
+<span class="class">.avatar</span>,<span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">40px</span></span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> dashed black</span></span>; <span class="comment">/*为了便于观察旋转，添加虚线边框*/</span>
+    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+}</span>
+<span class="class">.avatar-a</span>&gt;<span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> inherit</span></span>;
+}</span>
+</code></pre><p>最后为图片添加旋转动画：</p>
+<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> spin</span>{
+    <span class="tag">to</span> <span class="rules">{ <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(<span class="number">1turn</span>)</span></span>; }</span>
+}
+<span class="class">.avatar</span><span class="rules">{
+    <span class="rule"><span class="attribute">animation</span>:<span class="value"> <span class="number">6s</span> spin infinite linear</span></span>;
+    <span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> <span class="number">50%</span> <span class="number">100px</span></span></span>;
+}</span>
+</code></pre><p>刷新页面：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-21-01.gif" alt=""></p>
+<p>虽然图片已经能够沿着环形路径转动了，但是图片自身也在旋转。为了让图片能够沿着环形转动，同时保证图片保持原来的朝向，可以用下面这两种方式：</p>
+<p>既然图片本身也在旋转，那可以尝试在图片的外层嵌套一个div，然后让这个div反向旋转，从而把内层的图片旋转效果给抵消掉。这也是之前经常用到的一种方法。</p>
+<p>修改HTML代码结构：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"path"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"avatar-a"</span>&gt;
+        &lt;img src=<span class="string">"test.jpg"</span>&gt;
+    &lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>下面就利用到上篇文章提到的<code>animation-direction</code>，图片外层的div保持旋转，然后设置内部img的<code>animation-direction</code>为相同的动画特效，但是最后让<code>animation-direction</code>反转。</p>
+<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> spin</span>{
+    <span class="tag">to</span> <span class="rules">{ <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(<span class="number">1turn</span>)</span></span>; }</span>
+}
+<span class="class">.avatar-a</span><span class="rules">{
+    <span class="rule"><span class="attribute">animation</span>:<span class="value"> <span class="number">6s</span> spin infinite linear</span></span>;
+    <span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> <span class="number">50%</span> <span class="number">100px</span></span></span>;
+}</span>
+<span class="class">.avatar-a</span>&gt;<span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">animation</span>:<span class="value"> inherit</span></span>;
+    <span class="rule"><span class="attribute">animation-direction</span>:<span class="value"> reverse</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-21-02.gif" alt=""></p>
+<p>much nicer！</p>
+<p>问题虽然得到解决，但是修改了HTML结构。下面这种方式能够在保持原来HTML代码结构不变的情况下解决自身旋转问题。在提出这种方法之前，要首先了解下<code>transform-origin</code>。其实：</p>
+<p><em>每个<code>transform-origin</code>都可以被两个<code>translate()</code>模拟出来</em></p>
+<p>比如下面这个两端代码是等效的：</p>
+<pre><code><span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(<span class="number">30deg</span>)</span></span>;
+<span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> <span class="number">100px</span> <span class="number">50px</span></span></span>;
+
+<span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">100px</span>,<span class="number">50px</span>),
+           <span class="function">rotate</span>(<span class="number">30deg</span>),
+           <span class="function">translate</span>(-<span class="number">100px</span>,-<span class="number">50px</span>)</span></span>;
+<span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> <span class="number">0</span> <span class="number">0</span></span></span>;
+</code></pre><p>具体过程如下图：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-21-03.jpg" alt=""></p>
+<p>于是，我们可以把刚才的spin动画拆分：</p>
+<pre><code><span class="at_rule">@<span class="keyword">keyframe</span> spin</span>{
+    <span class="tag">from</span><span class="rules">{
+        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">100px</span>)
+                   <span class="function">rotate</span>(<span class="number">0turn</span>)
+                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">100px</span>)</span></span>;
+    }</span>
+    <span class="tag">to</span><span class="rules">{
+        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">100px</span>)
+                   <span class="function">rotate</span>(<span class="number">1turn</span>)
+                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">100px</span>)</span></span>;
+    }</span>
+}
+</code></pre><p>对于自身的反向旋转进行拆分：</p>
+<pre><code><span class="at_rule">@<span class="keyword">keyframe</span> spin</span>{
+    <span class="tag">from</span><span class="rules">{
+        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">50%</span>)
+                   <span class="function">rotate</span>(<span class="number">1turn</span>)
+                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;
+    }</span>
+    <span class="tag">to</span><span class="rules">{
+        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">50%</span>)
+                   <span class="function">rotate</span>(<span class="number">0turn</span>)
+                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;
+    }</span>
+}
+</code></pre><p>然后把img外部嵌套的div去掉，把这两个动画合并，直接用在img上，这样既保持了原有的HTML代码结构，也解决了图片的自旋转问题。最终代码如下：</p>
+<p>HTML：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"path"</span>&gt;
+    &lt;img src=<span class="string">"test.jpg"</span> <span class="type">class</span>=<span class="string">"avatar-b"</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> spin-b</span>{
+    <span class="tag">from</span><span class="rules">{
+        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">100px</span>)
+                   <span class="function">rotate</span>(<span class="number">0turn</span>)
+                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">100px</span>)
+                   <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">50%</span>)
+                   <span class="function">rotate</span>(<span class="number">1turn</span>)
+                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;
+    }</span>
+    <span class="tag">to</span><span class="rules">{
+        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">100px</span>)
+                   <span class="function">rotate</span>(<span class="number">1turn</span>)
+                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">100px</span>)
+                   <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">50%</span>)
+                   <span class="function">rotate</span>(<span class="number">0turn</span>)
+                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;
+    }</span>
+}
+<span class="class">.avatar-b</span><span class="rules">{
+    <span class="rule"><span class="attribute">animation</span>:<span class="value"> <span class="number">6s</span> spin-b infinite linear</span></span>;
+}</span>
+</code></pre><p>也可以把一个关键帧的水平位移抵消，以精简代码：</p>
+<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> spin-b</span>{
+    <span class="tag">from</span><span class="rules">{
+        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(<span class="number">100px</span>) <span class="function">translateY</span>(-<span class="number">50%</span>)
+                   <span class="function">rotate</span>(<span class="number">0turn</span>)
+                   <span class="function">translateY</span>(-<span class="number">100px</span>) <span class="function">translateY</span>(<span class="number">50%</span>)
+                   <span class="function">rotate</span>(<span class="number">1turn</span>)</span></span>;
+
+    }</span>
+    <span class="tag">to</span><span class="rules">{
+        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(<span class="number">100px</span>) <span class="function">translateY</span>(-<span class="number">50%</span>)
+                   <span class="function">rotate</span>(<span class="number">1turn</span>)
+                   <span class="function">translateY</span>(-<span class="number">100px</span>) <span class="function">translateY</span>(<span class="number">50%</span>)
+                   <span class="function">rotate</span>(<span class="number">0turn</span>)</span></span>;
+    }</span>
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-21-04.gif" alt=""></p>
+<p>much nicer！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="沿环形路径转动的动画">沿环形路径转动的动画</h1><p>今天利用CSS实现一种沿着环形路径转动的动画。为了便于演示，我们让一个头像图片沿着环形路径转动。<br>首先是一个img标签，用来保存头像图片，外面嵌套一个div用来设置背景。</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"path"</span>&gt;
+    &lt;img src=<span class="string">"test.jpg"</span> <span class="type">class</span>=<span class="string">"avatar"</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS Secret 读书笔记之逐帧动画&闪烁效果]]></title>
@@ -2954,190 +3118,6 @@ background-position: <span class="number">0</span> <span class="number">0</span>
         this <span class="keyword">is</span> a test
     &lt;/<span class="keyword">div</span>&gt;
 &lt;/<span class="keyword">div</span>&gt;
-</code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之弹性布局]]></title>
-    <link href="http://blog.supce.com/2016/09/12/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80/"/>
-    <id>http://blog.supce.com/2016/09/12/CSS Secret 读书笔记之弹性布局/</id>
-    <published>2016-09-11T16:00:00.000Z</published>
-    <updated>2016-09-12T13:12:20.547Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>在CSS Secret中提到了弹性布局，这里就简单写了四个实例来回顾下弹性布局</p>
-</blockquote>
-<h1 id="居中">居中</h1><p>可以利用<code>flex</code>，让子容器在父容器中居中。设置父容器<code>display</code>属性为<code>flex</code>，并设置子容器<code>margin</code>属性为<code>auto</code>即可。<br>HTML代码：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"parent"</span>&gt;
-        &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"child"</span>&gt;
-            child
-        &lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>CSS代码：</p>
-<pre><code><span class="class">.parent</span>,<span class="class">.child</span><span class="rules">{
-    <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#333</span></span></span>;
-}</span>
-<span class="class">.parent</span><span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;
-}</span>
-<span class="class">.child</span><span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
-}</span>
-</code></pre><a id="more"></a>
-<p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/flex0.jpg" alt=""></p>
-<h1 id="自适应列表">自适应列表</h1><p>有一组列表，有固定的宽度，但是想让它们能够根据浏览器窗口的大小进行自适应调整，可以使用弹性布局。<br>HTML代码：</p>
-<pre><code>&lt;ul <span class="keyword">class</span>=<span class="string">"flex-container"</span>&gt;
-    &lt;<span class="keyword">li</span> <span class="keyword">class</span>=<span class="string">"flex-item"</span>&gt;1&lt;/<span class="keyword">li</span>&gt;
-    &lt;<span class="keyword">li</span> <span class="keyword">class</span>=<span class="string">"flex-item"</span>&gt;2&lt;/<span class="keyword">li</span>&gt;
-    &lt;<span class="keyword">li</span> <span class="keyword">class</span>=<span class="string">"flex-item"</span>&gt;3&lt;/<span class="keyword">li</span>&gt;
-    &lt;<span class="keyword">li</span> <span class="keyword">class</span>=<span class="string">"flex-item"</span>&gt;4&lt;/<span class="keyword">li</span>&gt;
-    &lt;<span class="keyword">li</span> <span class="keyword">class</span>=<span class="string">"flex-item"</span>&gt;5&lt;/<span class="keyword">li</span>&gt;
-    &lt;<span class="keyword">li</span> <span class="keyword">class</span>=<span class="string">"flex-item"</span>&gt;6&lt;/<span class="keyword">li</span>&gt;
-&lt;/ul&gt;
-</code></pre><p>CSS代码：</p>
-<pre><code><span class="class">.flex-container</span><span class="rules">{
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
-    <span class="rule"><span class="attribute">flex-flow</span>:<span class="value"> row wrap</span></span>;
-    <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> space-around</span></span>;
-}</span>
-<span class="class">.flex-item</span><span class="rules">{
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> tomato</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">150px</span></span></span>;
-    <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> <span class="number">10px</span></span></span>;
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">5px</span></span></span>;
-    <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">150px</span></span></span>;
-    <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
-    <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">3em</span></span></span>;
-    <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-}</span>
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/flex1.jpg" alt=""><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/flex2.jpg" alt=""></p>
-<h1 id="自适应导航">自适应导航</h1><p>为了适应移动端的屏幕尺寸，可以根据屏幕由小到大依次设置为多行居中、单行居中以及单行左(右)对齐。<br>HTML代码：</p>
-<pre><code><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"navigation"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Home<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Details<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>About<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-</code></pre><p>CSS代码：</p>
-<pre><code><span class="class">.navigation</span><span class="rules">{
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">1em</span> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
-
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> deepskyblue</span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
-    <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> flex-end</span></span>;
-
-}</span>
-<span class="class">.navigation</span> <span class="tag">a</span><span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">1em</span></span></span>; 
-    <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
-}</span>
-<span class="class">.navigation</span> <span class="rule"><span class="attribute">a</span>:<span class="value">hover{
-    background: tomato</span></span>;
-}
-<span class="at_rule">@<span class="keyword">media</span> all and (max-width: <span class="number">800px</span>)</span>{
-    <span class="class">.navigation</span><span class="rules">{
-        <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> space-around</span></span>;
-    }</span>
-}
-<span class="at_rule">@<span class="keyword">media</span> all and (max-width: <span class="number">600px</span>)</span>{
-    <span class="class">.navigation</span><span class="rules">{
-        <span class="rule"><span class="attribute">flex-flow</span>:<span class="value"> column wrap</span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>; 
-    }</span>
-    <span class="class">.navigation</span> <span class="tag">a</span><span class="rules">{
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">border-top</span>:<span class="value"> <span class="number">1px</span> solid <span class="function">rgba</span>(<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>,<span class="number">0.3</span>)</span></span>;
-        <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"> <span class="number">1px</span> solid <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">1</span>)</span></span>;
-    }</span>
-}
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/flex3.jpg" alt=""><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/flex4.jpg" alt=""><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/flex5.jpg" alt=""></p>
-<h1 id="自适应布局">自适应布局</h1><p>最后来一个很常用的自适应布局，主要用于适应移动端的屏幕尺寸。整体思路大概是先考虑移动端，设置所有<code>div</code>的宽度为100%；在中等屏幕中设置两个侧边栏在同一行；在宽屏中，设置左侧边栏在主要内容左侧，右侧边栏在主要内容右侧。<br>HTML代码：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"wrapper"</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"header"</span>&gt;Header&lt;/<span class="keyword">div</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"main"</span>&gt;
-        &lt;p&gt;this <span class="keyword">is</span> main作为一门标记性语言，CSS 的语法相对简单，对使用者的要求较低，但同时也带来一些问题：CSS 需要书写大量看似没有逻辑的代码，不方便维护及扩展，不利于复用，尤其对于非前端开发工程师来讲，往往会因为缺少 CSS 编写经验而很难写出组织良好且易于维护的 CSS 代码，造成这些困难的很大原因源于 CSS 是一门非程序式语言，没有变量、函数、SCOPE（作用域）等概念。LESS 为 Web 开发者带来了福音，它在 CSS 的语法基础之上，引入了变量，Mixin（混入），运算以及函数等功能，大大简化了 CSS 的编写，并且降低了 CSS 的维护成本，就像它的名称所说的那样，LESS 可以让我们用更少的代码做更多的事情。&lt;/p&gt;
-    &lt;/<span class="keyword">div</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"aside aside-1"</span>&gt;aside-<span class="number">1</span>&lt;/<span class="keyword">div</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"aside aside-2"</span>&gt;aside-<span class="number">2</span>&lt;/<span class="keyword">div</span>&gt;
-    &lt;footer <span class="type">class</span>=<span class="string">"footer"</span>&gt;this <span class="keyword">is</span> footer&lt;/footer&gt;      
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>CSS代码：</p>
-<pre><code><span class="class">.header</span> <span class="rules">{
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> tomato</span></span>;
-    }</span>
-    <span class="class">.footer</span> <span class="rules">{
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> lightgreen</span></span>;
-    }</span>
-    <span class="class">.main</span> <span class="rules">{
-        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> left</span></span>;
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> deepskyblue</span></span>;
-    }</span>
-    <span class="class">.aside-1</span> <span class="rules">{
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> gold</span></span>;
-    }</span>
-    <span class="class">.aside-2</span> <span class="rules">{
-        <span class="rule"><span class="attribute">background</span>:<span class="value"> hotpink</span></span>;
-    }</span>
-    <span class="comment">/*移动端*/</span>
-    <span class="class">.wrapper</span> &gt; * <span class="rules">{
-        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;
-        <span class="rule"><span class="attribute">flex</span>:<span class="value"> <span class="number">1</span> <span class="number">100%</span></span></span>;
-    }</span>
-    <span class="comment">/*中等屏幕*/</span>
-    <span class="at_rule">@<span class="keyword">media</span> all and (min-width: <span class="number">600px</span>)</span>{
-        <span class="class">.aside</span><span class="rules">{
-            <span class="rule"><span class="attribute">flex</span>:<span class="value"> <span class="number">1</span> auto</span></span>;
-        }</span>
-    }
-    <span class="comment">/*宽屏*/</span>
-    <span class="at_rule">@<span class="keyword">media</span> all and (min-width: <span class="number">800px</span>)</span>{
-        <span class="class">.main</span> <span class="rules">{<span class="rule"><span class="attribute">flex</span>:<span class="value"> <span class="number">2</span> <span class="number">0</span></span></span>;}</span> <span class="comment">/*扩大比例为2缩小比例为0*/</span>
-        <span class="class">.aside-1</span> <span class="rules">{<span class="rule"><span class="attribute">order</span>:<span class="value"> <span class="number">1</span></span></span>;}</span>
-        <span class="class">.main</span> <span class="rules">{<span class="rule"><span class="attribute">order</span>:<span class="value"> <span class="number">2</span></span></span>;}</span>
-        <span class="class">.aside-2</span> <span class="rules">{<span class="rule"><span class="attribute">order</span>:<span class="value"><span class="number">3</span></span></span>;}</span>
-        <span class="class">.footer</span> <span class="rules">{<span class="rule"><span class="attribute">order</span>:<span class="value"><span class="number">4</span></span></span>;}</span>
-    }
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/flex6.jpg" alt=""><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/flex7.jpg" alt=""><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/flex8.jpg" alt=""></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>在CSS Secret中提到了弹性布局，这里就简单写了四个实例来回顾下弹性布局</p>
-</blockquote>
-<h1 id="居中">居中</h1><p>可以利用<code>flex</code>，让子容器在父容器中居中。设置父容器<code>display</code>属性为<code>flex</code>，并设置子容器<code>margin</code>属性为<code>auto</code>即可。<br>HTML代码：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"parent"</span>&gt;
-        &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"child"</span>&gt;
-            child
-        &lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>CSS代码：</p>
-<pre><code><span class="class">.parent</span>,<span class="class">.child</span><span class="rules">{
-    <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#333</span></span></span>;
-}</span>
-<span class="class">.parent</span><span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;
-}</span>
-<span class="class">.child</span><span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
-}</span>
 </code></pre>]]>
     
     </summary>
