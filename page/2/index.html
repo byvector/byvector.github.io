@@ -207,6 +207,114 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/09/CSS Secret 读书笔记之水平居中&垂直居中/" itemprop="url">
+                  CSS Secret 读书笔记之水平居中&垂直居中
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-09T00:00:00+08:00" content="2016-10-09">
+              2016-10-09
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/09/CSS Secret 读书笔记之水平居中&垂直居中/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/09/CSS Secret 读书笔记之水平居中&垂直居中/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<h1 id="水平居中">水平居中</h1><h2 id="行内元素">行内元素</h2><p>对于<code>&lt;span&gt;</code> <code>img</code> <code>&lt;input&gt;</code>等行内元素，只需要给父元素设置<code>text-align: center</code></p>
+<h2 id="定宽块级元素">定宽块级元素</h2><p>对于<code>div</code> <code>p</code> 等块级元素，如果是定宽，只需要给该元素设置左右<code>margin</code>为<code>auto</code></p>
+<h2 id="不定宽块级元素">不定宽块级元素</h2><ul>
+<li>方法一：改变块级元素<code>display</code>为<code>inline</code>或者<code>inline-block</code>，然后设置父元素<code>text-align</code>为<code>center</code></li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/09/CSS Secret 读书笔记之水平居中&垂直居中/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/01/CSS Secret 读书笔记之结构与布局(二)/" itemprop="url">
                   CSS Secret 读书笔记之结构与布局(二)
                 </a>
@@ -624,118 +732,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/" itemprop="url">
-                  CSS Secret 读书笔记之自定义复选框&阴影弱化背景
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-24T00:00:00+08:00" content="2016-09-24">
-              2016-09-24
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <hr>
-<h1 id="自定义复选框">自定义复选框</h1><p>单选框和复选框的默认样式确实不敢恭维，但是这两种控件在绝大多数浏览器中仍然无法自由的设置样式。这时候可以用下面这种“曲线救国”的思路来实现自定义复选框。</p>
-<h2 id="伪元素解决方案">伪元素解决方案</h2><p>具体思路如下：<br>由于<code>label</code>元素可以和复选框关联，起到触发开关的作用。我们可以为它添加伪元素，并基于复选框的状态来为其设置样式。然后再把真正的复选框隐藏起来。</p>
-<blockquote>
-<p>CSS的魅力就在于此，正是<code>label</code>可以和复选框(单选框)关联，才有了自定义复选框的可能性。</p>
-</blockquote>
-<p>有了上面的思路，代码就很简单了。首先是最最最简单的HTML：</p>
-<pre><code>&lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"checkbox"</span> id=<span class="string">"custom-a"</span> /&gt;
-&lt;<span class="keyword">label</span> <span class="keyword">for</span>=<span class="string">"custom-a"</span>&gt;自定义复选框&lt;/<span class="keyword">label</span>&gt;
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -781,7 +777,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -791,7 +787,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

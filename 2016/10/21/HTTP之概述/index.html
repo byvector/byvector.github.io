@@ -1,0 +1,665 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="EM_nzu8-nfb0oJOmKGJImt--r_PtBs7qZz_bWTFRWZQ" />
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTTP," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="vector's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="去看瓷器古董的时候，如果卖家直接把瓷器递给买家，容易失手掉下去，也不好判定到底是谁的责任。于是有了这样一条规矩：卖家会把瓷器放在桌子上，离手之后，买家再去拿。这样既保证了瓷器在传递过程中的安全性，也容易分辨是谁失手打碎的瓷器。
+
+Web客户端和服务器上面这条规矩规定了贵重瓷器是如何在买家与卖家之间传递而不被破坏的。大家都知道Web内容都是存在Web服务器上的。那么Web客户端(最常见的是浏览器)与">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP之概述">
+<meta property="og:url" content="http://blog.supce.com/2016/10/21/HTTP之概述/index.html">
+<meta property="og:site_name" content="vector's blog">
+<meta property="og:description" content="去看瓷器古董的时候，如果卖家直接把瓷器递给买家，容易失手掉下去，也不好判定到底是谁的责任。于是有了这样一条规矩：卖家会把瓷器放在桌子上，离手之后，买家再去拿。这样既保证了瓷器在传递过程中的安全性，也容易分辨是谁失手打碎的瓷器。
+
+Web客户端和服务器上面这条规矩规定了贵重瓷器是如何在买家与卖家之间传递而不被破坏的。大家都知道Web内容都是存在Web服务器上的。那么Web客户端(最常见的是浏览器)与">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/http1.png">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/http2.png">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/http3.png">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/http4.png">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/http5.png">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/http6.png">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/http7.png">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/http8.png">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/http9.png">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/http10.png">
+<meta property="og:updated_time" content="2016-10-21T11:59:41.365Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP之概述">
+<meta name="twitter:description" content="去看瓷器古董的时候，如果卖家直接把瓷器递给买家，容易失手掉下去，也不好判定到底是谁的责任。于是有了这样一条规矩：卖家会把瓷器放在桌子上，离手之后，买家再去拿。这样既保证了瓷器在传递过程中的安全性，也容易分辨是谁失手打碎的瓷器。
+
+Web客户端和服务器上面这条规矩规定了贵重瓷器是如何在买家与卖家之间传递而不被破坏的。大家都知道Web内容都是存在Web服务器上的。那么Web客户端(最常见的是浏览器)与">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> HTTP之概述 | vector's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">vector's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HTTP之概述
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-21T00:00:00+08:00" content="2016-10-21">
+              2016-10-21
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/21/HTTP之概述/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/21/HTTP之概述/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<blockquote>
+<p>去看瓷器古董的时候，如果卖家直接把瓷器递给买家，容易失手掉下去，也不好判定到底是谁的责任。于是有了这样一条规矩：卖家会把瓷器放在桌子上，离手之后，买家再去拿。这样既保证了瓷器在传递过程中的安全性，也容易分辨是谁失手打碎的瓷器。</p>
+</blockquote>
+<h1 id="Web客户端和服务器">Web客户端和服务器</h1><p>上面这条规矩规定了贵重瓷器是如何在买家与卖家之间传递而不被破坏的。大家都知道Web内容都是存在Web服务器上的。那么Web客户端(最常见的是浏览器)与服务器之间的信息什么时候传递、如何传递、具体传递什么，并且能够保证数据在传输过程中不会被损坏或产生混乱？于是就有了HTTP。</p>
+<p>HTTP是超文本传输协议的英文缩写。既然要保证传输过程中数据不被损坏，说明HTTP是一种可靠的数据传输协议。当我们想浏览某个页面时，浏览器会向服务器发送一个HTTP请求。服务器会寻找所期望的对象，如果存在，就将对象、对象类型。对象长度以及其他的一些信息放在HTTP响应中发送给客户端。</p>
+<p>下图可能会更加直观：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http1.png" alt=""></p>
+<a id="more"></a>
+<p>上图可以发现，要想浏览一个页面，最主要的是HTTP请求和HTTP响应。现实中，如果我们想去张三家，首先得知道他的家庭住址。HTTP请求也是一样，在发送请求时，必须知道请求的资源具体在哪，这就需要借助URL。URL是统一资源定位符的英文缩写，它描述了一台特定服务器上某个资源的特定位置。一个具体的URL实例如下图：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http2.png" alt=""></p>
+<p>下面就具体看看一次HTTP请求和响应是怎样的。比如，我们想要访问Baidu的首页，借助chrome，首先查看请求头：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http3.png" alt=""></p>
+<p>第一行为：<code>GET / HTTP/1.1</code> HTTP支持几种不同的请求命令，这些命令被称为HTTP Method。每条HTTP请求都包含一个方法，这个方法会告诉服务器具体执行什么动作。下图是五种常见的HTTP方法：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http4.png" alt=""></p>
+<p>对于<code>HTTP/1.1</code>是现在使用的HTTP协议的版本。</p>
+<p>第二行host是这次请求的主机。</p>
+<p>第三行<code>Connection: keep-alive</code> keep-alive功能使客户端到服务器端的连接持续有效,当出现对服务器的后继请求时，keep-alive功能避免了建立或者重新建立连接。</p>
+<p>下一行为<code>Cache-Control: max-age=0</code> Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程中的缓存处理过程。请求时的缓存指令包括no-cache、no-store、max-age、max-stale、min-fresh、only-if-cached。其中，max-age指示客户机可以接收生存期不大于指定时间（以秒为单位）的响应。</p>
+<p>然后是<code>Upgrade-Insecure-Requests: 1</code> 这个是和https有关。服务器的响应头有时候可能会有<code>Content-Security-Policy: upgrade-insecure-requests</code>，该指令用于让浏览器自动升级请求从http到https,用于大量包含http资源的http网页直接升级到https而不会报错。简洁的来讲,就相当于在http和https之间起的一个过渡作用。而对于请求头的<code>Upgrade-Insecure-Requests:1</code>，则是告诉服务器，自己支持这种操作，也就是我能读懂你服务器发过来的上面这条信息，并且在以后发请求的时候不用http而用https。</p>
+<blockquote>
+<p>具体可以参考小胡子哥的一篇<a href="http://www.cnblogs.com/hustskyking/archive/2015/08/21/upgrade-insecure-requests.html" target="_blank" rel="external">blog</a>。</p>
+</blockquote>
+<p>再往下是<code>User-Agent</code>，它包含了发出请求的用户信息，通常是用户操作系统、浏览器版本、内核等。</p>
+<p>再下面三个是客户端希望接收的数据类型、数据编码方式和支持的语言。</p>
+<p>最后则是我们的Cookie。</p>
+<p>下面再来分析下响应头，具体的响应头如下图</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http5.png" alt=""></p>
+<p>第一行为：<code>200 OK</code> 我们把它称为状态码。每条HTTP响应报文返回时都会携带一个状态码，状态码是一个三位数的代码，告知客户端请求是否成功，或者采取其他的动作。下图为几种常用的状态码：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http6.png" alt=""></p>
+<blockquote>
+<p>有些人访问Google，说404了，其实是不正确的。</p>
+</blockquote>
+<p>第二行为：<code>Server: bfe/1.0.8.18</code> Server响应头包含处理请求的原始服务器的软件信息。BFE全称是Baidu Front End，是百度自己研发的一套前端接入系统。查看网易官网是 <code>Server:nginx</code>。</p>
+<p>再往下是Date头域，它表示消息发送的时间，时间的描述格式由rfc822定义。例如，Date:Mon,31Dec200104:25:57GMT。Date描述的时间表示世界标准时，换算成本地时间，需要知道用户所在的时区。</p>
+<p>之后是<code>Content-Type: text/html;charset=utf-8</code>，浏览器会根据Content-Type来决定如何显示返回的消息体内容。HTML格式的文本文档由<code>text/html</code>类型来标记。其他常用类型如下图：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http7.png" alt=""></p>
+<p>然后再看<code>Cache-Control: private</code>，和请求头不太一样，对于响应消息中的指令，具体包括public、private、no-cache、no-store、no-transform、must-revalidate、proxy-revalidate、max-age。Private指示对于单个用户的整个或部分响应消息，不能被共享缓存处理。这允许服务器仅仅描述当前用户的部分响应消息，此响应消息对于其他用户的请求无效。</p>
+<p><code>X-UA-Compatible: IE=Edge,chrome=1</code> 这里是设置浏览器的兼容模式，强制浏览器按照特定的版本标准进行渲染。百度这里设置IE渲染模式是照最高的标准模式解析页面，chrome=1则可以激活Chrome Frame。</p>
+<p>然后是<code>Strict-Transport-Security: max-age=604800</code>，trict Transport Security(通常简称为HSTS)是一个安全功能，它告诉浏览器只能通过HTTPS访问当前资源,禁止HTTP方式。</p>
+<p>最后是我们的响应主体，也就是网页的具体内容：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http8.png" alt=""></p>
+<hr>
+<h1 id="TCP/IP">TCP/IP</h1><p>上面主要是浏览器发送请求，然后服务器做出响应，浏览器解析完响应后把内容呈现。但是，从服务器到浏览器这一过程的信息又是如何传递的呢？这就需要祭出计算机网络课程里的一张图了：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http9.png" alt=""></p>
+<p>由上图可以看出，HTTP是个应用层的协议。HTTP并不关心网络通信的具体细节，它把联网的细节都交给了通用、可靠的TCP/IP协议。简单来说HTTP协议位于TCP/IP的上层，浏览器与服务器之间是HTTP使用TCP来传输数据。至于TCP/IP的详细内容以后再专门拿一篇文章来讲。这里主要说的还是浏览器与服务器通信的一个大致过程。</p>
+<p>最后用一张图再来解释一下浏览器与服务器的连接与处理：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http10.png" alt=""></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTTP/" rel="tag">#HTTP</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/19/关于编码(一)/" rel="next" title="关于编码(一)">
+                <i class="fa fa-chevron-left"></i> 关于编码(一)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/21/HTTP之概述/"
+           data-title="HTTP之概述" data-url="http://blog.supce.com/2016/10/21/HTTP之概述/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
+               alt="vector" />
+          <p class="site-author-name" itemprop="name">vector</p>
+          <p class="site-description motion-element" itemprop="description">We are all in the gutter, but some of us are looking at the stars.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/byvector" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/BestionMiko" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.instagram.com/go_vector/" target="_blank" title="instagram">
+                  
+                    <i class="fa fa-instagram"></i>
+                  
+                  instagram
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/byvector/" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Web客户端和服务器"><span class="nav-number">1.</span> <span class="nav-text">Web客户端和服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP/IP"><span class="nav-number">2.</span> <span class="nav-text">TCP/IP</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vector</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"byvector"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

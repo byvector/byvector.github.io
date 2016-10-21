@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-10-19T13:21:01.737Z</updated>
+  <updated>2016-10-21T11:59:41.365Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,77 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[HTTP之概述]]></title>
+    <link href="http://blog.supce.com/2016/10/21/HTTP%E4%B9%8B%E6%A6%82%E8%BF%B0/"/>
+    <id>http://blog.supce.com/2016/10/21/HTTP之概述/</id>
+    <published>2016-10-20T16:00:00.000Z</published>
+    <updated>2016-10-21T11:59:41.365Z</updated>
+    <content type="html"><![CDATA[<hr>
+<blockquote>
+<p>去看瓷器古董的时候，如果卖家直接把瓷器递给买家，容易失手掉下去，也不好判定到底是谁的责任。于是有了这样一条规矩：卖家会把瓷器放在桌子上，离手之后，买家再去拿。这样既保证了瓷器在传递过程中的安全性，也容易分辨是谁失手打碎的瓷器。</p>
+</blockquote>
+<h1 id="Web客户端和服务器">Web客户端和服务器</h1><p>上面这条规矩规定了贵重瓷器是如何在买家与卖家之间传递而不被破坏的。大家都知道Web内容都是存在Web服务器上的。那么Web客户端(最常见的是浏览器)与服务器之间的信息什么时候传递、如何传递、具体传递什么，并且能够保证数据在传输过程中不会被损坏或产生混乱？于是就有了HTTP。</p>
+<p>HTTP是超文本传输协议的英文缩写。既然要保证传输过程中数据不被损坏，说明HTTP是一种可靠的数据传输协议。当我们想浏览某个页面时，浏览器会向服务器发送一个HTTP请求。服务器会寻找所期望的对象，如果存在，就将对象、对象类型。对象长度以及其他的一些信息放在HTTP响应中发送给客户端。</p>
+<p>下图可能会更加直观：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http1.png" alt=""></p>
+<a id="more"></a>
+<p>上图可以发现，要想浏览一个页面，最主要的是HTTP请求和HTTP响应。现实中，如果我们想去张三家，首先得知道他的家庭住址。HTTP请求也是一样，在发送请求时，必须知道请求的资源具体在哪，这就需要借助URL。URL是统一资源定位符的英文缩写，它描述了一台特定服务器上某个资源的特定位置。一个具体的URL实例如下图：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http2.png" alt=""></p>
+<p>下面就具体看看一次HTTP请求和响应是怎样的。比如，我们想要访问Baidu的首页，借助chrome，首先查看请求头：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http3.png" alt=""></p>
+<p>第一行为：<code>GET / HTTP/1.1</code> HTTP支持几种不同的请求命令，这些命令被称为HTTP Method。每条HTTP请求都包含一个方法，这个方法会告诉服务器具体执行什么动作。下图是五种常见的HTTP方法：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http4.png" alt=""></p>
+<p>对于<code>HTTP/1.1</code>是现在使用的HTTP协议的版本。</p>
+<p>第二行host是这次请求的主机。</p>
+<p>第三行<code>Connection: keep-alive</code> keep-alive功能使客户端到服务器端的连接持续有效,当出现对服务器的后继请求时，keep-alive功能避免了建立或者重新建立连接。</p>
+<p>下一行为<code>Cache-Control: max-age=0</code> Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程中的缓存处理过程。请求时的缓存指令包括no-cache、no-store、max-age、max-stale、min-fresh、only-if-cached。其中，max-age指示客户机可以接收生存期不大于指定时间（以秒为单位）的响应。</p>
+<p>然后是<code>Upgrade-Insecure-Requests: 1</code> 这个是和https有关。服务器的响应头有时候可能会有<code>Content-Security-Policy: upgrade-insecure-requests</code>，该指令用于让浏览器自动升级请求从http到https,用于大量包含http资源的http网页直接升级到https而不会报错。简洁的来讲,就相当于在http和https之间起的一个过渡作用。而对于请求头的<code>Upgrade-Insecure-Requests:1</code>，则是告诉服务器，自己支持这种操作，也就是我能读懂你服务器发过来的上面这条信息，并且在以后发请求的时候不用http而用https。</p>
+<blockquote>
+<p>具体可以参考小胡子哥的一篇<a href="http://www.cnblogs.com/hustskyking/archive/2015/08/21/upgrade-insecure-requests.html" target="_blank" rel="external">blog</a>。</p>
+</blockquote>
+<p>再往下是<code>User-Agent</code>，它包含了发出请求的用户信息，通常是用户操作系统、浏览器版本、内核等。</p>
+<p>再下面三个是客户端希望接收的数据类型、数据编码方式和支持的语言。</p>
+<p>最后则是我们的Cookie。</p>
+<p>下面再来分析下响应头，具体的响应头如下图</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http5.png" alt=""></p>
+<p>第一行为：<code>200 OK</code> 我们把它称为状态码。每条HTTP响应报文返回时都会携带一个状态码，状态码是一个三位数的代码，告知客户端请求是否成功，或者采取其他的动作。下图为几种常用的状态码：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http6.png" alt=""></p>
+<blockquote>
+<p>有些人访问Google，说404了，其实是不正确的。</p>
+</blockquote>
+<p>第二行为：<code>Server: bfe/1.0.8.18</code> Server响应头包含处理请求的原始服务器的软件信息。BFE全称是Baidu Front End，是百度自己研发的一套前端接入系统。查看网易官网是 <code>Server:nginx</code>。</p>
+<p>再往下是Date头域，它表示消息发送的时间，时间的描述格式由rfc822定义。例如，Date:Mon,31Dec200104:25:57GMT。Date描述的时间表示世界标准时，换算成本地时间，需要知道用户所在的时区。</p>
+<p>之后是<code>Content-Type: text/html;charset=utf-8</code>，浏览器会根据Content-Type来决定如何显示返回的消息体内容。HTML格式的文本文档由<code>text/html</code>类型来标记。其他常用类型如下图：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http7.png" alt=""></p>
+<p>然后再看<code>Cache-Control: private</code>，和请求头不太一样，对于响应消息中的指令，具体包括public、private、no-cache、no-store、no-transform、must-revalidate、proxy-revalidate、max-age。Private指示对于单个用户的整个或部分响应消息，不能被共享缓存处理。这允许服务器仅仅描述当前用户的部分响应消息，此响应消息对于其他用户的请求无效。</p>
+<p><code>X-UA-Compatible: IE=Edge,chrome=1</code> 这里是设置浏览器的兼容模式，强制浏览器按照特定的版本标准进行渲染。百度这里设置IE渲染模式是照最高的标准模式解析页面，chrome=1则可以激活Chrome Frame。</p>
+<p>然后是<code>Strict-Transport-Security: max-age=604800</code>，trict Transport Security(通常简称为HSTS)是一个安全功能，它告诉浏览器只能通过HTTPS访问当前资源,禁止HTTP方式。</p>
+<p>最后是我们的响应主体，也就是网页的具体内容：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http8.png" alt=""></p>
+<hr>
+<h1 id="TCP/IP">TCP/IP</h1><p>上面主要是浏览器发送请求，然后服务器做出响应，浏览器解析完响应后把内容呈现。但是，从服务器到浏览器这一过程的信息又是如何传递的呢？这就需要祭出计算机网络课程里的一张图了：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http9.png" alt=""></p>
+<p>由上图可以看出，HTTP是个应用层的协议。HTTP并不关心网络通信的具体细节，它把联网的细节都交给了通用、可靠的TCP/IP协议。简单来说HTTP协议位于TCP/IP的上层，浏览器与服务器之间是HTTP使用TCP来传输数据。至于TCP/IP的详细内容以后再专门拿一篇文章来讲。这里主要说的还是浏览器与服务器通信的一个大致过程。</p>
+<p>最后用一张图再来解释一下浏览器与服务器的连接与处理：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http10.png" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<blockquote>
+<p>去看瓷器古董的时候，如果卖家直接把瓷器递给买家，容易失手掉下去，也不好判定到底是谁的责任。于是有了这样一条规矩：卖家会把瓷器放在桌子上，离手之后，买家再去拿。这样既保证了瓷器在传递过程中的安全性，也容易分辨是谁失手打碎的瓷器。</p>
+</blockquote>
+<h1 id="Web客户端和服务器">Web客户端和服务器</h1><p>上面这条规矩规定了贵重瓷器是如何在买家与卖家之间传递而不被破坏的。大家都知道Web内容都是存在Web服务器上的。那么Web客户端(最常见的是浏览器)与服务器之间的信息什么时候传递、如何传递、具体传递什么，并且能够保证数据在传输过程中不会被损坏或产生混乱？于是就有了HTTP。</p>
+<p>HTTP是超文本传输协议的英文缩写。既然要保证传输过程中数据不被损坏，说明HTTP是一种可靠的数据传输协议。当我们想浏览某个页面时，浏览器会向服务器发送一个HTTP请求。服务器会寻找所期望的对象，如果存在，就将对象、对象类型。对象长度以及其他的一些信息放在HTTP响应中发送给客户端。</p>
+<p>下图可能会更加直观：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/http1.png" alt=""></p>]]>
+    
+    </summary>
+    
+      <category term="HTTP" scheme="http://blog.supce.com/tags/HTTP/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[关于编码(一)]]></title>
@@ -2992,106 +3063,6 @@ div{
     background-size: 80px 100%<span class="comment">;</span>
 }
 </code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret读书笔记之灵活定位&边框内圆角]]></title>
-    <link href="http://blog.supce.com/2016/09/14/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%81%B5%E6%B4%BB%E5%AE%9A%E4%BD%8D&%E8%BE%B9%E6%A1%86%E5%86%85%E5%9C%86%E8%A7%92/"/>
-    <id>http://blog.supce.com/2016/09/14/CSS Secret 读书笔记之灵活定位&边框内圆角/</id>
-    <published>2016-09-13T16:00:00.000Z</published>
-    <updated>2016-09-14T12:27:01.556Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="灵活的背景定位">灵活的背景定位</h1><p>假设一种场景，需要对容器某个角对背景图片做偏移定位，比如说右下角。在定位的同时，也希望图片和容易边角之间能够够留出一定的空隙，以避免下图这种效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-1.jpg" alt=""><br>当容器的尺寸固定时，很好解决。但是容器的尺寸不固定时，可以利用下面三种方法来解决。<br><a id="more"></a></p>
-<h2 id="background-position的扩展语法方案"><code>background-position</code>的扩展语法方案</h2><p>在CSS3中，<code>background-position</code>已经得到扩展，它允许我们指定背景图片距离任意角的偏移量。</p>
-<blockquote>
-<p>当然，还需要一个合适的回退方案。避免浏览器的不支持。</p>
-</blockquote>
-<p>代码：</p>
-<pre><code>&lt;div class=<span class="string">"position"</span>&gt;
-    Code Pirate
-&lt;/div&gt;
-.position{
-    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
-    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">5</span>em;
-    margin: <span class="number">20</span>px auto;
-    padding: <span class="number">10</span>px;
-    <span class="built_in">color</span>: white;
-    font: <span class="number">100</span>%/<span class="number">1</span> sans-serif;
-    <span class="built_in">background</span>:url(http:<span class="comment">//csssecrets.io/images/code-pirate.svg) no-repeat bottom right #58a;   /*回退方案*/</span>
-}
-.position{
-    <span class="built_in">background</span>-position: right <span class="number">10</span>% bottom <span class="number">20</span>%;
-}
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-2.jpg" alt=""></p>
-<h2 id="background-origin方案"><code>background-origin</code>方案</h2><p>在上个方案中有一个缺陷，当修改容器的内边距时，需要在3处做出修改。希望有一种方式，能够让背景图片自动根据设定的内边距定位，而不用声明额外的偏移量。<br>在默认情况下<code>background-position</code>是以padding box为基准的。可以利用属性<code>background-origin</code>来改变这种行为。当把它的值设置为<code>content-box</code>时，<code>background-position</code>会以内容区边缘作为基准。此时，背景图片的距离的边角偏移量就可以和内边距保持一致了。<br>代码：</p>
-<pre><code>&lt;div class=<span class="string">"origin"</span>&gt;
-    Code Pirate
-&lt;/div&gt;
-.origin{
-    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
-    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">5</span>em;
-    margin: <span class="number">20</span>px auto;
-    padding: <span class="number">10</span>px;
-    <span class="built_in">color</span>: white;
-    font: <span class="number">100</span>%/<span class="number">1</span> sans-serif;
-    <span class="built_in">background</span>:url(http:<span class="comment">//csssecrets.io/images/code-pirate.svg) no-repeat bottom right #58a;</span>
-}
-.origin{
-    <span class="built_in">background</span>-origin: content-<span class="built_in">box</span>;
- }
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-3.jpg" alt=""></p>
-<h2 id="calc()方案"><code>calc()</code>方案</h2><p>如果想把背景图片定位到距离底边10px 距离右边20px。可以使用<code>calc()</code><br>即：<code>background-position: calc(100% - 20px) calc(100% - 10px);</code>也可以达到同样的效果。</p>
-<blockquote>
-<p>注意：在calc()函数内部的- + 运算符两侧需要加一个空格符，否则会产生解析错误。</p>
-</blockquote>
-<hr>
-<h1 id="边框内圆角">边框内圆角</h1><p>考虑一种场景，需要一个容器，只在内侧有圆角，而<code>border</code>或者<code>outline</code>仍然是直角，可以用下面两种方式实现。</p>
-<h2 id="嵌套容器">嵌套容器</h2><p>这个方式很简单，直接在原容器外侧嵌套一个容器，设置内部容器有圆角即可<br>代码：</p>
-<pre><code>&lt;div class=<span class="string">"radius"</span>&gt;
-    &lt;div&gt;
-        <span class="keyword">this</span> is a test
-    &lt;/div&gt;
-&lt;/div&gt;
-.radius{
-    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
-    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">5</span>em;
-    margin: <span class="number">20</span>px auto;
-    padding: <span class="number">.8</span>em;
-    <span class="built_in">background</span>: #<span class="number">655</span>;
-}
-.radius &gt; div{
-    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">3.4</span>em;
-    <span class="built_in">background</span>: <span class="built_in">tan</span>;
-    border-radius: <span class="number">.8</span>em;
-    padding: <span class="number">1</span>em;
-}
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-5.jpg" alt=""></p>
-<h2 id="box-shadow填充"><code>box-shadow</code>填充</h2><p>有时候，可能稍微有些强迫症，不想破坏原有的HTML结构。可以使用<code>box-shadow</code>进行颜色填充。<br>之前已经知道，<code>outline</code>并不会沿着元素的圆角走。可以在元素外侧设置<code>outline</code><br>代码如下：</p>
-<pre><code>&lt;div class=<span class="string">"shadow_outline"</span>&gt;
-    <span class="keyword">this</span> is a test
-&lt;/div&gt;
-.shadow_outline{
-        <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
-        <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">5</span>em;
-        margin: <span class="number">20</span>px auto;
-        padding: <span class="number">.8</span>em;
-        <span class="built_in">background</span>: <span class="built_in">tan</span>;
-        border-radius: <span class="number">.8</span>em;
-        outline: <span class="number">.6</span>em solid #<span class="number">655</span>;
-    }
-</code></pre><p>此时的效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-07.jpg" alt=""><br>会发现在四个角会有空白，这个空白可以利用<code>box-shadow</code>进行颜色填充。由几何数学可知，当圆角的半径为r时，<code>box-shadow</code>的投影扩张值不能小于(√2-1)r。上面的<code>border-radius</code>为0.8，计算得约为0.33，<br>因此只要设置<code>box-shadow: 0 0 0 .34em #655;</code>即可。<br>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-6.jpg" alt=""></p>
-<blockquote>
-<p>最后说句题外话，Chrome v53.0.2785.113m版本的界面挺好看，没错，我就是扁平脑残粉。</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="灵活的背景定位">灵活的背景定位</h1><p>假设一种场景，需要对容器某个角对背景图片做偏移定位，比如说右下角。在定位的同时，也希望图片和容易边角之间能够够留出一定的空隙，以避免下图这种效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-03-1.jpg" alt=""><br>当容器的尺寸固定时，很好解决。但是容器的尺寸不固定时，可以利用下面三种方法来解决。<br>]]>
     
     </summary>
     
