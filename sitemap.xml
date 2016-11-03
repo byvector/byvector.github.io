@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.supce.com/2016/11/03/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%804/</loc>
+    
+    <lastmod>2016-11-03T12:02:03.392Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.supce.com/2016/10/21/HTTP%E4%B9%8B%E6%A6%82%E8%BF%B0/</loc>
     
     <lastmod>2016-10-21T11:59:41.365Z</lastmod>
@@ -222,13 +229,6 @@
     <loc>http://blog.supce.com/2016/05/25/JavaScript%E4%B9%8BRegExp%E7%B1%BB%E5%9E%8B/</loc>
     
     <lastmod>2016-05-25T03:51:07.516Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.supce.com/2015/05/18/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%804/</loc>
-    
-    <lastmod>2016-05-18T02:39:25.595Z</lastmod>
     
   </url>
   

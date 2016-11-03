@@ -207,6 +207,116 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/24/JavaScript之基础10/" itemprop="url">
+                  DOM(一)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-24T00:00:00+08:00" content="2016-07-24">
+              2016-07-24
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/24/JavaScript之基础10/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/24/JavaScript之基础10/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<p>DOM是document object model的缩写，即：文档对象模型。DOM将HTML和XML描述为一个具有层次结构的节点树。DOM作为一个接口，可以对HTML或者XML进行添加，删除和修改。<br>根据 DOM，HTML 文档中的每个成分都是一个节点。DOM 是这样规定的： </p>
+<ul>
+<li>整个文档是一个文档节点 </li>
+<li>每个 HTML 标签是一个元素节点 </li>
+<li>包含在 HTML 元素中的文本是文本节点 </li>
+<li>每一个 HTML 属性是一个属性节点 </li>
+<li>注释属于注释节点
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/24/JavaScript之基础10/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/23/JavaScript之基础9/" itemprop="url">
                   客户端检测
                 </a>
@@ -640,123 +750,6 @@ function <span class="function"><span class="title">fun</span><span class="param
 </code></pre>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/07/14/JavaScript之基础6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/13/JavaScript之基础5/" itemprop="url">
-                  对象的创建与继承
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-13T00:00:00+08:00" content="2016-07-13">
-              2016-07-13
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/13/JavaScript之基础5/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/13/JavaScript之基础5/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><em>再把JavaScript中对象的创建与继承复习下</em></p>
-<h1 id="对象的创建">对象的创建</h1><hr>
-<h2 id="工厂模式">工厂模式</h2><pre><code>console.log(<span class="string">"-----工厂模式-----"</span>);
-    function CreatePerson(name,age){
-        var o = new Object();
-        o.name = name;
-        o.age = age;
-        o.sayName = function(){
-            return name;
-        };
-        return o;
-    }
-var <span class="keyword">person</span> = CreatePerson(<span class="string">"Nico"</span>,28);
-console.log(<span class="keyword">person</span>.sayName());
-</code></pre><p>工厂模式虽然解决了对象的创建问题，但是并没有解决对象的识别问题。<br><code>alert(person.constructor);</code> 得到的并不是想要的结果。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/13/JavaScript之基础5/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

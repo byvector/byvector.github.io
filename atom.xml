@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-10-21T11:59:41.365Z</updated>
+  <updated>2016-11-03T12:02:03.392Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,283 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[IFE Task 04]]></title>
+    <link href="http://blog.supce.com/2016/11/03/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%804/"/>
+    <id>http://blog.supce.com/2016/11/03/JavaScript之基础4/</id>
+    <published>2016-11-02T16:00:00.000Z</published>
+    <updated>2016-11-03T12:02:03.392Z</updated>
+    <content type="html"><![CDATA[<h1 id="任务目的">任务目的</h1><hr>
+<ul>
+<li>在上一任务基础上继续JavaScript的体验</li>
+<li>接触更加复杂的表单对象</li>
+<li>实现页面上的一个完整交互功能</li>
+<li>用DOM实现一个柱状图图表</li>
+</ul>
+<a id="more"></a>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>参考以下示例代码，原始数据包含几个城市的空气质量指数数据</li>
+<li>用户可以选择查看不同的时间粒度，以选择要查看的空气质量指数是以天为粒度还是以周或月为粒度</li>
+<li>天：显示每天的空气质量指数</li>
+<li>周：以自然周（周一到周日）为粒度，统计一周7天的平均数为这一周的空气质量数值，如果数据中缺少一个自然周的几天，则按剩余天进行计算</li>
+<li>月：以自然月为粒度，统一一个月所有天的平均数为这一个月的空气质量数值</li>
+<li>用户可以通过select切换城市</li>
+<li>通过在”aqi-chart-wrap”里添加DOM，来模拟一个柱状图图表，横轴是时间，纵轴是空气质量指数，参考图（点击打开）。天、周、月的数据只根据用户的选择显示一种。</li>
+<li>天：每天的数据是一个很细的矩形</li>
+<li>周：每周的数据是一个矩形</li>
+<li>月：每周的数据是一个很粗的矩形</li>
+<li>鼠标移动到柱状图的某个柱子时，用title属性提示这个柱子的具体日期和数据</li>
+</ul>
+<h1 id="整体思路">整体思路</h1><p>首先给相应的表单元素添加事件监听器，当事件触发时，判断选项是否发生了变化，如果发生变化则调用相应的处理函数，否则返回。</p>
+<p>在处理函数中，首先根据用户选择的选项对数据进行操作，最后将数据渲染为图表。</p>
+<h1 id="最终代码">最终代码</h1><h2 id="html">html</h2><pre><code><span class="tag">&lt;<span class="title">fieldset</span> <span class="attribute">id</span>=<span class="value">"form-gra-time"</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">legend</span>&gt;</span>请选择日期粒度：<span class="tag">&lt;/<span class="title">legend</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">label</span>&gt;</span>日<span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"gra-time"</span> <span class="attribute">value</span>=<span class="value">"day"</span> <span class="attribute">type</span>=<span class="value">"radio"</span> <span class="attribute">checked</span>=<span class="value">"checked"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">label</span>&gt;</span>周<span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"gra-time"</span> <span class="attribute">value</span>=<span class="value">"week"</span> <span class="attribute">type</span>=<span class="value">"radio"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">label</span>&gt;</span>月<span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"gra-time"</span> <span class="attribute">value</span>=<span class="value">"month"</span> <span class="attribute">type</span>=<span class="value">"radio"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+ <span class="tag">&lt;/<span class="title">fieldset</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">fieldset</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">legend</span>&gt;</span>请选择查看的城市：<span class="tag">&lt;/<span class="title">legend</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">select</span> <span class="attribute">id</span>=<span class="value">"city-select"</span>&gt;</span>
+   <span class="tag">&lt;/<span class="title">select</span>&gt;</span>
+ <span class="tag">&lt;/<span class="title">fieldset</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"aqi-chart-wrap"</span>&gt;</span>
+ <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"js/task17.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><h2 id="js">js</h2><pre><code><span class="comment">/* 数据格式演示
+var aqiSourceData = {
+  "北京": {
+    "2016-01-01": 10,
+    "2016-01-02": 10,
+    "2016-01-03": 10,
+    "2016-01-04": 10
+  }
+};
+*/</span>
+var $ = <span class="function"><span class="keyword">function</span><span class="params">(id)</span>{</span>
+  return document.getElementById<span class="params">(id)</span>;
+}
+<span class="function"><span class="keyword">function</span> <span class="title">getRadioValue</span><span class="params">(name)</span>{</span>
+  var obj = document.getElementsByName<span class="params">(name)</span>;
+  <span class="keyword">for</span><span class="params">(i=<span class="number">0</span>;i&lt;obj.length;i++)</span>{
+    <span class="keyword">if</span><span class="params">(obj[i].checked)</span>{
+      return obj[i].value;
+    }
+  }
+  return <span class="string">"undefined"</span>;
+}
+<span class="comment">// 以下两个函数用于随机模拟生成测试数据</span>
+<span class="function"><span class="keyword">function</span> <span class="title">getDateStr</span><span class="params">(dat)</span> {</span>
+  var y = dat.getFullYear<span class="params">()</span>;
+  var m = dat.getMonth<span class="params">()</span> + <span class="number">1</span>;
+  m = m &lt; <span class="number">10</span> ? '<span class="number">0</span>' + m : m;
+  var d = dat.getDate<span class="params">()</span>;
+  d = d &lt; <span class="number">10</span> ? '<span class="number">0</span>' + d : d;
+  return y + '-' + m + '-' + d;
+}
+<span class="function"><span class="keyword">function</span> <span class="title">randomBuildData</span><span class="params">(seed)</span> {</span>
+  var returnData = {};
+  var dat = new Date<span class="params">(<span class="string">"2016-01-01"</span>)</span>;
+  var datStr = '';
+  <span class="keyword">for</span> <span class="params">(var i = <span class="number">1</span>; i &lt; <span class="number">92</span>; i++)</span> {
+    datStr = getDateStr<span class="params">(dat)</span>;
+    returnData[datStr] = Math.<span class="built_in">ceil</span><span class="params">(Math.random<span class="params">()</span> * seed)</span>;
+    dat.setDate<span class="params">(dat.getDate<span class="params">()</span> + <span class="number">1</span>)</span>;
+  }
+  return returnData;
+}
+var aqiSourceData = {
+  <span class="string">"北京"</span>: randomBuildData<span class="params">(<span class="number">500</span>)</span>,
+  <span class="string">"上海"</span>: randomBuildData<span class="params">(<span class="number">300</span>)</span>,
+  <span class="string">"广州"</span>: randomBuildData<span class="params">(<span class="number">200</span>)</span>,
+  <span class="string">"深圳"</span>: randomBuildData<span class="params">(<span class="number">100</span>)</span>,
+  <span class="string">"成都"</span>: randomBuildData<span class="params">(<span class="number">300</span>)</span>,
+  <span class="string">"西安"</span>: randomBuildData<span class="params">(<span class="number">500</span>)</span>,
+  <span class="string">"福州"</span>: randomBuildData<span class="params">(<span class="number">100</span>)</span>,
+  <span class="string">"厦门"</span>: randomBuildData<span class="params">(<span class="number">100</span>)</span>,
+  <span class="string">"沈阳"</span>: randomBuildData<span class="params">(<span class="number">500</span>)</span>
+};
+<span class="comment">// console.log(aqiSourceData);</span>
+<span class="comment">// 用于渲染图表的数据</span>
+var chartData = {};
+<span class="comment">// 记录当前页面的表单选项</span>
+var pageState = {
+  nowSelectCity: <span class="string">"北京"</span>,
+  nowGraTime: <span class="string">"day"</span>
+}
+<span class="comment">/**
+ * 渲染图表
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">renderChart</span><span class="params">()</span> {</span>
+  var <span class="built_in">text</span> = <span class="string">""</span>;
+  <span class="keyword">for</span><span class="params">(item in chartData)</span>{
+    var <span class="built_in">color</span> = <span class="string">"#"</span> + Math.<span class="built_in">floor</span><span class="params">(Math.random<span class="params">()</span> * <span class="number">0</span>xFFFFFF)</span>.toString<span class="params">(<span class="number">16</span>)</span>;
+    <span class="built_in">text</span> += '&lt;div title=<span class="string">"'+item+"</span> : <span class="string">"+chartData[item]+'"</span> style=<span class="string">"height:'+chartData[item]+'px;background-color:'+color+'"</span>&gt;&lt;/div&gt;';
+  }
+  var aqiChartWrap = document.getElementsByClassName<span class="params">(<span class="string">"aqi-chart-wrap"</span>)</span>[<span class="number">0</span>];
+  <span class="comment">// console.log(text);</span>
+  aqiChartWrap.innerHTML = <span class="built_in">text</span>;
+}
+<span class="comment">/**
+ * 日、周、月的radio事件点击时的处理函数
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">graTimeChange</span><span class="params">()</span> {</span>
+  <span class="comment">// 确定是否选项发生了变化 </span>
+  var time = getRadioValue<span class="params">(<span class="string">"gra-time"</span>)</span>;
+  <span class="keyword">if</span><span class="params">(time == pageState[<span class="string">"nowGraTime"</span>])</span>{
+    return;
+  }<span class="keyword">else</span>{
+    <span class="comment">// console.log(time);</span>
+    pageState[<span class="string">"nowGraTime"</span>] = time;
+  }
+
+  <span class="comment">// 设置对应数据</span>
+  initAqiChartData<span class="params">()</span>;
+  <span class="comment">// 调用图表渲染函数</span>
+  renderChart<span class="params">()</span>;
+}
+<span class="comment">/**
+ * select发生变化时的处理函数
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">citySelectChange</span><span class="params">(target)</span> {</span>
+  <span class="comment">// 确定是否选项发生了变化 </span>
+  var citySelect = target.options[target.selectedIndex].value;
+  <span class="keyword">if</span><span class="params">(citySelect == pageState[<span class="string">"nowSelectCity"</span>])</span>{
+    return;
+  }<span class="keyword">else</span>{
+    <span class="comment">// console.log(citySelect);</span>
+    pageState[<span class="string">"nowSelectCity"</span>] = citySelect;
+  }
+  <span class="comment">// 设置对应数据</span>
+  initAqiChartData<span class="params">()</span>;
+  <span class="comment">// 调用图表渲染函数</span>
+  renderChart<span class="params">()</span>;
+}
+<span class="comment">/**
+ * 初始化日、周、月的radio事件，当点击时，调用函数graTimeChange
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">initGraTimeForm</span><span class="params">()</span> {</span>
+  var form = $<span class="params">(<span class="string">"form-gra-time"</span>)</span>;
+  var times = form.elements[<span class="string">"gra-time"</span>];
+  <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>;i&lt;times.length;i++)</span>{
+    times[i].addEventListener<span class="params">(<span class="string">"change"</span>,graTimeChange,<span class="literal">false</span>)</span>;
+  }
+}
+<span class="comment">/**
+ * 初始化城市Select下拉选择框中的选项
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">initCitySelector</span><span class="params">()</span> {</span>
+  <span class="comment">// 读取aqiSourceData中的城市，然后设置id为city-select的下拉列表中的选项</span>
+  <span class="keyword">for</span><span class="params">(items in aqiSourceData)</span>{
+    $<span class="params">(<span class="string">"city-select"</span>)</span>.innerHTML += <span class="string">"&lt;option&gt;"</span>+items+<span class="string">"&lt;/option&gt;"</span>;
+  }
+  <span class="comment">// 给select设置事件，当选项发生变化时调用函数citySelectChange</span>
+  $<span class="params">(<span class="string">"city-select"</span>)</span>.addEventListener<span class="params">(<span class="string">"change"</span>,function<span class="params">(e)</span>{
+    citySelectChange<span class="params">(e.target)</span>;
+  })</span>;
+}
+<span class="comment">/**
+ * 初始化图表需要的数据格式
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">initAqiChartData</span><span class="params">()</span> {</span>
+  <span class="comment">// 将原始的源数据处理成图表需要的数据格式</span>
+  nowCityData = aqiSourceData[pageState.nowSelectCity];
+  switch<span class="params">(pageState.nowGraTime)</span>{
+    case <span class="string">"day"</span>:
+      chartData = nowCityData;
+      <span class="comment">// console.log("day");</span>
+      break;
+    case <span class="string">"week"</span>:
+      chartData = {};
+      var dataSum = <span class="number">0</span>,daySum = <span class="number">0</span>,week = <span class="number">0</span>;
+      <span class="keyword">for</span><span class="params">(item in nowCityData)</span>{
+        dataSum += nowCityData[item];
+        daySum++;
+        <span class="keyword">if</span><span class="params">(new Date<span class="params">(item)</span>.getDay<span class="params">()</span> == <span class="number">6</span>)</span>{  <span class="comment">//以自然周统计</span>
+          week++;
+          chartData[<span class="string">"第"</span>+week+<span class="string">"周"</span>] = Math.<span class="built_in">floor</span><span class="params">(dataSum/daySum)</span>;
+          dataSum = <span class="number">0</span>;
+          daySum = <span class="number">0</span>;
+        }
+      }
+      <span class="comment">//如果最后不满一周，则按剩余天数计算</span>
+      <span class="keyword">if</span><span class="params">(daySum != <span class="number">0</span>)</span>{
+        week++;
+        chartData[<span class="string">"第"</span>+week+<span class="string">"周"</span>] = Math.<span class="built_in">floor</span><span class="params">(dataSum/daySum)</span>;
+      }
+      <span class="comment">// console.log("week");</span>
+      break;
+    case <span class="string">"month"</span>:
+      chartData = {};
+      var dataSum=<span class="number">0</span>,daySum=<span class="number">0</span>,curMonth = -<span class="number">1</span>;
+      <span class="keyword">for</span><span class="params">(var item in nowCityData)</span>{
+        var date = new Date<span class="params">(item)</span>;
+        var month = date.getMonth<span class="params">()</span>;
+        <span class="keyword">if</span><span class="params">(month !== curMonth)</span>{
+          <span class="keyword">if</span><span class="params">(daySum &gt; <span class="number">0</span>)</span>{
+            chartData[curMonth + <span class="number">1</span> +<span class="string">"月份"</span>] = Math.<span class="built_in">floor</span><span class="params">(dataSum/daySum)</span>;
+          }
+          curMonth = month;
+          daySum = <span class="number">0</span>;
+          dataSum = <span class="number">0</span>;
+        }
+        dataSum += nowCityData[item];
+        daySum++;
+      }
+      <span class="comment">//最后一月按实际天数计算</span>
+      <span class="keyword">if</span><span class="params">(daySum &gt; <span class="number">0</span>)</span>{
+        chartData[month + <span class="number">1</span> +<span class="string">"月份"</span>] = Math.<span class="built_in">floor</span><span class="params">(dataSum/daySum)</span>;
+      }
+      console.<span class="built_in">log</span><span class="params">(chartData)</span>;
+      break;
+  }
+}
+<span class="comment">/**
+ * 初始化函数
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span> {</span>
+  initGraTimeForm<span class="params">()</span>
+  initCitySelector<span class="params">()</span>;
+  initAqiChartData<span class="params">()</span>;
+  renderChart<span class="params">()</span>;
+}
+init<span class="params">()</span>;
+</code></pre><h2 id="CSS">CSS</h2><pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+  <span class="class">.aqi-chart-wrap</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+    <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> center</span></span>;
+    <span class="rule"><span class="attribute">align-items</span>:<span class="value"> flex-end</span></span>;
+    <span class="rule"><span class="attribute">align-content</span>:<span class="value"> center</span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span> auto</span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span> <span class="number">10px</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">90%</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">600px</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#333</span></span></span>;
+  }</span>
+  <span class="class">.aqi-chart-wrap</span> <span class="tag">div</span><span class="rules">{
+    <span class="rule"><span class="attribute">flex</span>:<span class="value"> <span class="number">1</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#000</span></span></span>;
+    <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">margin-right</span>:<span class="value"><span class="number">3px</span></span></span>;
+  }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>最终效果:<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/ife-task-17.png" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="任务目的">任务目的</h1><hr>
+<ul>
+<li>在上一任务基础上继续JavaScript的体验</li>
+<li>接触更加复杂的表单对象</li>
+<li>实现页面上的一个完整交互功能</li>
+<li>用DOM实现一个柱状图图表</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[HTTP之概述]]></title>
@@ -2953,116 +3230,6 @@ background-position: <span class="number">0</span> <span class="number">0</span>
 </code></pre>]]></content>
     <summary type="html">
     <![CDATA[<h1 id="条纹背景">条纹背景</h1><p>通常条纹背景是由一个图片来代替，或者使用SVG。能不能利用CSS直接创建条纹图案呢，答案是肯定的。<br>假设背景是垂直线性渐变。比如：<code>background:linear-gradient(#fb3,#58a);</code><br>效果是这个样子的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-1.jpg" alt=""><br>如果让渐变区域变的更窄，产生一个无限小的渐变区域，比如：<code>background:linear-gradient(#fb3 50%,#58a 50%);</code> 就可以得到想要的结果了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-2.jpg" alt=""><br>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之伪随机背景&图像边框]]></title>
-    <link href="http://blog.supce.com/2016/09/16/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BC%AA%E9%9A%8F%E6%9C%BA%E8%83%8C%E6%99%AF&%E5%9B%BE%E5%83%8F%E8%BE%B9%E6%A1%86/"/>
-    <id>http://blog.supce.com/2016/09/16/CSS Secret 读书笔记之伪随机背景&图像边框/</id>
-    <published>2016-09-15T16:00:00.000Z</published>
-    <updated>2016-09-16T13:34:24.303Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
-<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
-body{
-    display: flex<span class="comment">;</span>
-    flex-flow: row wrap<span class="comment">;</span>
-    justify-content: space-around<span class="comment">;</span>
-}
-div{
-    margin: 20px 20px<span class="comment">;</span>
-    padding: 0<span class="comment">;</span>
-    min-width: 20em<span class="comment">;</span>
-    min-height: 6em<span class="comment">;</span>
-}
-.rb-a{
-    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
-    background-size: 80px 100%<span class="comment">;</span>
-}
-</code></pre><a id="more"></a>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-1.jpg" alt=""><br>从效果图中可以看出这个背景图的重复规律非常明显，每水平80px就会重复一次。<br>这时候可以考虑另一种思路：<br>把这组条纹从一个平面图拆散为多个图层，一种颜色作为底色，另外三种颜色作为条纹，然后再让条纹以不同的间隔进行重复平铺，同时利用<code>background-size</code>控制条纹的间距。</p>
-<pre><code>background: hsl(<span class="number">20</span>,<span class="number">40</span>%,<span class="number">90</span>%);
-background-image: linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#fb3 <span class="number">10</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#ab4 <span class="number">20</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#<span class="number">655</span> <span class="number">20</span>px,transparent <span class="number">0</span>);</span>
-background-size: <span class="number">80</span>px <span class="number">100</span>%,<span class="number">60</span>px <span class="number">100</span>%,<span class="number">40</span>px <span class="number">100</span>%;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-2.jpg" alt=""><br>随机的效果好了很多，但是仔细观察会发现每隔240px像素就会重复一次，且240正好是40 60 80 的最小公倍数。<br>如果我们将背景的宽度设置为质数，那么它们的最小公倍数就会很大，当大于屏幕宽度时就可以在视觉上满足随机背景了。于是将背景的宽度修改一下</p>
-<pre><code>background: hsl(<span class="number">20</span>,<span class="number">40</span>%,<span class="number">90</span>%);
-background-image: linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#fb3 <span class="number">11</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#ab4 <span class="number">23</span>px,transparent <span class="number">0</span>),</span>
-                  linear-gradient(<span class="number">90</span>deg,<span class="preprocessor">#<span class="number">655</span> <span class="number">41</span>px,transparent <span class="number">0</span>);</span>
-background-size: <span class="number">41</span>px <span class="number">100</span>%,<span class="number">61</span>px <span class="number">100</span>%,<span class="number">83</span>px <span class="number">100</span>%;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-3.jpg" alt=""><br>这时候的最小公倍数为41<em>61</em>83=207583，已经可以满足我们的需求了。</p>
-<hr>
-<h1 id="图像边框">图像边框</h1><p>图片经常作为容器的背景，但是有时候想把一副图片作为边框。也就是说一张图片被剪裁到边框所在的方形环状区域。同时，也希望图片能够随着元素的大小进行缩放并完整的覆盖边框的区域。<br>但是<code>border-image</code>是一种九宫格伸缩法，将图片裁剪为九块，放到边框所对应的变和角，显然是不符合我们的要求的。<br>可以尝试设置元素的背景色为白色，然后给元素外部嵌套一个父元素，并设置背景为图片。</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"border-test"</span>&gt;
-    &lt;<span class="keyword">div</span>&gt;this <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a test
-    this <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a testthis <span class="keyword">is</span> a test&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-.border-test{
-    background: url(stone-art.jpg);
-    background-size: cover;
-    padding: <span class="number">.5</span>em;
-}
-.border-test &gt; <span class="keyword">div</span>{
-    background: white;
-    padding: <span class="number">1</span>em;
-}
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-4.jpg" alt=""><br>在强迫症的作用下，并不想嵌套一个父元素，就得换一个思路了。<br>首先设置元素的背景为图片，然后在背景图之上叠加一层纯色的实色背景。设置背景边框为透明，并且为两层背景指定不同的<code>background-clip</code>的值。由于只能在多重背景的最底层设置背景色，因此需要用一道从白色过渡到白色的CSS渐变来模拟出纯白色背景的效果。</p>
-<pre><code>&lt;div class=<span class="string">"border-a"</span>&gt;<span class="keyword">this</span> is a testthis is a testthis is a testthis is a testthis is a testthis is a testthis is a test&lt;/div&gt;
-.border-a,.border-b{
-    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">20</span>em;
-    <span class="built_in">max</span>-<span class="variable">height</span>: <span class="number">10</span>em;
-    padding: <span class="number">1</span>em;
-    border: <span class="number">1</span>em solid transparent;
-}
-.border-a{
-    <span class="built_in">background</span>: linear-gradient(white,white),
-                url(stone-art.jpg);
-    <span class="built_in">background</span>-<span class="built_in">size</span>: cover; 
-    <span class="built_in">background</span>-clip: padding-<span class="built_in">box</span>,border-<span class="built_in">box</span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-5.jpg" alt=""><br><code>background-origin</code> 属性规定 <code>background-position</code> 属性相对于什么位置来定位。其默认值为<code>padding-box</code>，因此边框的图片出现了奇怪的拼接效果。于是添加一条属性：<br><code>background-origin: border-box;</code><br>就可以到达下面这个结果了：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-7.jpg" alt=""></p>
-<p>既然可以使用渐变那就可以模拟更多的边框效果了~ 比如下面这种：</p>
-<pre><code>background: linear-gradient(white,white) padding-box,
-                repeating-linear-gradient(-<span class="number">45</span>deg,red <span class="number">0</span>,red <span class="number">12.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">25</span>%,<span class="preprocessor">#<span class="number">58</span>a <span class="number">0</span>,</span>
-                    <span class="preprocessor">#<span class="number">58</span>a <span class="number">37.5</span>%,transparent <span class="number">0</span>,transparent <span class="number">50</span>%) <span class="number">0</span> <span class="number">0</span> / <span class="number">4</span>em <span class="number">4</span>em;</span>
-</code></pre><p>一种漂亮的信封效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-8.jpg" alt=""></p>
-<p>当然，也可以给边框添加动画。</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> ants </span>{<span class="tag">to</span> <span class="rules">{<span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">100%</span>}}
-.border-c{
-    border: <span class="number">1px</span> solid transparent</span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(white,white) padding-box,
-                <span class="function">repeating-linear-gradient</span>(-<span class="number">45deg</span>,black <span class="number">0</span>,black <span class="number">25%</span>,white <span class="number">0</span>,white <span class="number">50%</span>) <span class="number">0</span> <span class="number">0</span> / .<span class="number">6em</span> .<span class="number">6em</span></span></span>;
-    <span class="rule"><span class="attribute">animation</span>:<span class="value"> ants <span class="number">12s</span> ease-out infinite</span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-05-9.jpg" alt=""><br>可惜图片看不出动画效果了。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="伪随机背景">伪随机背景</h1><p>伪随机背景其实还是对条纹背景的扩展。假设一种场景，我们想得到不同颜色和不同宽度的垂直条纹。并且在背景平铺时不会产生接缝。利用<code>linear-gradient</code>好像可以轻松实现</p>
-<pre><code>&lt;div class="rb-a"&gt;&lt;/div&gt;
-body{
-    display: flex<span class="comment">;</span>
-    flex-flow: row wrap<span class="comment">;</span>
-    justify-content: space-around<span class="comment">;</span>
-}
-div{
-    margin: 20px 20px<span class="comment">;</span>
-    padding: 0<span class="comment">;</span>
-    min-width: 20em<span class="comment">;</span>
-    min-height: 6em<span class="comment">;</span>
-}
-.rb-a{
-    background: linear-gradient(90deg,#fb3 15%,#655 0,#655 40%,#ab4 0,#ab4 65%,hsl(20,40%,90%) 0)<span class="comment">;</span>
-    background-size: 80px 100%<span class="comment">;</span>
-}
-</code></pre>]]>
     
     </summary>
     
