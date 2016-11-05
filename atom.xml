@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-11-03T12:02:03.392Z</updated>
+  <updated>2016-11-05T09:29:01.519Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,211 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[IFE Task 05&06]]></title>
+    <link href="http://blog.supce.com/2016/11/05/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8012/"/>
+    <id>http://blog.supce.com/2016/11/05/JavaScript之基础12/</id>
+    <published>2016-11-04T16:00:00.000Z</published>
+    <updated>2016-11-05T09:29:01.519Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>学习与实践 JavaScript 的基本语法、语言特性</li>
+<li>初步了解 JavaScript 的事件是什么</li>
+<li>初步了解 JavaScript 中的DOM是什么</li>
+<li>学习与实践 JavaScript 的基本语法、语言特性</li>
+<li>练习使用 JavaScript 实现简单的排序算法</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><h2 id="05">05</h2><ul>
+<li>模拟一个队列,队列的每个元素是一个数字，初始队列为空</li>
+<li>有一个input输入框，以及4个操作按钮</li>
+<li>点击”左侧入”,将input中输入的数字从左侧插入队列中；</li>
+<li>点击”右侧入”,将input中输入的数字从右侧插入队列中；</li>
+<li>点击”左侧出”,读取并删除队列左侧第一个元素，并弹窗显示元素中数值；</li>
+<li>点击”右侧出”,读取并删除队列又侧第一个元素，并弹窗显示元素中数值；</li>
+<li>点击队列中任何一个元素,则该元素会被从队列中删除<a id="more"></a>
+</li>
+</ul>
+<h2 id="06">06</h2><ul>
+<li>基于上个任务</li>
+<li>限制输入的数字在10-100</li>
+<li>队列元素数量最多限制为60个，当超过60个时，添加元素时alert出提示</li>
+<li>队列展现方式变化如图，直接用高度表示数字大小</li>
+<li>实现一个简单的排序功能，如冒泡排序（不限制具体算法），用可视化的方法表达出来</li>
+</ul>
+<hr>
+<h1 id="整体思路">整体思路</h1><p><em>第二个任务基于第一个任务，就把两个和一起来写吧</em><br>首先根据任务的要求，将HTML写出来，只需要一个input和若干button用以用户触发不同的事件。</p>
+<pre><code>&lt;<span class="tag">input</span> type=<span class="string">"text"</span> id=<span class="string">"data-input"</span>&gt;
+&lt;<span class="tag">button</span> id=<span class="string">"left-in"</span>&gt;左侧入&lt;/button&gt;
+&lt;<span class="tag">button</span> id=<span class="string">"right-in"</span>&gt;右侧入&lt;/button&gt;
+&lt;<span class="tag">button</span> id=<span class="string">"left-out"</span>&gt;左侧出&lt;/button&gt;
+&lt;<span class="tag">button</span> id=<span class="string">"right-out"</span>&gt;右侧出&lt;/button&gt;
+&lt;<span class="tag">button</span> id=<span class="string">"sort"</span>&gt;冒泡排序&lt;/button&gt;
+&lt;<span class="tag">button</span> id=<span class="string">"random"</span>&gt;随机生成一组数据&lt;/button&gt;
+
+&lt;<span class="tag">div</span> id=<span class="string">"list-wrap"</span>&gt;&lt;/div&gt;
+</code></pre><p>然后给相应的元素绑定点击事件</p>
+<pre><code><span class="comment">//初始化 添加事件监听器</span>
+<span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> btns = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"button"</span>);
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;btns.length;i++){
+        btns[i].addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+            btnHandle(e.target);
+        });
+    }
+    $(<span class="string">"data-input"</span>).addEventListener(<span class="string">"focus"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+        e.target.value = <span class="string">""</span>;
+    });
+}
+init();
+</code></pre><p>添加事件监听器后，需要根据事件调用对应的数据处理函数，处理之后将数据渲染到页面上</p>
+<pre><code><span class="comment">//点击按钮时的处理逻辑</span>
+<span class="function">function <span class="title">btnHandle</span><span class="params">(<span class="keyword">target</span>)</span></span>{
+    var id = <span class="keyword">target</span>.id;
+    <span class="keyword">switch</span>(id){
+        <span class="keyword">case</span> <span class="string">'left-in'</span>:
+            leftIn();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'right-in'</span>:
+            rightIn();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'left-out'</span>:
+            leftOut();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'right-out'</span>:
+            rightOut();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'random'</span>:
+            randomData();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'sort'</span>:
+            sortData();
+            <span class="keyword">break</span>;
+    }
+    <span class="comment">//渲染数据</span>
+    renderData()
+}
+</code></pre><p>对于数据，只需要一个数组来模拟队列，所以下面四个输入输出函数都是对数组的操作，当然也可以将他们整合一下，变成一个函数或者两个函数(一个输入一个输出，整合的代码在最终代码中查看)</p>
+<pre><code><span class="comment">//左入数据处理函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">leftIn</span><span class="params">()</span>{</span>
+    var num = parseInt<span class="params">($<span class="params">(<span class="string">"data-input"</span>)</span>.value)</span>;
+    <span class="keyword">if</span><span class="params">(isNaN<span class="params">(num)</span> || num &lt;<span class="number">10</span> || num &gt; <span class="number">100</span>)</span>{
+            alert<span class="params">(<span class="string">"请输入10-100之间的数字"</span>)</span>;
+        }<span class="keyword">else</span>{
+            <span class="keyword">if</span><span class="params">(data.length&lt;<span class="number">60</span>)</span>{
+                data.unshift<span class="params">(num)</span>;
+            }<span class="keyword">else</span>{
+                alert<span class="params">(<span class="string">"最多添加60个"</span>)</span>;
+            }
+    }   
+}
+<span class="comment">//右入数据处理函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">rightIn</span><span class="params">()</span>{</span>
+    var num = parseInt<span class="params">($<span class="params">(<span class="string">"data-input"</span>)</span>.value)</span>;
+    <span class="keyword">if</span><span class="params">(isNaN<span class="params">(num)</span> || num &lt;<span class="number">10</span> || num &gt; <span class="number">100</span>)</span>{
+            alert<span class="params">(<span class="string">"请输入10-100之间的数字"</span>)</span>;
+    }<span class="keyword">else</span>{
+        <span class="keyword">if</span><span class="params">(data.length&lt;<span class="number">60</span>)</span>{
+            data.push<span class="params">(num)</span>;
+        }<span class="keyword">else</span>{
+            alert<span class="params">(<span class="string">"最多添加60个"</span>)</span>;
+        }
+    }
+}
+<span class="comment">//左出数据处理函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">leftOut</span><span class="params">()</span>{</span>
+    <span class="keyword">if</span><span class="params">(data.length &gt; <span class="number">0</span>)</span>{
+        var item = data.shift<span class="params">()</span>;
+        alert<span class="params">(item)</span>;
+    }<span class="keyword">else</span>{
+        alert<span class="params">(<span class="string">"目前为空，请先输入"</span>)</span>;
+    }
+}
+<span class="comment">//右出数据处理函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">rightOut</span><span class="params">()</span>{</span>
+    <span class="keyword">if</span><span class="params">(data.length &gt; <span class="number">0</span>)</span>{
+        var item = data.pop<span class="params">()</span>;
+        alert<span class="params">(item)</span>;
+    }<span class="keyword">else</span>{
+        alert<span class="params">(<span class="string">"目前为空，请先输入"</span>)</span>;
+    }
+}
+</code></pre><p>最后需要将处理过的数据渲染到页面上，根据要求，我们将每个div的高度设置为对应的数字，单位为像素。然后对每个div添加点击删除事件，这里有个技巧，利用call函数来获取数组的索引值，调用splice函数，根据索引值将数组中的数据删除，最后再次渲染数据。</p>
+<pre><code><span class="comment">//渲染数据</span>
+<span class="function"><span class="keyword">function</span> <span class="title">renderData</span><span class="params">()</span></span>{
+    <span class="keyword">var</span> text = <span class="string">''</span>;
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;data.length;i++){
+        text += <span class="string">'&lt;div class="list" style="height:'</span>+data[i]+<span class="string">'px;line-height:'</span>+data[i]+<span class="string">'px"&gt;'</span> + data[i] + <span class="string">'&lt;/div&gt;'</span>;
+    }
+    <span class="keyword">var</span> <span class="keyword">list</span> = $(<span class="string">"list-wrap"</span>);
+    <span class="keyword">list</span>.innerHTML = text;
+    <span class="comment">//给list-wrap中的div添加点击删除事件</span>
+    <span class="comment">// var lists = document.getElementsByClassName("list");</span>
+    <span class="keyword">var</span> lists = <span class="keyword">list</span>.children;
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;lists.length;i++){
+        lists[i].addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
+            <span class="keyword">var</span> node = e.target;
+            <span class="comment">//获取当前div在数组中的索引</span>
+            <span class="keyword">var</span> index = [].indexOf.call(node.parentNode.children,node);
+            data.splice(index,<span class="number">1</span>);
+            renderData();
+        })
+    }
+}
+</code></pre><p>最后题目要求能够可视化的将排序算法展示出来，这种情景，可以利用<code>setInterval</code>函数，指定每次周期的时间间隔，将排序算法写在run函数中。在执行过程中，每排一次序，就将数据渲染一次，最终实现了排序的可视化。</p>
+<pre><code><span class="comment">//冒泡排序</span>
+<span class="function"><span class="keyword">function</span> <span class="title">sortData</span><span class="params">()</span>{</span>
+    var i=<span class="number">0</span>,j=<span class="number">1</span>,temp,len=data.length,timer=null;
+    timer = setInterval<span class="params">(run,<span class="number">15</span>)</span>;
+    <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span>{</span>
+        <span class="keyword">if</span><span class="params">(i&lt;len)</span>{
+            <span class="keyword">if</span><span class="params">(j&lt;len)</span>{
+                <span class="keyword">if</span><span class="params">(data[i]&gt;data[j])</span>{
+                    temp = data[i];
+                    data[i] = data[j];
+                    data[j] = temp;
+                    renderData<span class="params">()</span>;
+                }
+                j++;
+            }<span class="keyword">else</span>{
+                i++;
+                j = i + <span class="number">1</span>;
+            }
+        }<span class="keyword">else</span>{
+            clearInterval<span class="params">(timer)</span>;
+            return;
+        }
+    }
+}
+</code></pre><p>最后的最后，给页面添加简单的样式就可以了。当然为了便于演示，也添加了一个随机生成数据的按钮。</p>
+<hr>
+<h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/blob/master/task18.html" target="_blank" rel="external">代码</a><br><a href="http://ife.supce.com/task18.html" target="_blank" rel="external">演示效果</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>学习与实践 JavaScript 的基本语法、语言特性</li>
+<li>初步了解 JavaScript 的事件是什么</li>
+<li>初步了解 JavaScript 中的DOM是什么</li>
+<li>学习与实践 JavaScript 的基本语法、语言特性</li>
+<li>练习使用 JavaScript 实现简单的排序算法</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><h2 id="05">05</h2><ul>
+<li>模拟一个队列,队列的每个元素是一个数字，初始队列为空</li>
+<li>有一个input输入框，以及4个操作按钮</li>
+<li>点击”左侧入”,将input中输入的数字从左侧插入队列中；</li>
+<li>点击”右侧入”,将input中输入的数字从右侧插入队列中；</li>
+<li>点击”左侧出”,读取并删除队列左侧第一个元素，并弹窗显示元素中数值；</li>
+<li>点击”右侧出”,读取并删除队列又侧第一个元素，并弹窗显示元素中数值；</li>
+<li>点击队列中任何一个元素,则该元素会被从队列中删除]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[IFE Task 04]]></title>
@@ -3083,153 +3288,6 @@ body{
     border-radius: <span class="number">50</span>%;
 }
 </code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之条纹背景&复杂背景]]></title>
-    <link href="http://blog.supce.com/2016/09/16/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%9D%A1%E7%BA%B9%E8%83%8C%E6%99%AF&%E5%A4%8D%E6%9D%82%E8%83%8C%E6%99%AF/"/>
-    <id>http://blog.supce.com/2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/</id>
-    <published>2016-09-15T16:00:00.000Z</published>
-    <updated>2016-09-16T11:43:11.307Z</updated>
-    <content type="html"><![CDATA[<h1 id="条纹背景">条纹背景</h1><p>通常条纹背景是由一个图片来代替，或者使用SVG。能不能利用CSS直接创建条纹图案呢，答案是肯定的。<br>假设背景是垂直线性渐变。比如：<code>background:linear-gradient(#fb3,#58a);</code><br>效果是这个样子的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-1.jpg" alt=""><br>如果让渐变区域变的更窄，产生一个无限小的渐变区域，比如：<code>background:linear-gradient(#fb3 50%,#58a 50%);</code> 就可以得到想要的结果了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-2.jpg" alt=""><br><a id="more"></a></p>
-<h2 id="横向条纹">横向条纹</h2><p>利用上面的方法可以轻松利用CSS绘出横向条纹，同时还可以设置多种颜色的条纹，以及每个条纹的尺寸。<br>HTML代码：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"test-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
-&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"test-b"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
-&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"test-c"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>CSS代码：</p>
-<pre><code><span class="tag">body</span><span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
-    <span class="rule"><span class="attribute">flex-flow</span>:<span class="value"> row wrap</span></span>;
-    <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> space-around</span></span>;
-}</span>
-<span class="tag">div</span><span class="rules">{
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span> <span class="number">20px</span></span></span>;
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">10em</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">6em</span></span></span>;
-}</span>
-<span class="class">.test-a</span><span class="rules">{
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(<span class="hexcolor">#fb3</span> <span class="number">50%</span>, <span class="hexcolor">#58a</span> <span class="number">50%</span>)</span></span>;
-    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">100%</span> <span class="number">24px</span></span></span>;
-}</span>
-<span class="class">.test-b</span><span class="rules">{
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(<span class="hexcolor">#fb3</span> <span class="number">30%</span>, <span class="hexcolor">#58a</span> <span class="number">30%</span>)</span></span>;
-    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">100%</span> <span class="number">24px</span></span></span>;
-}</span>
-<span class="class">.test-c</span><span class="rules">{
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(<span class="hexcolor">#fb3</span> <span class="number">33.3%</span>,<span class="hexcolor">#58a</span> <span class="number">0</span>,<span class="hexcolor">#58a</span> <span class="number">66.6%</span>,yellowgreen <span class="number">0</span>)</span></span>;
-    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">100%</span> <span class="number">36px</span></span></span>;
-}</span>
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-3.jpg" alt=""></p>
-<h2 id="垂直条纹">垂直条纹</h2><p>幸好<code>linear-gradient</code>足够的灵活，利用它可以轻松创建出垂直条纹。<br>代码：</p>
-<pre><code>&lt;<span class="operator">div</span> class=<span class="string">"test-d"</span>&gt;&lt;/<span class="operator">div</span>&gt;
-.test-d{
-    background: linear-gradient(<span class="built_in">to</span> <span class="constant">right</span>,<span class="comment">#fb3 50%,#58a 50%);</span>
-    <span class="comment">/*background: linear-gradient(90deg,#fb3 50%,#58a 50%);*/</span>
-    background-size: <span class="number">32</span>px <span class="number">100</span>%;   <span class="comment">/*颠倒下宽度和高度值*/</span>
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-11.jpg" alt=""></p>
-<h2 id="斜向条纹">斜向条纹</h2><p>在绘制斜向条纹之前，如果对<code>linear-gradient</code>的斜向线性渐变不太理解，可以参考下张鑫旭大神的这篇<a href="http://www.zhangxinxu.com/wordpress/?p=3639" target="_blank" rel="external">博文</a><br>在完成水平和垂直条纹后，好像斜向条纹也很就简单，稍微修改下渐变方向和<code>background-size</code>的值就可以了。</p>
-<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">linear-gradient</span>(<span class="number">45deg</span>,<span class="hexcolor">#fb3</span> <span class="number">50%</span>,<span class="hexcolor">#58a</span> <span class="number">50%</span>)</span></span>;
-<span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">32px</span> <span class="number">32px</span></span></span>;
-</code></pre><p>但是得到的结果并不是想要的。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-4.jpg" alt=""><br>如果观察下斜向条纹，会发现斜向条纹是由四条条纹的“贴片”组成的。如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-5.jpg" alt=""><br>这样的话解决思路就有了。</p>
-<pre><code>background:linear-gradient(<span class="number">45</span>deg,<span class="preprocessor">#fb3 <span class="number">25</span>%,#<span class="number">58</span>a <span class="number">0</span>,#<span class="number">58</span>a <span class="number">50</span>%,#fb3 <span class="number">0</span>,#fb3 <span class="number">75</span>%,#<span class="number">58</span>a <span class="number">0</span>);</span>
-background-size: <span class="number">32</span>px <span class="number">32</span>px;
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-6.jpg" alt=""><br>但是会发现条纹的宽度并不是16像素，因为<code>background-size</code>指定的长度是最左下角的直角三角形的直角边长度。而条纹的宽度是直角三角形的高，对于45度的三角形，要想高为16px，直角边设置为16√2，即<code>background-size</code>设置为2*16√2的约值。<br>好了，45度的斜向条纹完成了，好像其他度数的条纹比葫芦画瓢轻松得来，设置度数为60度</p>
-<pre><code>background:linear-gradient(<span class="number">60</span>deg,<span class="preprocessor">#fb3 <span class="number">25</span>%,#<span class="number">58</span>a <span class="number">0</span>,#<span class="number">58</span>a <span class="number">50</span>%,#fb3 <span class="number">0</span>,#fb3 <span class="number">75</span>%,#<span class="number">58</span>a <span class="number">0</span>);</span>
-background-size: <span class="number">32</span>px <span class="number">32</span>px;
-</code></pre><p>结果是这个样子：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-7.jpg" alt=""><br>看来得换个思路了。<br>这时候可以祭出<code>repeating-linear-gradient()</code>了，它的工作方式与<code>linear-gradient</code>类似，只有一点不同，色标是无限循环重复的，直至填满整个背景。比如：</p>
-<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">repeating-linear-gradient</span>(<span class="number">45deg</span>, <span class="hexcolor">#fb3</span>,<span class="hexcolor">#58a</span> <span class="number">30px</span>)</span></span>;
-</code></pre><p>就等于</p>
-<pre><code>background:repeating-linear-gradient(<span class="number">45</span>deg,
-                    <span class="preprocessor">#fb3,#<span class="number">58</span>a <span class="number">30</span>px,</span>
-                    <span class="preprocessor">#fb3 <span class="number">30</span>px,#<span class="number">58</span>a <span class="number">60</span>px,</span>
-                    <span class="preprocessor">#fb3 <span class="number">60</span>px,#<span class="number">58</span>a <span class="number">90</span>px,</span>
-                    <span class="preprocessor">#fb3 <span class="number">90</span>px,#<span class="number">58</span>a <span class="number">120</span>px,...);</span>
-</code></pre><p>45°斜向条纹就可以轻松创建了</p>
-<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">repeating-linear-gradient</span>(<span class="number">45deg</span>, <span class="hexcolor">#fb3</span>,<span class="hexcolor">#fb3a</span> <span class="number">16px</span>,<span class="hexcolor">#58a</span> <span class="number">0</span>,<span class="hexcolor">#58a</span> <span class="number">32px</span>)</span></span>;
-</code></pre><p>同时<code>background-size</code>也不用设置，因为长度就是直接在渐变轴上进行度量的。<br>现在试试60°的斜向条纹</p>
-<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">repeating-linear-gradient</span>(<span class="number">60deg</span>, <span class="hexcolor">#fb3</span>,<span class="hexcolor">#fb3</span> <span class="number">16px</span>,<span class="hexcolor">#58a</span> <span class="number">0</span>,<span class="hexcolor">#58a</span> <span class="number">32px</span>)</span></span>;
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-8.jpg" alt=""></p>
-<h2 id="灵活的同色系条纹">灵活的同色系条纹</h2><p>存在这样一种场景，我们想要的条纹图案并不是由差异极大的几种颜色组成的，而是由同色系但亮度不同的条纹组成。比如：</p>
-<pre><code><span class="attribute">background</span>: <span class="function"><span class="title">repeating-linear-gradient</span><span class="params">(<span class="number">30deg</span>,<span class="hexcolor">#79b</span>,<span class="hexcolor">#79b</span> <span class="number">16px</span>,<span class="hexcolor">#58a</span> <span class="number">0</span>,<span class="hexcolor">#58a</span> <span class="number">32px</span>)</span></span>
-</code></pre><p>是这种效果<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-9.jpg" alt=""><br>但是，如果想要修改颜色，就需要对上面的代码进行4处修改。身为懒癌患者，这是不能忍受的。于是诞生了下面这种方式：<br>先把最深的颜色指定为背景色，同时把半透明的白色条纹叠加在背景色之上来得到浅色条纹。</p>
-<pre><code>background: <span class="preprocessor">#<span class="number">58</span>a;</span>
-background-image: repeating-linear-gradient(<span class="number">30</span>deg,hsla(<span class="number">0</span>,<span class="number">0</span>%,<span class="number">100</span>%,<span class="number">.1</span>),hsla(<span class="number">0</span>,<span class="number">0</span>%,<span class="number">100</span>%,<span class="number">.1</span>) <span class="number">16</span>px,
-transparent <span class="number">16</span>px, transparent <span class="number">32</span>px);
-</code></pre><p>这样就舒服多了：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-10.jpg" alt=""></p>
-<h1 id="复杂的背景图案">复杂的背景图案</h1><p>这里所说的复杂背景图案是指下面的网格、波点和棋盘背景。其实这些都是<code>gradient</code>的一些扩展应用。</p>
-<h2 id="网格">网格</h2><p>有了上面的水平和垂直条纹，网格背景其实就是两者的结合。举个最简单的例子。</p>
-<pre><code>background: white;
-background-image: linear-gradient(<span class="number">90</span>deg,rgba(<span class="number">200</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.5</span>) <span class="number">50</span>%,transparent <span class="number">50</span>%),
-    linear-gradient(rgba(<span class="number">200</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.5</span>) <span class="number">50</span>%,transparent <span class="number">50</span>%);
-background-size: <span class="number">32</span>px <span class="number">32</span>px;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-12.jpg" alt=""><br>常用的可能会需要下面这种细线条单色网格背景。</p>
-<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#58a</span></span></span>;
-<span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">linear-gradient</span>(white <span class="number">1px</span>,transparent <span class="number">1px</span>),
-                      <span class="function">linear-gradient</span>(<span class="number">90deg</span>,white <span class="number">1px</span>,transparent <span class="number">0</span>)</span></span>;
-<span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">32px</span> <span class="number">32px</span></span></span>;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-13.jpg" alt=""></p>
-<p>偶尔还可能会用到两幅不同线宽的网格图案。显得更为真实一些，比如：</p>
-<pre><code>background: <span class="preprocessor">#<span class="number">58</span>a;</span>
-background-image: linear-gradient(white <span class="number">2</span>px,transparent <span class="number">0</span>),
-                linear-gradient(<span class="number">90</span>deg,white <span class="number">2</span>px,transparent <span class="number">0</span>),
-                linear-gradient(hsla(<span class="number">0</span>,<span class="number">0</span>%,<span class="number">100</span>%,<span class="number">.3</span>) <span class="number">1</span>px,transparent <span class="number">0</span>),
-                linear-gradient(<span class="number">90</span>deg,hsla(<span class="number">0</span>,<span class="number">0</span>%,<span class="number">100</span>%,<span class="number">.3</span>) <span class="number">1</span>px,transparent <span class="number">0</span>);
-background-size: <span class="number">48</span>px <span class="number">48</span>px,<span class="number">48</span>px <span class="number">48</span>px,<span class="number">16</span>px <span class="number">16</span>px,<span class="number">16</span>px <span class="number">16</span>px;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-14.jpg" alt=""></p>
-<h2 id="波点">波点</h2><p>相对于网格背景，我个人更偏向于波点背景，波点背景其实是利用的径向渐变。最简单的就是圆点的阵列。</p>
-<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#655</span></span></span>;
-<span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">radial-gradient</span>(tan <span class="number">30%</span>,transparent <span class="number">0</span>)</span></span>;
-<span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">32px</span> <span class="number">32px</span></span></span>;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-15.jpg" alt=""><br>但是，这样看起来不是很自然。这时候可以考虑把两个径向渐变图像错位相排。</p>
-<pre><code><span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#655</span></span></span>;
-<span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">radial-gradient</span>(tan <span class="number">30%</span>,transparent <span class="number">0</span>),
-                <span class="function">radial-gradient</span>(tan <span class="number">30%</span>,transparent <span class="number">0</span>)</span></span>;
-<span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">32px</span> <span class="number">32px</span></span></span>;
-<span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">0px</span> <span class="number">0px</span>,<span class="number">16px</span> <span class="number">16px</span></span></span>; 
-</code></pre><p>这样的话就比较自然了<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-16.jpg" alt=""><br>但是这段代码的可维护性确实很差，幸好Sass大法好。</p>
-<pre><code><span class="at_rule">@<span class="keyword">mixin</span><span class="preprocessor"> polka</span>(<span class="variable">$size</span>,<span class="variable">$dot</span>,<span class="variable">$base</span>,<span class="variable">$accent</span>){</span>
-    <span class="attribute">background</span><span class="value">: <span class="variable">$base</span>;</span>
-    <span class="attribute">background-image</span><span class="value">: <span class="function">radial-gradient</span>(<span class="variable">$accent</span> <span class="variable">$dot</span>,transparent <span class="number">0</span>),
-                      <span class="function">radial-gradient</span>(<span class="variable">$accent</span> <span class="variable">$dot</span>,transparent <span class="number">0</span>);</span>
-    <span class="attribute">background-size</span><span class="value">: <span class="variable">$size</span> <span class="variable">$size</span>;</span>
-    <span class="attribute">background-position</span><span class="value">: <span class="number">0</span> <span class="number">0</span>, <span class="variable">$size</span>/<span class="number">2</span> <span class="variable">$size</span>/<span class="number">2</span>
-}
-@include <span class="function">polka</span>(<span class="number">32px</span>,<span class="number">30%</span>,<span class="hexcolor">#655</span>,tan);</span>
-</code></pre><blockquote>
-<p>每次$dot都打成$dota</p>
-</blockquote>
-<h2 id="棋盘">棋盘</h2><p>棋盘的话，见得并不多，调试的时候可以看见透明色就是用灰色棋盘来表示的。<br>棋盘的实现稍微复杂些，首先，利用渐变绘制出如图案：</p>
-<pre><code>background: <span class="preprocessor">#eee;</span>
-background-image: linear-gradient(<span class="number">45</span>deg,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">25</span>%,
-            transparent <span class="number">0</span>,transparent <span class="number">75</span>%,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">0</span>);
-background-size: <span class="number">32</span>px <span class="number">32</span>px;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-17.jpg" alt=""><br>这时候会发现，再绘制一份相同的背景，然后错下位就可以实现棋盘效果了。</p>
-<pre><code>background: <span class="preprocessor">#eee;</span>
-background-image: linear-gradient(<span class="number">45</span>deg,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">25</span>%,transparent <span class="number">0</span>,transparent <span class="number">75</span>%,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">0</span>),
-                  linear-gradient(<span class="number">45</span>deg,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">25</span>%,transparent <span class="number">0</span>,transparent <span class="number">75</span>%,rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.25</span>) <span class="number">0</span>);
-background-size: <span class="number">32</span>px <span class="number">32</span>px;
-background-position: <span class="number">0</span> <span class="number">0</span> ,<span class="number">16</span>px <span class="number">16</span>px;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-18.jpg" alt=""></p>
-<p>当然在懒人癌的作用下，利用Sass处理下：</p>
-<pre><code><span class="at_rule">@<span class="keyword">mixin</span><span class="preprocessor"> checkerboard</span>(<span class="variable">$size</span>,<span class="variable">$base</span>,<span class="variable">$accent</span>){</span>
-    <span class="attribute">background</span><span class="value">: <span class="variable">$base</span>;</span>
-    <span class="attribute">background-image</span><span class="value">: <span class="function">linear-gradient</span>(<span class="number">45deg</span>,<span class="variable">$accent</span> <span class="number">25%</span>,transparent <span class="number">0</span>, transparent <span class="number">75%</span>,<span class="variable">$accent</span> <span class="number">0</span>),
-    <span class="function">linear-gradient</span>(<span class="number">45deg</span>,<span class="variable">$accent</span> <span class="number">25%</span>,transparent <span class="number">0</span>, transparent <span class="number">75%</span>,<span class="variable">$accent</span> <span class="number">0</span>);</span>
-    <span class="attribute">background-size</span><span class="value">: <span class="number">2</span>*<span class="variable">$size</span> <span class="number">2</span>*<span class="variable">$size</span>;</span>
-    <span class="attribute">background-position</span><span class="value">: <span class="number">0</span> <span class="number">0</span>, <span class="variable">$size</span> <span class="variable">$size</span>;</span>
-}
-<span class="at_rule">@<span class="keyword">include</span><span class="preprocessor"> checkerboard</span>(<span class="number">16px</span>,<span class="hexcolor">#eee</span>,<span class="function">rgba</span>(<span class="number">200</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">5</span>));</span>
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="条纹背景">条纹背景</h1><p>通常条纹背景是由一个图片来代替，或者使用SVG。能不能利用CSS直接创建条纹图案呢，答案是肯定的。<br>假设背景是垂直线性渐变。比如：<code>background:linear-gradient(#fb3,#58a);</code><br>效果是这个样子的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-1.jpg" alt=""><br>如果让渐变区域变的更窄，产生一个无限小的渐变区域，比如：<code>background:linear-gradient(#fb3 50%,#58a 50%);</code> 就可以得到想要的结果了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-2.jpg" alt=""><br>]]>
     
     </summary>
     

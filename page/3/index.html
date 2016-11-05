@@ -207,6 +207,111 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/26/CSS Secret 读书笔记之交互式的图片对比控件/" itemprop="url">
+                  CSS Secret 读书笔记之交互式的图片对比控件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-26T00:00:00+08:00" content="2016-09-26">
+              2016-09-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/26/CSS Secret 读书笔记之交互式的图片对比控件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/26/CSS Secret 读书笔记之交互式的图片对比控件/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<h1 id="交互式的图片对比控件">交互式的图片对比控件</h1><p>利用CSS可以模拟一种图片对比滑动控件，这个控件会把两张图片叠加起来，允许用户拖动分割条来控制这两张图片的显露区域。这种控件可以理解为两层结构：<br>下层是一张固定的图片，上层的图片则可以在水平方向上调整大小，从而能够显示下层的图片。<br>一般这种需求是可以利用JavaScript解决的。但是也可以利用下面这两种CSS方式。</p>
+<h2 id="resize方案"><code>resize</code>方案</h2><p>可以利用CSS3中的<code>resize</code>属性。这个属性就算没听说过，但是也肯定接触过它的行为，因为对于<code>&lt;textarea&gt;</code>元素来说，整个属性被默认设置为<code>both</code>，这就使得<code>&lt;textarea&gt;</code>元素在水平和垂直方向上是可以调整大小的。<br>对于任何一个<code>overflow</code>属性不是<code>visible</code>的元素来说，<code>resize</code>属性都是适用的。大部分元素<code>resize</code>属性的默认值是none，即禁止调整大小。该属性也接受<code>horizontal</code>和<code>vertical</code>来限制元素调整大小的方向。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/26/CSS Secret 读书笔记之交互式的图片对比控件/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/25/CSS Secret 读书笔记之模糊弱化背景&滚动提示/" itemprop="url">
                   CSS Secret 读书笔记之模糊弱化背景&滚动提示
                 </a>
@@ -626,115 +731,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/" itemprop="url">
-                  CSS Secret 读书笔记之染色效果&毛玻璃效果
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-21T00:00:00+08:00" content="2016-09-21">
-              2016-09-21
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <hr>
-<h1 id="染色效果">染色效果</h1><p>有时候会遇到这样一种场景:需要给图片增加染色效果，当发生hover或者交互时再把染色效果去除。<br>最容易想到的是以下两种方式：</p>
-<ul>
-<li>把图片做成两个版本，然后用CSS使得两个版本交替呈现。这种方式会导致更大的文件体积和额外的HTTP请求，同时也不便于维护(想改变染色主色调时需要重新制作图片)。</li>
-<li>还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式会降低图片的对比度。</li>
-</ul>
-<p>为了避免上面两种方式带来的问题，可以用下面这两种纯CSS的方式解决<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -780,7 +776,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">63</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
