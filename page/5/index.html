@@ -207,6 +207,123 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/17/CSS Secret 读书笔记之自适应椭圆&平行四边形/" itemprop="url">
+                  CSS Secret 读书笔记之自适应椭圆&平行四边形
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-17T00:00:00+08:00" content="2016-09-17">
+              2016-09-17
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/17/CSS Secret 读书笔记之自适应椭圆&平行四边形/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/17/CSS Secret 读书笔记之自适应椭圆&平行四边形/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<h1 id="自适应椭圆">自适应椭圆</h1><p>对于一个正方形的元素，如果设置其属性<code>border-radius</code>的值大于等于边长的一半，那么该元素会变成一个圆形。</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"round-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+body{
+    display: flex;
+    flex-flow: row wrap; 
+    justify-content: <span class="constant">space</span>-<span class="keyword">around</span>;
+}
+.<span class="command">round</span>-a{
+    background: <span class="comment">#fb3;</span>
+    width: <span class="number">10</span>em;
+    height: <span class="number">10</span>em;
+    border-radius: <span class="number">50</span>%;
+}
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/17/CSS Secret 读书笔记之自适应椭圆&平行四边形/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/" itemprop="url">
                   CSS Secret 读书笔记之条纹背景&复杂背景
                 </a>
@@ -623,131 +740,6 @@ div{
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/12/CSS Secret 读书笔记之弹性布局/" itemprop="url">
-                  CSS Secret 读书笔记之弹性布局
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-12T00:00:00+08:00" content="2016-09-12">
-              2016-09-12
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/12/CSS Secret 读书笔记之弹性布局/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/CSS Secret 读书笔记之弹性布局/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>在CSS Secret中提到了弹性布局，这里就简单写了四个实例来回顾下弹性布局</p>
-</blockquote>
-<h1 id="居中">居中</h1><p>可以利用<code>flex</code>，让子容器在父容器中居中。设置父容器<code>display</code>属性为<code>flex</code>，并设置子容器<code>margin</code>属性为<code>auto</code>即可。<br>HTML代码：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"parent"</span>&gt;
-        &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"child"</span>&gt;
-            child
-        &lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>CSS代码：</p>
-<pre><code><span class="class">.parent</span>,<span class="class">.child</span><span class="rules">{
-    <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#333</span></span></span>;
-}</span>
-<span class="class">.parent</span><span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;
-}</span>
-<span class="class">.child</span><span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
-}</span>
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/12/CSS Secret 读书笔记之弹性布局/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -793,7 +785,7 @@ div{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-count">64</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

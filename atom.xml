@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-11-05T09:29:01.519Z</updated>
+  <updated>2016-11-07T11:50:56.301Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,196 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[IFE Task 07]]></title>
+    <link href="http://blog.supce.com/2016/11/07/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8013/"/>
+    <id>http://blog.supce.com/2016/11/07/JavaScript之基础13/</id>
+    <published>2016-11-06T16:00:00.000Z</published>
+    <updated>2016-11-07T11:50:56.301Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>实践JavaScript数组、字符串相关操作</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>基于 Task05 进行升级</li>
+<li>将新元素输入框从input改为textarea</li>
+<li>允许一次批量输入多个内容，格式可以为数字、中文、英文等，可以通过用回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等均可）等符号作为不同内容的间隔</li>
+<li>增加一个查询文本输入框，和一个查询按钮，当点击查询时，将查询词在各个元素内容中做模糊匹配，将匹配到的内容进行特殊标识，如文字颜色等。举例，内容中有abcd，查询词为ab或bc，则该内容需要标识<a id="more"></a>
+</li>
+</ul>
+<hr>
+<h1 id="整体思路">整体思路</h1><p>首先根据题目要求将HTML写出来，一个div用来存放textarea、input和button。一个div用以最终数据的显示。</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"myForm"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">textarea</span> <span class="attribute">id</span>=<span class="value">"data-input"</span> <span class="attribute">class</span>=<span class="value">"form-control"</span> <span class="attribute">rows</span>=<span class="value">"3"</span>&gt;</span><span class="tag">&lt;/<span class="title">textarea</span>&gt;</span>
+    <span class="comment">&lt;!-- &lt;input type="text" id="data-input"&gt; --&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"btn-container"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"left-in"</span> <span class="attribute">class</span>=<span class="value">"btn btn-success"</span>&gt;</span>左侧入<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"right-in"</span> <span class="attribute">class</span>=<span class="value">"btn btn-success"</span>&gt;</span>右侧入<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"left-out"</span> <span class="attribute">class</span>=<span class="value">"btn btn-danger"</span>&gt;</span>左侧出<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"right-out"</span> <span class="attribute">class</span>=<span class="value">"btn btn-danger"</span>&gt;</span>右侧出<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"search"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"search-input"</span> <span class="attribute">class</span>=<span class="value">"form-control"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"search"</span> <span class="attribute">class</span>=<span class="value">"btn btn-primary"</span>&gt;</span>查询<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"list-wrap"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>然后给页面的各个元素添加事件监听器</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> btns = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"button"</span>);
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;btns.length;i++){
+        btns[i].addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+            btnHandle(e.target);
+        });
+    }
+    $(<span class="string">"data-input"</span>).addEventListener(<span class="string">"focus"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+        e.target.value = <span class="string">""</span>;
+    });
+    $(<span class="string">"search-input"</span>).addEventListener(<span class="string">"focus"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+        e.target.value = <span class="string">""</span>;
+    });
+}
+init();
+</code></pre><p>写一个btnhandler用以处理不同的事件，针对不同的元素事件调用对应的函数</p>
+<pre><code><span class="comment">//点击按钮时的处理逻辑</span>
+<span class="function">function <span class="title">btnHandle</span><span class="params">(<span class="keyword">target</span>)</span></span>{
+    var id = <span class="keyword">target</span>.id;
+    <span class="keyword">switch</span>(id){
+        <span class="keyword">case</span> <span class="string">'left-in'</span>:
+            dataIn(<span class="string">"left"</span>);
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'right-in'</span>:
+            dataIn(<span class="string">"right"</span>);
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'left-out'</span>:
+            leftOut();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'right-out'</span>:
+            rightOut();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'search'</span>:
+            search();
+            <span class="keyword">break</span>;
+    }
+    renderData();
+}
+</code></pre><p>然后就是完成数据的输入和输出函数</p>
+<pre><code><span class="comment">//输入数据处理函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">dataIn</span><span class="params">(tag)</span>{</span>
+    var <span class="built_in">str</span> = $<span class="params">(<span class="string">"data-input"</span>)</span>.value.trim<span class="params">()</span>;
+    var dataWord = <span class="built_in">str</span>.split<span class="params">(/[^<span class="number">0</span>-<span class="number">9</span>a-zA-Z\u4e00-\u9fa5]+/)</span>;
+    <span class="keyword">if</span><span class="params">(tag == <span class="string">"left"</span>)</span>{
+        <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>;i&lt;dataWord.length;i++)</span>{
+            data.unshift<span class="params">(dataWord[i])</span>;
+        }
+    }<span class="keyword">else</span> <span class="keyword">if</span><span class="params">(tag == <span class="string">"right"</span>)</span>{
+        <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>;i&lt;dataWord.length;i++)</span>{
+            data.push<span class="params">(dataWord[i])</span>;
+        }
+    }<span class="keyword">else</span>{
+        return;
+    }
+
+}
+<span class="comment">//左出数据处理函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">leftOut</span><span class="params">()</span>{</span>
+    <span class="keyword">if</span><span class="params">(data.length &gt; <span class="number">0</span>)</span>{
+        var item = data.shift<span class="params">()</span>;
+        alert<span class="params">(item)</span>;
+    }<span class="keyword">else</span>{
+        alert<span class="params">(<span class="string">"目前为空，请先输入"</span>)</span>;
+    }
+}
+<span class="comment">//右出数据处理函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">rightOut</span><span class="params">()</span>{</span>
+    <span class="keyword">if</span><span class="params">(data.length &gt; <span class="number">0</span>)</span>{
+        var item = data.pop<span class="params">()</span>;
+        alert<span class="params">(item)</span>;
+    }<span class="keyword">else</span>{
+        alert<span class="params">(<span class="string">"目前为空，请先输入"</span>)</span>;
+    }
+}
+</code></pre><p>由于新增了查询功能，所以需要写一个函数用以标记哪些数据被查询，将被包含被查询数据的下标存储在一个数组里</p>
+<pre><code><span class="comment">//模糊匹配函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">search</span><span class="params">()</span>{</span>
+    <span class="keyword">if</span><span class="params">(data.length)</span>{
+        indexs = [];
+        var <span class="built_in">str</span> = $<span class="params">(<span class="string">"search-input"</span>)</span>.value.trim<span class="params">()</span>;
+        <span class="keyword">if</span><span class="params">(str)</span>{
+            <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>;i&lt;data.length;i++)</span>{
+                <span class="keyword">if</span><span class="params">(data[i].indexOf<span class="params">(str)</span> != -<span class="number">1</span>)</span>{
+                    indexs.push<span class="params">(i)</span>;
+                }
+            }
+            <span class="comment">// console.log(indexs);</span>
+        }
+    <span class="comment">// console.log(str);</span>
+    renderData<span class="params">()</span>;
+    }
+}
+</code></pre><p>最后是数据的渲染函数</p>
+<pre><code><span class="comment">//渲染数据</span>
+<span class="function"><span class="keyword">function</span> <span class="title">renderData</span><span class="params">()</span></span>{
+    <span class="keyword">var</span> text = <span class="string">''</span>;
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;data.length;i++){
+        <span class="keyword">if</span>(isSearched(i)){
+            text += <span class="string">'&lt;div class="selected"&gt;'</span> + data[i] + <span class="string">'&lt;/div&gt;'</span>;
+        }<span class="keyword">else</span>{
+            text += <span class="string">'&lt;div class="list"&gt;'</span> + data[i] + <span class="string">'&lt;/div&gt;'</span>;
+        }
+    }
+    <span class="keyword">var</span> <span class="keyword">list</span> = $(<span class="string">"list-wrap"</span>);
+    <span class="keyword">list</span>.innerHTML = text;
+    <span class="comment">//给list-wrap中的div添加点击删除事件</span>
+    <span class="comment">// var lists = document.getElementsByClassName("list");</span>
+    <span class="keyword">var</span> lists = <span class="keyword">list</span>.children;
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;lists.length;i++){
+        lists[i].addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
+            <span class="keyword">var</span> node = e.target;
+            <span class="comment">//获取当前div在数组中的索引</span>
+            <span class="keyword">var</span> index = [].indexOf.call(node.parentNode.children,node);
+            data.splice(index,<span class="number">1</span>);
+            <span class="comment">//更新查询标记数组</span>
+            search();
+            <span class="comment">//渲染数据</span>
+            renderData();
+        })
+    }
+}
+</code></pre><p>数据渲染函数在进行数据渲染时，使用了一个函数来检测该数据是否是被检测到的数据</p>
+<pre><code><span class="comment">//是否被匹配函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">isSearched</span>(<span class="params">value</span>)</span>{
+    <span class="keyword">var</span> flag = <span class="literal">false</span>;
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;indexs.length;i++){
+        <span class="keyword">if</span>(value == <span class="built_in">parseInt</span>(indexs[i])){
+            flag = <span class="literal">true</span>;
+            <span class="keyword">return</span> flag;
+        }
+    }
+    <span class="keyword">return</span> flag;
+}
+</code></pre><hr>
+<h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/blob/master/task20.html" target="_blank" rel="external">代码</a><br><a href="http://ife.supce.com/task20.html" target="_blank" rel="external">演示地址</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>实践JavaScript数组、字符串相关操作</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>基于 Task05 进行升级</li>
+<li>将新元素输入框从input改为textarea</li>
+<li>允许一次批量输入多个内容，格式可以为数字、中文、英文等，可以通过用回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等均可）等符号作为不同内容的间隔</li>
+<li>增加一个查询文本输入框，和一个查询按钮，当点击查询时，将查询词在各个元素内容中做模糊匹配，将匹配到的内容进行特殊标识，如文字颜色等。举例，内容中有abcd，查询词为ab或bc，则该内容需要标识]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[IFE Task 05&06]]></title>
@@ -3114,178 +3304,6 @@ div{
 .diamond-a &gt; img{
     <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">100</span>%;
     transform: <span class="built_in">rotate</span>(-<span class="number">45</span>deg);
-}
-</code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之自适应椭圆&平行四边形]]></title>
-    <link href="http://blog.supce.com/2016/09/17/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%87%AA%E9%80%82%E5%BA%94%E6%A4%AD%E5%9C%86&%E5%B9%B3%E8%A1%8C%E5%9B%9B%E8%BE%B9%E5%BD%A2/"/>
-    <id>http://blog.supce.com/2016/09/17/CSS Secret 读书笔记之自适应椭圆&平行四边形/</id>
-    <published>2016-09-16T16:00:00.000Z</published>
-    <updated>2016-09-17T03:35:13.305Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="自适应椭圆">自适应椭圆</h1><p>对于一个正方形的元素，如果设置其属性<code>border-radius</code>的值大于等于边长的一半，那么该元素会变成一个圆形。</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"round-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
-body{
-    display: flex;
-    flex-flow: row wrap; 
-    justify-content: <span class="constant">space</span>-<span class="keyword">around</span>;
-}
-.<span class="command">round</span>-a{
-    background: <span class="comment">#fb3;</span>
-    width: <span class="number">10</span>em;
-    height: <span class="number">10</span>em;
-    border-radius: <span class="number">50</span>%;
-}
-</code></pre><a id="more"></a>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-1.jpg" alt=""></p>
-<p>那么对于矩形设置合适的水平与垂直<code>border-radius</code>就可以创建出一个椭圆了。<br>恰好<code>border-radius</code>可以单独指定水平和垂直半径，只要用一个斜杠(/)分隔这两个值即可。比如对于<code>200px * 150px</code>的元素，把它圆角的两个半径值分别设为宽高的一般(<code>border-radius: 100px / 75px</code>)，就可以得到一个椭圆了。<br>为了创建能够自适应的椭圆，只要把参数改为百分比。</p>
-<pre><code><span class="class">.round-b</span>{
-    <span class="attribute">margin</span>: <span class="number">20px</span> <span class="number">20px</span>;
-    <span class="attribute">background</span>: <span class="hexcolor">#fb3</span>;
-    <span class="attribute">width</span>: <span class="number">10em</span>;
-    <span class="attribute">height</span>: <span class="number">6em</span>;
-}
-<span class="class">.round-b</span>{
-    <span class="attribute">border-radius</span>: <span class="number">50%</span> / <span class="number">50%</span>;
-    <span class="comment">/*border-radius: 50%;*/</span>   <span class="comment">//简写</span>
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-2.jpg" alt=""></p>
-<h2 id="半椭圆">半椭圆</h2><p>由于<code>border-radius</code>的灵活性为我们创建半椭圆提供了可能性。<br>首先，它支持给每个角指定不同的半径。即展开式属性：</p>
-<ul>
-<li>border-top-left-radius</li>
-<li>border-top-right-radius</li>
-<li>border-bottom-right-radius</li>
-<li>border-bottom-left-radius</li>
-</ul>
-<p>当然，也可以一次提供用空格分开的多个值来简写。</p>
-<ul>
-<li>如果指定四个值，则按照左上，右上，右下，左下 这种逆时针指定。</li>
-<li>如果指定三个值，则第一个表左上，第二个表示右上与左下，第三个表示右下。</li>
-<li>如果指定两个值，则第一个表示左上与右下，第二个表示右上与左下。</li>
-<li>如果指定一个值，则表示四个角均为该值。</li>
-</ul>
-<p>但是<code>border-radius</code>比我之前想到的更加灵活，除了可以指定每个角为不同的半径，还可以为四个角提供完全不同的水平和垂直半径。<br>方法是在斜杠前指定1-4个值表示水平半径，在斜杠后指定1-4个值表示垂直半径。这两组值的简写规则与之前不同，是单独展开为四个值的。比如<code>border-radius: 10px / 5px 20px;</code>效果相当于<code>border-radius: 10px 10px 10px 10px / 5px 20px 5px 20px;</code></p>
-<p>有了上面这些，就可以轻松创建一个沿横轴的半椭圆了：</p>
-<pre><code>.round-c{
-    border-radius: <span class="number">50</span>% / <span class="number">100</span>% <span class="number">100</span>% <span class="number">0</span> <span class="number">0</span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-3.jpg" alt=""></p>
-<p>也创建一个沿纵轴的半椭圆：</p>
-<pre><code>.round-d{
-    border-radius: <span class="number">0</span> <span class="number">100</span>% <span class="number">100</span>% <span class="number">0</span> / <span class="number">50</span>%;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-4.jpg" alt=""></p>
-<h2 id="四分之一椭圆">四分之一椭圆</h2><p>按照上面的思路，要创建一个四分之一椭圆，其中一个角的水平和垂直半径都需要是100%，其他的三个角不能设为圆角。于是：</p>
-<pre><code><span class="class">.round-e</span><span class="rules">{
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">100%</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-5.jpg" alt=""></p>
-<hr>
-<h1 id="平行四边形">平行四边形</h1><p>在导航栏有时候会用到平行四边形。之前也写过几种实现的方法，当时用到了背景图片，这里用纯CSS实现下。<br>最简单的方法就是对于一个普通的矩形进行斜向拉伸：</p>
-<pre><code>&lt;div class="para-a"&gt;this is a test&lt;/div&gt;
-.para-a{
-    margin: 20px 20px<span class="comment">;</span>
-    width: 10em<span class="comment">;</span>
-    height: 4em<span class="comment">;</span>
-    background: #58a<span class="comment">;</span>
-    color: white<span class="comment">;</span>
-    text-align: center<span class="comment">;</span>
-    font: 125%/4em sans-serif<span class="comment">;</span>
-}
-.para-a{
-    transform: skewX(-45deg)<span class="comment">;</span>
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-6.jpg" alt=""><br>但是这样带来一个问题，就是文字也随着被斜向拉伸了，可以用下面两种方式，只让容器形状倾斜，同时保持内容不被拉伸。</p>
-<h2 id="嵌套元素方案">嵌套元素方案</h2><p>最容易想到的方法就是嵌套一个元素了。对容器内部的元素再进行一次反向拉伸，抵消外部容器的拉伸效果。</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"para-b"</span>&gt;
-    &lt;<span class="keyword">div</span>&gt;this <span class="keyword">is</span> a test&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-.para-b{
-    margin: <span class="number">20</span>px <span class="number">20</span>px;
-    width: <span class="number">10</span>em;
-    height: <span class="number">4</span>em;
-    background: <span class="comment">#58a;</span>
-    color: white;
-    <span class="type">text</span>-align: center;
-    font: <span class="number">125</span>%/<span class="number">4</span>em sans-serif;
-}
-.para-b{
-    transform: skewX(-<span class="number">45</span>deg);
-}
-.para-b &gt; <span class="keyword">div</span>{
-    transform: skewX(<span class="number">45</span>deg);
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-7.jpg" alt=""></p>
-<h2 id="伪元素方案">伪元素方案</h2><p>根据之前的经验，既然可以嵌套元素，那么应该也可以使用伪元素来避免污染原有的HTML结构。</p>
-<pre><code>&lt;div class="para-c"&gt;this is a test&lt;/div&gt;
-.para-c{
-    margin: 20px 20px<span class="comment">;</span>
-    width: 10em<span class="comment">;</span>
-    height: 4em<span class="comment">;</span>
-    color: white<span class="comment">;</span>
-    text-align: center<span class="comment">;</span>
-    font: 125%/4em sans-serif<span class="comment">;</span>
-    position: relative<span class="comment">;</span>
-}
-.para-<span class="number">c::bef</span>ore{
-    content: ""<span class="comment">;</span>
-    position: absolute<span class="comment">;</span>
-    top: 0<span class="comment">;right: 0;bottom: 0;left: 0;</span>
-    background: #58a<span class="comment">;</span>
-    z-index: -1<span class="comment">;</span>
-    transform: skewX(-45deg)<span class="comment">;</span>
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-8.jpg" alt=""></p>
-<blockquote>
-<p>注意，这种方式虽然在视觉上是平行四边形，但是他实际所占据的仍然是个矩形。</p>
-</blockquote>
-<h1 id="内边框圆角">内边框圆角</h1><p>利用这种思路，可以给之前的内边框圆角增加一种实现方式</p>
-<pre><code>&lt;div class="bor-ra"&gt;this is a test&lt;/div&gt;
-.bor-ra{
-    margin: 20px 20px<span class="comment">;</span>
-    width: 10em<span class="comment">;</span>
-    height: 4em<span class="comment">;</span>
-    color: white<span class="comment">;</span>
-    text-align: center<span class="comment">;</span>
-    font: 125%/4em sans-serif<span class="comment">;</span>
-    position: relative<span class="comment">;</span>
-}
-.bor-ra{
-    background: tan<span class="comment">;</span>
-    border-radius: .8em<span class="comment">;</span>
-    outline: .6em solid #655<span class="comment">;</span>
-}
-.bor-r<span class="number">a::bef</span>ore{
-    content: ""<span class="comment">;</span>
-    position: absolute<span class="comment">;</span>
-    top: 0<span class="comment">;right: 0;bottom: 0;left: 0;</span>
-    background: #655<span class="comment">;</span>
-    z-index: -1<span class="comment">;</span>
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-06-9.jpg" alt=""></p>
-<p>OK 搞定~</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="自适应椭圆">自适应椭圆</h1><p>对于一个正方形的元素，如果设置其属性<code>border-radius</code>的值大于等于边长的一半，那么该元素会变成一个圆形。</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"round-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
-body{
-    display: flex;
-    flex-flow: row wrap; 
-    justify-content: <span class="constant">space</span>-<span class="keyword">around</span>;
-}
-.<span class="command">round</span>-a{
-    background: <span class="comment">#fb3;</span>
-    width: <span class="number">10</span>em;
-    height: <span class="number">10</span>em;
-    border-radius: <span class="number">50</span>%;
 }
 </code></pre>]]>
     
