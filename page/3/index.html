@@ -207,6 +207,114 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/01/CSS Secret 读书笔记之结构与布局(二)/" itemprop="url">
+                  CSS Secret 读书笔记之结构与布局(二)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-01T00:00:00+08:00" content="2016-10-01">
+              2016-10-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/01/CSS Secret 读书笔记之结构与布局(二)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/01/CSS Secret 读书笔记之结构与布局(二)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<h1 id="根据兄弟元素的数量设置样式">根据兄弟元素的数量设置样式</h1><p>有时候会碰见这样一种场景：当一个列表不断延长时，通过隐藏空间或压缩控件等方式来节省屏幕空间，用来提升用户体验。<br>这时候就需要我们根据兄弟元素的总数来为它们设置相应的样式。<br>设想一个列表，假设仅当列表的总数为4时才对这些列表项设置样式，这时可以使用<code>li:nth-child(4)</code>来选中列表的第四个列表项。但是我们的需求却是：<br><em>在列表的总数为4时选中每个列表项</em><br>如果直接利用兄弟选择符<code>li:nth-child(4),li:hth-child(4)~li</code>得到的是第四个列表以及它之后的所有列表项。那么我们转换一下思路分以下几种情况：<br>当只有一个列表项时，直接利用<code>:only-child</code>即：</p>
+<pre><code><span class="tag">li</span><span class="pseudo">:only-child</span>{
+    <span class="comment">/*只有一个列表时的样式*/</span>
+}
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/01/CSS Secret 读书笔记之结构与布局(二)/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/28/CSS Secret 读书笔记之结构与布局(一)/" itemprop="url">
                   CSS Secret 读书笔记之结构与布局(一)
                 </a>
@@ -628,111 +736,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/" itemprop="url">
-                  CSS Secret 读书笔记之合适光标&扩大可点击区域
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-23T00:00:00+08:00" content="2016-09-23">
-              2016-09-23
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><em>今天莫名的累，借此机会水一篇好了</em></p>
-<hr>
-<h1 id="合适的鼠标光标">合适的鼠标光标</h1><p>为了给用户带来良好的体验，鼠标在网页中有着不可忽视的作用。不同的鼠标光标暗示着不同的信息。下图是CSS3中新的一批内建光标：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -778,7 +781,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">64</span>
+              <span class="site-state-item-count">65</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
