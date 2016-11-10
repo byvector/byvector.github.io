@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-11-08T11:41:09.642Z</updated>
+  <updated>2016-11-10T11:57:29.931Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,154 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[IFE Task 09]]></title>
+    <link href="http://blog.supce.com/2016/11/10/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8015/"/>
+    <id>http://blog.supce.com/2016/11/10/JavaScript之基础15/</id>
+    <published>2016-11-09T16:00:00.000Z</published>
+    <updated>2016-11-10T11:57:29.931Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>熟练JavaScript</li>
+<li>学习树这种数据结构的基本知识</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>在页面中展现一颗二叉树的结构</li>
+<li>提供一个按钮，显示开始遍历，点击后，以动画的形式呈现遍历的过程</li>
+<li>二叉树的遍历算法和方式自定，前序中序后序皆可，但推荐可以提供多种算法的展示</li>
+<li>增加多个按钮，每个按钮对应不同的算法）</li>
+<li>当前被遍历到的节点做一个特殊显示（比如不同的颜色）</li>
+<li>每隔一段时间（500ms，1s等时间自定）再遍历下一个节点<a id="more"></a>
+</li>
+</ul>
+<hr>
+<h1 id="整体思路">整体思路</h1><p>二叉树还是容易的，直接利用div在页面展现一个二叉树结构，然后放上三个变量按钮</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"tree_wrap"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"dlr"</span>&gt;</span>前序遍历<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"ldr"</span>&gt;</span>中序遍历<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"lrd"</span>&gt;</span>后序遍历<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+</code></pre><p>由于题目要求能够对遍历可视化，这里就把遍历后的节点保存在一个数组中，这样既记录了节点，又保存了节点的变量顺序，最后对数组进行可视化遍历即可。</p>
+<p>首先给button添加点击事件</p>
+<pre><code><span class="comment">//根据不同的按钮调用不同的排序算法</span>
+<span class="function"><span class="keyword">function</span> <span class="title">btnHandle</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> id = event.target.id;
+    <span class="keyword">var</span> tree = $(<span class="string">"tree_wrap"</span>);
+    <span class="keyword">switch</span>(id){
+        <span class="keyword">case</span> <span class="string">'dlr'</span>:
+            dlr(tree);
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'ldr'</span>:
+            ldr(tree);
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'lrd'</span>:
+            lrd(tree);
+            <span class="keyword">break</span>;
+    }
+    renderData();
+}
+<span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> btns = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"button"</span>);
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;btns.length;i++){
+        addHandler(btns[i],<span class="string">"click"</span>,btnHandle);
+    }
+}
+init();
+</code></pre><p>用递归把三种遍历函数写出来</p>
+<pre><code><span class="comment">//前序遍历</span>
+<span class="function"><span class="keyword">function</span> <span class="title">dlr</span><span class="params">(node)</span>{</span>
+    <span class="keyword">if</span><span class="params">(node)</span>{
+        nodeArray.push<span class="params">(node)</span>;
+        dlr<span class="params">(node.firstElementChild)</span>;
+        dlr<span class="params">(node.lastElementChild)</span>;
+    }
+}
+<span class="comment">//中序遍历</span>
+<span class="function"><span class="keyword">function</span> <span class="title">ldr</span><span class="params">(node)</span>{</span>
+    <span class="keyword">if</span><span class="params">(node)</span>{
+        ldr<span class="params">(node.firstElementChild)</span>;
+        nodeArray.push<span class="params">(node)</span>;
+        ldr<span class="params">(node.lastElementChild)</span>;
+    }
+}
+<span class="comment">//后序遍历</span>
+<span class="function"><span class="keyword">function</span> <span class="title">lrd</span><span class="params">(node)</span>{</span>
+    <span class="keyword">if</span><span class="params">(node)</span>{
+        lrd<span class="params">(node.firstElementChild)</span>;
+        lrd<span class="params">(node.lastElementChild)</span>;
+        nodeArray.push<span class="params">(node)</span>;
+    }
+}
+</code></pre><p>最后利用 <code>setInterval</code> 函数把遍历过程渲染出来，这里可以写一个renderData函数</p>
+<pre><code><span class="comment">//存储遍历后的节点</span>
+var nodeArray = [];
+<span class="comment">//渲染数据</span>
+<span class="function"><span class="keyword">function</span> <span class="title">renderData</span><span class="params">()</span>{</span>
+    var timer = null,i=<span class="number">0</span>;
+    timer =setInterval<span class="params">(run,<span class="number">500</span>)</span>;
+    <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span>{</span>
+        <span class="keyword">if</span><span class="params">(i&lt;nodeArray.length)</span>{
+            <span class="keyword">if</span><span class="params">(i-<span class="number">1</span> &gt; -<span class="number">1</span>)</span>{
+                <span class="comment">//清除上一个节点的背景色</span>
+                nodeArray[i-<span class="number">1</span>].className = <span class="string">""</span>;
+            }
+            nodeArray[i].className = <span class="string">"selected"</span>;
+            i++;
+        }<span class="keyword">else</span>{
+            <span class="comment">//清除最一个节点的背景色</span>
+            nodeArray[i-<span class="number">1</span>].className = <span class="string">""</span>;
+            clearInterval<span class="params">(timer)</span>;
+            nodeArray = [];
+            return;
+        }
+    }
+    console.<span class="built_in">log</span><span class="params">(nodeArray)</span>;
+}
+</code></pre><hr>
+<h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/blob/master/task22.html" target="_blank" rel="external">最终代码</a><br><a href="http://ife.supce.com/task22.html" target="_blank" rel="external">演示效果</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>熟练JavaScript</li>
+<li>学习树这种数据结构的基本知识</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>在页面中展现一颗二叉树的结构</li>
+<li>提供一个按钮，显示开始遍历，点击后，以动画的形式呈现遍历的过程</li>
+<li>二叉树的遍历算法和方式自定，前序中序后序皆可，但推荐可以提供多种算法的展示</li>
+<li>增加多个按钮，每个按钮对应不同的算法）</li>
+<li>当前被遍历到的节点做一个特殊显示（比如不同的颜色）</li>
+<li>每隔一段时间（500ms，1s等时间自定）再遍历下一个节点]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[IFE Task 08]]></title>
@@ -3002,309 +3150,6 @@ This <span class="keyword">is</span> a test.Like many things <span class="keywor
 <li>使用高斯模糊算法(或者类似算法)将它进行4px的模糊处理。模糊算法本质上是在阴影边缘发生阴影色和纯色透明色之间的颜色过渡，其长度近似于模糊半径的两倍(这里是8px)</li>
 <li>最后，将模糊后的矩形与原始元素的交集部分切除掉，因此模糊的部分看起来是在该元素的后面，其实是和原始元素位于同一层。</li>
 </ul>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之梯形标签页&饼图]]></title>
-    <link href="http://blog.supce.com/2016/09/19/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%A2%AF%E5%BD%A2%E6%A0%87%E7%AD%BE%E9%A1%B5&%E9%A5%BC%E5%9B%BE/"/>
-    <id>http://blog.supce.com/2016/09/19/CSS Secret 读书笔记之梯形标签页&饼图/</id>
-    <published>2016-09-18T16:00:00.000Z</published>
-    <updated>2016-09-19T13:29:56.990Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="梯形标签页">梯形标签页</h1><p>梯形标签在导航栏部分经常遇到，书中只提到3D旋转的方案，但是万能的裁切和渐变怎么能丢？于是有了下面三种方式。</p>
-<h2 id="裁切方案">裁切方案</h2><p>在形状这部分，裁切是一种很强大的方式，以左上角为原点，梯形的绘制对于它来说很简单。</p>
-<pre><code>&lt;div class=<span class="string">"echelon-a"</span>&gt;<span class="keyword">this</span> is a test&lt;/div&gt;
-div{
-    margin:<span class="number">20</span>px;
-    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
-    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">4</span>em;
-    font:<span class="number">125</span>%/<span class="number">4</span>em sans-serif;
-    <span class="built_in">text</span>-align: center;
-    <span class="built_in">color</span>: white;
-}
-.echelon-a{
-    <span class="built_in">background</span>: #<span class="number">58</span>a;
-    -webkit-clip-path: polygon(<span class="number">20</span>% <span class="number">0</span>,<span class="number">80</span>% <span class="number">0</span>,<span class="number">100</span>% <span class="number">100</span>%,<span class="number">0</span> <span class="number">100</span>%);
-}
-</code></pre><a id="more"></a>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-1.jpg" alt=""></p>
-<h2 id="渐变方案">渐变方案</h2><p>到现在为止，利用渐变已经实现了条纹背景、复杂背景、图像边框以及下面的梯形。不得不说渐变真是一把利器。只要注意多层渐变的覆盖，设置好每层渐变的大小和位置即可。</p>
-<pre><code><span class="class">.echelon-b</span><span class="rules">{
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(<span class="number">120deg</span>,transparent <span class="number">40px</span>,<span class="hexcolor">#58a</span> <span class="number">0</span>) top left,
-                <span class="function">linear-gradient</span>(-<span class="number">120deg</span>,transparent <span class="number">40px</span>,<span class="hexcolor">#58a</span> <span class="number">0</span>) top right</span></span>;
-    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">50%</span> <span class="number">100%</span></span></span>;
-    <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-2.jpg" alt=""></p>
-<h2 id="3D旋转方案">3D旋转方案</h2><p>在现实的三维世界中旋转一个矩形，然后其在平面上的投影就是一个梯形。利用这个思路，可以尝试使用3D旋转来模拟一个梯形。<br>如果对元素直接使用<code>transform: perspective(.5em) rotateX(5deg);</code>,元素内部也会进行旋转，这并不是我们想要的结果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-3.jpg" alt=""><br>这时候可以利用伪元素来生成一个矩形，设置其堆叠次序，然后旋转为一个矩形。<br>仔细观察上面的图还会发现，内部的文字不居中了而且也变矮了，这是由于元素是以自身的中心线为轴进行空间旋转的。因此投影到2D屏幕上尺寸会发生变化，导致高度缩减，宽度增加。<br>为了控制它的尺寸，这时候可以指定<code>transform-origin</code>为bottom，当它在3D空间旋转时，可以把它的底边固定住。保证宽度不增加，然后再通过变形属性，即<code>scaleY()</code>来保证高度不会变低。<br>下面是完整的代码：</p>
-<pre><code><span class="class">.echelon-c</span><span class="rules">{
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> inline-block</span></span>;
-}</span>
-<span class="rule"><span class="attribute">.echelon-c</span>:<span class="value">before{
-    content: <span class="string">""</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;<span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;<span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">0</span></span></span>;<span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">z-index</span>:<span class="value"> -<span class="number">1</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#fb3</span></span></span>;
-    <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">scaleY</span>(<span class="number">1.7</span>) <span class="function">perspective</span>(.<span class="number">5em</span>) <span class="function">rotateX</span>(<span class="number">5deg</span>)</span></span>;
-    <span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> bottom</span></span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-4.jpg" alt=""></p>
-<h2 id="梯形导航">梯形导航</h2><p>上面说了3种方式主要是用于实现导航，这里就简单模拟了一个梯形的导航。详细过程就不说了，直接上代码。</p>
-<blockquote>
-<p>一定要注意在使用3D旋转时的元素的堆叠顺序。</p>
-</blockquote>
-<pre><code>&lt;nav&gt;
-    &lt;a href="#"&gt;Home&lt;/a&gt;
-    &lt;a href="#" class="selected"&gt;Contact&lt;/a&gt;
-    &lt;a href="#"&gt;About&lt;/a&gt;
-&lt;/nav&gt;
-&lt;main&gt;Content&lt;/main&gt;
-nav{
-    position: relative<span class="comment">;</span>
-    padding-left: 1em<span class="comment">;</span>
-}
-nav &gt; a {
-    position: relative<span class="comment">;</span>
-    display: inline-block<span class="comment">;</span>
-    padding: .3em 1em 0<span class="comment">;</span>
-    color: inherit<span class="comment">;</span>
-    text-decoration: none<span class="comment">;</span>
-    margin: 0 -.3em<span class="comment">;</span>
-}
-nav&gt;<span class="number">a::bef</span>ore,main{
-    border: .1em solid rgba(0,0,0,.4)<span class="comment">;</span>
-}
-nav <span class="number">a::bef</span>ore{
-    content: ""<span class="comment">;</span>
-    position: absolute<span class="comment">;</span>
-    top: 0<span class="comment">;right: 0;bottom: 0;left: 0;</span>
-    z-index: -1<span class="comment">;</span>
-    border-bottom: none<span class="comment">;</span>
-    border-radius: .5em .5em 0 0<span class="comment">;</span>
-    background: #ccc linear-gradient(hsla(0,0%,100%,.6),hsla(0,0%,100%,0))<span class="comment">;</span>
-    box-shadow: 0 .15em white inset<span class="comment">;</span>
-    transform: scale(<span class="number">1.1,1.3</span>) perspective(.5em) rotateX(5deg)<span class="comment">;</span>
-    transform-origin: bottom<span class="comment">;</span>
-}
-main {
-    width: 30em<span class="comment">;</span>
-    display: block<span class="comment">;</span>
-    margin-bottom: 1em<span class="comment">;</span>
-    background: #eee<span class="comment">;</span>
-    padding: 1em<span class="comment">;</span>
-    border-radius: .15em<span class="comment">;</span>
-}
-nav a:hover{
-    z-index: 2<span class="comment">;</span>
-}
-nav a:hover<span class="number">::bef</span>ore{
-    background-color: #eee<span class="comment">;</span>
-    margin-bottom: -1px<span class="comment">;</span>
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-5.gif" alt=""></p>
-<h1 id="饼图">饼图</h1><p>一般在统计图表、进度指示器、定时器等场景中会用到饼图。我们希望能够很简单的创建出对应百分比的饼图，比如创建一个20%的饼图，只需一行代码，不引入外部插件。</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"pie"</span>&gt;<span class="number">20</span>%&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>可以用下面这种方式解决。</p>
-<h2 id="基于transform的解决方案">基于transform的解决方案</h2><p>首先要利用之前的border-radius创建一个圆，然后利用渐变遮盖半个圆。即：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"pie-test"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
-.pie-test{
-    width: <span class="number">100</span>px;
-    height: <span class="number">100</span>px;
-    border-radius: <span class="number">50</span>%;
-    background: yellowgreen;
-    background-image: linear-gradient(<span class="keyword">to</span> right,transparent <span class="number">50</span>%,<span class="comment">#655 0);</span>
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-6.jpg" alt=""></p>
-<p>然后设置伪元素，对右半圆进行遮盖</p>
-<pre><code><span class="rule"><span class="attribute">.pie-test</span>:<span class="value">:before{
-    content: <span class="string">""</span></span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> dashed black</span></span>;
-}
-</code></pre><blockquote>
-<p>设置border只是为了演示方便</p>
-</blockquote>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-7.jpg" alt=""></p>
-<p>对于伪元素，有3件微小的工作需要它完成</p>
-<ul>
-<li>第一件，希望它能遮盖有半侧的黑色部分，设置<code>background-color:inherit</code>即可。</li>
-<li>第二件，希望它绕着圆形的圆心旋转，设置<code>transform-origin: left</code>或者0 50%</li>
-<li>第三件，不希望它是矩形的，可以设置.pie-test为<code>overflow:hidden</code>或者给伪元素设置合理的<code>border-radius</code></li>
-</ul>
-<blockquote>
-<p>伪元素：很惭愧，就做了三件微小的工作，谢谢大家！希望下次能控制天气~</p>
-</blockquote>
-<p>如果想要显示比例20%，只要旋转.2turn即可</p>
-<p>具体代码如下：</p>
-<pre><code><span class="rule"><span class="attribute">.pie-test</span>:<span class="value">:before{
-    content: <span class="string">""</span></span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> dashed black</span></span>;
-    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> inherit</span></span>;
-    <span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> left</span></span>;
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">0</span> <span class="number">100%</span> <span class="number">100%</span> <span class="number">0</span> / <span class="number">50%</span> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(.<span class="number">2turn</span>)</span></span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-8.jpg" alt=""></p>
-<p>如果我们想要60%的比例，设置.6turn会出现下面的结果：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-9.jpg" alt=""></p>
-<p>这时候可以把50%-100%看做另外一个问题，设置一个黑色的伪元素，让它在0-.5turn范围内旋转，此时，要得到一个60%比率的饼图，代码如下：</p>
-<pre><code><span class="rule"><span class="attribute">.pie-test</span>:<span class="value">:before{
-    content: <span class="string">""</span></span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> dashed black</span></span>;
-    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#655</span></span></span>;
-    <span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> left</span></span>;
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">0</span> <span class="number">100%</span> <span class="number">100%</span> <span class="number">0</span> / <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(.<span class="number">1turn</span>)</span></span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-10.jpg" alt=""></p>
-<p>利用上面的代码可以用动画来做一个从0-100%的进度指示器了</p>
-<p>这里给出完整代码：</p>
-<pre><code>&lt;div class="pie-a"&gt;&lt;/div&gt;
-@keyframes spin{
-    to {transform: rotate(.5turn)<span class="comment">;}</span>
-}
-@keyframes bg{
-    50% {background: #655<span class="comment">;}</span>
-}
-.pie-a{
-    width: 100px<span class="comment">;</span>
-    height: 100px<span class="comment">;</span>
-    border-radius: 50%<span class="comment">;</span>
-    background: yellowgreen<span class="comment">;</span>
-    background-image: linear-gradient(to right,transparent 50%,#655 0)<span class="comment">;</span>
-}
-.pie-<span class="number">a::bef</span>ore{
-    content: ''<span class="comment">;</span>
-    display: block<span class="comment">;</span>
-    margin-left: 50%<span class="comment">;</span>
-    height: 100%<span class="comment">;</span>
-    background-color: inherit<span class="comment">;</span>
-    transform-origin: 0 50%<span class="comment">;</span>
-    border-radius: 0 100% 100% 0 / 50%<span class="comment">;</span>
-    animation: spin 3s linear infinite,
-               bg 6s step-end infinite<span class="comment">;</span>
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-11.gif" alt=""></p>
-<p>下面再来实现最初的需求，核心是利用动画。<br>一个负的延时值是合法的，它意味着动画会立即开始播放，但会自动前进到延时值的绝对处，这样在视觉上就好像动画跳过指定时间直接播放了。<br>然后再让它暂停到我们需要的位置即可。<br>我们可以设置一个长达100S的动画，便于计算。<br>代码如下：</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pie"</span>&gt;</span>0%<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pie"</span>&gt;</span>40%<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pie"</span>&gt;</span>80%<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-@keyframes spin{
-    to {transform: rotate(.5turn);}
-}
-@keyframes bg{
-    50% {background: #655;}
-}
-.pie{
-    position: relative;
-    display: inline-block;
-    width: 100px;
-    line-height: 100px;
-    border-radius: 50%;
-    background: yellowgreen;
-    background-image: linear-gradient(to right,transparent 50%,#655 0);
-    color: transparent;
-}
-.pie::before{
-    content: '';
-    position: absolute;
-    top: 0;left: 50%;
-    width: 50%;height: 100%;
-    border-radius: 0 100% 100% 0 / 50%;
-    background-color: inherit; 
-    transform-origin: left;
-    animation: spin 50s linear infinite,
-               bg 100s step-end infinite;
-    animation-play-state: paused;
-    animation-delay: inherit;
-}
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="function"><span class="keyword">function</span> <span class="title">$$</span>(<span class="params">selector,context</span>)</span>{
-        context = context || <span class="built_in">document</span>;
-        <span class="keyword">var</span> elements = context.querySelectorAll(selector);
-        <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.slice.call(elements);
-    }
-    $$(<span class="string">'.pie'</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">pie</span>)</span>{
-        <span class="keyword">var</span> p = pie.textContent;
-        pie.style.animationDelay = <span class="string">'-'</span> + <span class="built_in">parseFloat</span>(p) + <span class="string">'s'</span>;
-    });
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-12.jpg" alt=""></p>
-<h2 id="SVG解决方案">SVG解决方案</h2><p>还有一种是利用SVG来实现，主要原理的是stroke-dasharray属性，使它的虚线间隙超过圆的周长，利用描边来表示百分比。下面不在细说，直接给出实现代码：</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pie-svg"</span>&gt;</span>20%<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pie-svg"</span>&gt;</span>80%<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="function"><span class="keyword">function</span> <span class="title">$$</span>(<span class="params">selector,context</span>)</span>{
-        context = context || <span class="built_in">document</span>;
-        <span class="keyword">var</span> elements = context.querySelectorAll(selector);
-        <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.slice.call(elements);
-    }
-    $$(<span class="string">'.pie-svg'</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">pie</span>)</span>{
-        <span class="keyword">var</span> p = <span class="built_in">parseFloat</span>(pie.textContent);
-        <span class="keyword">var</span> NS = <span class="string">"http://www.w3.org/2000/svg"</span>;
-        <span class="keyword">var</span> svg = <span class="built_in">document</span>.createElementNS(NS, <span class="string">"svg"</span>);
-        <span class="keyword">var</span> circle = <span class="built_in">document</span>.createElementNS(NS, <span class="string">"circle"</span>);
-        <span class="keyword">var</span> title = <span class="built_in">document</span>.createElementNS(NS, <span class="string">"title"</span>);
-
-        circle.setAttribute(<span class="string">"r"</span>, <span class="number">16</span>);
-        circle.setAttribute(<span class="string">"cx"</span>, <span class="number">16</span>);
-        circle.setAttribute(<span class="string">"cy"</span>, <span class="number">16</span>);
-        circle.setAttribute(<span class="string">"stroke-dasharray"</span>, p + <span class="string">" 100"</span>);
-
-        svg.setAttribute(<span class="string">"viewBox"</span>, <span class="string">"0 0 32 32"</span>);
-        title.textContent = pie.textContent;
-        pie.textContent = <span class="string">''</span>;
-        svg.appendChild(title);
-        svg.appendChild(circle);
-        pie.appendChild(svg); 
-    });
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-08-13.jpg" alt=""><br>上面直接利用JavaScript完成自动化。也可以自己编写SVG标签。</p>
-<pre><code><span class="tag">svg</span><span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;<span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(-<span class="number">90deg</span>)</span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> yellowgreen</span></span>;
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">50%</span></span></span>;
-}</span>
-<span class="tag">circle</span><span class="rules">{
-    <span class="rule"><span class="attribute">fill</span>:<span class="value"> yellowgreen</span></span>;
-    <span class="rule"><span class="attribute">stroke</span>:<span class="value"> <span class="hexcolor">#655</span></span></span>;
-    <span class="rule"><span class="attribute">stroke-width</span>:<span class="value"> <span class="number">32</span></span></span>;
-}</span>
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="梯形标签页">梯形标签页</h1><p>梯形标签在导航栏部分经常遇到，书中只提到3D旋转的方案，但是万能的裁切和渐变怎么能丢？于是有了下面三种方式。</p>
-<h2 id="裁切方案">裁切方案</h2><p>在形状这部分，裁切是一种很强大的方式，以左上角为原点，梯形的绘制对于它来说很简单。</p>
-<pre><code>&lt;div class=<span class="string">"echelon-a"</span>&gt;<span class="keyword">this</span> is a test&lt;/div&gt;
-div{
-    margin:<span class="number">20</span>px;
-    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
-    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">4</span>em;
-    font:<span class="number">125</span>%/<span class="number">4</span>em sans-serif;
-    <span class="built_in">text</span>-align: center;
-    <span class="built_in">color</span>: white;
-}
-.echelon-a{
-    <span class="built_in">background</span>: #<span class="number">58</span>a;
-    -webkit-clip-path: polygon(<span class="number">20</span>% <span class="number">0</span>,<span class="number">80</span>% <span class="number">0</span>,<span class="number">100</span>% <span class="number">100</span>%,<span class="number">0</span> <span class="number">100</span>%);
-}
-</code></pre>]]>
     
     </summary>
     

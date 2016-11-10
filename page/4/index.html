@@ -207,6 +207,118 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/" itemprop="url">
+                  CSS Secret 读书笔记之自定义复选框&阴影弱化背景
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-24T00:00:00+08:00" content="2016-09-24">
+              2016-09-24
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<h1 id="自定义复选框">自定义复选框</h1><p>单选框和复选框的默认样式确实不敢恭维，但是这两种控件在绝大多数浏览器中仍然无法自由的设置样式。这时候可以用下面这种“曲线救国”的思路来实现自定义复选框。</p>
+<h2 id="伪元素解决方案">伪元素解决方案</h2><p>具体思路如下：<br>由于<code>label</code>元素可以和复选框关联，起到触发开关的作用。我们可以为它添加伪元素，并基于复选框的状态来为其设置样式。然后再把真正的复选框隐藏起来。</p>
+<blockquote>
+<p>CSS的魅力就在于此，正是<code>label</code>可以和复选框(单选框)关联，才有了自定义复选框的可能性。</p>
+</blockquote>
+<p>有了上面的思路，代码就很简单了。首先是最最最简单的HTML：</p>
+<pre><code>&lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"checkbox"</span> id=<span class="string">"custom-a"</span> /&gt;
+&lt;<span class="keyword">label</span> <span class="keyword">for</span>=<span class="string">"custom-a"</span>&gt;自定义复选框&lt;/<span class="keyword">label</span>&gt;
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/" itemprop="url">
                   CSS Secret 读书笔记之合适光标&扩大可点击区域
                 </a>
@@ -621,130 +733,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/19/CSS Secret 读书笔记之梯形标签页&饼图/" itemprop="url">
-                  CSS Secret 读书笔记之梯形标签页&饼图
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-19T00:00:00+08:00" content="2016-09-19">
-              2016-09-19
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/19/CSS Secret 读书笔记之梯形标签页&饼图/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/19/CSS Secret 读书笔记之梯形标签页&饼图/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <hr>
-<h1 id="梯形标签页">梯形标签页</h1><p>梯形标签在导航栏部分经常遇到，书中只提到3D旋转的方案，但是万能的裁切和渐变怎么能丢？于是有了下面三种方式。</p>
-<h2 id="裁切方案">裁切方案</h2><p>在形状这部分，裁切是一种很强大的方式，以左上角为原点，梯形的绘制对于它来说很简单。</p>
-<pre><code>&lt;div class=<span class="string">"echelon-a"</span>&gt;<span class="keyword">this</span> is a test&lt;/div&gt;
-div{
-    margin:<span class="number">20</span>px;
-    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
-    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">4</span>em;
-    font:<span class="number">125</span>%/<span class="number">4</span>em sans-serif;
-    <span class="built_in">text</span>-align: center;
-    <span class="built_in">color</span>: white;
-}
-.echelon-a{
-    <span class="built_in">background</span>: #<span class="number">58</span>a;
-    -webkit-clip-path: polygon(<span class="number">20</span>% <span class="number">0</span>,<span class="number">80</span>% <span class="number">0</span>,<span class="number">100</span>% <span class="number">100</span>%,<span class="number">0</span> <span class="number">100</span>%);
-}
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/19/CSS Secret 读书笔记之梯形标签页&饼图/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -785,7 +778,7 @@ div{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">65</span>
+              <span class="site-state-item-count">66</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
