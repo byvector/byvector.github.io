@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-11-11T10:57:51.204Z</updated>
+  <updated>2016-11-10T11:57:29.931Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,103 +13,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title><![CDATA[IFE Task 09 (二)]]></title>
-    <link href="http://blog.supce.com/2016/11/11/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8016/"/>
-    <id>http://blog.supce.com/2016/11/11/JavaScript之基础16/</id>
-    <published>2016-11-10T16:00:00.000Z</published>
-    <updated>2016-11-11T10:57:51.204Z</updated>
-    <content type="html"><![CDATA[<hr>
-<p>在上一文章中，用面向过程的思想实现了对二叉树的三种遍历。这篇采用面向对象实现了一下。<br>定义一个Node类，把遍历好的node节点保存在对象的属性中，把三种遍历方法和渲染方法作为对象的方法。<br>Node类代码如下：<br><a id="more"></a></p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Node</span><span class="params">()</span>{</span>
-    this.nodeArray = [];
-}
-Node.prototype = {
-    <span class="comment">//前序</span>
-    dlr : <span class="function"><span class="keyword">function</span><span class="params">(root)</span>{</span>
-        <span class="keyword">if</span><span class="params">(root)</span>{
-            this.nodeArray.push<span class="params">(root)</span>;
-            this.dlr<span class="params">(root.firstElementChild)</span>;
-            this.dlr<span class="params">(root.lastElementChild)</span>;
-        }
-    },
-    <span class="comment">//中序</span>
-    ldr : <span class="function"><span class="keyword">function</span><span class="params">(root)</span>{</span>
-        <span class="keyword">if</span><span class="params">(root)</span>{
-            this.ldr<span class="params">(root.firstElementChild)</span>;
-            this.nodeArray.push<span class="params">(root)</span>;
-            this.ldr<span class="params">(root.lastElementChild)</span>;
-        }
-    },
-    <span class="comment">//后序</span>
-    lrd : <span class="function"><span class="keyword">function</span><span class="params">(root)</span>{</span>
-        <span class="keyword">if</span><span class="params">(root)</span>{
-            this.lrd<span class="params">(root.firstElementChild)</span>;
-            this.lrd<span class="params">(root.lastElementChild)</span>;
-            this.nodeArray.push<span class="params">(root)</span>;
-        }
-    },
-    <span class="comment">//可视化遍历</span>
-    <span class="built_in">render</span> : <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
-        var timer = null,len = this.nodeArray.length,i = <span class="number">0</span>;
-        var nodeArray = this.nodeArray;
-        timer = setInterval<span class="params">(run,<span class="number">500</span>)</span>;
-        <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span>{</span>
-            <span class="keyword">if</span><span class="params">(i &lt; len)</span>{
-                <span class="comment">//清除上一个节点的背景色</span>
-                <span class="keyword">if</span><span class="params">(i-<span class="number">1</span> &gt; -<span class="number">1</span>)</span>{
-                    nodeArray[i-<span class="number">1</span>].className = <span class="string">""</span>;
-                }
-                nodeArray[i].className = <span class="string">"selected"</span>;
-                i++;
-            }<span class="keyword">else</span>{
-                <span class="comment">//清除最一个节点的背景色</span>
-                nodeArray[i-<span class="number">1</span>].className = <span class="string">""</span>;
-                clearInterval<span class="params">(timer)</span>;
-            }
-        }
-        this.nodeArray = [];
-    }
-}
-</code></pre><p>然后我们只需要给button添加下点击事件就可以了</p>
-<pre><code><span class="comment">//根据不同的按钮调用不同的排序算法</span>
-<span class="function"><span class="keyword">function</span> <span class="title">btnHandle</span>(<span class="params"></span>)</span>{
-    <span class="keyword">var</span> id = event.target.id;
-    <span class="keyword">var</span> root = $(<span class="string">'tree_wrap'</span>);
-    <span class="keyword">var</span> tree = <span class="keyword">new</span> Node();
-    <span class="keyword">switch</span>(id){
-        <span class="keyword">case</span> <span class="string">'dlr'</span>:
-            tree.dlr(root);
-            <span class="keyword">break</span>;
-        <span class="keyword">case</span> <span class="string">'ldr'</span>:
-            tree.ldr(root);
-            <span class="keyword">break</span>;
-        <span class="keyword">case</span> <span class="string">'lrd'</span>:
-            tree.lrd(root);
-            <span class="keyword">break</span>;
-    }
-    tree.render();
-}
-<span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>{
-    <span class="keyword">var</span> btns = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"button"</span>);
-    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;btns.length;i++){
-        addHandler(btns[i],<span class="string">"click"</span>,btnHandle);
-    }
-}
-init();
-</code></pre><hr>
-<p><a href="https://github.com/byvector/code-monkey/blob/master/task22_2.html" target="_blank" rel="external">最终代码</a><br><a href="http://ife.supce.com/task22_2.html" target="_blank" rel="external">demo</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<p>在上一文章中，用面向过程的思想实现了对二叉树的三种遍历。这篇采用面向对象实现了一下。<br>定义一个Node类，把遍历好的node节点保存在对象的属性中，把三种遍历方法和渲染方法作为对象的方法。<br>Node类代码如下：<br>]]>
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
-    
-  </entry>
   
   <entry>
     <title><![CDATA[IFE Task 09]]></title>
@@ -3136,6 +3039,117 @@ This <span class="keyword">is</span> a test.Like many things <span class="keywor
 <li>还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式会降低图片的对比度。</li>
 </ul>
 <p>为了避免上面两种方式带来的问题，可以用下面这两种纯CSS的方式解决<br>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CSS Secret 读书笔记之单侧投影&不规则投影]]></title>
+    <link href="http://blog.supce.com/2016/09/20/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%8D%95%E4%BE%A7%E6%8A%95%E5%BD%B1&%E4%B8%8D%E8%A7%84%E5%88%99%E6%8A%95%E5%BD%B1/"/>
+    <id>http://blog.supce.com/2016/09/20/CSS Secret 读书笔记之单侧投影&不规则投影/</id>
+    <published>2016-09-19T16:00:00.000Z</published>
+    <updated>2016-09-20T12:55:58.107Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="单侧投影">单侧投影</h1><p>有时候会遇到给元素设置单侧投影的情形。要想实现单侧投影，首先得了解<code>box-shadow</code>的工作原理。<br>平时使用<code>box-shadow</code>的方法是指定三个长度值和一个颜色值：</p>
+<pre><code>box-shadow: <span class="number">2</span>px <span class="number">3</span>px <span class="number">4</span><span class="function">px <span class="title">rgba</span><span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.5</span>)</span></span>;
+</code></pre><p>此时，shadow是通过下面四个步骤绘制的：</p>
+<ul>
+<li>以该元素相同的尺寸和位置，画一个rgba(0,0,0,.5)的矩形</li>
+<li>把它向右移2px，向下移3px</li>
+<li>使用高斯模糊算法(或者类似算法)将它进行4px的模糊处理。模糊算法本质上是在阴影边缘发生阴影色和纯色透明色之间的颜色过渡，其长度近似于模糊半径的两倍(这里是8px)</li>
+<li>最后，将模糊后的矩形与原始元素的交集部分切除掉，因此模糊的部分看起来是在该元素的后面，其实是和原始元素位于同一层。</li>
+</ul>
+<a id="more"></a>
+<p>具体步骤如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-09-1.jpg" alt=""></p>
+<p>对于<code>box-shadow: 2px 3px 4px rgba(0,0,0,.5);</code>将在顶部看到1px的投影，左侧看到2px的投影，右侧看到6px的投影，底部看到7px的投影。<br>此时如果改变偏移量就可以把顶部和左侧隐藏起来，但是这样会导致露出的投影太过浓重，而且也不是单侧投影。 这时候就可以利用<code>box-shadow</code>的第四个参数来实现了。</p>
+<h2 id="底边投影">底边投影</h2><p><code>box-shadow</code>的第四个参数被称作扩张半径。这个参数会根据指定值的正负去扩大或者缩小投影的尺寸。举例来说，一个-5px的扩张半径会把投影的宽度和高度减少10px(两边各5px)。<br>因此，设置一个负的扩张半径，其值刚好等于模糊半径，那么投影的尺寸就会与投影所属元素的尺寸完全一致。然后再通过偏移量进行单方向移动，就会产生单侧投影。比如下面的底边投影：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"shadow-b"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+<span class="keyword">div</span>{
+    margin: <span class="number">20</span>px;
+    width: <span class="number">10</span>em;
+    height: <span class="number">6</span>em;
+    background: <span class="comment">#fb3;</span>
+    display: inline-block;
+}
+.shadow-b{
+    box-shadow: <span class="number">0</span> <span class="number">6</span>px <span class="number">4</span>px -<span class="number">4</span>px black;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-09-2.jpg" alt=""></p>
+<h2 id="邻边投影">邻边投影</h2><p>对于邻边投影：</p>
+<ul>
+<li>不能把投影缩小的太小，只需要把阴影藏进一侧，另一侧自然露出。可以设置扩张半径为模糊半径相反值的一半</li>
+<li>指定两个偏移量，它们的值需要大于或者等于模糊半径的一半，这有这有才能把投影“藏进”元素内部。(其实是切割掉)</li>
+</ul>
+<p>代码如下：</p>
+<pre><code><span class="class">.shadow-d</span><span class="rules">{
+    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">3px</span> <span class="number">3px</span> <span class="number">6px</span> -<span class="number">3px</span> black</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-09-3.jpg" alt=""></p>
+<h2 id="双侧投影">双侧投影</h2><p>双侧投影很简单，利用单侧投影的原理，模拟两条投影即可：</p>
+<pre><code>.shadow-e{
+    box-shadow: <span class="number">5</span>px <span class="number">0</span> <span class="number">5</span>px -<span class="number">5</span>px black,
+                -<span class="number">5</span>px <span class="number">0</span> <span class="number">5</span>px -<span class="number">5</span>px black;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-09-4.jpg" alt=""></p>
+<hr>
+<h1 id="不规则投影">不规则投影</h1><p>给一个矩形元素或者其他能用<code>border-radius</code>生成的形状(圆或者椭圆)加投影时，不会出现问题。<br>但是当给一个有伪元素装饰的元素或者虚线边框添加投影，或者给具有切角效果的元素添加投影时，会出现透明的效果。如下图：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-09-5.jpg" alt=""></p>
+<p>这个问题可以用<code>filter</code>属性来解决，设置阴影滤镜<code>drop-shadow</code>，它接收的参数基本与<code>box-shadow</code>一样，但不包括扩展半径和inset关键字。也不支持逗号分隔的多层投影语法。<br>因此修改下上面的代码：</p>
+<p>HTML:</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"drop-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"drop-b"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"drop-c"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>CSS:</p>
+<pre><code><span class="class">.drop-a</span>,<span class="class">.drop-b</span>,<span class="class">.drop-c</span><span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    <span class="comment">/*box-shadow: 2px 2px 10px rgba(0,0,0,0.5);*/</span>
+    <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(.<span class="number">3em</span> .<span class="number">3em</span> .<span class="number">3em</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.5</span>))</span></span>;
+}</span>
+<span class="rule"><span class="attribute">.drop-a</span>:<span class="value">:before{
+    content: <span class="string">""</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">1em</span></span></span>;
+    <span class="rule"><span class="attribute">right</span>:<span class="value"> -<span class="number">1em</span></span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1em</span> solid transparent</span></span>;
+    <span class="rule"><span class="attribute">border-left-color</span>:<span class="value"> <span class="hexcolor">#fb3</span></span></span>;
+    <span class="rule"><span class="attribute">border-right-width</span>:<span class="value"> <span class="number">0</span></span></span>;
+}
+<span class="class">.drop-b</span><span class="rules">{
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> transparent</span></span>;
+    <span class="rule"><span class="attribute">box-sizing</span>:<span class="value"> border-box</span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> .<span class="number">5em</span> dashed <span class="hexcolor">#fb3</span></span></span>;
+}</span>
+<span class="class">.drop-c</span><span class="rules">{
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> .<span class="number">5em</span> solid <span class="hexcolor">#58a</span></span></span>;
+    <span class="rule"><span class="attribute">border-image</span>:<span class="value"> <span class="number">1</span> <span class="function">url</span>(<span class="string">'data:image/svg+xml,\
+                 &lt;svg xmlns="http://www.w3.org/2000/svg"\
+                 width="3" height="3" fill="%23fb3"&gt;\
+                 &lt;polygon points="0,1 1,0 2,0 3,1 3,2 2,3 1,3 0,2"/&gt;\
+        &lt;/svg&gt;'</span>)</span></span>;
+    <span class="rule"><span class="attribute">background-clip</span>:<span class="value"> padding-box</span></span>;
+    <span class="rule"><span class="attribute">box-sizing</span>:<span class="value"> border-box</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-09-6.jpg" alt=""></p>
+<blockquote>
+<p>今天发烧，就不多写了，可能通篇文章逻辑有些问题…</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="单侧投影">单侧投影</h1><p>有时候会遇到给元素设置单侧投影的情形。要想实现单侧投影，首先得了解<code>box-shadow</code>的工作原理。<br>平时使用<code>box-shadow</code>的方法是指定三个长度值和一个颜色值：</p>
+<pre><code>box-shadow: <span class="number">2</span>px <span class="number">3</span>px <span class="number">4</span><span class="function">px <span class="title">rgba</span><span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.5</span>)</span></span>;
+</code></pre><p>此时，shadow是通过下面四个步骤绘制的：</p>
+<ul>
+<li>以该元素相同的尺寸和位置，画一个rgba(0,0,0,.5)的矩形</li>
+<li>把它向右移2px，向下移3px</li>
+<li>使用高斯模糊算法(或者类似算法)将它进行4px的模糊处理。模糊算法本质上是在阴影边缘发生阴影色和纯色透明色之间的颜色过渡，其长度近似于模糊半径的两倍(这里是8px)</li>
+<li>最后，将模糊后的矩形与原始元素的交集部分切除掉，因此模糊的部分看起来是在该元素的后面，其实是和原始元素位于同一层。</li>
+</ul>]]>
     
     </summary>
     

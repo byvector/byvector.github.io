@@ -207,118 +207,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/20/CSS Secret 读书笔记之单侧投影&不规则投影/" itemprop="url">
-                  CSS Secret 读书笔记之单侧投影&不规则投影
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-20T00:00:00+08:00" content="2016-09-20">
-              2016-09-20
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/20/CSS Secret 读书笔记之单侧投影&不规则投影/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/20/CSS Secret 读书笔记之单侧投影&不规则投影/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <hr>
-<h1 id="单侧投影">单侧投影</h1><p>有时候会遇到给元素设置单侧投影的情形。要想实现单侧投影，首先得了解<code>box-shadow</code>的工作原理。<br>平时使用<code>box-shadow</code>的方法是指定三个长度值和一个颜色值：</p>
-<pre><code>box-shadow: <span class="number">2</span>px <span class="number">3</span>px <span class="number">4</span><span class="function">px <span class="title">rgba</span><span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">.5</span>)</span></span>;
-</code></pre><p>此时，shadow是通过下面四个步骤绘制的：</p>
-<ul>
-<li>以该元素相同的尺寸和位置，画一个rgba(0,0,0,.5)的矩形</li>
-<li>把它向右移2px，向下移3px</li>
-<li>使用高斯模糊算法(或者类似算法)将它进行4px的模糊处理。模糊算法本质上是在阴影边缘发生阴影色和纯色透明色之间的颜色过渡，其长度近似于模糊半径的两倍(这里是8px)</li>
-<li>最后，将模糊后的矩形与原始元素的交集部分切除掉，因此模糊的部分看起来是在该元素的后面，其实是和原始元素位于同一层。</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/20/CSS Secret 读书笔记之单侧投影&不规则投影/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/09/19/CSS Secret 读书笔记之梯形标签页&饼图/" itemprop="url">
                   CSS Secret 读书笔记之梯形标签页&饼图
                 </a>
@@ -775,6 +663,109 @@ div{
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/" itemprop="url">
+                  CSS Secret 读书笔记之条纹背景&复杂背景
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-16T00:00:00+08:00" content="2016-09-16">
+              2016-09-16
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="条纹背景">条纹背景</h1><p>通常条纹背景是由一个图片来代替，或者使用SVG。能不能利用CSS直接创建条纹图案呢，答案是肯定的。<br>假设背景是垂直线性渐变。比如：<code>background:linear-gradient(#fb3,#58a);</code><br>效果是这个样子的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-1.jpg" alt=""><br>如果让渐变区域变的更窄，产生一个无限小的渐变区域，比如：<code>background:linear-gradient(#fb3 50%,#58a 50%);</code> 就可以得到想要的结果了。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-04-2.jpg" alt=""><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/16/CSS Secret 读书笔记之条纹背景&复杂背景/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -820,7 +811,7 @@ div{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-count">66</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
