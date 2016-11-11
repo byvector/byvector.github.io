@@ -1,0 +1,647 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="vector's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。
+
+能力检测 (特性检测)能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。
+if(object.someProperty){
+    //do something
+}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="客户端检测">
+<meta property="og:url" content="http://blog.supce.com/2016/07/23/JavaScript之基础9/index.html">
+<meta property="og:site_name" content="vector's blog">
+<meta property="og:description" content="不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。
+
+能力检测 (特性检测)能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。
+if(object.someProperty){
+    //do something
+}">
+<meta property="og:updated_time" content="2016-07-23T13:06:33.961Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="客户端检测">
+<meta name="twitter:description" content="不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。
+
+能力检测 (特性检测)能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。
+if(object.someProperty){
+    //do something
+}">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 客户端检测 | vector's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">vector's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                客户端检测
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-23T00:00:00+08:00" content="2016-07-23">
+              2016-07-23
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/23/JavaScript之基础9/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/23/JavaScript之基础9/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>不同浏览器之间或者相同浏览器不同版本之间存在着不一致性问题，可以使用客户端检测来解决不一致性带来的兼容问题。</p>
+<hr>
+<h1 id="能力检测_(特性检测)">能力检测 (特性检测)</h1><p>能力检测不是用来识别特定的浏览器，而是识别浏览器的能力。它并不关心用户使用的是什么浏览器，该方法只要确定浏览器支持某种特定的功能，就可以根据该功能提出解决方案。</p>
+<pre><code><span class="keyword">if</span>(<span class="class"><span class="keyword">object</span>.<span class="title">someProperty</span>){</span>
+    <span class="comment">//do something</span>
+}
+</code></pre><a id="more"></a>
+<pre><code><span class="comment">//确定浏览器是否具有DOM1级规定的能力</span>
+<span class="keyword">var</span> hasDOM1 = !!(<span class="built_in">document</span>.getElementById &amp;&amp; <span class="built_in">document</span>.createElement &amp;&amp; <span class="built_in">document</span>.getElementsByTagName);
+<span class="built_in">console</span>.log(hasDOM1);
+</code></pre><p><em>能力检测作为确定下一步解决方案的依据，而不是用它来判断用户使用的是什么浏览器。</em></p>
+<hr>
+<h1 id="怪癖(quirk)检测">怪癖(quirk)检测</h1><p>怪癖检测主要是想知道浏览器存在哪些缺陷，通常会运行一小段代码，以确定浏览器的某个特性不能正常工作。<br>比如：IE8及更早版本与其他浏览器处理空白字符的方式不一样，IE9之前的版本不会为空白符创建节点</p>
+<pre><code><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"test"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    <span class="keyword">var</span> myList = <span class="built_in">document</span>.getElementById(<span class="string">"test"</span>);
+    <span class="keyword">var</span> copyList = myList.cloneNode(<span class="literal">true</span>);
+    <span class="built_in">console</span>.log(copyList.childNodes.length); 
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p>上面的代码中，IE&lt;9时，长度为3，而其他浏览器为7</p>
+<p>IE7及以下版本有一个有意思的怪癖：name特性与给定ID匹配的表单元素（<code>&lt;input&gt;,&lt;textarea&gt;,&lt;button&gt;及&lt;select&gt;</code>）也会被该方法返回</p>
+<pre><code><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">"myElement"</span> <span class="attribute">value</span>=<span class="value">"Text"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span>&gt;</span>div<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+    alert(<span class="built_in">document</span>.getElementById(<span class="string">"myElement"</span>));
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p>IE&lt;8返回的是<code>input</code>,其他浏览器返回的为<code>div</code></p>
+<p>还有书上的一个例子：IE8及更早版本中存在一个bug，即如果某个实例属性与[[Enumerable]]标记为false的某个原型属性同名，那么该实例属性将不会出现在for—in循环当中<br>。</p>
+<hr>
+<h1 id="用户代理检测">用户代理检测</h1><p>用户代理检测主要是用来检测用户具体是什么浏览器、什么呈现引擎(内核)、什么版本、什么平台。<br>常见的浏览器内核分别为：</p>
+<ul>
+<li>Gecko (Firefox)</li>
+<li>WebKit (Safari)</li>
+<li>Blink (Opera Chrome)</li>
+<li>Trident (IE)<br><em>括号内为对应的浏览器</em></li>
+</ul>
+<blockquote>
+<p>完整的用户代理检测脚本在高级程序第九章中，这里就不贴了</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/22/JavaScript之基础8/" rel="next" title="JavaScript BOM 知识整理 (二)">
+                <i class="fa fa-chevron-left"></i> JavaScript BOM 知识整理 (二)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/24/JavaScript之基础10/" rel="prev" title="DOM(一)">
+                DOM(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/23/JavaScript之基础9/"
+           data-title="客户端检测" data-url="http://blog.supce.com/2016/07/23/JavaScript之基础9/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
+               alt="vector" />
+          <p class="site-author-name" itemprop="name">vector</p>
+          <p class="site-description motion-element" itemprop="description">We are all in the gutter, but some of us are looking at the stars.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#能力检测_(特性检测)"><span class="nav-number">1.</span> <span class="nav-text">能力检测 (特性检测)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怪癖(quirk)检测"><span class="nav-number">2.</span> <span class="nav-text">怪癖(quirk)检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户代理检测"><span class="nav-number">3.</span> <span class="nav-text">用户代理检测</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vector</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"byvector"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

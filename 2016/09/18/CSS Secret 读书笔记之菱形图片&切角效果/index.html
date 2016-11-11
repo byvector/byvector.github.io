@@ -1,0 +1,741 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="vector's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="菱形图片有时候可能会遇到菱形图片的需求，可以用下面两种方式实现。
+基于变形的方案这种方式与之前平行四边形的解决方案类似，需要把图片用一个div包裹，然后div和img进行相反的变形。
+&amp;lt;div class=&quot;diamond-a&quot;&amp;gt;
+    &amp;lt;img src=&quot;cat.jpg&quot;&amp;gt;
+&amp;lt;/div&amp;gt;
+.diamond-a{
+    margin: 100px;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS Secret 读书笔记之菱形图片&切角效果">
+<meta property="og:url" content="http://blog.supce.com/2016/09/18/CSS Secret 读书笔记之菱形图片&切角效果/index.html">
+<meta property="og:site_name" content="vector's blog">
+<meta property="og:description" content="菱形图片有时候可能会遇到菱形图片的需求，可以用下面两种方式实现。
+基于变形的方案这种方式与之前平行四边形的解决方案类似，需要把图片用一个div包裹，然后div和img进行相反的变形。
+&amp;lt;div class=&quot;diamond-a&quot;&amp;gt;
+    &amp;lt;img src=&quot;cat.jpg&quot;&amp;gt;
+&amp;lt;/div&amp;gt;
+.diamond-a{
+    margin: 100px;">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-1.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-2.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-4.gif">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-5.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-6.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-7.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-8.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-9.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-10.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-11.jpg">
+<meta property="og:updated_time" content="2016-09-18T13:05:37.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS Secret 读书笔记之菱形图片&切角效果">
+<meta name="twitter:description" content="菱形图片有时候可能会遇到菱形图片的需求，可以用下面两种方式实现。
+基于变形的方案这种方式与之前平行四边形的解决方案类似，需要把图片用一个div包裹，然后div和img进行相反的变形。
+&amp;lt;div class=&quot;diamond-a&quot;&amp;gt;
+    &amp;lt;img src=&quot;cat.jpg&quot;&amp;gt;
+&amp;lt;/div&amp;gt;
+.diamond-a{
+    margin: 100px;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> CSS Secret 读书笔记之菱形图片&切角效果 | vector's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">vector's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS Secret 读书笔记之菱形图片&切角效果
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-18T00:00:00+08:00" content="2016-09-18">
+              2016-09-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/18/CSS Secret 读书笔记之菱形图片&切角效果/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/CSS Secret 读书笔记之菱形图片&切角效果/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h1 id="菱形图片">菱形图片</h1><p>有时候可能会遇到菱形图片的需求，可以用下面两种方式实现。</p>
+<h2 id="基于变形的方案">基于变形的方案</h2><p>这种方式与之前平行四边形的解决方案类似，需要把图片用一个div包裹，然后div和img进行相反的变形。</p>
+<pre><code>&lt;div class=<span class="string">"diamond-a"</span>&gt;
+    &lt;img src=<span class="string">"cat.jpg"</span>&gt;
+&lt;/div&gt;
+.diamond-a{
+    margin: <span class="number">100</span>px;
+    <span class="variable">width</span>: <span class="number">250</span>px;
+    <span class="variable">height</span>:<span class="number">250</span>px;
+    transform: <span class="built_in">rotate</span>(<span class="number">45</span>deg);
+    overflow: hidden;
+}
+.diamond-a &gt; img{
+    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">100</span>%;
+    transform: <span class="built_in">rotate</span>(-<span class="number">45</span>deg);
+}
+</code></pre><a id="more"></a>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-1.jpg" alt=""><br>得到的结果是个八角形。原因就是<code>max-width: 100%;</code>会解析为外部容器的边长，如果图片的宽度与容器的菱形对角线长度相同，就会成为一个菱形。也就是设置宽度为外部容器边长的√2倍，即约为1.42倍。</p>
+<pre><code><span class="class">.diamond-a</span> &gt; <span class="tag">img</span><span class="rules">{
+    <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+    <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(-<span class="number">45deg</span>) <span class="function">scale</span>(<span class="number">1.42</span>)</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-2.jpg" alt=""></p>
+<h2 id="裁切路径方案">裁切路径方案</h2><p>上面的方法首先破坏了原有的HTML结构，而且要求图片必须是正方形。<br>这里就可以用裁切的方法来实现。而且可以给图片添加动画，当鼠标悬停时，图片扩展为完整的面积。</p>
+<pre><code>&lt;img <span class="keyword">class</span>=<span class="string">"diamond-b"</span> src=<span class="string">"cat.jpg"</span> /&gt;
+.diamond-b{
+    width: <span class="number">250</span>px;
+    -webkit-clip-path: polygon(<span class="number">50</span>% <span class="number">0</span>,<span class="number">100</span>% <span class="number">50</span>%,<span class="number">50</span>% <span class="number">100</span>%,<span class="number">0</span> <span class="number">50</span>%);
+    clip-path: polygon(<span class="number">50</span>% <span class="number">0</span>, <span class="number">100</span>% <span class="number">50</span>%, <span class="number">50</span>% <span class="number">100</span>%, <span class="number">0</span> <span class="number">50</span>%);
+    transition: <span class="number">1</span>s;
+}
+.diamond-b:hover{
+    -webkit-clip-path: polygon(<span class="number">0</span> <span class="number">0</span>, <span class="number">100</span>% <span class="number">0</span>, <span class="number">100</span>% <span class="number">100</span>%, <span class="number">0</span> <span class="number">100</span>%);
+    clip-path: polygon(<span class="number">0</span> <span class="number">0</span>, <span class="number">100</span>% <span class="number">0</span>, <span class="number">100</span>% <span class="number">100</span>%, <span class="number">0</span> <span class="number">100</span>%);
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-4.gif" alt=""></p>
+<hr>
+<h1 id="切角效果">切角效果</h1><p>之前的切角效果大多是使用背景图片来达到目的，比如使用三角形盖住元素的顶角来模拟切角效果(当网页背景是纯色时)，或者使用一张或者多张已经切过角的图片来作为整个元素的背景。这些方法增加了额外的HTTP请求，而且也不够灵活，不易维护。<br>这时候可以根据场景用下面几种方式来实现。</p>
+<h2 id="渐变方案">渐变方案</h2><p>在之前渐变已经帮助我们实现了好多特效比如条纹背景，复杂背景以及图像边框等。这次来帮助我们实现切角效果，后面也还有它大展神通的地方！<br>渐变方案很简单，把一个透明色放在切角处即可，以右下角为例：</p>
+<pre><code>&lt;div class=<span class="string">"rad-a"</span>&gt;<span class="keyword">this</span> is a test&lt;/div&gt;
+.rad-a{
+    margin: <span class="number">20</span>px;
+    <span class="built_in">max</span>-<span class="variable">width</span>: <span class="number">10</span>em;
+    <span class="built_in">min</span>-<span class="variable">height</span>: <span class="number">6</span>em;
+    font: <span class="number">125</span>%/<span class="number">6</span>em sans-serif;
+    <span class="built_in">text</span>-align: center;
+    <span class="built_in">color</span>: white;
+}
+.rad-a{
+    <span class="built_in">background</span>: linear-gradient(-<span class="number">45</span>deg,transparent <span class="number">15</span>px,#<span class="number">58</span>a <span class="number">15</span>px);
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-5.jpg" alt=""></p>
+<p>假设需要裁剪底部两个角。最初的想法可能会是这样：</p>
+<pre><code>.rad-b{
+    background: linear-gradient(-<span class="number">45</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#<span class="number">58</span>a <span class="number">15</span>px),</span>
+                linear-gradient(<span class="number">45</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#fb3 <span class="number">15</span>px);   </span>
+}
+</code></pre><p>但会发现结果是这样的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-6.jpg" alt=""><br>这是因为两层渐变互相覆盖的结果。<br>那可以对每层渐变进行位置和大小的修改来实现：</p>
+<pre><code><span class="class">.rad-b</span><span class="rules">{
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(-<span class="number">45deg</span>,transparent <span class="number">15px</span>,<span class="hexcolor">#58a</span> <span class="number">15px</span>) right,
+                <span class="function">linear-gradient</span>(<span class="number">45deg</span>,transparent <span class="number">15px</span>,<span class="hexcolor">#fb3</span> <span class="number">15px</span>) left</span></span>;
+    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">50%</span> <span class="number">100%</span></span></span>;
+    <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-7.jpg" alt=""></p>
+<p>那么也可以做出切出四角的效果了:</p>
+<pre><code>.rad-c{
+    background: linear-gradient(-<span class="number">45</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#<span class="number">58</span>a <span class="number">15</span>px) bottom right,</span>
+                linear-gradient(<span class="number">45</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#<span class="number">58</span>a <span class="number">15</span>px) bottom left,</span>
+                linear-gradient(<span class="number">135</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#<span class="number">58</span>a <span class="number">15</span>px) top left,</span>
+                linear-gradient(-<span class="number">135</span>deg,transparent <span class="number">15</span>px,<span class="preprocessor">#<span class="number">48</span>a <span class="number">15</span>px) top right;</span>
+    background-size: <span class="number">50</span>% <span class="number">50</span>%;
+    background-repeat: no-repeat;
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-8.jpg" alt=""></p>
+<blockquote>
+<p>可以用SCSS预处理下，需要的时候直接调用</p>
+</blockquote>
+<h2 id="弧形切角">弧形切角</h2><p>既然有了<code>linear-gradient</code>，那使用<code>radial-gradient</code>就可以创建出弧形切角</p>
+<pre><code><span class="class">.rad-d</span><span class="rules">{
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">radial-gradient</span>(circle at top left,transparent <span class="number">15px</span>,<span class="hexcolor">#58a</span> <span class="number">15px</span>) top left,
+                <span class="function">radial-gradient</span>(circle at top right,transparent <span class="number">15px</span>,<span class="hexcolor">#58a</span> <span class="number">15px</span>) top right,
+                <span class="function">radial-gradient</span>(circle at bottom left,transparent <span class="number">15px</span>,<span class="hexcolor">#58a</span> <span class="number">15px</span>) bottom left,
+                <span class="function">radial-gradient</span>(circle at  bottom right,transparent <span class="number">15px</span>,<span class="hexcolor">#58a</span> <span class="number">15px</span>) bottom right</span></span>;
+    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">50%</span> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-9.jpg" alt=""></p>
+<h2 id="内联SVG与border-image方案">内联SVG与border-image方案</h2><p>这个方式，是利用<code>border-image</code>的缩放，设置SVG为一个八角形，那么得出的效果就是我们需要的切角效果。</p>
+<pre><code><span class="class">.rad-e</span><span class="rules">{
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> black</span></span>;
+    <span class="comment">/*border:20px solid transparent;*/</span>
+    <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">20px</span> solid <span class="hexcolor">#58a</span></span></span>;
+    <span class="rule"><span class="attribute">border-image</span>:<span class="value"> <span class="number">1</span> <span class="function">url</span>(<span class="string">'data:image/svg+xml,\
+                  &lt;svg xmlns="http://www.w3.org/2000/svg" width="3" height="3" fill="%2358a"&gt;\
+                  &lt;polygon points="0,1 1,0 2,0 3,1 3,2 2,3 1,3 0,2" /&gt;\
+                  &lt;/svg&gt;'</span>)</span></span>;
+    <span class="comment">/*background: #58a;*/</span>
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">radial-gradient</span>(circle at center,<span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">5</span>),<span class="hexcolor">#58a</span>)</span></span>;
+    <span class="rule"><span class="attribute">background-clip</span>:<span class="value"> padding-box</span></span>;
+}</span>
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-10.jpg" alt=""></p>
+<blockquote>
+<p>注意，由于背景色会延伸到边框，所以一定要记着设置background-clip的值。为了平稳退化，防止浏览器不支持border-image，可以设置border的颜色与背景色相同</p>
+</blockquote>
+<h2 id="裁切路径方案-1">裁切路径方案</h2><p>跟上面提到的菱形一样，也可以用裁切路径的方案</p>
+<pre><code>.rad-f{
+    <span class="comment">/*background: #58a;*/</span>
+    background: url(cat.jpg);
+    background-size: <span class="number">100</span>% <span class="number">100</span>%;
+    clip-path: polygon(<span class="number">20</span>px <span class="number">0</span>, calc(<span class="number">100</span>% - <span class="number">20</span>px) <span class="number">0</span>, <span class="number">100</span>% <span class="number">20</span>px, <span class="number">100</span>% calc(<span class="number">100</span>% - <span class="number">20</span>px),calc(<span class="number">100</span>% - <span class="number">20</span>px) <span class="number">100</span>%,
+                               <span class="number">20</span>px <span class="number">100</span>%, <span class="number">0</span> calc(<span class="number">100</span>% - <span class="number">20</span>px), <span class="number">0</span> <span class="number">20</span>px);
+    -webkit-clip-path: polygon(<span class="number">20</span>px <span class="number">0</span>, calc(<span class="number">100</span>% - <span class="number">20</span>px) <span class="number">0</span>, <span class="number">100</span>% <span class="number">20</span>px, <span class="number">100</span>% calc(<span class="number">100</span>% - <span class="number">20</span>px),calc(<span class="number">100</span>% - <span class="number">20</span>px) <span class="number">100</span>%,
+                               <span class="number">20</span>px <span class="number">100</span>%, <span class="number">0</span> calc(<span class="number">100</span>% - <span class="number">20</span>px), <span class="number">0</span> <span class="number">20</span>px);
+}
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-07-11.jpg" alt=""></p>
+<ul>
+<li>使用这个方式的好处显而易见，就是可以使用任意类型的背景，就如上面的例子背景如果是图片也可以进行剪裁。而且想菱形那里设置hover动画效果等。</li>
+</ul>
+<ul>
+<li>但是，它有一个缺点，当内边距不够宽时，它会裁切掉文本。因为它只能对元素做出统一的裁切，并不能区分元素的部分。而在渐变方案中，允许字体溢出并超出切角区域(因为它只是背景图案)，而<code>border-image</code>会起到普通边框的作用，使文字折行。</li>
+</ul>
+<p><em>今天天津好冷</em></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/17/CSS Secret 读书笔记之自适应椭圆&平行四边形/" rel="next" title="CSS Secret 读书笔记之自适应椭圆&平行四边形">
+                <i class="fa fa-chevron-left"></i> CSS Secret 读书笔记之自适应椭圆&平行四边形
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/19/CSS Secret 读书笔记之梯形标签页&饼图/" rel="prev" title="CSS Secret 读书笔记之梯形标签页&饼图">
+                CSS Secret 读书笔记之梯形标签页&饼图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/18/CSS Secret 读书笔记之菱形图片&切角效果/"
+           data-title="CSS Secret 读书笔记之菱形图片&切角效果" data-url="http://blog.supce.com/2016/09/18/CSS Secret 读书笔记之菱形图片&切角效果/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
+               alt="vector" />
+          <p class="site-author-name" itemprop="name">vector</p>
+          <p class="site-description motion-element" itemprop="description">We are all in the gutter, but some of us are looking at the stars.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#菱形图片"><span class="nav-number">1.</span> <span class="nav-text">菱形图片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于变形的方案"><span class="nav-number">1.1.</span> <span class="nav-text">基于变形的方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#裁切路径方案"><span class="nav-number">1.2.</span> <span class="nav-text">裁切路径方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#切角效果"><span class="nav-number">2.</span> <span class="nav-text">切角效果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#渐变方案"><span class="nav-number">2.1.</span> <span class="nav-text">渐变方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弧形切角"><span class="nav-number">2.2.</span> <span class="nav-text">弧形切角</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内联SVG与border-image方案"><span class="nav-number">2.3.</span> <span class="nav-text">内联SVG与border-image方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#裁切路径方案-1"><span class="nav-number">2.4.</span> <span class="nav-text">裁切路径方案</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vector</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"byvector"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

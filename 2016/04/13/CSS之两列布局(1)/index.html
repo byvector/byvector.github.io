@@ -1,0 +1,751 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="vector's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="今天比较忙，但还是挤时间把今天的博客写出来了，下面就赶紧进入正题了 ヾ(=^▽^=)ノ
+一、两列定宽的页面布局
+两列的页面布局是我们经常看见的一种页面结构，（蛤？我的博客首页！）这种布局方式在内容体现上可分为主要内容区域和侧边栏。首先让我们先把HTML的骨架搭好。
+&amp;lt;div id=&quot;header&quot;&amp;gt;这里是头&amp;lt;/div&amp;gt;
+&amp;lt;div id=&quot;container&quot;&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS学习笔记之两列页面布局（一）">
+<meta property="og:url" content="http://blog.supce.com/2016/04/13/CSS之两列布局(1)/index.html">
+<meta property="og:site_name" content="vector's blog">
+<meta property="og:description" content="今天比较忙，但还是挤时间把今天的博客写出来了，下面就赶紧进入正题了 ヾ(=^▽^=)ノ
+一、两列定宽的页面布局
+两列的页面布局是我们经常看见的一种页面结构，（蛤？我的博客首页！）这种布局方式在内容体现上可分为主要内容区域和侧边栏。首先让我们先把HTML的骨架搭好。
+&amp;lt;div id=&quot;header&quot;&amp;gt;这里是头&amp;lt;/div&amp;gt;
+&amp;lt;div id=&quot;container&quot;&amp;gt;">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju2.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju3.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju4.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju5.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju6.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju7.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju8.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/buju9.jpg-blogImg">
+<meta property="og:updated_time" content="2016-04-19T13:57:18.844Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS学习笔记之两列页面布局（一）">
+<meta name="twitter:description" content="今天比较忙，但还是挤时间把今天的博客写出来了，下面就赶紧进入正题了 ヾ(=^▽^=)ノ
+一、两列定宽的页面布局
+两列的页面布局是我们经常看见的一种页面结构，（蛤？我的博客首页！）这种布局方式在内容体现上可分为主要内容区域和侧边栏。首先让我们先把HTML的骨架搭好。
+&amp;lt;div id=&quot;header&quot;&amp;gt;这里是头&amp;lt;/div&amp;gt;
+&amp;lt;div id=&quot;container&quot;&amp;gt;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> CSS学习笔记之两列页面布局（一） | vector's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">vector's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS学习笔记之两列页面布局（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-13T00:00:00+08:00" content="2016-04-13">
+              2016-04-13
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/13/CSS之两列布局(1)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/13/CSS之两列布局(1)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>今天比较忙，但还是挤时间把今天的博客写出来了，下面就赶紧进入正题了 ヾ(=^▽^=)ノ</em></p>
+<h1 id="一、两列定宽的页面布局">一、两列定宽的页面布局</h1><hr>
+<p>两列的页面布局是我们经常看见的一种页面结构，（蛤？我的博客首页！）这种布局方式在内容体现上可分为主要内容区域和侧边栏。首先让我们先把HTML的骨架搭好。</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"header"</span>&gt;这里是头&lt;/<span class="keyword">div</span>&gt;
+&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"container"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"mainBox"</span>&gt;这里是主要内容区域&lt;/<span class="keyword">div</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"sideBox"</span>&gt;这里是侧边栏&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"footer"</span>&gt;这里是脚（ps:没脚气，不臭）&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>好了，骨架已经搭好了，下面开始用我们的CSS给骨架上贴肉了。就从最简单的两列定宽开始吧。在这里两列定宽主要是指将mainBox和sideBox这两个div的宽度值固定。再将它们分别放在内容区域的两侧。我们将container的宽度值设置为950px，高度为250px,上下外边距为10px。mainBox的宽度值设置为680px，高度为250px。sideBox的宽度值设置为270px，高度也为250px。<br><a id="more"></a></p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">    
+    *<span class="rules">{
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="id">#header</span>, <span class="id">#footer</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">950px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+    }</span>
+    <span class="id">#container</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">950px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">250px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> <span class="number">0</span></span></span>;
+    }</span>
+    <span class="class">.mainBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">680px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">250px</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333333</span></span></span>;
+    }</span>
+    <span class="class">.sideBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">270px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#999999</span></span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju.jpg-blogImg" alt="两列定宽"><br>通过float，一个最简单的两列定宽布局就这么实现了，但是我们在mainBox中添加更多的行呢？<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju2.jpg-blogImg" alt="多行两列"><br>结果，内容超出了容器范围，我们可以用overflow将多余的内容隐藏，但是，我们更想实现高度自适应，高度随着内容而改变。可以把CSS修改成这样：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    ……
+    <span class="id">#container</span><span class="rules">{
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">950px</span></span></span>;
+            <span class="comment">/*height: 250px;*/</span>
+            <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> <span class="number">0px</span></span></span>;
+        }</span>
+        <span class="class">.mainBox</span><span class="rules">{
+            <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">680px</span></span></span>;
+            <span class="comment">/*height: 250px;*/</span>
+            <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+            <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333333</span></span></span>;
+        }</span>
+        <span class="class">.sideBox</span><span class="rules">{
+            <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">270px</span></span></span>;
+            <span class="comment">/*height: 250px;*/</span>
+            <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+            <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#999999</span></span></span>;
+        }</span>
+        <span class="id">#footer</span><span class="rules">{
+            <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;
+        }</span>
+    ……
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><blockquote>
+<p>由于float将div从文档流中脱离，我们给footer添加了清除浮动的效果，使用float脱离文档流时，其他盒子会无视这个元素，但其他盒子内的文本依然会为这个元素让出位置，环绕在周围。而对于使用absolute，positioning脱离文档流的元素，其他盒子与其他盒子内的文本都会无视它。更多关于清除浮动的问题会在后面写一篇文章专门介绍。</p>
+</blockquote>
+<p>未添加清除浮动的效果如下图，可以看出，footer这个盒子虽然无视了浮动的元素，但是盒子中的文本还是为浮动的元素让出了位置。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju3.jpg-blogImg" alt=""><br>添加清除浮动的效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju4.jpg-blogImg" alt=""><br>但是我们发现底部的外边距却没有了，这是由于container中元素浮动导致container的高度为0，并没有自适应，如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju5.jpg-blogImg" alt=""><br>我们对container清除浮动</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    ……
+    <span class="comment">/*
+        #footer{
+                clear: both;
+            }
+    */</span>
+    <span class="id">#container</span><span class="pseudo">:after</span><span class="rules">{
+        <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+        <span class="rule"><span class="attribute">visibility</span>:<span class="value"> hidden</span></span>;
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;
+        <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">""</span></span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><blockquote>
+<p>更多关于清除浮动的问题会在后面写一篇文章专门介绍。</p>
+</blockquote>
+<p>此时的效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju6.jpg-blogImg" alt=""><br>这个时候两列好像是没什么问题了，但是，两列不是等高啊。如果我们将mainBox的宽度增加，会发现出现错位现象：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju7.jpg-blogImg" alt=""><br>由此可见，两列定宽的布局方式一个前提要求是，两列的盒模型宽度相加不能超过父级元素的宽度，否则会导致页面发生错位。<br>如果我们将外边距设置成负值，可以修复这个问题</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    ……
+    <span class="class">.sideBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">270px</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#999999</span></span></span>;
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">100px</span></span></span>;
+    }</span>
+    ……
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju8.jpg-blogImg" alt=""><br>侧边栏回到了原来的位置，（是不是很神奇 O(∩_∩)O）但覆盖了主要内容区域，这并不是我们想要的效果，于是我们利用两列自适应结构来满足我们的要求。</p>
+<h1 id="二、两列自适应结构">二、两列自适应结构</h1><hr>
+<p>两列自适应的页面布局方式其实将宽度属性以百分比的形式计算，但该宽度并不是盒模型的总宽度，而是盒模型的内容区域的宽度。</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        *<span class="rules">{
+            <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span></span>;
+            <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+        }</span>
+        <span class="id">#header</span>, <span class="id">#footer</span><span class="rules">{
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+            <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
+            <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#E8E8E8</span></span></span>;
+        }</span>
+        <span class="id">#container</span><span class="rules">{
+            <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> <span class="number">0px</span></span></span>;
+        }</span>
+        <span class="class">.mainBox</span><span class="rules">{
+            <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">70%</span></span></span>;
+            <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+            <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333333</span></span></span>;
+        }</span>
+        <span class="class">.sideBox</span><span class="rules">{
+            <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;
+            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">30%</span></span></span>;
+            <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#FFFFFF</span></span></span>;
+            <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#999999</span></span></span>;
+            <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">100px</span></span></span>;
+        }</span>
+        <span class="id">#container</span><span class="pseudo">:after</span><span class="rules">{
+            <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+            <span class="rule"><span class="attribute">visibility</span>:<span class="value"> hidden</span></span>;
+            <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">0</span></span></span>;
+            <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">0</span></span></span>;
+            <span class="rule"><span class="attribute">clear</span>:<span class="value"> both</span></span>;
+            <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">""</span></span></span>;
+        }</span>
+    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>这样就得到我们想要的结果了，具体效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/buju9.jpg-blogImg" alt=""><br>两页布局就先介绍到这里，今天实在是没时间，就把文章分成两部分，明天填第二部分的坑。先这样吧 ↖(^ω^)↗<br><em>ps:昨晚网络出了点问题，今天上午才传上来</em></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/12/CSS之容器/" rel="next" title="CSS学习笔记之容器的位置">
+                <i class="fa fa-chevron-left"></i> CSS学习笔记之容器的位置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/14/CSS之两列布局(2)/" rel="prev" title="CSS学习笔记之两列页面布局（二）">
+                CSS学习笔记之两列页面布局（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/13/CSS之两列布局(1)/"
+           data-title="CSS学习笔记之两列页面布局（一）" data-url="http://blog.supce.com/2016/04/13/CSS之两列布局(1)/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
+               alt="vector" />
+          <p class="site-author-name" itemprop="name">vector</p>
+          <p class="site-description motion-element" itemprop="description">We are all in the gutter, but some of us are looking at the stars.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、两列定宽的页面布局"><span class="nav-number">1.</span> <span class="nav-text">一、两列定宽的页面布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、两列自适应结构"><span class="nav-number">2.</span> <span class="nav-text">二、两列自适应结构</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vector</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"byvector"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,923 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="vector's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="接着上次，继续学习三列页面布局结构。
+一、三列宽度自适应结构三列宽度自适应只需要把上次的左侧定宽右侧和中间自适应稍作修改就可以了。先保持上次的HTML结构不变
+&amp;lt;div id=&quot;header&quot;&amp;gt;这里是头部信息&amp;lt;/div&amp;gt;
+&amp;lt;div id=&quot;container&quot;&amp;gt;
+    &amp;lt;div class=&quot;mainBox&quot;&amp;gt;
+        &amp;lt;div cl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS学习笔记之三列页面布局（二）">
+<meta property="og:url" content="http://blog.supce.com/2016/04/17/CSS之三列布局(2)/index.html">
+<meta property="og:site_name" content="vector's blog">
+<meta property="og:description" content="接着上次，继续学习三列页面布局结构。
+一、三列宽度自适应结构三列宽度自适应只需要把上次的左侧定宽右侧和中间自适应稍作修改就可以了。先保持上次的HTML结构不变
+&amp;lt;div id=&quot;header&quot;&amp;gt;这里是头部信息&amp;lt;/div&amp;gt;
+&amp;lt;div id=&quot;container&quot;&amp;gt;
+    &amp;lt;div class=&quot;mainBox&quot;&amp;gt;
+        &amp;lt;div cl">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/sl7.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/sl8.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/sl9.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/sl10.jpg-blogImg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/sl11.jpg-blogImg">
+<meta property="og:updated_time" content="2016-04-19T13:56:57.335Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS学习笔记之三列页面布局（二）">
+<meta name="twitter:description" content="接着上次，继续学习三列页面布局结构。
+一、三列宽度自适应结构三列宽度自适应只需要把上次的左侧定宽右侧和中间自适应稍作修改就可以了。先保持上次的HTML结构不变
+&amp;lt;div id=&quot;header&quot;&amp;gt;这里是头部信息&amp;lt;/div&amp;gt;
+&amp;lt;div id=&quot;container&quot;&amp;gt;
+    &amp;lt;div class=&quot;mainBox&quot;&amp;gt;
+        &amp;lt;div cl">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> CSS学习笔记之三列页面布局（二） | vector's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">vector's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS学习笔记之三列页面布局（二）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-17T00:00:00+08:00" content="2016-04-17">
+              2016-04-17
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/17/CSS之三列布局(2)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/17/CSS之三列布局(2)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>接着上次，继续学习三列页面布局结构。</p>
+<h1 id="一、三列宽度自适应结构">一、三列宽度自适应结构</h1><p>三列宽度自适应只需要把上次的左侧定宽右侧和中间自适应稍作修改就可以了。先保持上次的HTML结构不变</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>这里是头部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"container"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"mainBox"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span>&gt;</span>这里是主要内容区域让他宽一些他宽一些他宽一些他宽一些他宽一些他宽一些<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"subMainBox"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里是次要内容区域<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有两行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sideBox"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里是侧边栏<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有三行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>这里有三行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"footer"</span>&gt;</span>这里是底部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>只需要稍作修改CSS代码，魅力就在于此！<br><a id="more"></a></p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    ……
+    <span class="class">.mainBox</span> <span class="class">.content</span><span class="rules">{
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> <span class="number">21%</span> <span class="number">0</span> <span class="number">41%</span></span></span>;
+    }</span>
+    <span class="class">.subMainBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">20%</span></span></span>;
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">20%</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;
+    }</span>
+    <span class="class">.sideBox</span><span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40%</span></span></span>;
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">100%</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;
+    }</span>
+    ……
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>一个三列自适应的页面结构就这样轻松实现<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl7.jpg-blogImg" alt=""></p>
+<h1 id="二、三列等高">二、三列等高</h1><p>三列等高的原理和<a href="http://www.songchubai.com/2016/04/14/CSS%E4%B9%8B%E4%B8%A4%E5%88%97%E5%B8%83%E5%B1%80(2" target="_blank" rel="external">两列等高</a>/)的原理几乎相同，所以原理性的东西不多做介绍，只是再实现一次加深下印象。</p>
+<h2 id="1、背景模拟">1、背景模拟</h2><p>使用这种方法必须保证三列的宽度固定，而且三列的位置关系因为背景图不能随意的更换。HTML代码如下：</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"header"</span>&gt;</span>头部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"mainBox"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>主要内容区域<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>多添加几行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>更能看得清楚到底是是不是等高<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"subMainBox"</span>&gt;</span>次要内容区域<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sideBox"</span>&gt;</span>侧边栏<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"footer"</span>&gt;</span>底部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>CSS代码如下：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        * <span class="rules">{
+            <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
+            <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
+        }</span>
+        <span class="class">.header</span>, <span class="class">.footer</span> <span class="rules">{
+            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
+            <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">30px</span></span></span>;
+            <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">30px</span></span></span>;
+            <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
+            <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
+            <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#AAAAAA</span></span></span>;
+        }</span>
+        <span class="class">.container</span> <span class="rules">{
+            <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
+            <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
+            <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
+            <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(images/bg2.png) repeat-y <span class="number">0</span> <span class="number">0</span></span></span>;
+        }</span> 
+        <span class="class">.mainBox</span> <span class="rules">{
+            <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
+        }</span> 
+        <span class="class">.mainBox</span> <span class="class">.content</span> <span class="rules">{
+            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">440px</span></span></span>;
+            <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> <span class="number">210px</span> <span class="number">0</span> <span class="number">310px</span></span></span>;
+            <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
+        }</span> 
+        <span class="class">.subMainBox</span> <span class="rules">{
+            <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
+            <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">960px</span></span></span>;
+        }</span> 
+        <span class="class">.sideBox</span> <span class="rules">{
+            <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">200px</span></span></span>;
+            <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">200px</span></span></span>;
+        }</span> 
+        <span class="class">.footer</span> <span class="rules">{
+            <span class="rule"><span class="attribute">clear</span>:<span class="value">both</span></span>;
+        }</span>
+    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>刷新浏览器可以看到等高的视觉效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl8.jpg-blogImg" alt=""></p>
+<h2 id="2、负边距实现">2、负边距实现</h2><p>用负边距实现等高的视觉效果，保证HTML结构不变，只需要修改下CSS代码即可:</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    * <span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
+    }</span>
+    <span class="class">.header</span>, <span class="class">.footer</span> <span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#AAAAAA</span></span></span>;
+    }</span>
+    <span class="class">.container</span> <span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
+        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+        <span class="comment">/*background:url(images/bg2.png) repeat-y 0 0;*/</span>
+    }</span> 
+    <span class="class">.mainBox</span> <span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
+        <span class="rule"><span class="attribute">margin-bottom</span>:<span class="value">-<span class="number">9999px</span></span></span>;
+        <span class="rule"><span class="attribute">padding-bottom</span>:<span class="value"><span class="number">9999px</span></span></span>;
+    }</span> 
+    <span class="class">.mainBox</span> <span class="class">.content</span> <span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">440px</span></span></span>;
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> <span class="number">210px</span> <span class="number">0</span> <span class="number">310px</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
+    }</span> 
+    <span class="class">.subMainBox</span> <span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">960px</span></span></span>;
+        <span class="rule"><span class="attribute">margin-bottom</span>:<span class="value">-<span class="number">9999px</span></span></span>;
+        <span class="rule"><span class="attribute">padding-bottom</span>:<span class="value"><span class="number">9999px</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#333</span></span></span>;
+    }</span> 
+    <span class="class">.sideBox</span> <span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">200px</span></span></span>;
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">200px</span></span></span>;
+        <span class="rule"><span class="attribute">margin-bottom</span>:<span class="value">-<span class="number">9999px</span></span></span>;
+        <span class="rule"><span class="attribute">padding-bottom</span>:<span class="value"><span class="number">9999px</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#666</span>
+    } 
+    .footer {
+        clear:both</span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl9.jpg-blogImg" alt=""><br>在上一个方法中用图片背景来模拟的时候，三列的宽度必须是固定的。而我们采用负边距实现的三列等高是可以在自适应的三列结构中使用的。代码就不贴了，简单修改下代码可以自己试试。（其实是我懒(-__-)b）</p>
+<h2 id="3、边框模拟">3、边框模拟</h2><p>边框模拟其实是一种非常不实际的方法，但是为了展现CSS的“魅力”，就再实现一遍。采用绝对定位的方式，将次要内容区域和侧边栏定位在主要内容区域的两侧，利用主要内容区域的左右两侧边框来模拟两侧的背景色。<br>在保持原来的HTML结构的基础上，修改CSS代码如下：</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    ……
+    <span class="class">.container</span> <span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
+    }</span> 
+    <span class="class">.mainBox</span> <span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
+    }</span> 
+    <span class="class">.mainBox</span> <span class="class">.content</span> <span class="rules">{
+        <span class="rule"><span class="attribute">border-left</span>:<span class="value"><span class="number">310px</span> solid <span class="hexcolor">#999</span></span></span>;
+        <span class="rule"><span class="attribute">border-right</span>:<span class="value"><span class="number">210px</span> solid <span class="hexcolor">#333</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;
+    }</span> 
+    <span class="class">.subMainBox</span> <span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>;
+    }</span> 
+    <span class="class">.sideBox</span> <span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">200px</span></span></span>;
+        <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">right</span>:<span class="value"><span class="number">0</span></span></span>;
+    }</span> 
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>刷新一下页面：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl10.jpg-blogImg" alt=""></p>
+<blockquote>
+<p>在两列等高中用边框模拟所带来的问题依然会出现在三列页面结构中 这种不推荐的方式只是为了展现CSS的“魅力”！</p>
+<h2 id="4、其他方式">4、其他方式</h2><p>这里用js来完成三列的真正等高！<br>HTML代码：</p>
+</blockquote>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"header"</span>&gt;</span>头部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"mainBox"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span> <span class="attribute">id</span>=<span class="value">"m_content"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>主要内容区域<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>多添加几行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>更能看得清楚到底是是不是等高<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">p</span>&gt;</span>再来一行<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"subMainBox"</span> <span class="attribute">id</span>=<span class="value">"subMainBox"</span>&gt;</span>次要内容区域<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sideBox"</span> <span class="attribute">id</span>=<span class="value">"sideBox"</span>&gt;</span>侧边栏<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"footer"</span>&gt;</span>底部信息<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>CSS代码只需要对两列定宽中间自适应页面结构中的代码稍作修改，去掉高度属性。</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">-</span> <span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
+    }</span>
+    <span class="class">.header</span>, <span class="class">.footer</span> <span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">30px</span></span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#AAAAAA</span></span></span>;
+    }</span>
+    <span class="class">.container</span> <span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#FFFFFF</span></span></span>;
+    }</span>
+    <span class="class">.mainBox</span> <span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">960px</span></span></span>;
+    }</span>
+    <span class="class">.mainBox</span> <span class="class">.content</span> <span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span> <span class="number">210px</span> <span class="number">0</span> <span class="number">310px</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#000000</span></span></span>;
+    }</span>
+    <span class="class">.subMainBox</span> <span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">100%</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#666666</span></span></span>;
+    }</span>
+    <span class="class">.sideBox</span> <span class="rules">{
+        <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">200px</span></span></span>;
+        <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">200px</span></span></span>;
+        <span class="rule"><span class="attribute">background-color</span>:<span class="value"><span class="hexcolor">#333333</span></span></span>;
+    }</span>
+    <span class="class">.footer</span> <span class="rules">{
+        <span class="rule"><span class="attribute">clear</span>:<span class="value">both</span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>我们的JavaScript代码如下，对了，这里先挖个坑吧。等专门写到JavaScript文章的时候再自己解释这段JavaScript代码！O(∩_∩)O哈哈~</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">columnHeight</span>(<span class="params"></span>)</span>{ 
+    <span class="keyword">var</span> i,oh,hh,h=<span class="number">0</span>,dA=<span class="built_in">document</span>.w3cooleqc,an=<span class="built_in">document</span>.w3cooleqa;
+    <span class="keyword">if</span>(dA &amp;&amp; dA.length){
+            an=<span class="number">1</span>;
+            <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;dA.length;i++){
+                dA[i].style.height=<span class="string">'auto'</span>;
+            }
+            <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;dA.length;i++){
+                oh=dA[i].offsetHeight;
+                h=(oh&gt;h)?oh:h;
+            }
+            <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;dA.length;i++){
+                <span class="keyword">if</span>(an){
+                    dA[i].style.height=h+<span class="string">'px'</span>;
+                }<span class="keyword">else</span>{
+                    equalActive(dA[i].id,dA[i].offsetHeight,h);
+                }
+            }
+            <span class="keyword">if</span>(an){
+                or(i=<span class="number">0</span>;i&lt;dA.length;i++){
+                    hh=dA[i].offsetHeight;
+                    <span class="keyword">if</span>(hh&gt;h){
+                        dA[i].style.height=(h-(hh-h))+<span class="string">'px'</span>;
+                    }
+                }
+            }<span class="keyword">else</span>{
+                <span class="built_in">document</span>.w3cooleqa=<span class="number">1</span>;
+            }
+    <span class="built_in">document</span>.w3cooleqth=<span class="built_in">document</span>.body.offsetHeight;
+    <span class="built_in">document</span>.w3cooleqtw=<span class="built_in">document</span>.body.offsetWidth;
+    }
+}
+<span class="function"><span class="keyword">function</span> <span class="title">blanceHeight</span>(<span class="params"></span>)</span>{ 
+        <span class="keyword">if</span>(<span class="built_in">document</span>.w3cooleqth!=<span class="built_in">document</span>.body.offsetHeight||<span class="built_in">document</span>.w3cooleqtw!=<span class="built_in">document</span>.body.offsetWidth){
+                columnHeight();
+        }
+}
+<span class="function"><span class="keyword">function</span> <span class="title">equalColumns</span>(<span class="params"></span>)</span>{ 
+        <span class="keyword">if</span>(<span class="built_in">document</span>.getElementById){
+                <span class="built_in">document</span>.w3cooleqc=<span class="keyword">new</span> <span class="built_in">Array</span>;
+                <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="built_in">arguments</span>.length;i++){
+                        <span class="built_in">document</span>.w3cooleqc[i]=<span class="built_in">document</span>.getElementById(<span class="built_in">arguments</span>[i]);
+                }
+                setInterval(<span class="string">"blanceHeight()"</span>,<span class="number">10</span>);
+        }
+}
+<span class="function"><span class="keyword">function</span> <span class="title">equalActive</span>(<span class="params">el,h,ht</span>)</span>{ 
+        <span class="keyword">var</span> sp=<span class="number">1000</span>,inc=<span class="number">1000</span>,nh=h,g=<span class="built_in">document</span>.getElementById(el),oh=g.offsetHeight,ch=<span class="built_in">parseInt</span>(g.style.height);
+        ch=(ch)?ch:h;
+        <span class="keyword">var</span> ad=oh-ch,adT=ht-ad;nh+=inc;nh=(nh&gt;adT)?adT:nh;g.style.height=nh+<span class="string">'px'</span>;
+        oh=g.offsetHeight;
+        <span class="keyword">if</span>(oh&gt;ht){
+                nh=(ht-(oh-ht));g.style.height=nh+<span class="string">'px'</span>;
+        }
+        <span class="keyword">if</span>(nh&lt;adT){setTimeout(<span class="string">"equalActive('"</span>+el+<span class="string">"',"</span>+nh+<span class="string">","</span>+ht+<span class="string">")"</span>,sp);}
+}
+<span class="comment">//调用方法equalColumns('subMainBox','m_content','sideBox')</span>
+<span class="comment">//subMainBox，m_content，sideBox就是你希望高度相等的div的id值</span>
+</code></pre><p>效果如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/sl11.jpg-blogImg" alt=""></p>
+<blockquote>
+<p>OK 三列的页面结构终于写完了！容我去B站补几部番缓缓 ԅ( ¯་། ¯ԅ)</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/16/CSS之三列布局(1)/" rel="next" title="CSS学习笔记之三列页面布局（一）">
+                <i class="fa fa-chevron-left"></i> CSS学习笔记之三列页面布局（一）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/18/CSS之文本润色(1)/" rel="prev" title="CSS学习笔记之文本润色（一）">
+                CSS学习笔记之文本润色（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/17/CSS之三列布局(2)/"
+           data-title="CSS学习笔记之三列页面布局（二）" data-url="http://blog.supce.com/2016/04/17/CSS之三列布局(2)/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
+               alt="vector" />
+          <p class="site-author-name" itemprop="name">vector</p>
+          <p class="site-description motion-element" itemprop="description">We are all in the gutter, but some of us are looking at the stars.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、三列宽度自适应结构"><span class="nav-number">1.</span> <span class="nav-text">一、三列宽度自适应结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、三列等高"><span class="nav-number">2.</span> <span class="nav-text">二、三列等高</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、背景模拟"><span class="nav-number">2.1.</span> <span class="nav-text">1、背景模拟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、负边距实现"><span class="nav-number">2.2.</span> <span class="nav-text">2、负边距实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、边框模拟"><span class="nav-number">2.3.</span> <span class="nav-text">3、边框模拟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、其他方式"><span class="nav-number">2.4.</span> <span class="nav-text">4、其他方式</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vector</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"byvector"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

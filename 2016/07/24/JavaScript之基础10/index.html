@@ -1,0 +1,842 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="vector's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="DOM是document object model的缩写，即：文档对象模型。DOM将HTML和XML描述为一个具有层次结构的节点树。DOM作为一个接口，可以对HTML或者XML进行添加，删除和修改。根据 DOM，HTML 文档中的每个成分都是一个节点。DOM 是这样规定的： 
+
+整个文档是一个文档节点 
+每个 HTML 标签是一个元素节点 
+包含在 HTML 元素中的文本是文本节点 
+每一个 HT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM(一)">
+<meta property="og:url" content="http://blog.supce.com/2016/07/24/JavaScript之基础10/index.html">
+<meta property="og:site_name" content="vector's blog">
+<meta property="og:description" content="DOM是document object model的缩写，即：文档对象模型。DOM将HTML和XML描述为一个具有层次结构的节点树。DOM作为一个接口，可以对HTML或者XML进行添加，删除和修改。根据 DOM，HTML 文档中的每个成分都是一个节点。DOM 是这样规定的： 
+
+整个文档是一个文档节点 
+每个 HTML 标签是一个元素节点 
+包含在 HTML 元素中的文本是文本节点 
+每一个 HT">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/dom.jpg-blogImg">
+<meta property="og:updated_time" content="2016-07-24T12:31:16.805Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DOM(一)">
+<meta name="twitter:description" content="DOM是document object model的缩写，即：文档对象模型。DOM将HTML和XML描述为一个具有层次结构的节点树。DOM作为一个接口，可以对HTML或者XML进行添加，删除和修改。根据 DOM，HTML 文档中的每个成分都是一个节点。DOM 是这样规定的： 
+
+整个文档是一个文档节点 
+每个 HTML 标签是一个元素节点 
+包含在 HTML 元素中的文本是文本节点 
+每一个 HT">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> DOM(一) | vector's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">vector's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                DOM(一)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-24T00:00:00+08:00" content="2016-07-24">
+              2016-07-24
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/24/JavaScript之基础10/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/24/JavaScript之基础10/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>DOM是document object model的缩写，即：文档对象模型。DOM将HTML和XML描述为一个具有层次结构的节点树。DOM作为一个接口，可以对HTML或者XML进行添加，删除和修改。<br>根据 DOM，HTML 文档中的每个成分都是一个节点。DOM 是这样规定的： </p>
+<ul>
+<li>整个文档是一个文档节点 </li>
+<li>每个 HTML 标签是一个元素节点 </li>
+<li>包含在 HTML 元素中的文本是文本节点 </li>
+<li>每一个 HTML 属性是一个属性节点 </li>
+<li>注释属于注释节点<a id="more"></a>
+</li>
+</ul>
+<h1 id="节点类型">节点类型</h1><p>JavaScript中总共有12种节点类型，这些节点类型全部继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法。<br>节点类型有在Node类型中定义的12个数值常量来表示：</p>
+<pre><code>Node<span class="class">.ELEMENT_NODE</span> (<span class="number">1</span>)
+Node<span class="class">.ATTRIBUTE_NODE</span> (<span class="number">2</span>)
+Node<span class="class">.TEXT_NODE</span> (<span class="number">3</span>)
+Node<span class="class">.CDATA_SECTION_NODE</span> (<span class="number">4</span>)
+Node<span class="class">.ENTITY_REFERENCE_NODE</span> (<span class="number">5</span>)
+Node<span class="class">.ENTITY_NODE</span> (<span class="number">6</span>)
+Node<span class="class">.PROCESSING_INSTRUCTION_NODE</span> (<span class="number">7</span>)
+Node<span class="class">.COMMENT_NODE</span> (<span class="number">8</span>)
+Node<span class="class">.DOCUMENT_NODE</span> (<span class="number">9</span>)
+Node<span class="class">.DOCUMENT_TYPE_NODE</span> (<span class="number">10</span>)
+Node<span class="class">.DOCUMENT_FRAGMENT_NODE</span> (<span class="number">11</span>)
+Node<span class="class">.NOTATION_NODE</span> (<span class="number">12</span>)
+</code></pre><h2 id="常用属性">常用属性</h2><h3 id="nodeType属性">nodeType属性</h3><p>每个节点都有一个nodeType属性，可以确定节点的类型。</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"test"</span>&gt;<span class="keyword">div</span>&lt;/<span class="keyword">div</span>&gt;
+var test = document.getElementById(<span class="string">"test"</span>);
+<span class="keyword">if</span>(test.nodeType == <span class="number">1</span>){
+    console.<span class="command">log</span>(<span class="string">"This node is an element"</span>);
+}
+</code></pre><h3 id="nodeName属性">nodeName属性</h3><p>nodeName属性保存的是元素的标签名</p>
+<pre><code>&lt;div id=<span class="string">"test"</span>&gt;div&lt;/div&gt;
+<span class="keyword">var</span> <span class="keyword">test</span> = document.getElementById(<span class="string">"test"</span>);
+<span class="keyword">if</span>(<span class="keyword">test</span>.nodeType == 1){
+    console.<span class="literal">log</span>(<span class="keyword">test</span>.nodeName);  <span class="comment">//DIV</span>
+}
+</code></pre><h2 id="节点关系">节点关系</h2><p>节点的关系类似于家谱。<br>每个节点都有一个childNodes属性来表示子节点，其中保存着一个NodeList对象。NodeList 是一种类数组对象，用于保存一组有序的节点，可以通过位置或者<code>item()</code>方法来访问这些节点。</p>
+<pre><code><span class="variable"><span class="keyword">var</span> firstChild</span> = someNode.childNodes[<span class="number">0</span>];
+<span class="variable"><span class="keyword">var</span> secondChild</span> = someNode.childNodes.item(<span class="number">2</span>);
+<span class="variable"><span class="keyword">var</span> length</span> = someNode.childNodes.length;
+</code></pre><p><em>请注意，虽然可以通过方括号语法来访问 NodeList 的值，而且这个对象也有 length 属性，但它并不是 Array 的实例。可以通过一个函数把它转换为数组</em></p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">convert2Array</span><span class="params">(nodes)</span></span>{
+    <span class="keyword">try</span>{
+        <span class="keyword">return</span> <span class="keyword">Array</span>.prototype.slice.call(nodes,<span class="number">0</span>);
+    }<span class="keyword">catch</span>(ex){
+        <span class="keyword">var</span> <span class="keyword">array</span> = [];
+        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;nodes.length;i++){
+            <span class="keyword">array</span>[i] = nodes[i];
+        }
+        <span class="keyword">return</span> <span class="keyword">array</span>;
+    }
+}
+console.log(convert2Array({length:<span class="number">2</span>,<span class="number">0</span>:<span class="string">'first'</span>,<span class="number">1</span>:<span class="string">'second'</span>})); <span class="comment">//["first", "second"]</span>
+</code></pre><p>还有一些其他关系</p>
+<ul>
+<li>parentNode 父节点</li>
+<li>previousSibling 该节点的前一个兄弟节点</li>
+<li>nextSibling 该节点的后一个兄弟节点</li>
+</ul>
+<h2 id="节点操作">节点操作</h2><h3 id="appendChild()">appendChild()</h3><p>该方法用于向childNodes列表末尾添加一个节点。返回值为新增的节点。比如：</p>
+<pre><code>&lt;ul id=<span class="string">"list"</span>&gt;
+    &lt;<span class="keyword">li</span>&gt;item1&lt;/<span class="keyword">li</span>&gt;
+    &lt;<span class="keyword">li</span>&gt;item2&lt;/<span class="keyword">li</span>&gt;
+&lt;/ul&gt;
+<span class="keyword">var</span> <span class="keyword">list</span> = document.getElementById(<span class="string">"list"</span>);
+<span class="keyword">var</span> item = document.createElement(<span class="string">"li"</span>);
+item.appendChild(document.createTextNode(<span class="string">"itme3"</span>));
+<span class="keyword">list</span>.appendChild(item);   <span class="comment">//向ul中添加了一个li</span>
+</code></pre><p>如果传入到 appendChild() 中的节点已经是文档的一部分了，那结果就是将该节点从原来的位置转移到新位置。比如将item1与item2互换：</p>
+<pre><code>&lt;ul id=<span class="string">"list"</span>&gt;
+    &lt;<span class="keyword">li</span>&gt;item1&lt;/<span class="keyword">li</span>&gt;
+    &lt;<span class="keyword">li</span>&gt;item2&lt;/<span class="keyword">li</span>&gt;
+&lt;/ul&gt;
+<span class="keyword">var</span> <span class="keyword">list</span> = document.getElementById(<span class="string">"list"</span>);
+<span class="keyword">var</span> item = <span class="keyword">list</span>.childNodes[1];  <span class="comment">//0为空白文本节点</span>
+<span class="keyword">list</span>.appendChild(item);
+</code></pre><p>有时候，空白文本几点会影响操作，可以写一个函数把空白文本节点删除。</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">cleanWhitespace</span><span class="params">(element)</span>{</span>   
+    <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>; i&lt;element.childNodes.length; i++)</span>   
+    {   
+        var node = element.childNodes[i];   
+        <span class="keyword">if</span><span class="params">(node.nodeType == <span class="number">3</span> &amp;&amp; !/\S/.test<span class="params">(node.nodeValue)</span>)</span>   
+        {   
+            node.parentNode.removeChild<span class="params">(node)</span>;   
+        }   
+    }   
+} 
+</code></pre><h3 id="insertBefore()">insertBefore()</h3><p>这个方法接受两个参数：要插入的节点和作为参照的节点。插入节点后，被插入的节点会变成参照节点的前一个同胞节点(previousSibling)，同时被方法返回。如果参照节点是null则<code>insertBefore()</code>与<code>appendChild()</code>执行相同的操作。比如在item1前面插入item0：</p>
+<pre><code>&lt;ul id=<span class="string">"list"</span>&gt;
+    &lt;<span class="keyword">li</span>&gt;item1&lt;/<span class="keyword">li</span>&gt;
+    &lt;<span class="keyword">li</span>&gt;item2&lt;/<span class="keyword">li</span>&gt;
+&lt;/ul&gt;
+<span class="keyword">var</span> <span class="keyword">list</span> = document.getElementById(<span class="string">"list"</span>);
+<span class="keyword">var</span> item = document.createElement(<span class="string">"li"</span>);
+item.appendChild(document.createTextNode(<span class="string">"item0"</span>));
+<span class="keyword">list</span>.insertBefore(item,<span class="keyword">list</span>.firstChild);
+</code></pre><h3 id="replaceChild()">replaceChild()</h3><p><code>replaceChild()</code>方法接收两个参数：要插入的节点和要替换的节点。要替换的节点将由这个方法返回并从文档树中被移除，同时由要插入的节点占据其位置。</p>
+<h3 id="removeChild()">removeChild()</h3><p><code>removeChild()</code>方法为移除某个节点，参数为要移除的节点</p>
+<h3 id="cloneNode()">cloneNode()</h3><p>该方法用于复制调用该方法的节点，接收两个参数。</p>
+<ul>
+<li>当参数为true时，复制该节点和该节点下的整个子节点树</li>
+<li>当参数为false时，只复制当前节点本身</li>
+</ul>
+<p><em>详细介绍可以参考上篇文章</em></p>
+<h3 id="normalize()">normalize()</h3><p>这个方法唯一的作用就是处理文档树中的文本节点。由于解析器的实现或DOM操作等原因，可能会出现文本节点不包含文本，或者接连出现两个文本节点的情况。当在某个节点上调用这个方法时，就会在该节点的后代节点中查找上述两种情况。如果找到了空文本节点，则删除它；如果找到相邻的文本节点，则将它们合并为一个文本节点。</p>
+<hr>
+<h1 id="Document类型">Document类型</h1><p>Document类型表示文档。而我们常用的document对象是HTMLDocument(继承自Document类型)的一个实例。document对象也是window对象的一个属性，因此可以将其作为全局的对象来访问。</p>
+<h2 id="document对象的常用属性">document对象的常用属性</h2><ul>
+<li>documentElement属性用来获取页面中的<code>&lt;html&gt;</code>元素 </li>
+<li><p>body属性可以直接获取页面中的<code>body</code>元素 </p>
+<pre><code><span class="tag">var</span> <span class="tag">body</span> = document.body
+</code></pre></li>
+<li><p>doctype属性可以获取对<code>&lt;!DOCTYPE&gt;</code>的引用</p>
+<pre><code>console.log(document.doctype); //<span class="doctype">&lt;!DOCTYPE html&gt;</span>
+</code></pre></li>
+<li><p>title属性可以获取网页的<code>&lt;title&gt;</code>元素</p>
+<pre><code><span class="comment">//获取title</span>
+<span class="keyword">var</span> title = <span class="built_in">document</span>.title;
+<span class="comment">//设置title</span>
+<span class="built_in">document</span>.title = <span class="string">"new title"</span>;
+</code></pre></li>
+<li><p>URL属性可以获取当前页面完整的url</p>
+</li>
+<li>domain属性可以获取当前页面的域名</li>
+</ul>
+<p>比如google首页：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/dom.jpg-blogImg" alt=""></p>
+<h2 id="document对象的常用方法">document对象的常用方法</h2><p>在开发过程中，经常需要取得摸个元素的引用，再执行某些操作。Document类型为此提供了两个方法。</p>
+<ul>
+<li><code>getElementById()</code>参数为元素的ID名<br><em>IE8 及较低版本不区分 ID 的大小写。如果页面中多个元素的 ID 值相同， getElementById() 只返回文档中第一次出现的元素</em></li>
+<li><p><code>getElementsByTagName()</code>参数为元素的标签名，在HTML文档中该方法返回的是包含零个或多个元素的HTMLCollection对象。</p>
+<pre><code>&lt;img src=<span class="string">"#1"</span> name=<span class="string">"user_name"</span>&gt;
+&lt;img src=<span class="string">"#2"</span> name=<span class="string">"user_age"</span>&gt;
+&lt;img src=<span class="string">"#3"</span> name=<span class="string">"user_sex"</span>&gt;
+<span class="comment">//获取页面中所有的&lt;img&gt;元素</span>
+var images = document.getElementsByTagName<span class="params">(<span class="string">"img"</span>)</span>;
+<span class="comment">//获取长度</span>
+console.<span class="built_in">log</span><span class="params">(images.length)</span>;
+<span class="comment">//通过索引获取src</span>
+console.<span class="built_in">log</span><span class="params">(images[<span class="number">0</span>].src)</span>;
+<span class="comment">//通过name获取src</span>
+console.<span class="built_in">log</span><span class="params">(images[<span class="string">"user_age"</span>].src)</span>;
+</code></pre></li>
+<li><p><code>getElementsByName()</code>这个方法会返回带有给定name特性的所有元素。</p>
+</li>
+</ul>
+<h2 id="特殊集合">特殊集合</h2><p>除了属性和方法，document对象还有一些特殊的集合。这些集合都是 HTMLCollection 对象，为访问文档常用的部分提供了快捷方式。</p>
+<table>
+<thead>
+<tr>
+<th>集合</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document.anchors</td>
+<td>包含文档中所有带 name 特性的 <code>&lt;a&gt;</code> 元素；</td>
+</tr>
+<tr>
+<td>document.forms</td>
+<td>包含文档中所有的 <code>&lt;form&gt;</code> 元素</td>
+</tr>
+<tr>
+<td>document.images</td>
+<td>包含文档中所有的 <code>&lt;img&gt;</code> 元素</td>
+</tr>
+<tr>
+<td>document.links</td>
+<td>包含文档中所有带href特性的 <code>&lt;a&gt;</code> 元素</td>
+</tr>
+</tbody>
+</table>
+<h2 id="文档写入">文档写入</h2><p><code>write()</code>和<code>writeln()</code><br>这两个方法都会接受一个字符串参数。在页面被加载的过程中，可以使用这两个方法向页面中动态地加入内容。<code>writeln()</code>方法会在写入末尾添加一个换行符。</p>
+<pre><code>current date and <span class="tag">time</span> is :
+&lt;script type=<span class="string">"text/javascript"</span>&gt;
+    document.<span class="function"><span class="title">write</span><span class="params">(<span class="string">"&lt;p&gt;"</span> + (new Date()</span></span>).<span class="function"><span class="title">toString</span><span class="params">()</span></span> +<span class="string">"&lt;/p&gt;"</span>)
+&lt;/script&gt;
+</code></pre><hr>
+<h1 id="Element类型">Element类型</h1><p>Element类型提供了对元素标签名、子节点及特性的访问。常见的属性为<code>id,title,classname</code>等</p>
+<h2 id="元素的创建">元素的创建</h2><p>可以通过<code>document.createElement()</code>方法创建新元素。比如创建一个<code>div</code>元素</p>
+<pre><code><span class="keyword">var</span> <span class="keyword">div</span> = document.createElement(<span class="variable">"div"</span>);
+</code></pre><h2 id="元素特性的相关操作">元素特性的相关操作</h2><h3 id="取得特性">取得特性</h3><p><code>getAttribute()</code>方法来取得属性值。</p>
+<pre><code>&lt;div id=<span class="string">"my_test_div"</span> class=<span class="string">"div_class"</span> title=<span class="string">"div_title"</span> align=<span class="string">"left"</span>&gt;&lt;/div&gt;
+var div = document.getElementById<span class="params">(<span class="string">"my_test_div"</span>)</span>;
+console.<span class="built_in">log</span><span class="params">(div.getAttribute<span class="params">(<span class="string">"id"</span>)</span>)</span>;  <span class="comment">//或者div.id</span>
+console.<span class="built_in">log</span><span class="params">(div.getAttribute<span class="params">(<span class="string">"class"</span>)</span>)</span>;<span class="comment">//或者div.class</span>
+console.<span class="built_in">log</span><span class="params">(div.getAttribute<span class="params">(<span class="string">"title"</span>)</span>)</span>;<span class="comment">//或者div.title</span>
+console.<span class="built_in">log</span><span class="params">(div.getAttribute<span class="params">(<span class="string">"align"</span>)</span>)</span>;<span class="comment">//或者div.align</span>
+</code></pre><p>通过<code>getAttribute()</code>方法也可以取得自定义特性的值，以下面的元素为例：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"my_test_div"</span> my_special_attribute=<span class="string">"hello!"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>这个元素包含一个名为 my_special_attribute 的自定义特性，它的值是 “hello!” 。可以像取得其他特性一样取得这个值:</p>
+<pre><code><span class="keyword">var</span> value = <span class="keyword">div</span>.getAttribute(<span class="variable">"my_special_attribute"</span>);
+</code></pre><h3 id="设置特性">设置特性</h3><p><code>setAttribute()</code>用于设置特性，这个方法接受两个参数：要设置的特性名和<br>值。如果特性已经存在，<code>setAttribute()</code>会以指定的值替换现有的值；如果特性不存在，<code>setAttribute()</code>则创建该属性并设置相应的值。</p>
+<pre><code>&lt;<span class="keyword">div</span> id=<span class="variable">"my_test_div"</span> &gt;&lt;/<span class="keyword">div</span>&gt;
+<span class="keyword">var</span> <span class="keyword">div</span> = document.getElementById(<span class="variable">"my_test_div"</span>);
+<span class="keyword">div</span>.setAttribute(<span class="variable">"class"</span>,<span class="variable">"div_class"</span>);//或者<span class="keyword">div</span>.class=<span class="variable">"div_class"</span>
+<span class="keyword">div</span>.setAttribute(<span class="variable">"title"</span>,<span class="variable">"div_title"</span>);//或者<span class="keyword">div</span>.title=<span class="variable">"div_title"</span>
+<span class="keyword">div</span>.setAttribute(<span class="variable">"align"</span>,<span class="variable">"right"</span>);//或者<span class="keyword">div</span>.align=<span class="variable">"right"</span>
+</code></pre><h3 id="删除特性">删除特性</h3><p><code>removeAttribute()</code>，这个方法用于彻底删除元素的特性。调用这个方法不仅会清除特性的值，而且也会从元素中完全删除特性。</p>
+<h2 id="元素子节点">元素子节点</h2><blockquote>
+<p>元素子节点部分见节点关系部分。</p>
+</blockquote>
+<hr>
+<h1 id="Text类型">Text类型</h1><p>正如之前用到过的例子中，有时候需要向文档树中添加文本节点。<br>文本节点由Text类型表示，包含的是可以照字面解释的纯文本内容。纯文本中可以包含转义后的HTML字符，但不能包含HTML代码。<br>在默认情况下，每个可以包含内容的元素最多只能有一个文本节点，而且必须确实有内容存在。</p>
+<pre><code>&lt;<span class="keyword">div</span>&gt;&lt;/<span class="keyword">div</span>&gt;<span class="comment">//没有内容，没有文本节点</span>
+&lt;<span class="keyword">div</span>&gt; &lt;/<span class="keyword">div</span>&gt;<span class="comment">//有空格，有一个文本节点</span>
+&lt;<span class="keyword">div</span>&gt;hello world!&lt;/<span class="keyword">div</span>&gt;<span class="comment">//有内容，有一个文本节点</span>
+</code></pre><p>可以获取文本节点的引用并利用<code>nodeValue</code>修改它。</p>
+<pre><code><span class="keyword">var</span> textNode = <span class="keyword">div</span>.firstChild;
+textNode.nodeValue = <span class="variable">"this is a test"</span>;
+</code></pre><p>如果没有文本节点，可以创建一个文本节点，并插入到元素中</p>
+<pre><code><span class="keyword">var</span> element = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);
+element.className = <span class="string">"test"</span>;
+<span class="keyword">var</span> text = <span class="built_in">document</span>.createTextNode(<span class="string">"hello world"</span>);
+element.appendChild(text);
+<span class="built_in">document</span>.body.appendChild(element);
+</code></pre><p>DOM文档中存在相邻的同胞文本节点很容易导致混乱，因为分不清哪个文本节点表示哪个字符串。另外，DOM文档中出现相邻文本节点的情况也不在少数，于是就催生了一个能够将相邻文本节点合并的方法<code>normalize()</code>。<br>这个方法是由 Node类型定义的。如果在一个包含两个或多个文本节点的父元素上调用<code>normalize()</code>方法，则会将所有文本节点合并成一个节点，结果节点的<code>nodeValue</code> 等于将合并前每个文本节点的<code>nodeValue</code>值拼接起来的值。比如：</p>
+<pre><code>var element = document.createElement<span class="params">(<span class="string">"div"</span>)</span>;
+element.className = <span class="string">"message"</span>;
+var textNode = document.createTextNode<span class="params">(<span class="string">"Hello world!"</span>)</span>;
+element.appendChild<span class="params">(textNode)</span>;
+var anotherTextNode = document.createTextNode<span class="params">(<span class="string">"Nico!"</span>)</span>;
+element.appendChild<span class="params">(anotherTextNode)</span>;
+document.body.appendChild<span class="params">(element)</span>;
+console.<span class="built_in">log</span><span class="params">(element.childNodes.length)</span>; <span class="comment">//2</span>
+element.normalize<span class="params">()</span>;
+console.<span class="built_in">log</span><span class="params">(element.childNodes.length)</span>; <span class="comment">//1</span>
+console.<span class="built_in">log</span><span class="params">(element.firstChild.nodeValue)</span>; <span class="comment">// "Hello world!Nico!"</span>
+</code></pre><p>Text 类型提供了一个作用与<code>normalize()</code>相反的方法:<code>splitText()</code>。<br>这个方法会将一个文本节点分成两个文本节点，即按照指定的位置分割<code>nodeValue</code>值。原来的文本节点将包含从开始到指定位置之前的内容，新文本节点将包含剩下的文本。这个方法会返回一个新文本节点，该节点与原节点的<code>parentNode</code>相同。</p>
+<pre><code>var element = document.createElement<span class="params">(<span class="string">"div"</span>)</span>;
+element.className = <span class="string">"test"</span>;
+var <span class="built_in">text</span> = document.createTextNode<span class="params">(<span class="string">"Nico&amp;Sora"</span>)</span>;
+element.appendChild<span class="params">(text)</span>;
+document.body.appendChild<span class="params">(element)</span>;
+var newNode = element.childNodes[<span class="number">0</span>].splitText<span class="params">(<span class="number">4</span>)</span>;
+console.<span class="built_in">log</span><span class="params">(element.childNodes[<span class="number">0</span>].nodeValue)</span>;  <span class="comment">//Nico</span>
+console.<span class="built_in">log</span><span class="params">(newNode.nodeValue)</span>;  <span class="comment">//&amp;Sora</span>
+console.<span class="built_in">log</span><span class="params">(element.childNodes.length)</span>; <span class="comment">//2</span>
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/23/JavaScript之基础9/" rel="next" title="客户端检测">
+                <i class="fa fa-chevron-left"></i> 客户端检测
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/26/JavaScript之基础11/" rel="prev" title="DOM(二)">
+                DOM(二) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/24/JavaScript之基础10/"
+           data-title="DOM(一)" data-url="http://blog.supce.com/2016/07/24/JavaScript之基础10/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
+               alt="vector" />
+          <p class="site-author-name" itemprop="name">vector</p>
+          <p class="site-description motion-element" itemprop="description">We are all in the gutter, but some of us are looking at the stars.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#节点类型"><span class="nav-number">1.</span> <span class="nav-text">节点类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用属性"><span class="nav-number">1.1.</span> <span class="nav-text">常用属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nodeType属性"><span class="nav-number">1.1.1.</span> <span class="nav-text">nodeType属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nodeName属性"><span class="nav-number">1.1.2.</span> <span class="nav-text">nodeName属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#节点关系"><span class="nav-number">1.2.</span> <span class="nav-text">节点关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#节点操作"><span class="nav-number">1.3.</span> <span class="nav-text">节点操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#appendChild()"><span class="nav-number">1.3.1.</span> <span class="nav-text">appendChild()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insertBefore()"><span class="nav-number">1.3.2.</span> <span class="nav-text">insertBefore()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replaceChild()"><span class="nav-number">1.3.3.</span> <span class="nav-text">replaceChild()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#removeChild()"><span class="nav-number">1.3.4.</span> <span class="nav-text">removeChild()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cloneNode()"><span class="nav-number">1.3.5.</span> <span class="nav-text">cloneNode()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#normalize()"><span class="nav-number">1.3.6.</span> <span class="nav-text">normalize()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Document类型"><span class="nav-number">2.</span> <span class="nav-text">Document类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#document对象的常用属性"><span class="nav-number">2.1.</span> <span class="nav-text">document对象的常用属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#document对象的常用方法"><span class="nav-number">2.2.</span> <span class="nav-text">document对象的常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊集合"><span class="nav-number">2.3.</span> <span class="nav-text">特殊集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档写入"><span class="nav-number">2.4.</span> <span class="nav-text">文档写入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Element类型"><span class="nav-number">3.</span> <span class="nav-text">Element类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元素的创建"><span class="nav-number">3.1.</span> <span class="nav-text">元素的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元素特性的相关操作"><span class="nav-number">3.2.</span> <span class="nav-text">元素特性的相关操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#取得特性"><span class="nav-number">3.2.1.</span> <span class="nav-text">取得特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置特性"><span class="nav-number">3.2.2.</span> <span class="nav-text">设置特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除特性"><span class="nav-number">3.2.3.</span> <span class="nav-text">删除特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元素子节点"><span class="nav-number">3.3.</span> <span class="nav-text">元素子节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Text类型"><span class="nav-number">4.</span> <span class="nav-text">Text类型</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vector</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"byvector"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
