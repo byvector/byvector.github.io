@@ -5,10 +5,10 @@
   
 
 
-<html class="theme-next mist use-motion">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
@@ -63,9 +63,9 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="Hexo, NexT" />
@@ -79,7 +79,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
 
 
 
@@ -98,19 +98,35 @@
 
 
 
-<script type="text/javascript" id="hexo.configuration">
+<script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Mist',
+    root: '/',
+    scheme: 'Muse',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
     duoshuo: {
-      userId: 0,
+      userId: '0',
       author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
 </script>
+
+
+
+  <link rel="canonical" href="http://blog.supce.com/page/13/"/>
+
+
+
+
 
   <title> vector's blog </title>
 </head>
@@ -204,6 +220,8 @@
   
 </nav>
 
+
+
  </div>
     </header>
 
@@ -217,13 +235,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/04/11/CSS之盒模型/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -249,9 +280,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-11T00:00:00+08:00" content="2016-04-11">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-04-11T00:00:00+08:00">
               2016-04-11
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-04-19T21:57:24+08:00">
+              2016-04-19
+            </time>
+            
           </span>
 
           
@@ -261,7 +302,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/04/11/CSS之盒模型/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/11/CSS之盒模型/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/11/CSS之盒模型/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -273,6 +314,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -287,11 +331,13 @@
         
           <h1 id="一、盒模型的组成">一、盒模型的组成</h1><hr>
 <p>盒模型是CSS布局的最基本组成部分，它是指定页面元素如何显示及在某种方式上如何相互交互。在页面上的每个元素都是以一个矩形的表现形式存在的，每个矩形是由元素的内容、内边距(padding)、边框(border)、外边距(margin)组成的，如下图所示：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/box.jpg-blogImg" alt="盒模型的基本组成"><br>
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/04/11/CSS之盒模型/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -303,6 +349,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -321,13 +368,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2015/11/08/心情/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -353,9 +413,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-08T18:48:17+08:00" content="2015-11-08">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2015-11-08T18:48:17+08:00">
               2015-11-08
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2015-11-08T19:07:02+08:00">
+              2015-11-08
+            </time>
+            
           </span>
 
           
@@ -365,7 +435,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2015/11/08/心情/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/08/心情/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/08/心情/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -377,6 +447,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -405,6 +478,7 @@
       
     </div>
 
+
     <footer class="post-footer">
       
 
@@ -422,13 +496,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2015/09/21/class/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -454,9 +541,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-21T19:52:56+08:00" content="2015-09-21">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2015-09-21T19:52:56+08:00">
               2015-09-21
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2015-09-21T20:07:29+08:00">
+              2015-09-21
+            </time>
+            
           </span>
 
           
@@ -466,7 +563,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2015/09/21/class/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/21/class/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/21/class/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -478,6 +575,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -493,11 +593,13 @@
           <p><em>忙开学，博客荒废了一段，现在捡起来。闲话不多说，步入正题</em></p>
 <hr>
 <p>最近正在学习Python，发现Python中类属性和实例属性容易混淆。于是写了下面这段demo</p>
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/09/21/class/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -509,6 +611,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -527,13 +630,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2015/08/15/绑定域名/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -559,9 +675,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-15T10:08:22+08:00" content="2015-08-15">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2015-08-15T10:08:22+08:00">
               2015-08-15
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-04-16T13:06:07+08:00">
+              2016-04-16
+            </time>
+            
           </span>
 
           
@@ -571,7 +697,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2015/08/15/绑定域名/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/15/绑定域名/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/15/绑定域名/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -583,6 +709,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -607,11 +736,13 @@
 <p>自从万网被阿里收购以后，有了一定的价格优势，想方便的同学可以通过<a href="www.net.cn">万网</a>申请自己的域名，.com首年仅39元，续费55元/年。</p>
 <p>2、 <strong>为pages绑定自定义域名</strong></p>
 <p>GitCafe Pages 支持绑定自定义域名。申请完我们的域名后，进入项目主页，点击右上角的 项目设置 ，在新打开的页面里点击 Pages 服务 一项可以看到自定义域名相关的设置。<br>
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/15/绑定域名/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -623,6 +754,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -641,13 +773,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2015/08/12/github-gitcafe/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -673,9 +818,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-12T09:04:40+08:00" content="2015-08-12">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2015-08-12T09:04:40+08:00">
               2015-08-12
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-04-16T13:05:46+08:00">
+              2016-04-16
+            </time>
+            
           </span>
 
           
@@ -685,7 +840,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2015/08/12/github-gitcafe/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/12/github-gitcafe/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/12/github-gitcafe/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -697,6 +852,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -718,11 +876,13 @@
 <p><em>由于某些因素，gitcafe 的访问速度比 github 要快，因此以 gitcafe 为例。如果想使用 github，请参考附录。</em></p>
 <blockquote>
 <p>SSH （ Secure Shell）是一种安全协议，在你的电脑与 GitCafe 服务器进行通信时，我们使用 SSH 密钥（SSH Keys）认证的方式来保证通信安全。你可以在网络上搜索到关于 <strong>SSH 密钥 </strong>的更多介绍；下面我们重点讲解如何创建 SSH 密钥，并将密钥中的公钥添加到 GitCafe，以便我们通过 SSH 协议来访问 Git 仓库。<br>
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/12/github-gitcafe/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -734,6 +894,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -783,7 +944,7 @@
 
       
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
@@ -831,6 +992,9 @@
         
         
 
+        
+
+
       </section>
 
       
@@ -855,16 +1019,18 @@
   <span class="author" itemprop="copyrightHolder">vector</span>
 </div>
 
+
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Muse
   </a>
 </div>
+
 
         
 
@@ -919,21 +1085,21 @@
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
-  
-
   
 
   
 
+  
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
@@ -958,19 +1124,29 @@
 
   
     
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
   
 
 
 
 
 
-  
+
+
+
   
   
 
   
 
   
+
+  
+
+  
+
 
 </body>
 </html>

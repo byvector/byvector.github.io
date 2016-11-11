@@ -5,10 +5,10 @@
   
 
 
-<html class="theme-next mist use-motion">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
@@ -63,9 +63,9 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="Hexo, NexT" />
@@ -79,7 +79,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
 
 
 
@@ -98,19 +98,35 @@
 
 
 
-<script type="text/javascript" id="hexo.configuration">
+<script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Mist',
+    root: '/',
+    scheme: 'Muse',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
     duoshuo: {
-      userId: 0,
+      userId: '0',
       author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
 </script>
+
+
+
+  <link rel="canonical" href="http://blog.supce.com/page/4/"/>
+
+
+
+
 
   <title> vector's blog </title>
 </head>
@@ -204,6 +220,8 @@
   
 </nav>
 
+
+
  </div>
     </header>
 
@@ -217,13 +235,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/09/25/CSS Secret 读书笔记之模糊弱化背景&滚动提示/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -249,9 +280,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-25T00:00:00+08:00" content="2016-09-25">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-09-25T00:00:00+08:00">
               2016-09-25
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-09-25T20:14:50+08:00">
+              2016-09-25
+            </time>
+            
           </span>
 
           
@@ -261,7 +302,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/09/25/CSS Secret 读书笔记之模糊弱化背景&滚动提示/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/25/CSS Secret 读书笔记之模糊弱化背景&滚动提示/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/25/CSS Secret 读书笔记之模糊弱化背景&滚动提示/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -273,6 +314,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -297,11 +341,13 @@
 &lt;/main&gt;
 &lt;dialog&gt;this <span class="keyword">is</span> a test this <span class="keyword">is</span> a test click <span class="keyword">me</span> click <span class="keyword">me</span>&lt;/dialog&gt;
 </code></pre>
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/25/CSS Secret 读书笔记之模糊弱化背景&滚动提示/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -313,6 +359,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -331,13 +378,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -363,9 +423,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-24T00:00:00+08:00" content="2016-09-24">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-09-24T00:00:00+08:00">
               2016-09-24
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-09-24T20:00:00+08:00">
+              2016-09-24
+            </time>
+            
           </span>
 
           
@@ -375,7 +445,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -387,6 +457,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -409,11 +482,13 @@
 <pre><code>&lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"checkbox"</span> id=<span class="string">"custom-a"</span> /&gt;
 &lt;<span class="keyword">label</span> <span class="keyword">for</span>=<span class="string">"custom-a"</span>&gt;自定义复选框&lt;/<span class="keyword">label</span>&gt;
 </code></pre>
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -425,6 +500,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -443,13 +519,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -475,9 +564,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-23T00:00:00+08:00" content="2016-09-23">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-09-23T00:00:00+08:00">
               2016-09-23
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-09-23T20:39:21+08:00">
+              2016-09-23
+            </time>
+            
           </span>
 
           
@@ -487,7 +586,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -499,6 +598,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -514,11 +616,13 @@
           <p><em>今天莫名的累，借此机会水一篇好了</em></p>
 <hr>
 <h1 id="合适的鼠标光标">合适的鼠标光标</h1><p>为了给用户带来良好的体验，鼠标在网页中有着不可忽视的作用。不同的鼠标光标暗示着不同的信息。下图是CSS3中新的一批内建光标：</p>
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -530,6 +634,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -548,13 +653,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/09/22/CSS Secret 读书笔记之折角效果&连字符断行/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -580,9 +698,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-22T00:00:00+08:00" content="2016-09-22">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-09-22T00:00:00+08:00">
               2016-09-22
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-09-22T21:08:49+08:00">
+              2016-09-22
+            </time>
+            
           </span>
 
           
@@ -592,7 +720,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/09/22/CSS Secret 读书笔记之折角效果&连字符断行/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/22/CSS Secret 读书笔记之折角效果&连字符断行/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/22/CSS Secret 读书笔记之折角效果&连字符断行/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -604,6 +732,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -623,11 +754,13 @@
 <li>当折角不是45°时也不能够完美实现。</li>
 </ul>
 <p>这时候可以用下面这种方式解决<br>
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/22/CSS Secret 读书笔记之折角效果&连字符断行/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -639,6 +772,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -657,13 +791,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -689,9 +836,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-21T00:00:00+08:00" content="2016-09-21">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-09-21T00:00:00+08:00">
               2016-09-21
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-09-21T21:27:23+08:00">
+              2016-09-21
+            </time>
+            
           </span>
 
           
@@ -701,7 +858,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -713,6 +870,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -732,11 +892,13 @@
 <li>还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式会降低图片的对比度。</li>
 </ul>
 <p>为了避免上面两种方式带来的问题，可以用下面这两种纯CSS的方式解决<br>
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -748,6 +910,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -797,7 +960,7 @@
 
       
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
@@ -845,6 +1008,9 @@
         
         
 
+        
+
+
       </section>
 
       
@@ -869,16 +1035,18 @@
   <span class="author" itemprop="copyrightHolder">vector</span>
 </div>
 
+
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Muse
   </a>
 </div>
+
 
         
 
@@ -933,21 +1101,21 @@
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
-  
-
   
 
   
 
+  
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
@@ -972,19 +1140,29 @@
 
   
     
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
   
 
 
 
 
 
-  
+
+
+
   
   
 
   
 
   
+
+  
+
+  
+
 
 </body>
 </html>

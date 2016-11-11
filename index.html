@@ -5,10 +5,10 @@
   
 
 
-<html class="theme-next mist use-motion">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
@@ -63,9 +63,9 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="Hexo, NexT" />
@@ -79,7 +79,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
 
 
 
@@ -98,19 +98,35 @@
 
 
 
-<script type="text/javascript" id="hexo.configuration">
+<script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Mist',
+    root: '/',
+    scheme: 'Muse',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
     duoshuo: {
-      userId: 0,
+      userId: '0',
       author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
 </script>
+
+
+
+  <link rel="canonical" href="http://blog.supce.com/"/>
+
+
+
+
 
   <title> vector's blog </title>
 </head>
@@ -204,6 +220,8 @@
   
 </nav>
 
+
+
  </div>
     </header>
 
@@ -217,13 +235,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/11/11/JavaScript之基础16/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -249,9 +280,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-11T00:00:00+08:00" content="2016-11-11">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-11-11T00:00:00+08:00">
               2016-11-11
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-11-11T18:57:51+08:00">
+              2016-11-11
+            </time>
+            
           </span>
 
           
@@ -261,7 +302,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/11/11/JavaScript之基础16/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/11/JavaScript之基础16/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/11/JavaScript之基础16/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -273,6 +314,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -287,11 +331,13 @@
         
           <hr>
 <p>在上一文章中，用面向过程的思想实现了对二叉树的三种遍历。这篇采用面向对象实现了一下。<br>定义一个Node类，把遍历好的node节点保存在对象的属性中，把三种遍历方法和渲染方法作为对象的方法。<br>Node类代码如下：<br>
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/11/11/JavaScript之基础16/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -303,6 +349,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -321,13 +368,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/11/10/JavaScript之基础15/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -353,9 +413,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-10T00:00:00+08:00" content="2016-11-10">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-11-10T00:00:00+08:00">
               2016-11-10
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-11-10T19:57:29+08:00">
+              2016-11-10
+            </time>
+            
           </span>
 
           
@@ -365,7 +435,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/11/10/JavaScript之基础15/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/10/JavaScript之基础15/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/10/JavaScript之基础15/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -377,6 +447,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -402,11 +475,13 @@
 <li>增加多个按钮，每个按钮对应不同的算法）</li>
 <li>当前被遍历到的节点做一个特殊显示（比如不同的颜色）</li>
 <li>每隔一段时间（500ms，1s等时间自定）再遍历下一个节点
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/11/10/JavaScript之基础15/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -418,6 +493,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -436,13 +512,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/11/08/JavaScript之基础14/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -468,9 +557,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-08T00:00:00+08:00" content="2016-11-08">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-11-08T00:00:00+08:00">
               2016-11-08
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-11-08T19:41:09+08:00">
+              2016-11-08
+            </time>
+            
           </span>
 
           
@@ -480,7 +579,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/11/08/JavaScript之基础14/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/08/JavaScript之基础14/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/08/JavaScript之基础14/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -492,6 +591,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -518,11 +620,13 @@
 <li>每个Tag请做trim处理</li>
 <li>最多允许10个Tag，多于10个时，按照录入的先后顺序，把最前面的删掉</li>
 <li>当鼠标悬停在tag上时，tag前增加删除二字，点击tag可删除
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/11/08/JavaScript之基础14/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -534,6 +638,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -552,13 +657,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/11/07/JavaScript之基础13/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -584,9 +702,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-07T00:00:00+08:00" content="2016-11-07">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-11-07T00:00:00+08:00">
               2016-11-07
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-11-07T19:50:56+08:00">
+              2016-11-07
+            </time>
+            
           </span>
 
           
@@ -596,7 +724,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/11/07/JavaScript之基础13/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/07/JavaScript之基础13/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/07/JavaScript之基础13/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -608,6 +736,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -630,11 +761,13 @@
 <li>将新元素输入框从input改为textarea</li>
 <li>允许一次批量输入多个内容，格式可以为数字、中文、英文等，可以通过用回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等均可）等符号作为不同内容的间隔</li>
 <li>增加一个查询文本输入框，和一个查询按钮，当点击查询时，将查询词在各个元素内容中做模糊匹配，将匹配到的内容进行特殊标识，如文字颜色等。举例，内容中有abcd，查询词为ab或bc，则该内容需要标识
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/11/07/JavaScript之基础13/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -646,6 +779,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -664,13 +798,26 @@
       
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/11/05/JavaScript之基础12/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -696,9 +843,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-05T00:00:00+08:00" content="2016-11-05">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-11-05T00:00:00+08:00">
               2016-11-05
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-11-05T17:29:01+08:00">
+              2016-11-05
+            </time>
+            
           </span>
 
           
@@ -708,7 +865,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/11/05/JavaScript之基础12/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/05/JavaScript之基础12/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/05/JavaScript之基础12/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -720,6 +877,9 @@
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -749,11 +909,13 @@
 <li>点击”左侧出”,读取并删除队列左侧第一个元素，并弹窗显示元素中数值；</li>
 <li>点击”右侧出”,读取并删除队列又侧第一个元素，并弹窗显示元素中数值；</li>
 <li>点击队列中任何一个元素,则该元素会被从队列中删除
+          <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/11/05/JavaScript之基础12/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+          <!--/noindex-->
         
       
     </div>
@@ -765,6 +927,7 @@
     <div>
       
     </div>
+
 
     <footer class="post-footer">
       
@@ -814,7 +977,7 @@
 
       
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
@@ -862,6 +1025,9 @@
         
         
 
+        
+
+
       </section>
 
       
@@ -886,16 +1052,18 @@
   <span class="author" itemprop="copyrightHolder">vector</span>
 </div>
 
+
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Muse
   </a>
 </div>
+
 
         
 
@@ -950,21 +1118,21 @@
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
-  
-
   
 
   
 
+  
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
@@ -989,19 +1157,29 @@
 
   
     
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
   
 
 
 
 
 
-  
+
+
+
   
   
 
   
 
   
+
+  
+
+  
+
 
 </body>
 </html>

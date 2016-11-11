@@ -5,10 +5,10 @@
   
 
 
-<html class="theme-next mist use-motion">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
@@ -63,9 +63,9 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="JavaScript," />
@@ -79,7 +79,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
 
 
 
@@ -103,19 +103,35 @@ window对象BOM的核心对象是window，它表示浏览器的一个实例。�
 
 
 
-<script type="text/javascript" id="hexo.configuration">
+<script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Mist',
+    root: '/',
+    scheme: 'Muse',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
     duoshuo: {
-      userId: 0,
+      userId: '0',
       author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
 </script>
+
+
+
+  <link rel="canonical" href="http://blog.supce.com/2016/07/21/JavaScript之基础7/"/>
+
+
+
+
 
   <title> JavaScript BOM 知识整理 (一) | vector's blog </title>
 </head>
@@ -207,6 +223,8 @@ window对象BOM的核心对象是window，它表示浏览器的一个实例。�
   
 </nav>
 
+
+
  </div>
     </header>
 
@@ -220,13 +238,26 @@ window对象BOM的核心对象是window，它表示浏览器的一个实例。�
     
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/07/21/JavaScript之基础7/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vector">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vector's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vector's blog" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -249,9 +280,19 @@ window对象BOM的核心对象是window，它表示浏览器的一个实例。�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T00:00:00+08:00" content="2016-07-21">
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-07-21T00:00:00+08:00">
               2016-07-21
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-07-22T09:29:41+08:00">
+              2016-07-22
+            </time>
+            
           </span>
 
           
@@ -261,7 +302,7 @@ window对象BOM的核心对象是window，它表示浏览器的一个实例。�
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/07/21/JavaScript之基础7/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/JavaScript之基础7/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/JavaScript之基础7/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -273,6 +314,9 @@ window对象BOM的核心对象是window，它表示浏览器的一个实例。�
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -473,6 +517,7 @@ console.log(<span class="literal">result</span>[<span class="string">"a"</span>]
     <div>
       
         
+
       
     </div>
 
@@ -483,11 +528,12 @@ console.log(<span class="literal">result</span>[<span class="string">"a"</span>]
       
     </div>
 
+
     <footer class="post-footer">
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           
         </div>
       
@@ -501,6 +547,8 @@ console.log(<span class="literal">result</span>[<span class="string">"a"</span>]
               </a>
             
           </div>
+
+          <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
@@ -567,7 +615,7 @@ console.log(<span class="literal">result</span>[<span class="string">"a"</span>]
         </ul>
       
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
@@ -615,19 +663,27 @@ console.log(<span class="literal">result</span>[<span class="string">"a"</span>]
         
         
 
+        
+
+
       </section>
 
       
+      <!--noindex-->
         <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
+
             
               
             
+
             
               <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BOM"><span class="nav-number">1.</span> <span class="nav-text">BOM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#window对象"><span class="nav-number">1.1.</span> <span class="nav-text">window对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口关系与框架"><span class="nav-number">1.1.1.</span> <span class="nav-text">窗口关系与框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口位置"><span class="nav-number">1.1.2.</span> <span class="nav-text">窗口位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口大小"><span class="nav-number">1.1.3.</span> <span class="nav-text">窗口大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开窗口"><span class="nav-number">1.1.4.</span> <span class="nav-text">打开窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超时调用和间歇调用"><span class="nav-number">1.1.5.</span> <span class="nav-text">超时调用和间歇调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统对话框"><span class="nav-number">1.1.6.</span> <span class="nav-text">系统对话框</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Location对象"><span class="nav-number">1.2.</span> <span class="nav-text">Location对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Location对象的属性"><span class="nav-number">1.2.1.</span> <span class="nav-text">Location对象的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页面跳转"><span class="nav-number">1.2.2.</span> <span class="nav-text">页面跳转</span></a></li></ol></li></ol></li></ol></div>
             
+
           </div>
         </section>
+      <!--/noindex-->
       
 
     </div>
@@ -650,16 +706,18 @@ console.log(<span class="literal">result</span>[<span class="string">"a"</span>]
   <span class="author" itemprop="copyrightHolder">vector</span>
 </div>
 
+
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Muse
   </a>
 </div>
+
 
         
 
@@ -714,25 +772,25 @@ console.log(<span class="literal">result</span>[<span class="string">"a"</span>]
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
@@ -757,19 +815,29 @@ console.log(<span class="literal">result</span>[<span class="string">"a"</span>]
 
   
     
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
   
 
 
 
 
 
-  
+
+
+
   
   
 
   
 
   
+
+  
+
+  
+
 
 </body>
 </html>
