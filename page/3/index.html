@@ -207,6 +207,115 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/10/CSS Secret 读书笔记之缓动动画/" itemprop="url">
+                  CSS Secret 读书笔记之缓动效果
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-10T00:00:00+08:00" content="2016-10-10">
+              2016-10-10
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/10/CSS Secret 读书笔记之缓动动画/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/10/CSS Secret 读书笔记之缓动动画/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<h1 id="弹跳动画">弹跳动画</h1><p>在现实世界里，物体的移动往往不是匀速的。因此，给动画和过渡加上缓动效果会使界面显得更加真实。<br>回弹是一种常用的缓动效果，对回弹的过程进行分析会发现，回弹就是当一个过渡达到最终值时，往回倒一点，然后再次回到最终值，如此往复一次或者多次，并逐渐收敛。最终稳定在终值。<br>回弹往往会用在有尺寸变化的元素上，比如对于页面弹出框，先放大再缩小。下面就利用回弹模拟一个下落的弹性小球。</p>
+<p>HTML：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"ball_bg"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"ball ball-a"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/10/CSS Secret 读书笔记之缓动动画/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/09/CSS Secret 读书笔记之水平居中&垂直居中/" itemprop="url">
                   CSS Secret 读书笔记之水平居中&垂直居中
                 </a>
@@ -618,120 +727,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/25/CSS Secret 读书笔记之模糊弱化背景&滚动提示/" itemprop="url">
-                  CSS Secret 读书笔记之模糊弱化背景&滚动提示
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-25T00:00:00+08:00" content="2016-09-25">
-              2016-09-25
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/25/CSS Secret 读书笔记之模糊弱化背景&滚动提示/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/25/CSS Secret 读书笔记之模糊弱化背景&滚动提示/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <hr>
-<h1 id="通过模糊弱化背景">通过模糊弱化背景</h1><p>昨天实现了阴影弱化背景，这里换个方式实现模糊弱化背景。<br>下面这种方式主要利用了<code>box-shadow</code>的扩展参数，把元素的投影向各个方向延伸放大。并且利用了viewport单位<code>vmax</code>。</p>
-<p><em>1vmax相当于1vw和1vh两者中的较大值。100vw等于整个viewport的宽度，100vh等于整个viewport的高度</em></p>
-<p>HTML:</p>
-<pre><code>&lt;main&gt;
-    &lt;button&gt;show dialog&lt;/button&gt;
-    &lt;p&gt;
-         <span class="number">2016</span> presidential campaign truly <span class="keyword">is</span> a product <span class="keyword">of</span> <span class="keyword">its</span> <span class="property">time</span>. When one presidential candidate loves <span class="keyword">to</span> communicate <span class="keyword">with</span> his voters <span class="keyword">through</span> <span class="number">140</span>-<span class="property">character</span> bursts <span class="function_start"><span class="keyword">on</span></span> Twitter, <span class="keyword">and</span> a hasty tweet can cause an international scandal, <span class="keyword">the</span> other side has <span class="keyword">to</span> be quick <span class="keyword">to</span> respond <span class="keyword">in</span> similar fashion. Hence a new internet gem courtesy <span class="keyword">of</span> Hillary Clinton’s campaign website: “Donald Trump, Pepe <span class="keyword">the</span> frog, <span class="keyword">and</span> white supremacists: an explainer.”
-    &lt;/p&gt;
-&lt;/main&gt;
-&lt;dialog&gt;this <span class="keyword">is</span> a test this <span class="keyword">is</span> a test click <span class="keyword">me</span> click <span class="keyword">me</span>&lt;/dialog&gt;
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/25/CSS Secret 读书笔记之模糊弱化背景&滚动提示/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -777,7 +772,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-count">67</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
