@@ -1,18 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title><![CDATA[vector's blog]]></title>
+  <title><![CDATA[supce's blog]]></title>
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-11-11T10:57:51.204Z</updated>
+  <updated>2016-11-13T11:34:41.849Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
-    <name><![CDATA[vector]]></name>
+    <name><![CDATA[supce]]></name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[IFE Task 10]]></title>
+    <link href="http://blog.supce.com/2016/11/13/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8017/"/>
+    <id>http://blog.supce.com/2016/11/13/JavaScript之基础17/</id>
+    <published>2016-11-12T16:00:00.000Z</published>
+    <updated>2016-11-13T11:34:41.849Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>熟练JavaScript</li>
+<li>学习树这种数据结构的基本知识</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>基于上个任务，将二叉树变成了多叉树，并且每一个节点中带有内容</li>
+<li>提供一个按钮，显示开始遍历，点击后，以动画的形式呈现遍历的过程</li>
+<li>当前被遍历到的节点做一个特殊显示（比如不同的颜色）</li>
+<li>每隔一段时间（500ms，1s等时间自定）再遍历下一个节点</li>
+<li>增加一个输入框及一个“查询”按钮，点击按钮时，开始在树中以动画形式查找节点内容和输入框中内容一致的节点，找到后以特殊样式显示该节点，找不到的话给出找不到的提示。查询过程中的展示过程和遍历过程保持一致</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h1 id="整体思路">整体思路</h1><p>这里首先也采用面向过程的思路，实现对多叉树的遍历，这里利用深度优先模拟了前中后序遍历，同时也实现了广度优先遍历，也可以利用这四种方式进行查询。</p>
+<p>首先是利用div模拟多叉树，同时添加四个按钮和一个文本框用来进行不同的遍历和查询。</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"tree_wrap"</span>&gt;</span>
+    Super
+    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+        Cat
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+            Apple
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span>Pear<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span>Pig<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span>Cola<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span>Soccer<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+            Phone
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span>Book<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span>School<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+        Note
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+            Human
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span>Code<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span>Operate<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span>Man<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+            Program
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+                Bement  
+                <span class="tag">&lt;<span class="title">div</span>&gt;</span>Cat<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">div</span>&gt;</span>Glass<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+        Fish
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"searchValue"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"dlr"</span>&gt;</span>深度优先模拟前序遍历<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"ldr"</span>&gt;</span>深度优先模拟中序遍历<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"lrd"</span>&gt;</span>深度优先模拟后序遍历<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"bfs"</span>&gt;</span>广度优先遍历<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>文本框为空时只进行遍历。如果需要搜索，请在文本框中输入要查询的内容<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+</code></pre><p>把上面提到的四种遍历算法写出来，在进行广度遍历时，添加一个临时数组，模拟队列进行广度遍历。</p>
+<pre><code><span class="comment">//深度优先模拟前序</span>
+<span class="function"><span class="keyword">function</span> <span class="title">dlr</span><span class="params">(node)</span>{</span>
+    <span class="comment">// console.log(node.children[0]);</span>
+    <span class="keyword">if</span><span class="params">(node)</span>{
+        nodeArray.push<span class="params">(node)</span>;
+        <span class="keyword">if</span><span class="params">(node.children)</span>{
+            <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>;i&lt;node.children.length;i++)</span>{
+                dlr<span class="params">(node.children[i])</span>;
+            }
+        }
+    }
+}
+<span class="comment">//深度优先模拟中序</span>
+<span class="function"><span class="keyword">function</span> <span class="title">ldr</span><span class="params">(node)</span>{</span>
+    <span class="keyword">if</span><span class="params">(node)</span>{
+        ldr<span class="params">(node.firstElementChild)</span>;
+        nodeArray.push<span class="params">(node)</span>;
+        <span class="keyword">for</span><span class="params">(var i=<span class="number">1</span>;i&lt;node.children.length;i++)</span>{
+            ldr<span class="params">(node.children[i])</span>;
+        }
+    }
+}
+<span class="comment">//深度优先模拟后序</span>
+<span class="function"><span class="keyword">function</span> <span class="title">lrd</span><span class="params">(node)</span>{</span>
+    <span class="keyword">if</span><span class="params">(node.children)</span>{
+        <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>;i&lt;node.children.length;i++)</span>{
+            lrd<span class="params">(node.children[i])</span>;
+        }
+    }
+    nodeArray.push<span class="params">(node)</span>;
+}
+<span class="comment">//广度优先</span>
+<span class="function"><span class="keyword">function</span> <span class="title">bfs</span><span class="params">(node)</span>{</span>
+    var temp = [];
+    <span class="keyword">if</span><span class="params">(node)</span>{
+        temp.push<span class="params">(node)</span>;
+    }
+    while<span class="params">(temp.length)</span>{
+        node = temp.shift<span class="params">()</span>;
+        nodeArray.push<span class="params">(node)</span>;
+        <span class="keyword">if</span><span class="params">(node.children)</span>{
+            <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>;i&lt;node.children.length;i++)</span>{
+                temp.push<span class="params">(node.children[i])</span>;
+            }
+        }
+    }
+}
+</code></pre><p>然后把按钮与不同的算法相关联</p>
+<pre><code><span class="comment">//按钮handler</span>
+<span class="function"><span class="keyword">function</span> <span class="title">btnHandler</span>(<span class="params"></span>)</span>{
+    <span class="keyword">if</span>(isRun){
+        alert(<span class="string">"等会儿"</span>);
+    }<span class="keyword">else</span>{
+        <span class="keyword">var</span> tree = $(<span class="string">"#tree_wrap"</span>);
+        <span class="keyword">var</span> id = event.target.id;
+        <span class="keyword">switch</span>(id){
+            <span class="keyword">case</span> <span class="string">'dlr'</span>:
+                dlr(tree);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'ldr'</span>:
+                ldr(tree);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'lrd'</span>:
+                lrd(tree);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'bfs'</span>:
+                bfs(tree);
+                <span class="keyword">break</span>;
+        }
+        renderData();
+    }
+
+}
+<span class="comment">//初始化函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> btns = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"button"</span>);
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;btns.length;i++){
+        addHandler(btns[i],<span class="string">"click"</span>,btnHandler);
+    }
+    <span class="keyword">var</span> searchInput = $(<span class="string">"#searchValue"</span>);
+    searchInput.addEventListener(<span class="string">"focus"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+        e.target.value = <span class="string">""</span>;
+    });
+
+}
+</code></pre><p>在最后的渲染函数中，在原来的基础上，根据input中是否为空来判断是否需要查询。</p>
+<pre><code>var isRun = <span class="literal">false</span>;
+<span class="comment">//渲染数据</span>
+<span class="function"><span class="keyword">function</span> <span class="title">renderData</span><span class="params">()</span>{</span>
+    var value = $<span class="params">(<span class="string">"#searchValue"</span>)</span>.value.trim<span class="params">()</span>;
+    <span class="comment">//清除查询标记的颜色</span>
+    <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>;i&lt;nodeArray.length;i++)</span>{
+        <span class="comment">// nodeArray[i].style.color = "#000";</span>
+        nodeArray[i].classList.remove<span class="params">(<span class="string">"searched"</span>)</span>;
+    }
+    var timer = null,i=<span class="number">0</span>,isSeached = <span class="literal">false</span>;
+    timer = setInterval<span class="params">(run,<span class="number">500</span>)</span>;
+    <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span>{</span>
+        isRun = <span class="literal">true</span>;
+        <span class="keyword">if</span><span class="params">(i&lt;nodeArray.length)</span>{
+            <span class="keyword">if</span><span class="params">(i-<span class="number">1</span> &gt; -<span class="number">1</span>)</span>{
+                <span class="comment">//清除上一个节点的背景色</span>
+                <span class="comment">// nodeArray[i-1].className = "";</span>
+                nodeArray[i-<span class="number">1</span>].classList.remove<span class="params">(<span class="string">"selected"</span>)</span>;
+            }
+            <span class="comment">// nodeArray[i].className = "selected";</span>
+            nodeArray[i].classList.add<span class="params">(<span class="string">"selected"</span>)</span>;
+            <span class="comment">//判断是否在进行查询</span>
+            <span class="keyword">if</span><span class="params">(value)</span>{
+                var nodeValue = nodeArray[i].firstChild.nodeValue.trim<span class="params">()</span>;
+                <span class="keyword">if</span><span class="params">(value == nodeValue)</span>{
+                    <span class="comment">// nodeArray[i].style.color = "red";</span>
+                    nodeArray[i].classList.add<span class="params">(<span class="string">"searched"</span>)</span>;
+                    isSeached = <span class="literal">true</span>;
+                }
+            }
+            i++;
+        }<span class="keyword">else</span>{
+            <span class="comment">//清除最一个节点的背景色</span>
+            <span class="comment">// nodeArray[i-1].className = "";</span>
+            nodeArray[i-<span class="number">1</span>].classList.remove<span class="params">(<span class="string">"selected"</span>)</span>;
+            <span class="comment">//判断是否被找到</span>
+            <span class="keyword">if</span><span class="params">(value &amp;&amp; !isSeached)</span>{
+                alert<span class="params">(<span class="string">"没有找到"</span>)</span>;
+            }
+            nodeArray = [];
+            isRun = <span class="literal">false</span>;
+            clearInterval<span class="params">(timer)</span>;
+            return;
+        }
+    }
+}
+</code></pre><hr>
+<h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/blob/master/task23.html" target="_blank" rel="external">最终代码</a><br><a href="http://ife.supce.com/task23.html" target="_blank" rel="external">demo</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>熟练JavaScript</li>
+<li>学习树这种数据结构的基本知识</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>基于上个任务，将二叉树变成了多叉树，并且每一个节点中带有内容</li>
+<li>提供一个按钮，显示开始遍历，点击后，以动画的形式呈现遍历的过程</li>
+<li>当前被遍历到的节点做一个特殊显示（比如不同的颜色）</li>
+<li>每隔一段时间（500ms，1s等时间自定）再遍历下一个节点</li>
+<li>增加一个输入框及一个“查询”按钮，点击按钮时，开始在树中以动画形式查找节点内容和输入框中内容一致的节点，找到后以特殊样式显示该节点，找不到的话给出找不到的提示。查询过程中的展示过程和遍历过程保持一致</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[IFE Task 09 (二)]]></title>
@@ -2979,163 +3205,6 @@ This <span class="keyword">is</span> a test.Like many things <span class="keywor
 <li>当折角不是45°时也不能够完美实现。</li>
 </ul>
 <p>这时候可以用下面这种方式解决<br>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之染色效果&毛玻璃效果]]></title>
-    <link href="http://blog.supce.com/2016/09/21/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%9F%93%E8%89%B2%E6%95%88%E6%9E%9C&%E6%AF%9B%E7%8E%BB%E7%92%83%E6%95%88%E6%9E%9C/"/>
-    <id>http://blog.supce.com/2016/09/21/CSS Secret 读书笔记之染色效果&毛玻璃效果/</id>
-    <published>2016-09-20T16:00:00.000Z</published>
-    <updated>2016-09-21T13:27:23.467Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="染色效果">染色效果</h1><p>有时候会遇到这样一种场景:需要给图片增加染色效果，当发生hover或者交互时再把染色效果去除。<br>最容易想到的是以下两种方式：</p>
-<ul>
-<li>把图片做成两个版本，然后用CSS使得两个版本交替呈现。这种方式会导致更大的文件体积和额外的HTTP请求，同时也不便于维护(想改变染色主色调时需要重新制作图片)。</li>
-<li>还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式会降低图片的对比度。</li>
-</ul>
-<p>为了避免上面两种方式带来的问题，可以用下面这两种纯CSS的方式解决<br><a id="more"></a></p>
-<h2 id="基于滤镜的方案">基于滤镜的方案</h2><p>要想给图片染色，这里用到了三个滤镜，分别式<code>sepia()</code>、<code>saturate()</code>和<code>hue-rotate()</code></p>
-<ul>
-<li>sepia会增加一种将饱和度的橙黄色染色特效，这种特效会将图片复古成黑白老照片。</li>
-<li>saturate会改变像素的饱和度。</li>
-<li>hue-rotate会把每个像素的色相以指定的度数进行偏移。</li>
-</ul>
-<p>当然，给图片染色还可以用<code>grayscale</code>、<code>contrast</code>等。</p>
-<p>比如下面的例子给图片增加一种暖色染色效果，出发hover时恢复原图：<br>HTML:</p>
-<pre><code>&lt;<span class="tag">div</span> class=<span class="string">"test-a"</span>&gt;
-    &lt;<span class="tag">img</span> src=<span class="string">"test.jpg"</span>&gt;
-&lt;/div&gt;
-</code></pre><p>CSS:</p>
-<pre><code><span class="tag">body</span><span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
-    <span class="rule"><span class="attribute">flex-flow</span>:<span class="value"> row wrap</span></span>;
-    <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> space-around</span></span>;
-}</span>
-<span class="tag">div</span><span class="rules">{
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;
-}</span>
-<span class="tag">img</span><span class="rules">{
-    <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">100%</span></span></span>;
-}</span>
-<span class="class">.test-a</span> &gt; <span class="tag">img</span><span class="rules">{
-    <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>) <span class="function">saturate</span>(<span class="number">3</span>) <span class="function">hue-rotate</span>(<span class="number">300deg</span>)</span></span>;
-    <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">sepia</span>(<span class="number">1</span>) <span class="function">saturate</span>(<span class="number">3</span>) <span class="function">hue-rotate</span>(<span class="number">300deg</span>)</span></span>;
-    <span class="comment">/*transition: 5s -webkit-filter;*/</span>
-}</span>
-<span class="class">.test-a</span>&gt;<span class="rule"><span class="attribute">img</span>:<span class="value">hover,.test-a&gt;img:focus{
-    -webkit-filter: none</span></span>;
-    <span class="rule"><span class="attribute">filter</span>:<span class="value"> none</span></span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-1.gif" alt=""></p>
-<h2 id="基于混合模式的方案">基于混合模式的方案</h2><p>滤镜方案虽然可以染色，但是有一定的限制，它比较适合染褪色之类的效果。如果想消除这种褪色的染色效果，可以使用<code>saturate</code>增加饱和度，但是又会得到一种不自然的、过渡风格化的效果。这时候可以利用混合模式。</p>
-<p>混合模式是指，当两个元素叠加时，该模式控制了上层元素的颜色与下层颜色进行混合。用它来实现染色效果时，需要用到的混合模式是<code>luminosity</code>、这种<code>luminosity</code>的混合模式会保留上层元素的HSL亮度信息，并从它的下层吸取色相和饱和度信息。这时候只需要将下层设置为想要的主色调，并把图片放在上层即可。</p>
-<p>可以用两种方式实现混合模式：<br>第一种是把图片包裹在一个容器里，并把容器的背景色设置为需要的背景色。<br>第二种是不用img标签，而是使用div，把div第一层背景设置为要染色的图片，第二层设置为想要的主色调。<br>HTML:</p>
-<pre><code>&lt;<span class="tag">div</span> class=<span class="string">"test-b"</span>&gt;
-    &lt;<span class="tag">img</span> src=<span class="string">"test.jpg"</span>&gt;
-&lt;/div&gt;
-</code></pre><p>CSS：</p>
-<pre><code><span class="class">.test-b</span><span class="rules">{
-    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#655</span></span></span>;
-}</span>
-<span class="class">.test-b</span>&gt;<span class="tag">img</span><span class="rules">{
-    <span class="rule"><span class="attribute">mix-blend-mode</span>:<span class="value"> luminosity</span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-2.jpg" alt=""></p>
-<p>因为<code>mix-blend-mode</code>是把整个元素向下进行混合，而不管它的下层是什么。因此第一种方式无法使用动画效果对图片进行还原。如果使用第二种方式，使用<code>background-blend-mode</code>属性，可以让每层背景跟它的下层背景混合，并且不关心元素之外的颜色。如果设置主色调为透明，就会还原到原来的图片。这样就可以使用动画对图片进行还原了。</p>
-<pre><code>&lt;div class=<span class="string">"test-c"</span>&gt;&lt;/div&gt;
-.test-c{
-    <span class="built_in">background</span>-<span class="built_in">image</span>: url(test.jpg);
-    <span class="built_in">background</span>-<span class="built_in">size</span>: cover;
-    <span class="built_in">background</span>-<span class="built_in">color</span>: #<span class="number">655</span>;
-    <span class="built_in">background</span>-<span class="built_in">blend</span>-mode: luminosity;
-    transition: <span class="number">3</span>s <span class="built_in">background</span>-<span class="built_in">color</span>;
-}
-.test-c:hover{
-    <span class="built_in">background</span>-<span class="built_in">color</span>: transparent;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-3.gif" alt=""></p>
-<hr>
-<h1 id="毛玻璃效果">毛玻璃效果</h1><p>半透明作为某个元素的背景，把它放在一张照片或者花哨的背景之上，是一种很美的设计效果，但是可能会导致文字比较难以阅读。比如下面这种情况：<br>HTML:</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"blur-a"</span>&gt;
-    &lt;blockquote&gt;
-        “The only way <span class="keyword">to</span> <span class="keyword">get</span> rid <span class="keyword">of</span> a temptation <span class="keyword">is</span> <span class="keyword">to</span> yield <span class="keyword">to</span> <span class="keyword">it</span>. Resist <span class="keyword">it</span>, <span class="keyword">and</span> your soul grows sick <span class="keyword">with</span> longing <span class="keyword">for</span> <span class="keyword">the</span> things <span class="keyword">it</span> has forbidden <span class="keyword">to</span> itself, <span class="keyword">with</span> desire <span class="keyword">for</span> what <span class="keyword">its</span> monstrous laws have made monstrous <span class="keyword">and</span> unlawful.”
-        &lt;cite&gt;— Oscar Wilde, The Picture <span class="keyword">of</span> Dorian Gray&lt;/cite&gt;
-    &lt;/blockquote&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>CSS：</p>
-<pre><code><span class="class">.blur-a</span><span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40em</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">20em</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(tiger.jpg)</span></span>;
-    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> cover</span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
-}</span>
-<span class="class">.blur-a</span>&gt;<span class="tag">blockquote</span><span class="rules">{
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">1em</span></span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">80%</span></span></span>;<span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70%</span></span></span>;
-    <span class="rule"><span class="attribute">font</span>:<span class="value"> italic bold <span class="number">140%</span>/<span class="number">140%</span> sans-serif</span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>)</span></span>;
-    <span class="comment">/*-webkit-filter:blur(2px);*/</span>
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> .<span class="number">3em</span></span></span>;
-    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>) inset,
-        <span class="number">0</span> .<span class="number">5em</span> <span class="number">1em</span> <span class="function">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.6</span>)</span></span>;
-    <span class="rule"><span class="attribute">text-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>)</span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-4.jpg" alt=""></p>
-<p>这个时候可以使用模糊滤镜(<code>filter:blur(2px)</code>)产生一种毛玻璃的效果：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-5.jpg" alt=""><br>结果发现文字也被模糊了，如果想要不模糊文字，同时又有毛玻璃效果就可以使用下面这种方式。<br>首先要求背景图片的<code>background-attachment</code>为fixed，然后设置一个伪元素，将其定位到元素的下层，再对伪元素进行模糊。<br>HTML:</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"blur-b"</span>&gt;
-    &lt;blockquote&gt;
-        “The only way <span class="keyword">to</span> <span class="keyword">get</span> rid <span class="keyword">of</span> a temptation <span class="keyword">is</span> <span class="keyword">to</span> yield <span class="keyword">to</span> <span class="keyword">it</span>. Resist <span class="keyword">it</span>, <span class="keyword">and</span> your soul grows sick <span class="keyword">with</span> longing <span class="keyword">for</span> <span class="keyword">the</span> things <span class="keyword">it</span> has forbidden <span class="keyword">to</span> itself, <span class="keyword">with</span> desire <span class="keyword">for</span> what <span class="keyword">its</span> monstrous laws have made monstrous <span class="keyword">and</span> unlawful.”
-        &lt;cite&gt;— Oscar Wilde, The Picture <span class="keyword">of</span> Dorian Gray&lt;/cite&gt;
-    &lt;/blockquote&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>CSS：</p>
-<pre><code><span class="class">.blur-b</span><span class="rules">{
-    <span class="rule"><span class="attribute">z-index</span>:<span class="value"> -<span class="number">2</span></span></span>;
-}</span>
-<span class="class">.blur-b</span>&gt;<span class="tag">blockquote</span><span class="rules">{
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">1em</span></span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">80%</span></span></span>;<span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">70%</span></span></span>;
-    <span class="rule"><span class="attribute">font</span>:<span class="value"> italic bold <span class="number">140%</span>/<span class="number">140%</span> sans-serif</span></span>;
-    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> .<span class="number">3em</span></span></span>;
-    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>) inset,
-        <span class="number">0</span> .<span class="number">5em</span> <span class="number">1em</span> <span class="function">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.6</span>)</span></span>;
-    <span class="rule"><span class="attribute">text-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span> <span class="function">hsla</span>(<span class="number">0</span>,<span class="number">0%</span>,<span class="number">100%</span>,.<span class="number">3</span>)</span></span>;
-}</span>
-<span class="class">.blur-b</span>&gt;<span class="rule"><span class="attribute">blockquote</span>:<span class="value">:before{
-    content: <span class="string">""</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;<span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>; <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">0</span></span></span>;<span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(tiger.jpg) <span class="number">0</span> / cover fixed</span></span>;
-    <span class="rule"><span class="attribute">z-index</span>:<span class="value"> -<span class="number">1</span></span></span>;
-    <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">10px</span>)</span></span>;
-    <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">blur</span>(<span class="number">10px</span>)</span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> -<span class="number">30px</span></span></span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-10-6.jpg" alt=""></p>
-<blockquote>
-<p>这里有个坑，就是在背景图不是fixed的情况下使用毛玻璃，以后会填上的。</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="染色效果">染色效果</h1><p>有时候会遇到这样一种场景:需要给图片增加染色效果，当发生hover或者交互时再把染色效果去除。<br>最容易想到的是以下两种方式：</p>
-<ul>
-<li>把图片做成两个版本，然后用CSS使得两个版本交替呈现。这种方式会导致更大的文件体积和额外的HTTP请求，同时也不便于维护(想改变染色主色调时需要重新制作图片)。</li>
-<li>还有一种方式，可以在图片上方覆盖一层半透明的纯色或者把图片设置为半透明并覆盖在一层纯色背景之上。这种方式会降低图片的对比度。</li>
-</ul>
-<p>为了避免上面两种方式带来的问题，可以用下面这两种纯CSS的方式解决<br>]]>
     
     </summary>
     
