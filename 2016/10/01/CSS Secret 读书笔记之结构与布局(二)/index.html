@@ -1,0 +1,887 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="EM_nzu8-nfb0oJOmKGJImt--r_PtBs7qZz_bWTFRWZQ" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="supce's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="根据兄弟元素的数量设置样式有时候会碰见这样一种场景：当一个列表不断延长时，通过隐藏空间或压缩控件等方式来节省屏幕空间，用来提升用户体验。这时候就需要我们根据兄弟元素的总数来为它们设置相应的样式。设想一个列表，假设仅当列表的总数为4时才对这些列表项设置样式，这时可以使用li:nth-child(4)来选中列表的第四个列表项。但是我们的需求却是：在列表的总数为4时选中每个列表项如果直接利用兄弟选择符l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS Secret 读书笔记之结构与布局(二)">
+<meta property="og:url" content="http://blog.supce.com/2016/10/01/CSS Secret 读书笔记之结构与布局(二)/index.html">
+<meta property="og:site_name" content="supce's blog">
+<meta property="og:description" content="根据兄弟元素的数量设置样式有时候会碰见这样一种场景：当一个列表不断延长时，通过隐藏空间或压缩控件等方式来节省屏幕空间，用来提升用户体验。这时候就需要我们根据兄弟元素的总数来为它们设置相应的样式。设想一个列表，假设仅当列表的总数为4时才对这些列表项设置样式，这时可以使用li:nth-child(4)来选中列表的第四个列表项。但是我们的需求却是：在列表的总数为4时选中每个列表项如果直接利用兄弟选择符l">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-17-1.gif">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-17-2.jpg">
+<meta property="og:image" content="http://7xqkrz.com1.z0.glb.clouddn.com/secret-17-3.jpg">
+<meta property="og:updated_time" content="2016-10-01T13:31:30.640Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS Secret 读书笔记之结构与布局(二)">
+<meta name="twitter:description" content="根据兄弟元素的数量设置样式有时候会碰见这样一种场景：当一个列表不断延长时，通过隐藏空间或压缩控件等方式来节省屏幕空间，用来提升用户体验。这时候就需要我们根据兄弟元素的总数来为它们设置相应的样式。设想一个列表，假设仅当列表的总数为4时才对这些列表项设置样式，这时可以使用li:nth-child(4)来选中列表的第四个列表项。但是我们的需求却是：在列表的总数为4时选中每个列表项如果直接利用兄弟选择符l">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+
+
+
+
+  <title> CSS Secret 读书笔记之结构与布局(二) | supce's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">supce's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/10/01/CSS Secret 读书笔记之结构与布局(二)/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="supce">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="supce's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="supce's blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS Secret 读书笔记之结构与布局(二)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-10-01T00:00:00+08:00">
+              2016-10-01
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-10-01T21:31:30+08:00">
+              2016-10-01
+            </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/01/CSS Secret 读书笔记之结构与布局(二)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/01/CSS Secret 读书笔记之结构与布局(二)/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h1 id="根据兄弟元素的数量设置样式">根据兄弟元素的数量设置样式</h1><p>有时候会碰见这样一种场景：当一个列表不断延长时，通过隐藏空间或压缩控件等方式来节省屏幕空间，用来提升用户体验。<br>这时候就需要我们根据兄弟元素的总数来为它们设置相应的样式。<br>设想一个列表，假设仅当列表的总数为4时才对这些列表项设置样式，这时可以使用<code>li:nth-child(4)</code>来选中列表的第四个列表项。但是我们的需求却是：<br><em>在列表的总数为4时选中每个列表项</em><br>如果直接利用兄弟选择符<code>li:nth-child(4),li:hth-child(4)~li</code>得到的是第四个列表以及它之后的所有列表项。那么我们转换一下思路分以下几种情况：<br>当只有一个列表项时，直接利用<code>:only-child</code>即：</p>
+<pre><code><span class="tag">li</span><span class="pseudo">:only-child</span>{
+    <span class="comment">/*只有一个列表时的样式*/</span>
+}
+</code></pre><a id="more"></a>
+<p>对于只有一个列表项的列表，其第一项同时也是该列表的最后一项。也就是说<code>:only-child</code>等效于<code>:first-child:last-child</code>，而<code>:last-child</code>是<code>nth-last-child(1)</code>的简写，所以：</p>
+<pre><code><span class="tag">li</span><span class="pseudo">:first-child</span><span class="pseudo">:nth-last-child</span>(<span class="number">1</span>){
+    <span class="comment">/*等效于:only-child*/</span>
+}
+</code></pre><p><em>tips :nth-last-child(n) 选择器匹配属于其元素的第 N 个子元素的每个元素，不论元素的类型，从最后一个子元素开始计数。</em></p>
+<p>由上面可以得出对于一个正好包含4项的列表，如果想命中所有列表项，可以这样写：</p>
+<pre><code><span class="tag">li</span><span class="pseudo">:first-child</span><span class="pseudo">:nth-last-child</span>(<span class="number">4</span>),
+<span class="tag">li</span><span class="pseudo">:first-child</span><span class="pseudo">:nth-last-child</span>(<span class="number">4</span>)~<span class="tag">li</span>{
+    <span class="comment">/*列表包含4项且命中所有项*/</span>
+}
+</code></pre><p>根据<a href="http://www.w3school.com.cn/cssref/selector_nth-last-child.asp" target="_blank" rel="external">参考手册</a>，<code>:nth-last-child()</code>选择器的参数不仅仅可以是简单的数字，也可以是类似于an+b的表达式，其中，n 是计数器（从 0 开始），b 是偏移值。<br>比如，我们指定了下标是 3 的倍数的所有p元素的背景色，从最后一个子元素开始计数：</p>
+<pre><code><span class="tag">p</span><span class="pseudo">:nth-last-child</span>(<span class="number">3</span>n+<span class="number">0</span>){
+    <span class="attribute">background</span>:<span class="hexcolor">#ff0000</span>;
+}
+</code></pre><p>而对于n+b(相当于a=1)这个公式，无论n如何取值，这个表达式都无法产生一个小于b的值，可以选中从第b个开始的所有子元素。<br>因此：</p>
+<pre><code><span class="tag">li</span><span class="pseudo">:first-child</span><span class="pseudo">:nth-last-child</span>(n+<span class="number">4</span>),
+<span class="tag">li</span><span class="pseudo">:first-child</span><span class="pseudo">:nth-last-child</span>(n+<span class="number">4</span>)~<span class="tag">li</span>{
+    <span class="comment">/*列表至少包含4项且命中所有项*/</span>
+}
+</code></pre><p>同理，-n+b这种形式的表达式可以选中开头的b个元素。因此仅当列表中有4个或更少的列表时，可以这样写:</p>
+<pre><code><span class="tag">li</span><span class="pseudo">:first-child</span><span class="pseudo">:nth-last-child</span>(-n+<span class="number">4</span>),
+<span class="tag">li</span><span class="pseudo">:first-child</span><span class="pseudo">:nth-last-child</span>(-n+<span class="number">4</span>)~<span class="tag">li</span>{
+   <span class="comment">/*列表最多包含4项且命中所有项*/</span>
+}
+</code></pre><p>如果想命中包含2-6个列表项的列表时，只需把上面两种技巧组合一下：</p>
+<pre><code><span class="tag">li</span><span class="pseudo">:first-child</span><span class="pseudo">:nth-last-child</span>(n+<span class="number">2</span>)<span class="pseudo">:nth-last-child</span>(-n+<span class="number">6</span>),
+<span class="tag">li</span><span class="pseudo">:first-child</span><span class="pseudo">:nth-last-child</span>(n+<span class="number">2</span>)<span class="pseudo">:nth-last-child</span>(-n+<span class="number">6</span>)~<span class="tag">li</span>{
+    <span class="comment">/*当列表包含2-6项时，命中列表中所有列表项*/</span>
+}
+</code></pre><p>利用上面的技巧可以写一个类似于变色便签的小例子：<br>HTML：</p>
+<pre><code><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"palette"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"color-options"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">a</span> <span class="attribute">class</span>=<span class="value">"add"</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Add<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">a</span> <span class="attribute">class</span>=<span class="value">"delete"</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>Delete<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"input-group"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">textarea</span> <span class="attribute">rows</span>=<span class="value">"12"</span> <span class="attribute">class</span>=<span class="value">"form-control"</span>&gt;</span>write someting...<span class="tag">&lt;/<span class="title">textarea</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+</code></pre><p>CSS:</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="tag">ul</span><span class="rules">{
+        <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
+    }</span>
+    <span class="class">.palette</span><span class="rules">{
+        <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;
+        <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">900px</span></span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value"> bold <span class="number">90%</span>/<span class="number">1</span> sans-serif</span></span>;
+    }</span>
+    <span class="class">.palette</span> <span class="tag">li</span><span class="rules">{
+        <span class="rule"><span class="attribute">flex</span>:<span class="value"> <span class="number">1</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#D6E055</span></span></span>;
+    }</span>
+    <span class="class">.color-options</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> <span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">5</span>)</span></span>;
+        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">0</span> <span class="number">0</span> <span class="number">15px</span> <span class="number">15px</span></span></span>;
+        <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
+    }</span>
+    <span class="class">.color-options</span> <span class="tag">a</span><span class="rules">{
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
+        <span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;
+    }</span>
+    <span class="class">.color-options</span> <span class="rule"><span class="attribute">a</span>:<span class="value">before{
+        display: inline-block</span></span>;
+        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">1rem</span></span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">1.2rem</span></span></span>;
+        <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> .<span class="number">3rem</span></span></span>;
+        <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">1.2</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> white</span></span>;
+        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">50%</span></span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    }
+    <span class="class">.color-options</span> <span class="rule"><span class="attribute">.add</span>:<span class="value">before {
+        content:<span class="string">'✚'</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#590</span></span></span>;
+    }
+    <span class="class">.color-options</span> <span class="rule"><span class="attribute">.delete</span>:<span class="value">before {
+        content:<span class="string">'✖'</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#b00</span></span></span>;
+    }
+
+    <span class="class">.color-options</span> <span class="rule"><span class="attribute">a</span>:<span class="value">after {
+        content: <span class="string">' color'</span></span></span>;
+        <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> normal</span></span>;
+    }
+    <span class="class">.add</span> <span class="rules">{ <span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>; }</span>
+    <span class="class">.delete</span> <span class="rules">{ <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>; }</span>
+
+    <span class="class">.palette</span> <span class="rule"><span class="attribute">li</span>:<span class="value">only-child .delete{
+        display: none</span></span>;
+    }
+    <span class="class">.palette</span> <span class="rule"><span class="attribute">li</span>:<span class="value">first-child:<span class="function">nth-last-child</span>(n+<span class="number">4</span>) .color-options a:after,
+    .palette li:first-child:<span class="function">nth-last-child</span>(n+<span class="number">4</span>) ~ li .color-options a:after{
+        content: none</span></span>;
+    }
+    <span class="class">.palette</span> <span class="rule"><span class="attribute">li</span>:<span class="value">first-child:<span class="function">nth-last-child</span>(n+<span class="number">4</span>) .color-options a,
+    .palette li:first-child:<span class="function">nth-last-child</span>(n+<span class="number">4</span>) ~ li .color-options a{
+        font-size: <span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">color</span>:<span class="value"> transparent</span></span>;
+    }
+    <span class="class">.input-group</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">20px</span></span></span>;
+    }</span>
+    <span class="class">.form-control</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;
+        <span class="rule"><span class="attribute">font</span>:<span class="value"> <span class="number">120%</span>/<span class="number">1</span> sans-serif</span></span>;
+        <span class="rule"><span class="attribute">box-sizing</span>:<span class="value">border-box</span></span>; <span class="comment">/*防止溢出*/</span>
+        <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">15px</span></span></span>;
+        <span class="rule"><span class="attribute">outline</span>:<span class="value"> none</span></span>;
+        <span class="rule"><span class="attribute">resize</span>:<span class="value"> none</span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>JS:</p>
+<pre><code>&lt;script <span class="keyword">type</span>=<span class="string">"text/javascript"</span>&gt;
+    <span class="keyword">var</span> colors = [
+        '<span class="comment">#FEE169', '#CDD452', '#2E95A3', '#F9722E',</span>
+        '<span class="comment">#E6E2AF', '#A7A37E', '#EFECCA', '#046380', </span>
+        '<span class="comment">#50B8B4', '#C6FFFA', '#E2FFA8', '#D6E055','#C9313D'</span>
+    ],
+    palette = document.querySelector('.palette'),
+    <span class="keyword">template</span> = palette.firstElementChild;
+    function addColor(<span class="keyword">template</span>){
+        <span class="keyword">var</span> li = <span class="keyword">template</span>.cloneNode(<span class="literal">true</span>);
+        <span class="keyword">var</span> color = colors.shift();
+        colors.push(color);
+        li.style.background = color;
+        // palette.insertBefore(li,<span class="keyword">template</span>.nextSibling);
+        palette.appendChild(li);
+    }
+    palette.onclick = function(evt){
+        <span class="keyword">var</span> button = evt.target;
+        <span class="keyword">if</span>(button.className == 'add'){
+            addColor(button.parentNode.parentNode)
+        }<span class="keyword">else</span> <span class="keyword">if</span>(button.className == 'delete'){
+            <span class="keyword">if</span>(confirm('您确定删除?')){
+                <span class="keyword">var</span> li = button.parentNode.parentNode;
+                li.parentNode.removeChild(li);
+            }   
+        }
+    }
+&lt;/script&gt;
+</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-17-1.gif" alt=""></p>
+<hr>
+<h1 id="紧贴底部的页脚">紧贴底部的页脚</h1><p>有一个具有块级样式的页脚，当页面内容足够长时它一切正常，而当页面比较短时，就会出现问题。此时的问题在于页脚不能像我们期望中那样“紧贴”在视口的最底部，而是紧跟在内容的下方。</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-17-2.jpg" alt=""></p>
+<blockquote>
+<p>上图是将内容div删掉后的天津教育考试院官网</p>
+</blockquote>
+<p>针对于这种情况可以用下面两种方式解决：</p>
+<h2 id="基于固定高度的解决方案">基于固定高度的解决方案</h2><p>这种方案的主要思路是：假设页脚的文本不折行，然后估算出页脚实际所占的高度。然后再计算出页头的高度。最后借助视口相关的长度单位以及<code>calc()</code>函数，把页脚固定到底部。其核心代码为：</p>
+<pre><code><span class="tag">main</span><span class="rules">{
+    <span class="rule"><span class="attribute">min-height</span>:<span class="value"><span class="function">calc</span>(<span class="number">100vh</span> - 页头高度 - 页脚高度)</span></span>;
+    <span class="comment">/*避免内边距或边框扰乱高度的计算*/</span>
+    <span class="rule"><span class="attribute">box-sizing</span>:<span class="value">border-box</span></span>;
+}</span>
+</code></pre><p>举个例子，HTML：</p>
+<pre><code><span class="tag">&lt;<span class="title">header</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>标题<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">header</span>&gt;</span>
+<span class="tag">&lt;<span class="title">main</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>
+        空空道人看了一回，晓得这石头有些来历，遂向石头说道：“石兄，你这一段故事，据你自己说来，有些趣味，故镌写在此，意欲闻世传奇。据我看来：第一件，无朝代年纪可考；第二件，并无大贤大忠、理朝廷、治风俗的善政，其中只不过几个异样女子，或情或痴，或小才微善。我纵然抄去，也算不得一种奇书。”石头果然答道：“我师何必太痴！我想历来野史的朝代，无非假借汉、唐的名色；莫如我这石头所记不借此套，只按自己的事体情理，反倒新鲜别致。况且那野史中，或讪谤君相，或贬人妻女，奸淫凶恶，不可胜数；更有一种风月笔墨，其淫秽污臭最易坏人子弟。至于才子佳人等书，则又开口‘文君’，满篇‘子建’，千部一腔，千人一面，且终不能不涉淫滥。在作者不过要写出自己的两首情诗艳赋来，故假捏出男女二人名姓；又必旁添一小人拨乱其间，如戏中的小丑一般。更可厌者，‘之乎者也’，非理即文，大不近情，自相矛盾。竟不如我这半世亲见亲闻的几个女子，虽不敢说强似前代书中所有之人，但观其事迹原委，亦可消愁破闷；至于几首歪诗，也可以喷饭供酒。其间离合悲欢，兴衰际遇，俱是按迹循踪，不敢稍加穿凿，至失其真。
+    <span class="tag">&lt;/<span class="title">p</span>&gt;</span> 
+<span class="tag">&lt;/<span class="title">main</span>&gt;</span>
+<span class="tag">&lt;<span class="title">footer</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>© 2016 No rights reserved.<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>Made with ♥ by supce.<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
+</code></pre><p>CSS:</p>
+<pre><code><span class="tag">main</span> <span class="rules">{
+    <span class="rule"><span class="attribute">min-height</span>:<span class="value"> <span class="function">calc</span>(<span class="number">100vh</span> - <span class="number">5em</span> - <span class="number">7em</span>)
+}
+body {
+    margin: <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> <span class="number">100%</span>/<span class="number">1.5</span> Palatino Linotype, Palatino, serif</span></span>;
+}</span>
+<span class="tag">h1</span> <span class="rules">{ <span class="rule"><span class="attribute">margin</span>:<span class="value"> .<span class="number">5em</span> <span class="number">0</span> <span class="number">0</span></span></span>; }</span>
+<span class="tag">header</span> <span class="rules">{ <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>; <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">3em</span></span></span>; }</span>
+<span class="tag">main</span>, <span class="tag">footer</span> <span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> .<span class="number">5em</span> <span class="function">calc</span>(<span class="number">50%</span> - <span class="number">400px</span>)</span></span>;
+}</span>
+<span class="tag">footer</span> <span class="rules">{
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(<span class="hexcolor">#222</span>, <span class="hexcolor">#444</span>)</span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">6em</span></span></span>;
+}</span>
+</code></pre><p>效果如下：</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-17-3.jpg" alt=""></p>
+<h2 id="基于flex弹性布局的解决方案">基于flex弹性布局的解决方案</h2><p>之前有一篇关于弹性布局的<a href="http://blog.supce.com/2016/09/12/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80/">日志</a>。<br>要想让页脚紧贴底部：</p>
+<ul>
+<li>首先对<code>&lt;body&gt;</code>设置<code>display:flex;flex-flow:column;</code>，保证<code>body</code>内的子元素为垂直排列。</li>
+<li>其次，设置<code>&lt;body&gt;</code>的<code>min-height</code>属性为100vh，这样它就至少会占据整个视口的高度。</li>
+<li>最后，我们希望页头和页脚有其内部因素来决定，而内容区块的高度应该可以自动伸展并占满所有的可用空间。这就需要给<code>&lt;main&gt;</code>这个容器的flex属性指定一个大于0的值，我们可以暂时设置为1即可。</li>
+</ul>
+<p>这种方案的核心代码如下:</p>
+<pre><code><span class="tag">body</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+    <span class="rule"><span class="attribute">flex-flow</span>:<span class="value"> column</span></span>;
+    <span class="rule"><span class="attribute">min-height</span>:<span class="value"> <span class="number">100vh</span></span></span>;
+}</span>
+<span class="tag">main</span><span class="rules">{
+    <span class="rule"><span class="attribute">flex</span>:<span class="value"> <span class="number">1</span></span></span>;
+}</span>
+</code></pre><blockquote>
+<p>国庆节偷个小懒，不举例子了</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/28/CSS Secret 读书笔记之结构与布局(一)/" rel="next" title="CSS Secret 读书笔记之结构与布局(一)">
+                <i class="fa fa-chevron-left"></i> CSS Secret 读书笔记之结构与布局(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/09/CSS Secret 读书笔记之水平居中&垂直居中/" rel="prev" title="CSS Secret 读书笔记之水平居中&垂直居中">
+                CSS Secret 读书笔记之水平居中&垂直居中 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/01/CSS Secret 读书笔记之结构与布局(二)/"
+           data-title="CSS Secret 读书笔记之结构与布局(二)" data-url="http://blog.supce.com/2016/10/01/CSS Secret 读书笔记之结构与布局(二)/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
+               alt="supce" />
+          <p class="site-author-name" itemprop="name">supce</p>
+          <p class="site-description motion-element" itemprop="description">We are all in the gutter, but some of us are looking at the stars.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/byvector" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/BestionMiko" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.instagram.com/go_vector/" target="_blank" title="instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  instagram
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/byvector/" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#根据兄弟元素的数量设置样式"><span class="nav-number">1.</span> <span class="nav-text">根据兄弟元素的数量设置样式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#紧贴底部的页脚"><span class="nav-number">2.</span> <span class="nav-text">紧贴底部的页脚</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于固定高度的解决方案"><span class="nav-number">2.1.</span> <span class="nav-text">基于固定高度的解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于flex弹性布局的解决方案"><span class="nav-number">2.2.</span> <span class="nav-text">基于flex弹性布局的解决方案</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">supce</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"byvector"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
