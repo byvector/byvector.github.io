@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-11-15T11:46:09.092Z</updated>
+  <updated>2016-11-17T12:08:59.269Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,236 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[IFE Task 12]]></title>
+    <link href="http://blog.supce.com/2016/11/17/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8019/"/>
+    <id>http://blog.supce.com/2016/11/17/JavaScript之基础19/</id>
+    <published>2016-11-16T16:00:00.000Z</published>
+    <updated>2016-11-17T12:08:59.269Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>熟练JavaScript</li>
+<li>学习树这种数据结构的基本知识</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>基于上几个任务，实现一个树形组件，样式自定义，不做限制</li>
+<li>要求有以下功能：</li>
+<li>节点的折叠与展开</li>
+<li>允许增加节点与删除节点</li>
+<li>按照内容进行节点查找，并且把找到的节点进行特殊样式呈现，如果找到的节点处于被父节点折叠隐藏的状态，则需要做对应的展开</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h1 id="整体思路">整体思路</h1><p>印象中最早遇见的树形组件是在xp系统中的文件系统，能够在窗口左侧显示文件夹的展开树。<br>这里，我们用一个列表来实现一个树形组件，并且增加一个查询按钮和文本输入框。</p>
+<pre><code><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"menu"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">label</span>&gt;</span>无可奉告<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">label</span>&gt;</span>闷声大发财<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">label</span>&gt;</span>无可奉告<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">label</span>&gt;</span>爱慕安格瑞<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">label</span>&gt;</span>听风是雨<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">label</span>&gt;</span>天气晴朗<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">label</span>&gt;</span>跑得快<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">ul</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">label</span>&gt;</span>弄个大新闻<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">label</span>&gt;</span>硬点<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">label</span>&gt;</span>作为长者<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">label</span>&gt;</span>人生经验<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"searchContainer"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"searchText"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"btnSearch"</span>&gt;</span>搜索<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>然后设置基本的样式</p>
+<pre><code><span class="tag">ul</span><span class="rules">{
+    <span class="rule"><span class="attribute">list-style</span>:<span class="value"> none</span></span>;
+}</span>
+<span class="tag">li</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> <span class="number">8px</span></span></span>;
+}</span>
+<span class="tag">label</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
+}</span>
+<span class="class">.glyphicon</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> <span class="number">5px</span></span></span>;
+}</span>
+<span class="class">.hidden</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;
+}</span>
+<span class="id">#menu</span> <span class="tag">label</span> <span class="tag">span</span><span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">5px</span></span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;
+}</span>
+<span class="id">#menu</span> <span class="rule"><span class="attribute">label</span>:<span class="value">hover span{
+    display: inline</span></span>;
+}
+<span class="class">.searched</span><span class="rules">{
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#fb3</span></span></span>;
+}</span>
+</code></pre><p>如果节点存在孩子节点，则在该节点前面添加一个箭头icon，当箭头朝下时展开该节点下的子节点。当箭头朝右时，隐藏该节点下的所有子节点。通过给箭头添加点击事件来控制这两个状态。<br>下面是给列表添加icon和icon点击事件的函数</p>
+<pre><code><span class="comment">//添加icon</span>
+<span class="function"><span class="keyword">function</span> <span class="title">initIcon</span><span class="params">()</span>{</span>
+    var lists = document.getElementsByTagName<span class="params">(<span class="string">"li"</span>)</span>;
+    <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>,len=lists.length;i&lt;len;i++)</span>{
+        <span class="keyword">if</span><span class="params">(lists[i].getElementsByTagName<span class="params">(<span class="string">"ul"</span>)</span>.length)</span>{
+            var node = document.createElement<span class="params">(<span class="string">"span"</span>)</span>;
+            node.className = <span class="string">"glyphicon glyphicon-chevron-down"</span>;
+            lists[i].insertBefore<span class="params">(node,lists[i].firstChild)</span>;
+        }
+    }
+}
+
+<span class="comment">//给Icon添加点击事件</span>
+<span class="function"><span class="keyword">function</span> <span class="title">clickEvent</span><span class="params">()</span>{</span>
+    var node = event.target;
+    <span class="keyword">if</span><span class="params">(node)</span>{
+        var nodeClass = node.classList;
+        <span class="keyword">if</span><span class="params">(nodeClass.contains<span class="params">(<span class="string">"glyphicon-chevron-down"</span>)</span>)</span>{
+            nodeClass.remove<span class="params">(<span class="string">"glyphicon-chevron-down"</span>)</span>;
+            nodeClass.add<span class="params">(<span class="string">"glyphicon-chevron-right"</span>)</span>;
+            node.parentNode.lastElementChild.classList.add<span class="params">(<span class="string">"hidden"</span>)</span>;
+        }<span class="keyword">else</span> <span class="keyword">if</span><span class="params">(nodeClass.contains<span class="params">(<span class="string">"glyphicon-chevron-right"</span>)</span>)</span>{
+            nodeClass.remove<span class="params">(<span class="string">"glyphicon-chevron-right"</span>)</span>;
+            nodeClass.add<span class="params">(<span class="string">"glyphicon-chevron-down"</span>)</span>;
+            node.parentNode.lastElementChild.classList.remove<span class="params">(<span class="string">"hidden"</span>)</span>;
+        }
+    }
+}
+</code></pre><p>然后，我们给列表添加增加和删除按钮，当鼠标hover某个列表时，会显示这两个按钮，增加的节点会成为鼠标正在hover节点的子节点</p>
+<pre><code><span class="comment">//渲染添加和删除按钮</span>
+<span class="function"><span class="keyword">function</span> <span class="title">render</span><span class="params">(label)</span>{</span>
+    var addSpan = document.createElement<span class="params">(<span class="string">"span"</span>)</span>;
+    addSpan.classList.add<span class="params">(<span class="string">"addSpan"</span>)</span>;
+    addSpan.innerHTML = <span class="string">"+"</span>;
+    addHandler<span class="params">(addSpan,<span class="string">"click"</span>,addNode)</span>;
+    var delSpan = document.createElement<span class="params">(<span class="string">"span"</span>)</span>;
+    delSpan.classList.add<span class="params">(<span class="string">"delSpan"</span>)</span>;
+    delSpan.innerHTML = <span class="string">"x"</span>;
+    addHandler<span class="params">(delSpan,<span class="string">"click"</span>,delNode)</span>
+    label.appendChild<span class="params">(addSpan)</span>;
+    label.appendChild<span class="params">(delSpan)</span>;
+}
+</code></pre><p>在删除节点的时候，需要进行判断，如果该节点存在兄弟节点，可以直接删除，如果该节点没有兄弟节点，则需要将父节点前面的icon一起删除</p>
+<pre><code><span class="comment">//返回指定元素的子元素节点的个数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">elementChildCount</span><span class="params">(node)</span>{</span>
+    var num = <span class="number">0</span>;
+    var <span class="built_in">children</span> = node.childNodes;
+    <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>,len=children.length;i&lt;len;i++)</span>{
+        <span class="keyword">if</span><span class="params">(children[i].nodeType == <span class="number">1</span>)</span>{
+            num ++;
+        }
+    }
+    return num;
+}
+
+<span class="comment">//删除指定节点</span>
+<span class="function"><span class="keyword">function</span> <span class="title">delNode</span><span class="params">()</span>{</span>
+    node = event.target.parentNode.parentNode;
+    <span class="comment">// console.log(node);</span>
+    <span class="comment">//用了children不返回文本节点，可能有兼容问题，最好自己写一个返回</span>
+    <span class="comment">// if(node.parentNode.children.length&gt;1){</span>
+    <span class="comment">//  node.parentNode.removeChild(node);</span>
+    <span class="comment">// }</span>
+    <span class="keyword">if</span><span class="params">(elementChildCount<span class="params">(node.parentNode)</span>&gt;<span class="number">1</span>)</span>{
+        node.parentNode.removeChild<span class="params">(node)</span>;
+    }<span class="keyword">else</span>{
+        node = node.parentNode;
+        node.parentNode.removeChild<span class="params">(node.parentNode.firstElementChild)</span>;
+        node.parentNode.removeChild<span class="params">(node)</span>;
+    }
+}
+</code></pre><p>添加节点也分两种情况，如果该节点下已经存在子节点，直接添加即可，如果不存在子节点，需要在添加子节点的同时，给父元素添加一个icon，不能忘记给icon添加点击事件以及新节点的添加和删除功能</p>
+<pre><code><span class="comment">//添加节点</span>
+<span class="function"><span class="keyword">function</span> <span class="title">addNode</span><span class="params">()</span>{</span>
+    var node = event.target.parentNode.parentNode;
+    var childUl = node.getElementsByTagName<span class="params">(<span class="string">"ul"</span>)</span>[<span class="number">0</span>];
+    <span class="keyword">if</span><span class="params">(childUl)</span>{
+        var name = prompt<span class="params">(<span class="string">"请输入名称"</span>,<span class="string">""</span>)</span>;
+        <span class="keyword">if</span><span class="params">(name &amp;&amp; name != <span class="string">""</span>)</span>{
+            var li = document.createElement<span class="params">(<span class="string">"li"</span>)</span>;
+            var label = document.createElement<span class="params">(<span class="string">"label"</span>)</span>;
+            label.innerHTML = name;
+            <span class="comment">//添加删除和增加按钮</span>
+            <span class="built_in">render</span><span class="params">(label)</span>;
+            li.appendChild<span class="params">(label)</span>;
+            childUl.appendChild<span class="params">(li)</span>;
+        }
+    }<span class="keyword">else</span>{
+        var name = prompt<span class="params">(<span class="string">"请输入名称"</span>,<span class="string">""</span>)</span>;
+        <span class="keyword">if</span><span class="params">(name &amp;&amp; name != <span class="string">""</span>)</span>{
+            var ul = document.createElement<span class="params">(<span class="string">"ul"</span>)</span>;
+            var li = document.createElement<span class="params">(<span class="string">"li"</span>)</span>;
+            var label = document.createElement<span class="params">(<span class="string">"label"</span>)</span>;
+            label.innerHTML = name;
+            <span class="built_in">render</span><span class="params">(label)</span>;
+            li.appendChild<span class="params">(label)</span>;
+            ul.appendChild<span class="params">(li)</span>
+            node.appendChild<span class="params">(ul)</span>;
+            var span = document.createElement<span class="params">(<span class="string">"span"</span>)</span>;
+            span.className = <span class="string">"glyphicon glyphicon-chevron-down"</span>;  <span class="comment">//setAttribute</span>
+            addHandler<span class="params">(span,<span class="string">"click"</span>,clickEvent)</span>;
+            node.insertBefore<span class="params">(span,node.firstChild)</span>;
+        }
+    }
+}
+</code></pre><p>最后，还需要给整个树添加查询功能。如果查到该节点，并且该节点的长辈节点有折叠的状态，则需要将其展开。</p>
+<pre><code><span class="comment">//查询node函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">searchNode</span><span class="params">()</span>{</span>
+    var <span class="built_in">text</span> = document.getElementById<span class="params">('searchText')</span>.value;
+    var menu = document.getElementById<span class="params">('menu')</span>;
+    <span class="keyword">if</span><span class="params">(text)</span>{
+        var label = document.getElementsByTagName<span class="params">('label')</span>;
+        <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>,len=label.length;i&lt;len;i++)</span>{
+            <span class="keyword">if</span><span class="params">(text == label[i].childNodes[<span class="number">0</span>].nodeValue)</span>{
+                <span class="comment">//设置特殊样式</span>
+                label[i].setAttribute<span class="params">(<span class="string">"class"</span>,<span class="string">"searched"</span>)</span>;
+                <span class="comment">//如果父节点折叠则展开</span>
+                var ul = label[i].parentNode.parentNode;
+                while<span class="params">(ul != menu)</span>{
+                    <span class="comment">// console.log(ul);</span>
+                    <span class="keyword">if</span><span class="params">(ul.classList.contains<span class="params">(<span class="string">"hidden"</span>)</span>)</span>{
+                        ul.parentNode.firstElementChild.classList.remove<span class="params">(<span class="string">"glyphicon-chevron-right"</span>)</span>;
+                        ul.parentNode.firstElementChild.classList.add<span class="params">(<span class="string">"glyphicon-chevron-down"</span>)</span>;
+                        ul.classList.remove<span class="params">(<span class="string">"hidden"</span>)</span>;
+                    }
+                    ul = ul.parentNode.parentNode;
+                }
+            }
+        }
+    }   
+}
+</code></pre><hr>
+<h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/blob/master/task25.html" target="_blank" rel="external">最终代码</a><br><a href="http://ife.supce.com/task25.html" target="_blank" rel="external">demo</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>熟练JavaScript</li>
+<li>学习树这种数据结构的基本知识</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>基于上几个任务，实现一个树形组件，样式自定义，不做限制</li>
+<li>要求有以下功能：</li>
+<li>节点的折叠与展开</li>
+<li>允许增加节点与删除节点</li>
+<li>按照内容进行节点查找，并且把找到的节点进行特殊样式呈现，如果找到的节点处于被父节点折叠隐藏的状态，则需要做对应的展开</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[IFE Task 11]]></title>
@@ -3147,86 +3377,6 @@ background-attachment: local,scroll,local,scroll;
 <pre><code>&lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"checkbox"</span> id=<span class="string">"custom-a"</span> /&gt;
 &lt;<span class="keyword">label</span> <span class="keyword">for</span>=<span class="string">"custom-a"</span>&gt;自定义复选框&lt;/<span class="keyword">label</span>&gt;
 </code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之合适光标&扩大可点击区域]]></title>
-    <link href="http://blog.supce.com/2016/09/23/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%90%88%E9%80%82%E5%85%89%E6%A0%87&%E6%89%A9%E5%A4%A7%E5%8F%AF%E7%82%B9%E5%87%BB%E5%8C%BA%E5%9F%9F/"/>
-    <id>http://blog.supce.com/2016/09/23/CSS Secret 读书笔记之合适光标&扩大可点击区域/</id>
-    <published>2016-09-22T16:00:00.000Z</published>
-    <updated>2016-09-23T12:39:21.503Z</updated>
-    <content type="html"><![CDATA[<p><em>今天莫名的累，借此机会水一篇好了</em></p>
-<hr>
-<h1 id="合适的鼠标光标">合适的鼠标光标</h1><p>为了给用户带来良好的体验，鼠标在网页中有着不可忽视的作用。不同的鼠标光标暗示着不同的信息。下图是CSS3中新的一批内建光标：</p>
-<a id="more"></a>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-12-1.jpg" alt=""><br>下面就简单实现几个：</p>
-<pre><code><span class="comment">&lt;!--禁用状态--&gt;</span>
-<span class="tag">&lt;<span class="title">button</span>&gt;</span>可用<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-<span class="tag">&lt;<span class="title">button</span> <span class="attribute">disabled</span>&gt;</span>禁用<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-<span class="comment">&lt;!--隐藏光标 适用于公共触摸屏--&gt;</span>
-<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"dis-cursor"</span>&gt;</span>隐藏光标<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-</code></pre><p>CSS：</p>
-<pre><code><span class="pseudo">:disabled</span><span class="rules">{        <span class="comment">/*disable选择器*/</span>
-    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> not-allowed</span></span>;
-}</span>
-<span class="class">.dis-cursor</span><span class="rules">{
-    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> none</span></span>;
-}</span>
-</code></pre><p>效果如下：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-12-2.gif" alt=""></p>
-<hr>
-<h1 id="扩大可点击区域">扩大可点击区域</h1><p>美国心理学家 Paul Fitts 层提出Fitts法则：人类移动到某个目标区域所需的最短时间是由目标距离与目标宽度之比所构成的对数函数。<br>即：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-12-3.jpg" alt=""><br>其中，T表示所需时间，D是从起点到目标中心的距离，W是目标区域的宽度，a和b是常数。<br>对于网页中那些较小的、难以瞄准的控件来说，如果不能把视觉尺寸放大时，可以把可点击区域放大以增加用户体验和提升交互性。</p>
-<h2 id="利用透明边框">利用透明边框</h2><p>首先想到的就是透明边框，因为鼠标也会对边框出发鼠标事件。<br>但是要注意，利用<code>background-clip</code>把背景色限制在原本的区域。<br>如果想要给元素添加边框，可以利用内嵌投影来模拟边框。<br>HTML:</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"extend-a"</span>&gt;+&lt;/<span class="keyword">div</span>&gt;       
-</code></pre><p>CSS：</p>
-<pre><code><span class="class">.extend-a</span><span class="rules">{
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">5px</span> auto</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">2em</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">2em</span></span></span>;
-    <span class="rule"><span class="attribute">font</span>:<span class="value"> <span class="number">250%</span>/<span class="number">2em</span> sans-serif</span></span>;
-    <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#58a</span></span></span>;
-    <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
-    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">10px</span> solid transparent</span></span>; <span class="comment">/*透明边框扩大可点击区域*/</span>
-    <span class="rule"><span class="attribute">background-clip</span>:<span class="value"> padding-box</span></span>;
-    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">5</span>) inset</span></span>;  <span class="comment">/*内嵌投影模拟边框*/</span>
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-12-4.gif" alt=""></p>
-<h2 id="利用伪元素">利用伪元素</h2><p>利用边框心里面总感觉怪怪的，有点别扭。这时候可以试试伪元素了，毕竟边框有时候会影响整体的布局，而伪元素不会。<br>可以在按钮的上层覆盖一层透明的伪元素，并且让伪元素在四个方向都比宿主元素大10px<br>HTML:</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"extend-b"</span>&gt;+&lt;/<span class="keyword">div</span>&gt;        
-</code></pre><p>CSS：</p>
-<pre><code><span class="class">.extend-b</span><span class="rules">{
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">5px</span> auto</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">2em</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">2em</span></span></span>;
-    <span class="rule"><span class="attribute">font</span>:<span class="value"> <span class="number">250%</span>/<span class="number">2em</span> sans-serif</span></span>;
-    <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#58a</span></span></span>;
-    <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
-    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;
-}</span>
-<span class="rule"><span class="attribute">.extend-b</span>:<span class="value">:before{
-    content: <span class="string">""</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">top</span>:<span class="value">-<span class="number">10px</span></span></span>; <span class="rule"><span class="attribute">right</span>:<span class="value">-<span class="number">10px</span></span></span>; <span class="rule"><span class="attribute">bottom</span>:<span class="value">-<span class="number">10px</span></span></span>; <span class="rule"><span class="attribute">left</span>:<span class="value">-<span class="number">10px</span></span></span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-12-5.gif" alt=""></p>
-<blockquote>
-<p>就偷偷的划一次水</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p><em>今天莫名的累，借此机会水一篇好了</em></p>
-<hr>
-<h1 id="合适的鼠标光标">合适的鼠标光标</h1><p>为了给用户带来良好的体验，鼠标在网页中有着不可忽视的作用。不同的鼠标光标暗示着不同的信息。下图是CSS3中新的一批内建光标：</p>]]>
     
     </summary>
     
