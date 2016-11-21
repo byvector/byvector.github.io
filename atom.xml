@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-11-17T12:08:59.269Z</updated>
+  <updated>2016-11-21T11:27:24.880Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,297 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[IFE Task 13]]></title>
+    <link href="http://blog.supce.com/2016/11/21/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8020/"/>
+    <id>http://blog.supce.com/2016/11/21/JavaScript之基础20/</id>
+    <published>2016-11-20T16:00:00.000Z</published>
+    <updated>2016-11-21T11:27:24.880Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>练习JavaScript面向对象设计</li>
+<li>实践一些基础的设计模式</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>创建一个虚拟宇宙，包括一个行星和飞船</li>
+<li>每个飞船由以下部分组成</li>
+<li>动力系统，可以完成飞行和停止飞行两个行为，暂定所有飞船的动力系统飞行速度是一致的，比如每秒20px，飞行过程中会按照一定速率消耗能源（比如每秒减5%）</li>
+<li>能源系统，提供能源，并且在宇宙中通过太阳能充电（比如每秒增加2%，具体速率自定）<br>信号接收处理系统，用于接收行星上的信号</li>
+<li>自爆系统，用于自我销毁</li>
+<li>每个飞船的能源是有限的，用一个属性来表示能源剩余量，这是一个百分比，表示还剩余多少能源。</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li>能源耗尽时，飞船会自动停止飞行</li>
+<li>飞船有两个状态：飞行中和停止，飞船的行为会改变这个属性状态</li>
+<li>飞船的自我销毁方法会立即销毁飞船自身</li>
+<li>行星上有一个指挥官（不需要在页面上表现出其形象），指挥官可以通过行星上的信号发射器发布如下命令</li>
+<li>创建一个新的飞船进入轨道，最多可以创建4个飞船，刚被创建的飞船会停留在某一个轨道上静止不动</li>
+<li>命令某个飞船开始飞行，飞行后飞船会围绕行星做环绕运动，需要模拟出这个动画效果</li>
+<li>命令某个飞船停止飞行</li>
+<li>命令某个飞船销毁，销毁后飞船消失、飞船标示可以用于下次新创建的飞船</li>
+<li>你需要设计类似如下指令格式的数据格式<br><code>{id: 1,commond: &#39;stop&#39;}</code></li>
+<li>指挥官通过信号发射器发出的命令是通过一种叫做Mediator的介质进行广播</li>
+<li>Mediator是单向传播的，只能从行星发射到宇宙中，在发射过程中，有30%的信息传送失败（丢包）概率，你需要模拟这个丢包率，另外每次信息正常传送的时间需要1秒</li>
+<li>指挥官并不知道自己的指令是不是真的传给了飞船，飞船的状态他是不知道的，他只能通过自己之前的操作来假设飞船当前的状态</li>
+<li>每个飞船通过信号接收器，接受到通过Mediator传达过来的指挥官的广播信号，但因为是广播信号，所以每个飞船能接受到指挥官发出给所有飞船的所有指令，因此需要通过读取信息判断这个指令是不是发给自己的</li>
+</ul>
+<hr>
+<h1 id="整体思路">整体思路</h1><p>首先是HTML框架，需要一个虚拟宇宙，一个指挥操控板，一个消息框。</p>
+<pre><code>&lt;div id=<span class="string">"main"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"clear_fix"</span>&gt;
+    &lt;div id=<span class="string">"universe"</span>&gt;
+        &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"path path_four"</span>&gt;
+            &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"craft craft_four"</span>&gt;&lt;/div&gt;
+            &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"path path_three"</span>&gt;
+                &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"craft craft_three"</span>&gt;&lt;/div&gt;
+                &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"path path_two"</span>&gt;
+                    &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"craft craft_two"</span>&gt;&lt;/div&gt;
+                    &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"path path_one"</span>&gt;
+                        &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"craft craft_one"</span>&gt;&lt;/div&gt;
+                        &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"planet"</span>&gt;用爱发电&lt;/div&gt;  
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=<span class="string">"messager"</span>&gt;
+        &lt;h1&gt;消息窗&lt;/h1&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=<span class="string">"control_panel"</span>&gt;
+    &lt;ul&gt;
+        &lt;li <span class="class"><span class="keyword">class</span>=</span><span class="string">"li_hidden"</span> id=<span class="string">"0"</span>&gt;
+            &lt;label&gt;轨道一: &lt;/label&gt; 
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"start"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_start"</span>&gt;开始&lt;/button&gt;
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"stop"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_stop"</span>&gt;暂停&lt;/button&gt;
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"destroy"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_destroy"</span>&gt;销毁&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li <span class="class"><span class="keyword">class</span>=</span><span class="string">"li_hidden"</span> id=<span class="string">"1"</span>&gt;
+            &lt;label&gt;轨道二: &lt;/label&gt; 
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"start"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_start"</span>&gt;开始&lt;/button&gt;
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"stop"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_stop"</span>&gt;暂停&lt;/button&gt;
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"destroy"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_destroy"</span>&gt;销毁&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li <span class="class"><span class="keyword">class</span>=</span><span class="string">"li_hidden"</span> id=<span class="string">"2"</span>&gt;
+            &lt;label&gt;轨道三: &lt;/label&gt; 
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"start"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_start"</span>&gt;开始&lt;/button&gt;
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"stop"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_stop"</span>&gt;暂停&lt;/button&gt;
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"destroy"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_destroy"</span>&gt;销毁&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li <span class="class"><span class="keyword">class</span>=</span><span class="string">"li_hidden"</span> id=<span class="string">"3"</span>&gt;
+            &lt;label&gt;轨道四: &lt;/label&gt; 
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"start"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_start"</span>&gt;开始&lt;/button&gt;
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"stop"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_stop"</span>&gt;暂停&lt;/button&gt;
+            &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> value=<span class="string">"destroy"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"btn_destroy"</span>&gt;销毁&lt;/button&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;label id=<span class="string">"panel_title"</span>&gt;飞船操控板&lt;/label&gt;
+    &lt;button id=<span class="string">"craft_creat"</span>&gt;增加新飞船&lt;/button&gt;
+&lt;/div&gt;
+</code></pre><p>然后需要创建一个飞船类，有飞船id，飞船能量，飞船状态，飞船能量控制四个属性、还有飞船启动，停止，销毁三个方法和飞船能量消耗，能量增加两个方法。</p>
+<pre><code><span class="comment">//飞船类</span>
+<span class="function"><span class="keyword">function</span> <span class="title">Craft</span>(<span class="params">craftId,onPath</span>)</span>{
+    <span class="comment">//飞船id</span>
+    <span class="keyword">this</span>.id = craftId;
+    <span class="comment">//飞船是否部署到预定轨道</span>
+    <span class="keyword">this</span>.onPath = onPath;
+    <span class="comment">//飞船能量</span>
+    <span class="keyword">this</span>.power = <span class="number">100</span>;
+    <span class="comment">//飞船是否正在飞行</span>
+    <span class="keyword">this</span>.state = <span class="string">"stop"</span>;
+    <span class="comment">//控制飞船动力系统</span>
+    <span class="keyword">this</span>.timer = <span class="literal">null</span>;
+}
+Craft.prototype = {
+    constructor: Craft,
+    receiveCommond : <span class="function"><span class="keyword">function</span>(<span class="params">commond</span>)</span>{
+        <span class="keyword">if</span>(commond.id == <span class="keyword">this</span>.id){
+            order = commond.commond;
+            <span class="keyword">switch</span>(order){
+                <span class="keyword">case</span> <span class="string">'start'</span>:
+                    msgControl(<span class="string">"有嘎达~ 信息传递成功！"</span>);
+                    <span class="keyword">this</span>.powerConsume();
+                    <span class="keyword">this</span>.state = <span class="string">"start"</span>;
+                    <span class="keyword">this</span>.start();
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'stop'</span>:
+                    msgControl(<span class="string">"有嘎达~ 信息传递成功！"</span>);
+                    <span class="keyword">this</span>.powerAdd();
+                    <span class="keyword">this</span>.state = <span class="string">"stop"</span>;
+                    <span class="keyword">this</span>.stop();
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'destroy'</span>:
+                    msgControl(<span class="string">"有嘎达~ 信息传递成功！"</span>);
+                    <span class="keyword">this</span>.destroy();
+                    <span class="keyword">break</span>;
+            }
+        }
+    },
+    start : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        msgControl(<span class="string">"Nozomi power注入! 嗨~ 噗咻!"</span> + (<span class="keyword">this</span>.id+<span class="number">1</span>) + <span class="string">"号飞船已经起飞"</span>);
+        <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[<span class="keyword">this</span>.id]);
+        craftImg.classList.add(<span class="string">"craft_start"</span>);
+    },
+    stop : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        msgControl(<span class="string">"sa si su se so！"</span> + (<span class="keyword">this</span>.id+<span class="number">1</span>) + <span class="string">"号飞船停止飞行"</span>);
+        <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[<span class="keyword">this</span>.id]);
+        craftImg.classList.remove(<span class="string">"craft_start"</span>); 
+    },
+    destroy : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        msgControl(<span class="string">"dame! dame!"</span> + (<span class="keyword">this</span>.id+<span class="number">1</span>) + <span class="string">"号飞船被销毁了"</span>);
+        <span class="comment">//先停止再销毁</span>
+        <span class="comment">// this.stop();</span>
+        <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[<span class="keyword">this</span>.id]);
+        craftImg.classList.remove(<span class="string">"craft_start"</span>);
+        clearInterval(<span class="keyword">this</span>.timer);
+        <span class="keyword">var</span> id = <span class="keyword">this</span>.id;
+        <span class="comment">//销毁飞船</span>
+        <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[id]);
+        craftImg.classList.remove(<span class="string">"craft_create"</span>);
+        <span class="comment">//销毁控制板</span>
+        <span class="built_in">document</span>.getElementById(id).classList.add(<span class="string">"li_hidden"</span>);
+        <span class="comment">//将飞船从轨道撤下</span>
+        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=crafts.length;i&lt;len;i++){
+            <span class="keyword">if</span>(crafts[i].id == id){
+                crafts[i].onPath = <span class="string">"off"</span>;
+                crafts[i].power = <span class="number">100</span>;
+                crafts[i].state = <span class="string">"stop"</span>;
+            }
+        }
+    },
+    powerConsume : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="keyword">var</span> _this = <span class="keyword">this</span>;
+        <span class="keyword">if</span>(<span class="keyword">this</span>.timer){
+            clearInterval(<span class="keyword">this</span>.timer);
+        }
+        <span class="keyword">this</span>.timer = setInterval(run,<span class="number">100</span>);
+        <span class="function"><span class="keyword">function</span> <span class="title">run</span>(<span class="params"></span>)</span>{
+            <span class="keyword">if</span>(_this.power&gt;<span class="number">0</span>){
+                _this.power = _this.power - <span class="number">1</span>;
+                <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[_this.id]);
+                craftImg.innerHTML = _this.power + <span class="string">"%"</span>;
+            }<span class="keyword">else</span>{
+                _this.stop();
+                _this.state = <span class="string">"charge"</span>;
+                clearInterval(_this.timer);
+                _this.powerAdd();
+            }
+        }
+    },
+    powerAdd : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="keyword">var</span> _this = <span class="keyword">this</span>;
+        <span class="keyword">if</span>(<span class="keyword">this</span>.timer){
+            clearInterval(<span class="keyword">this</span>.timer);
+        }
+        <span class="keyword">this</span>.timer = setInterval(run,<span class="number">300</span>);
+        <span class="function"><span class="keyword">function</span> <span class="title">run</span>(<span class="params"></span>)</span>{
+            <span class="keyword">if</span>(_this.power&lt;<span class="number">100</span>){
+                _this.power = _this.power + <span class="number">1</span>;
+                <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[_this.id]);
+                craftImg.innerHTML = _this.power + <span class="string">"%"</span>;
+            }<span class="keyword">else</span>{
+                <span class="keyword">if</span>(_this.state == <span class="string">"charge"</span>){
+                    _this.start();
+                    _this.state = <span class="string">"start"</span>;
+                    clearInterval(_this.timer);
+                    _this.powerConsume();
+                }<span class="keyword">else</span>{
+                    clearInterval(_this.timer);
+                }
+            }
+        }
+    }
+}
+</code></pre><p>然后需要一个指挥官类，可以创建飞船和指挥飞船</p>
+<pre><code><span class="comment">//指挥官类</span>
+<span class="function"><span class="keyword">function</span> <span class="title">Commonder</span>(<span class="params"></span>)</span>{
+    <span class="keyword">this</span>.craftId = <span class="number">0</span>;
+}
+Commonder.prototype = {
+    createCommond : <span class="function"><span class="keyword">function</span>(<span class="params">id,order</span>)</span>{
+        <span class="keyword">return</span> {
+            id: id,
+            commond: order
+        };
+    },
+    createCraft : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=crafts.length;i&lt;len;i++){
+            <span class="keyword">if</span>(crafts[i].onPath == <span class="string">"off"</span>){
+                <span class="keyword">var</span> id = crafts[i].id;
+                crafts[i].onPath = <span class="string">"on"</span>;
+                <span class="comment">//使飞船送达预定轨道</span>
+                <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[id]);
+                craftImg.classList.add(<span class="string">"craft_create"</span>);
+                craftImg.innerHTML = crafts[i].power + <span class="string">"%"</span>;
+                <span class="comment">//创建panel</span>
+                <span class="keyword">var</span> panel = <span class="built_in">document</span>.getElementById(id);
+                panel.classList.remove(<span class="string">"li_hidden"</span>);
+                <span class="keyword">var</span> btns = panel.getElementsByTagName(<span class="string">'button'</span>);
+                <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=btns.length;i&lt;len;i++){
+                    addHandler(btns[i],<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+                        btnHandler(e);
+                    });
+                }
+                msgControl(<span class="string">"飞船"</span> + (id+<span class="number">1</span>) + <span class="string">"号已到达预定轨道，请发送下个命令撒~"</span>);
+                <span class="keyword">break</span>;
+            }
+        }
+    }
+}
+</code></pre><p>最后是一个消息发射器，负责信号的发送。这里每次会给所有飞船发送信号</p>
+<pre><code><span class="comment">//信号发射器类</span>
+<span class="function"><span class="keyword">function</span> <span class="title">Mediator</span><span class="params">()</span>{</span>
+}
+Mediator.prototype = {
+    sendCommond : <span class="function"><span class="keyword">function</span><span class="params">(commond)</span>{</span>
+        var num = Math.<span class="built_in">floor</span><span class="params">(Math.random<span class="params">()</span>*<span class="number">10</span>+<span class="number">1</span>)</span>;
+        <span class="keyword">if</span><span class="params">(num &gt; <span class="number">3</span>)</span>{
+            <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>,len=crafts.length;i&lt;len;i++)</span>{
+            <span class="keyword">if</span><span class="params">(crafts[i].onPath == <span class="string">"on"</span>)</span>{   
+                crafts[i].receiveCommond<span class="params">(commond)</span>;
+            }
+        }
+        }<span class="keyword">else</span>{
+            msgControl<span class="params">(<span class="string">"信息传递失败！再试一次，fight だよ！"</span>)</span>;
+        }
+    },
+}
+</code></pre><p>对了，还有一个信号显示器，负责消息的显示</p>
+<pre><code><span class="comment">//信号显示器</span>
+<span class="function"><span class="keyword">function</span> <span class="title">msgControl</span><span class="params">(str)</span>{</span>
+    var msg = $<span class="params">(<span class="string">"messager"</span>)</span>;
+    msg.innerHTML += <span class="string">"&lt;p&gt;"</span> + <span class="built_in">str</span> + <span class="string">"&lt;/p&gt;"</span>;
+    msg.scrollTop = msg.scrollHeight;
+    console.<span class="built_in">log</span><span class="params">(str)</span>;
+}
+</code></pre><p>飞船的飞行效果是利用animation实现的，当飞船能量消耗完毕后，会自动暂停恢复能量。如果期间收到起飞命令，会起飞，否则会在能量到达100%时自动启动。</p>
+<hr>
+<h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/blob/master/task26.html" target="_blank" rel="external">最终代码</a><br><a href="http://ife.supce.com/task26.html" target="_blank" rel="external">demo</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>练习JavaScript面向对象设计</li>
+<li>实践一些基础的设计模式</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>创建一个虚拟宇宙，包括一个行星和飞船</li>
+<li>每个飞船由以下部分组成</li>
+<li>动力系统，可以完成飞行和停止飞行两个行为，暂定所有飞船的动力系统飞行速度是一致的，比如每秒20px，飞行过程中会按照一定速率消耗能源（比如每秒减5%）</li>
+<li>能源系统，提供能源，并且在宇宙中通过太阳能充电（比如每秒增加2%，具体速率自定）<br>信号接收处理系统，用于接收行星上的信号</li>
+<li>自爆系统，用于自我销毁</li>
+<li>每个飞船的能源是有限的，用一个属性来表示能源剩余量，这是一个百分比，表示还剩余多少能源。</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[IFE Task 12]]></title>
@@ -3229,153 +3520,6 @@ background-attachment: local,scroll,local,scroll;
     &lt;/p&gt;
 &lt;/main&gt;
 &lt;dialog&gt;this <span class="keyword">is</span> a test this <span class="keyword">is</span> a test click <span class="keyword">me</span> click <span class="keyword">me</span>&lt;/dialog&gt;
-</code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之自定义复选框&阴影弱化背景]]></title>
-    <link href="http://blog.supce.com/2016/09/24/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%A4%8D%E9%80%89%E6%A1%86&%E9%98%B4%E5%BD%B1%E5%BC%B1%E5%8C%96%E8%83%8C%E6%99%AF/"/>
-    <id>http://blog.supce.com/2016/09/24/CSS Secret 读书笔记之自定义复选框&阴影弱化背景/</id>
-    <published>2016-09-23T16:00:00.000Z</published>
-    <updated>2016-09-24T12:00:00.511Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="自定义复选框">自定义复选框</h1><p>单选框和复选框的默认样式确实不敢恭维，但是这两种控件在绝大多数浏览器中仍然无法自由的设置样式。这时候可以用下面这种“曲线救国”的思路来实现自定义复选框。</p>
-<h2 id="伪元素解决方案">伪元素解决方案</h2><p>具体思路如下：<br>由于<code>label</code>元素可以和复选框关联，起到触发开关的作用。我们可以为它添加伪元素，并基于复选框的状态来为其设置样式。然后再把真正的复选框隐藏起来。</p>
-<blockquote>
-<p>CSS的魅力就在于此，正是<code>label</code>可以和复选框(单选框)关联，才有了自定义复选框的可能性。</p>
-</blockquote>
-<p>有了上面的思路，代码就很简单了。首先是最最最简单的HTML：</p>
-<pre><code>&lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"checkbox"</span> id=<span class="string">"custom-a"</span> /&gt;
-&lt;<span class="keyword">label</span> <span class="keyword">for</span>=<span class="string">"custom-a"</span>&gt;自定义复选框&lt;/<span class="keyword">label</span>&gt;
-</code></pre><a id="more"></a>
-<p>然后给<code>label</code>的伪元素添加一些基本的样式：</p>
-<pre><code><span class="tag">body</span><span class="rules">{<span class="rule"><span class="attribute">font</span>:<span class="value"><span class="number">150%</span>/<span class="number">1.5</span> sans-serif</span></span>;}</span>
-<span class="tag">input</span><span class="attr_selector">[type="checkbox"]</span> + <span class="rule"><span class="attribute">label</span>:<span class="value">:before{
-    content: <span class="string">'\a0'</span></span></span>; <span class="comment">/*不换行空格*/</span>
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> inline-block</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> .<span class="number">8em</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> .<span class="number">8em</span></span></span>;
-    <span class="rule"><span class="attribute">vertical-align</span>:<span class="value"> .<span class="number">1em</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#c00</span></span></span>;
-    <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> .<span class="number">2em</span></span></span>;
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> .<span class="number">3em</span></span></span>;
-    <span class="rule"><span class="attribute">line-height</span>:<span class="value"> .<span class="number">65</span></span></span>;
-    <span class="rule"><span class="attribute">text-indent</span>:<span class="value"> .<span class="number">15em</span></span></span>;
-}
-</code></pre><p>这时候效果是这个样子的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-13-1.jpg" alt=""><br>下面再给伪元素添加复选框被勾选时的样式：</p>
-<pre><code><span class="tag">input</span><span class="attr_selector">[type="checkbox"]</span><span class="pseudo">:checked</span> + <span class="rule"><span class="attribute">label</span>:<span class="value">:before{
-    content: <span class="string">'\2713'</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> yellowgreen</span></span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-13-2.jpg" alt=""></p>
-<p>现在就差一步了，就是把原来的复选框以一种不损失可访问性的方式隐层起来。这就意味着我们不能简单粗暴地设置<code>display:none</code>，因为这样会把它从键盘tab键切换焦点的队列中删除。那么怎么隐藏呢，这时候轮到裁剪登场了，可以使用裁剪，将它裁剪掉！</p>
-<pre><code><span class="tag">input</span><span class="attr_selector">[type="checkbox"]</span><span class="rules">{
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">clip</span>:<span class="value"> <span class="function">rect</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)</span></span>;
-}</span>
-</code></pre><p>然后当伪元素聚焦时再添加<code>box-shadow</code>的特效：</p>
-<pre><code>input[type=<span class="string">"checkbox"</span>]:focus + label::before{
-    box-shadow: <span class="number">0</span> <span class="number">0</span> <span class="number">.1</span>em <span class="number">2</span>px <span class="preprocessor">#<span class="number">58</span>a;</span>
-}
-</code></pre><p>OK，完美解决:<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-13-3.gif" alt=""><br>当然也可以补充上禁用时的样式：</p>
-<pre><code><span class="tag">input</span><span class="attr_selector">[type="checkbox"]</span><span class="pseudo">:disabled</span> + <span class="rule"><span class="attribute">label</span>:<span class="value">:before{
-    background: <span class="hexcolor">#58a</span></span></span>;
-    <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">'\2713'</span></span></span>;
-    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> not-allowed</span></span>;
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-13-4.gif" alt=""></p>
-<blockquote>
-<p>在上面的例子中，尽量避免把复选框设置为圆形，因为大多数用户会把圆形的选择框理解为单选框。对于单选框则反之。</p>
-</blockquote>
-<h2 id="开关式按钮">开关式按钮</h2><p>利用<code>label</code>的可关联性，也可以用来模拟开关式按钮。开关式按钮与复选框的行为十分相似，可以用来切换某个选项的开关状态：启用时，它是被按下的状态，停用时，它就是浮起的状态。<br>代码很简单，主要是利用了内嵌阴影的效果。<br>HTML:</p>
-<pre><code>&lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"checkbox"</span> id=<span class="string">"switch"</span>&gt;
-&lt;<span class="keyword">label</span> <span class="keyword">for</span>=<span class="string">"switch"</span> id=<span class="string">"switch-label"</span>&gt;开关式按钮&lt;/<span class="keyword">label</span>&gt;
-</code></pre><p>CSS:</p>
-<pre><code><span class="id">#switch</span><span class="attr_selector">[type="checkbox"]</span> + <span class="id">#switch-label</span><span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> inline-block</span></span>;
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> .<span class="number">3em</span> .<span class="number">5em</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#ccc</span></span></span>;
-    <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">linear-gradient</span>(<span class="hexcolor">#ddd</span>,<span class="hexcolor">#bbb</span>)</span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">2</span>)</span></span>;
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> .<span class="number">3em</span></span></span>;
-    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">1px</span> white inset</span></span>;
-    <span class="rule"><span class="attribute">text-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span> white</span></span>;
-}</span>
-<span class="id">#switch</span><span class="attr_selector">[type="checkbox"]</span><span class="pseudo">:checked</span> + <span class="id">#switch-label</span>,
-<span class="id">#switch</span><span class="attr_selector">[type="checkbox"]</span><span class="pseudo">:active</span> + <span class="id">#switch-label</span><span class="rules">{
-    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> .<span class="number">1em</span> .<span class="number">1em</span> .<span class="number">2em</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">6</span>) inset</span></span>;
-    <span class="rule"><span class="attribute">border-color</span>:<span class="value"> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">4</span>)</span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#bbb</span></span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-13-5.gif" alt=""></p>
-<hr>
-<h1 id="通过阴影来弱化背景">通过阴影来弱化背景</h1><p>评论Twitter时，会通过阴影来弱化背景：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-13-6.jpg" alt=""><br>主要思路是通过点击事件，给背景设置半透明的背景色，然后将要显示的元素显示出来。这里就要用到js来辅助了。<br>HTML：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"overlay"</span>&gt;
-    &lt;p&gt;this <span class="keyword">is</span> a test this <span class="keyword">is</span> test click <span class="keyword">me</span> click <span class="keyword">me</span>&lt;/p&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"lightbox"</span>&gt;this <span class="keyword">is</span> a light box&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>CSS：</p>
-<pre><code><span class="class">.overlay</span><span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">10em</span></span></span>;
-    <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid black</span></span>;
-    <span class="comment">/*background-color: rgba(0,0,0,.7);*/</span>
-}</span>
-<span class="class">.lightbox</span><span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">20em</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">5em</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
-    <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    <span class="rule"><span class="attribute">z-index</span>:<span class="value"> <span class="number">1</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> white</span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;
-}</span>
-</code></pre><p>js：</p>
-<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">selector,context</span>)</span>{
-        context = context || <span class="built_in">document</span>;
-        <span class="keyword">return</span> context.querySelector(selector);
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">checkDisStyle</span>(<span class="params">obj</span>)</span>{
-        <span class="keyword">if</span>(obj.currentStyle){
-            <span class="keyword">return</span> obj.currentStyle.display;
-        }<span class="keyword">else</span>{
-            <span class="keyword">return</span> <span class="built_in">window</span>.getComputedStyle(obj).display;
-        }
-    }
-    $(<span class="string">'.overlay'</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-        <span class="keyword">if</span> (checkDisStyle($(<span class="string">'.lightbox'</span>)) == <span class="string">'none'</span>) {
-            $(<span class="string">'.overlay'</span>).style.backgroundColor = <span class="string">"rgba(0,0,0,.7)"</span>;
-            $(<span class="string">'.lightbox'</span>).style.display = <span class="string">"block"</span>;
-        }<span class="keyword">else</span>{
-            $(<span class="string">'.overlay'</span>).style.backgroundColor = <span class="string">""</span>;
-            $(<span class="string">'.lightbox'</span>).style.display = <span class="string">"none"</span>;
-        }
-        <span class="comment">// console.log(checkDisStyle($('.lightbox')));</span>
-    }
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span> 
-</code></pre><p>搞完手工~</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-13-7.gif" alt=""></p>
-<blockquote>
-<p>在获取当前样式时，记得兼容IE，使用getComputedStyle方法</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="自定义复选框">自定义复选框</h1><p>单选框和复选框的默认样式确实不敢恭维，但是这两种控件在绝大多数浏览器中仍然无法自由的设置样式。这时候可以用下面这种“曲线救国”的思路来实现自定义复选框。</p>
-<h2 id="伪元素解决方案">伪元素解决方案</h2><p>具体思路如下：<br>由于<code>label</code>元素可以和复选框关联，起到触发开关的作用。我们可以为它添加伪元素，并基于复选框的状态来为其设置样式。然后再把真正的复选框隐藏起来。</p>
-<blockquote>
-<p>CSS的魅力就在于此，正是<code>label</code>可以和复选框(单选框)关联，才有了自定义复选框的可能性。</p>
-</blockquote>
-<p>有了上面的思路，代码就很简单了。首先是最最最简单的HTML：</p>
-<pre><code>&lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"checkbox"</span> id=<span class="string">"custom-a"</span> /&gt;
-&lt;<span class="keyword">label</span> <span class="keyword">for</span>=<span class="string">"custom-a"</span>&gt;自定义复选框&lt;/<span class="keyword">label</span>&gt;
 </code></pre>]]>
     
     </summary>
