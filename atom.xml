@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-11-23T08:51:25.312Z</updated>
+  <updated>2016-11-27T02:19:35.909Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,409 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[IFE Task 15]]></title>
+    <link href="http://blog.supce.com/2016/11/27/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8022/"/>
+    <id>http://blog.supce.com/2016/11/27/JavaScript之基础22/</id>
+    <published>2016-11-26T16:00:00.000Z</published>
+    <updated>2016-11-27T02:19:35.909Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>练习JavaScript面向对象设计</li>
+<li>实践一些基础的设计模式</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>基于上一任务，我们继续改善</li>
+<li>第二代宇宙飞船系统进步了很多，但是我们依然无法知道飞船的能源消耗情况，可能有的时候我们发出开始飞行的指令，但飞船早就没有能量了，所以我们再次进行升级，这次我们需要增加一个飞船状态的监视系统</li>
+<li>我们为每个飞船增加一个信号发射器，飞船会通过BUS系统定时（比如每秒）广播自己的飞行状态。发送的时候，我们通过已经安装在飞船上的Adapter把状态数据翻译成二进制码形式，把飞船自身标示，飞行状态，能量编码成一个16位的二进制串，前四位用于飞船自身标示，接下来4位表示飞行状态，0010为停止，0001为飞行，1100表示即将销毁，后八位用于记录飞船剩余能源百分比</li>
+<li>行星上有一个信号接收器，用于通过BUS系统接受各个飞船发送过来的信号</li>
+<li>当信号接收器接收到飞船信号后，会把信息传给数据处理中心（DC），数据处理中心依然是调用Adapter模块，把这些二进制数据转为对象格式存储在DC中</li>
+<li>实现一个行星上的监视大屏幕，用来显示所有飞船的飞行状态及能源情况，当数据处理中心飞船数据发生变化时，它会相应在监视器上做出变化</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h1 id="整体思路">整体思路</h1><p>由于任务越来越多，这次把类重新聚合一下。</p>
+<p>行星到宇宙飞船的信号是通过BUS传输的，利用单例模式实现一个BUS类，BUS类有一个接收信号的方法，该方法带有两个参数，一个参数是传输的信号，另一个表示端口号用于区别信号是从行星发往飞船还是飞船发往行星。</p>
+<pre><code><span class="comment">//BUS 单例</span>
+<span class="function"><span class="keyword">function</span> <span class="title">Bus</span><span class="params">()</span>{</span>
+    var instance = this;
+    Bus = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        return instance;
+    };
+}
+Bus.prototype = {
+    <span class="comment">//port为1时表示从行星发往太空，port为2时表示从太空发往行星</span>
+    receive : <span class="function"><span class="keyword">function</span><span class="params">(order,port)</span>{</span>
+        <span class="keyword">if</span><span class="params">(port == <span class="string">"1"</span>)</span>{
+            var timer = null;
+            timer = setInterval<span class="params">(run,<span class="number">300</span>)</span>;
+            <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span>{</span>
+                var num = Math.<span class="built_in">floor</span><span class="params">(Math.random<span class="params">()</span>*<span class="number">10</span>+<span class="number">1</span>)</span>;
+                <span class="keyword">if</span><span class="params">(num &gt; <span class="number">1</span>)</span>{
+                    <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>;i&lt;crafts.length;i++)</span>{
+                        <span class="comment">// crafts[i].receiveCommond(order);</span>
+                        crafts[i].Mediator.receive<span class="params">(order)</span>;
+                    }
+                    clearInterval<span class="params">(timer)</span>;
+                }<span class="keyword">else</span>{
+                    msgControl<span class="params">(<span class="string">"信息传递失败！正在重试，fight だよ！"</span>)</span>;
+                }
+            }
+        }<span class="keyword">else</span> <span class="keyword">if</span><span class="params">(port == <span class="string">"2"</span>)</span>{
+            <span class="comment">//得到行星上的信号收发器</span>
+            var mediator = new Mediator<span class="params">()</span>;
+            mediator.receive<span class="params">(order)</span>;
+        }<span class="keyword">else</span>{
+            msgControl<span class="params">(<span class="string">"该端口暂时还未开放"</span>)</span>;
+        }
+    }
+}
+</code></pre><p>在行星上有一个信号收发器，可以向飞船发送信息以及接收从飞船传递来的信息。在信号收发器上有一个信号适配器，用于对信号进行编码和解码，收发器收到信号后会对信号进行解码，然后传递给DC(数据控制中心)。</p>
+<pre><code><span class="comment">//行星信号收发器</span>
+<span class="function"><span class="keyword">function</span> <span class="title">Mediator</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> instance = <span class="keyword">this</span>;
+    Mediator = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="keyword">return</span> instance;
+    };
+    <span class="comment">//收发器上的信号适配器</span>
+    <span class="keyword">this</span>.Adapter = {
+        <span class="comment">//信号编码器</span>
+        encode : <span class="function"><span class="keyword">function</span>(<span class="params">commond</span>)</span>{
+            <span class="keyword">var</span> str = <span class="string">""</span>;
+            <span class="keyword">var</span> id = commond.id;
+            <span class="keyword">var</span> order = commond.commond;
+            <span class="keyword">switch</span>(id){
+                <span class="keyword">case</span> <span class="string">'0'</span>:str += <span class="string">"00"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'1'</span>:str += <span class="string">"01"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'2'</span>:str += <span class="string">"10"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'3'</span>:str += <span class="string">"11"</span>;<span class="keyword">break</span>;
+            }
+            <span class="keyword">switch</span>(order){
+                <span class="keyword">case</span> <span class="string">'start'</span>:str += <span class="string">"0001"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'stop'</span>:str += <span class="string">"0010"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'destroy'</span>:str += <span class="string">"1100"</span>;<span class="keyword">break</span>;
+            }
+            <span class="keyword">return</span> str;
+        },
+        <span class="comment">//信号解码器</span>
+        decode : <span class="function"><span class="keyword">function</span>(<span class="params">signal</span>)</span>{
+            <span class="keyword">var</span> id,engine,supply,state,power;
+            <span class="keyword">switch</span>(signal.substring(<span class="number">0</span>,<span class="number">3</span>)){
+                <span class="keyword">case</span> <span class="string">'000'</span>:id = <span class="string">"1"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'001'</span>:id = <span class="string">"2"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'010'</span>:id = <span class="string">"3"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'011'</span>:id = <span class="string">"4"</span>;<span class="keyword">break</span>;
+            }
+            <span class="keyword">switch</span>(signal.substring(<span class="number">3</span>,<span class="number">6</span>)){
+                <span class="keyword">case</span> <span class="string">'000'</span>:engine = <span class="string">"用恨飞行"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'001'</span>:engine = <span class="string">"手摇飞行"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'010'</span>:engine = <span class="string">"电能飞行"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'011'</span>:engine = <span class="string">"核能飞行"</span>;<span class="keyword">break</span>;
+            }
+            <span class="keyword">switch</span>(signal.substring(<span class="number">6</span>,<span class="number">9</span>)){
+                <span class="keyword">case</span> <span class="string">'000'</span>:supply = <span class="string">"用爱充能"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'001'</span>:supply = <span class="string">"手摇充能"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'010'</span>:supply = <span class="string">"燃料充能"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'011'</span>:supply = <span class="string">"核变充能"</span>;<span class="keyword">break</span>;
+            }
+            <span class="keyword">switch</span>(signal.substring(<span class="number">9</span>,<span class="number">13</span>)){
+                <span class="keyword">case</span> <span class="string">'0001'</span>:state = <span class="string">"飞行"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'0010'</span>:state = <span class="string">"暂停"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'1100'</span>:state = <span class="string">"销毁"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'1111'</span>:state = <span class="string">"充能"</span>;<span class="keyword">break</span>;
+            }
+            power = <span class="built_in">parseInt</span>(signal.substring(<span class="number">13</span>));
+            <span class="keyword">return</span> {
+                id : id,
+                engine : engine,
+                supply : supply,
+                state : state,
+                power : power
+            };
+        }
+    }
+}
+Mediator.prototype = {
+    sendCommond : <span class="function"><span class="keyword">function</span>(<span class="params">commond</span>)</span>{
+        <span class="keyword">var</span> commond = <span class="keyword">this</span>.Adapter.encode(commond);
+        <span class="keyword">var</span> bus = <span class="keyword">new</span> Bus();
+        bus.receive(commond,<span class="number">1</span>);
+    },
+    receive : <span class="function"><span class="keyword">function</span>(<span class="params">signal</span>)</span>{
+        <span class="keyword">var</span> signal = <span class="keyword">this</span>.Adapter.decode(signal);
+        <span class="comment">// console.log(signal);</span>
+        <span class="keyword">var</span> dc = <span class="keyword">new</span> DC();
+        dc.receive(signal);
+    }
+}
+</code></pre><p>飞船升级后，在飞船上配备了信号收发器和信号适配器。能够通过BUS接收从行星发射的命令和向行星发送当前飞船的状态。</p>
+<pre><code><span class="comment">//飞船类</span>
+<span class="function"><span class="keyword">function</span> <span class="title">Craft</span>(<span class="params">id,engine,supply</span>)</span>{
+    <span class="comment">//飞船id</span>
+    <span class="keyword">this</span>.id = id;
+    <span class="comment">//飞船引擎控制飞船速度</span>
+    <span class="keyword">this</span>.engine = engine;
+    <span class="comment">//飞船供能系统控制能量恢复速度</span>
+    <span class="keyword">this</span>.supply = supply;
+    <span class="comment">//飞船能量</span>
+    <span class="keyword">this</span>.power = <span class="number">100</span>;
+    <span class="comment">//飞船是否正在飞行</span>
+    <span class="keyword">this</span>.state = <span class="string">"stop"</span>;
+    <span class="comment">//控制飞船动力系统</span>
+    <span class="keyword">this</span>.timer = <span class="literal">null</span>;
+    <span class="comment">//飞船上的信号收发器</span>
+    <span class="keyword">this</span>.Mediator = {
+        <span class="comment">//接收从bus传入的信息</span>
+        receive : <span class="function"><span class="keyword">function</span>(<span class="params">commond</span>)</span>{
+            <span class="keyword">var</span> commond = <span class="keyword">this</span>.Adapter.decode(commond);
+            <span class="keyword">if</span>(commond.id == <span class="keyword">this</span>.id){
+                order = commond.commond;
+                <span class="keyword">switch</span>(order){
+                    <span class="keyword">case</span> <span class="string">'start'</span>:
+                        msgControl(<span class="string">"有嘎达~ 信息传递成功！"</span>);
+                        <span class="keyword">this</span>.powerConsume();
+                        <span class="keyword">this</span>.state = <span class="string">"start"</span>;
+                        <span class="keyword">this</span>.start();
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> <span class="string">'stop'</span>:
+                        msgControl(<span class="string">"有嘎达~ 信息传递成功！"</span>);
+                        <span class="keyword">this</span>.powerAdd();
+                        <span class="keyword">this</span>.state = <span class="string">"stop"</span>;
+                        <span class="keyword">this</span>.stop();
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> <span class="string">'destroy'</span>:
+                        msgControl(<span class="string">"有嘎达~ 信息传递成功！"</span>);
+                        <span class="keyword">this</span>.destroy();
+                        <span class="keyword">break</span>;
+                }
+            }
+        }.bind(<span class="keyword">this</span>),
+        <span class="comment">//向bus传送信息</span>
+        send : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+            <span class="keyword">var</span> _this = <span class="keyword">this</span>;
+            <span class="keyword">var</span> msg = {
+                id : _this.id,
+                engine : _this.engine,
+                supply : _this.supply,
+                state : _this.state,
+                power : _this.power
+            }
+            <span class="keyword">var</span> signal = <span class="keyword">this</span>.Adapter.encode(msg);
+            <span class="keyword">var</span> bus = <span class="keyword">new</span> Bus();
+            <span class="comment">//从端口2发往行星</span>
+            bus.receive(signal,<span class="number">2</span>);
+        }.bind(<span class="keyword">this</span>)
+    };
+    <span class="comment">//飞船上的信号适配器</span>
+    <span class="keyword">this</span>.Adapter = {
+        <span class="comment">//对于收到的信息进行解码</span>
+        decode : <span class="function"><span class="keyword">function</span>(<span class="params">commond</span>)</span>{
+            <span class="keyword">var</span> str_id = <span class="string">""</span>,str_order = <span class="string">""</span>;
+            <span class="keyword">switch</span>(commond.substring(<span class="number">0</span>,<span class="number">2</span>)){
+                <span class="keyword">case</span> <span class="string">'00'</span>:
+                    str_id = <span class="number">0</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'01'</span>:
+                    str_id = <span class="number">1</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'10'</span>:
+                    str_id = <span class="number">2</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'11'</span>:
+                    str_id = <span class="number">3</span>;<span class="keyword">break</span>;
+            }
+            <span class="keyword">switch</span>(commond.substring(<span class="number">2</span>)){
+                <span class="keyword">case</span> <span class="string">'0001'</span>:
+                    str_order = <span class="string">"start"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'0010'</span>:
+                    str_order = <span class="string">"stop"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'1100'</span>:
+                    str_order = <span class="string">"destroy"</span>;<span class="keyword">break</span>;
+            }
+            <span class="keyword">return</span> {
+                id : str_id,
+                commond : str_order
+            }
+        },
+        <span class="comment">//对于发送的信息进行编码</span>
+        encode : <span class="function"><span class="keyword">function</span>(<span class="params">commond</span>)</span>{
+            <span class="comment">//id engine supply power各占3位，state占4位 共16位</span>
+            <span class="keyword">var</span> str = <span class="string">""</span>;
+            <span class="keyword">var</span> id=commond.id,engine=commond.engine,supply=commond.supply,
+                state=commond.state,power=commond.power;
+            <span class="keyword">switch</span>(id){
+                <span class="keyword">case</span> <span class="number">0</span>:str += <span class="string">"000"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="number">1</span>:str += <span class="string">"001"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="number">2</span>:str += <span class="string">"010"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="number">3</span>:str += <span class="string">"011"</span>;<span class="keyword">break</span>;
+            }
+            <span class="keyword">switch</span>(engine){
+                <span class="keyword">case</span> <span class="string">'speed_one'</span>:str += <span class="string">"000"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'speed_two'</span>:str += <span class="string">"001"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'speed_three'</span>:str += <span class="string">"010"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'speed_four'</span>:str += <span class="string">"011"</span>;<span class="keyword">break</span>;
+            }
+            <span class="keyword">switch</span>(supply){
+                <span class="keyword">case</span> <span class="string">'900'</span>:str += <span class="string">"000"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'600'</span>:str += <span class="string">"001"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'300'</span>:str += <span class="string">"010"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'100'</span>:str += <span class="string">"011"</span>;<span class="keyword">break</span>;
+            }
+            <span class="keyword">switch</span>(state){
+                <span class="keyword">case</span> <span class="string">'start'</span>:str += <span class="string">"0001"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'stop'</span>:str += <span class="string">"0010"</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'destroy'</span>:str += <span class="string">"1100"</span>;<span class="keyword">break</span>;
+                <span class="comment">//能量用完后暂停飞行开始充能</span>
+                <span class="keyword">case</span> <span class="string">'charge'</span>:str += <span class="string">"1111"</span>;<span class="keyword">break</span>;
+            }
+            <span class="keyword">if</span>(<span class="number">0</span>&lt; power &lt;<span class="number">100</span>){
+                power = <span class="string">"0"</span> + power;
+                str += power;
+            }<span class="keyword">else</span> <span class="keyword">if</span>(power == <span class="number">100</span>){
+                str += <span class="string">"100"</span>;
+            }<span class="keyword">else</span> <span class="keyword">if</span>(power == <span class="number">0</span>){
+                str += <span class="string">"000"</span>;
+            }
+            <span class="keyword">return</span> str;
+        }
+    }
+}
+Craft.prototype = {
+    constructor: Craft,
+    start : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        msgControl(<span class="string">"Nozomi power注入! 嗨~ 噗咻!"</span> + (<span class="keyword">this</span>.id+<span class="number">1</span>) + <span class="string">"号飞船已经起飞"</span>);
+        <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[<span class="keyword">this</span>.id]);
+        craftImg.classList.add(<span class="string">"craft_start"</span>);
+        craftImg.classList.add(<span class="keyword">this</span>.engine);
+        <span class="keyword">this</span>.Mediator.send();
+    },
+    stop : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        msgControl(<span class="string">"sa si su se so！"</span> + (<span class="keyword">this</span>.id+<span class="number">1</span>) + <span class="string">"号飞船停止飞行"</span>);
+        <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[<span class="keyword">this</span>.id]);
+        craftImg.classList.remove(<span class="string">"craft_start"</span>); 
+        <span class="keyword">this</span>.Mediator.send();
+    },
+    destroy : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        msgControl(<span class="string">"dame! dame!"</span> + (<span class="keyword">this</span>.id+<span class="number">1</span>) + <span class="string">"号飞船被销毁了"</span>);
+        <span class="comment">//先停止再销毁</span>
+        <span class="keyword">var</span> id = <span class="keyword">this</span>.id;
+        <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[id]);
+        craftImg.classList.remove(<span class="string">"craft_start"</span>);
+        clearInterval(<span class="keyword">this</span>.timer);
+        <span class="comment">//销毁飞船</span>
+        craftImg.classList.remove(<span class="keyword">this</span>.engine);
+        craftImg.classList.remove(<span class="string">"craft_create"</span>);
+        <span class="keyword">this</span>.state = <span class="string">"destroy"</span>;
+        <span class="keyword">this</span>.power = <span class="number">0</span>;
+        <span class="keyword">this</span>.Mediator.send();
+        <span class="comment">//销毁控制板</span>
+        <span class="built_in">document</span>.getElementById(id).classList.add(<span class="string">"li_hidden"</span>);
+        <span class="comment">//将飞船从轨道撤下</span>
+        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=crafts.length;i&lt;len;i++){
+            <span class="keyword">if</span>(crafts[i].id == id){
+                crafts.splice(i,<span class="number">1</span>);
+                <span class="keyword">break</span>;
+            }
+        }
+    },
+    powerConsume : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="keyword">var</span> speedMap = {
+            speed_one : <span class="number">900</span>,
+            speed_two : <span class="number">600</span>,
+            speed_three : <span class="number">300</span>,
+            speed_four : <span class="number">100</span> 
+        };
+        <span class="keyword">var</span> _this = <span class="keyword">this</span>;
+        <span class="keyword">if</span>(<span class="keyword">this</span>.timer){
+            clearInterval(<span class="keyword">this</span>.timer);
+        }
+        <span class="keyword">this</span>.timer = setInterval(run,speedMap[<span class="keyword">this</span>.engine]);
+        <span class="function"><span class="keyword">function</span> <span class="title">run</span>(<span class="params"></span>)</span>{
+            <span class="keyword">if</span>(_this.power&gt;<span class="number">0</span>){
+                _this.power = _this.power - <span class="number">1</span>;
+                <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[_this.id]);
+                craftImg.innerHTML = _this.power + <span class="string">"%"</span>;
+            }<span class="keyword">else</span>{
+                _this.stop();
+                _this.state = <span class="string">"charge"</span>;
+                clearInterval(_this.timer);
+                _this.powerAdd();
+            }
+            _this.Mediator.send();
+        }
+    },
+    powerAdd : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="keyword">var</span> _this = <span class="keyword">this</span>;
+        <span class="keyword">if</span>(<span class="keyword">this</span>.timer){
+            clearInterval(<span class="keyword">this</span>.timer);
+        }
+        <span class="keyword">this</span>.timer = setInterval(run,<span class="built_in">parseInt</span>(<span class="keyword">this</span>.supply));
+        <span class="function"><span class="keyword">function</span> <span class="title">run</span>(<span class="params"></span>)</span>{
+            <span class="keyword">if</span>(_this.power&lt;<span class="number">100</span>){
+                _this.power = _this.power + <span class="number">1</span>;
+                <span class="keyword">var</span> craftImg = <span class="built_in">document</span>.querySelector(<span class="string">"."</span> + craftsMap[_this.id]);
+                craftImg.innerHTML = _this.power + <span class="string">"%"</span>;
+            }<span class="keyword">else</span>{
+                <span class="keyword">if</span>(_this.state == <span class="string">"charge"</span>){
+                    _this.start();
+                    _this.state = <span class="string">"start"</span>;
+                    clearInterval(_this.timer);
+                    _this.powerConsume();
+                }<span class="keyword">else</span>{
+                    clearInterval(_this.timer);
+                }
+            }
+            _this.Mediator.send();
+        }
+    },
+}
+</code></pre><p>最后还需要增加一个DC，将飞船发送过来的信息展现在大屏幕上。</p>
+<pre><code><span class="comment">//行星DC</span>
+<span class="function"><span class="keyword">function</span> <span class="title">DC</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> instance = <span class="keyword">this</span>;
+    DC = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="keyword">return</span> instance;
+    };
+}
+DC.prototype = {
+    receive : <span class="function"><span class="keyword">function</span>(<span class="params">signal</span>)</span>{
+        <span class="comment">//console.log(signal);</span>
+        <span class="keyword">var</span> screen;
+        <span class="keyword">switch</span>(signal.id){
+            <span class="keyword">case</span> <span class="string">"1"</span>:screen=$(<span class="string">"screen_one"</span>);<span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"2"</span>:screen=$(<span class="string">"screen_two"</span>);<span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"3"</span>:screen=$(<span class="string">"screen_three"</span>);<span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"4"</span>:screen=$(<span class="string">"screen_four"</span>);<span class="keyword">break</span>;
+        }
+        screen.innerHTML = <span class="string">"&lt;td&gt;飞船"</span>+signal.id+<span class="string">"号&lt;/td&gt;"</span>+<span class="string">"&lt;td&gt;"</span>+signal.engine+<span class="string">"&lt;/td&gt;"</span>+<span class="string">"&lt;td&gt;"</span>+signal.supply+<span class="string">"&lt;/td&gt;"</span>
+        +<span class="string">"&lt;td&gt;"</span>+signal.state+<span class="string">"&lt;/td&gt;"</span>+<span class="string">"&lt;td&gt;"</span>+signal.power+<span class="string">"&lt;/td&gt;"</span>;
+    }
+}
+</code></pre><p>是时候展现我的画伯技术了</p>
+<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/craft.png" alt=""></p>
+<hr>
+<h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/blob/master/js/task28.js" target="_blank" rel="external">最终代码</a><br><a href="http://ife.supce.com/task28.html" target="_blank" rel="external">demo</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>练习JavaScript面向对象设计</li>
+<li>实践一些基础的设计模式</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>基于上一任务，我们继续改善</li>
+<li>第二代宇宙飞船系统进步了很多，但是我们依然无法知道飞船的能源消耗情况，可能有的时候我们发出开始飞行的指令，但飞船早就没有能量了，所以我们再次进行升级，这次我们需要增加一个飞船状态的监视系统</li>
+<li>我们为每个飞船增加一个信号发射器，飞船会通过BUS系统定时（比如每秒）广播自己的飞行状态。发送的时候，我们通过已经安装在飞船上的Adapter把状态数据翻译成二进制码形式，把飞船自身标示，飞行状态，能量编码成一个16位的二进制串，前四位用于飞船自身标示，接下来4位表示飞行状态，0010为停止，0001为飞行，1100表示即将销毁，后八位用于记录飞船剩余能源百分比</li>
+<li>行星上有一个信号接收器，用于通过BUS系统接受各个飞船发送过来的信号</li>
+<li>当信号接收器接收到飞船信号后，会把信息传给数据处理中心（DC），数据处理中心依然是调用Adapter模块，把这些二进制数据转为对象格式存储在DC中</li>
+<li>实现一个行星上的监视大屏幕，用来显示所有飞船的飞行状态及能源情况，当数据处理中心飞船数据发生变化时，它会相应在监视器上做出变化</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[IFE Task 14]]></title>
@@ -3605,119 +4008,6 @@ body {
 <span class="tag">&lt;/<span class="title">figure</span>&gt;</span>
 <span class="tag">&lt;<span class="title">p</span>&gt;</span>猫，分多种，是鼠的天敌。各地都有畜养。有黄、黑、白、灰等各种颜色；身形像狸，外貌像老虎，毛柔而齿利（有几乎无毛的品种）。以尾长腰短，目光如金银，上腭棱多的最好。身体小巧，样子招人喜爱。好奇心重。<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
 </code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之交互式的图片对比控件]]></title>
-    <link href="http://blog.supce.com/2016/09/26/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%9A%84%E5%9B%BE%E7%89%87%E5%AF%B9%E6%AF%94%E6%8E%A7%E4%BB%B6/"/>
-    <id>http://blog.supce.com/2016/09/26/CSS Secret 读书笔记之交互式的图片对比控件/</id>
-    <published>2016-09-25T16:00:00.000Z</published>
-    <updated>2016-09-26T12:50:45.385Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="交互式的图片对比控件">交互式的图片对比控件</h1><p>利用CSS可以模拟一种图片对比滑动控件，这个控件会把两张图片叠加起来，允许用户拖动分割条来控制这两张图片的显露区域。这种控件可以理解为两层结构：<br>下层是一张固定的图片，上层的图片则可以在水平方向上调整大小，从而能够显示下层的图片。<br>一般这种需求是可以利用JavaScript解决的。但是也可以利用下面这两种CSS方式。</p>
-<h2 id="resize方案"><code>resize</code>方案</h2><p>可以利用CSS3中的<code>resize</code>属性。这个属性就算没听说过，但是也肯定接触过它的行为，因为对于<code>&lt;textarea&gt;</code>元素来说，整个属性被默认设置为<code>both</code>，这就使得<code>&lt;textarea&gt;</code>元素在水平和垂直方向上是可以调整大小的。<br>对于任何一个<code>overflow</code>属性不是<code>visible</code>的元素来说，<code>resize</code>属性都是适用的。大部分元素<code>resize</code>属性的默认值是none，即禁止调整大小。该属性也接受<code>horizontal</code>和<code>vertical</code>来限制元素调整大小的方向。<br><a id="more"></a><br>搞清楚<code>resize</code>属性，问题就很好解决了。<br>首先想到的是两个img元素，但是直接对一个img元素应用<code>resize</code>会导致图片变形失真。这时候可以在它外面包裹一个div，然后对div设置<code>resize</code>进行大小调整。</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"image-slider"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"bad.jpg"</span> /&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"good.jpg"</span> /&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>然后给元素设置一些基本的样式，并设置好对应div元素的<code>resize</code>属性值：</p>
-<pre><code><span class="class">.image-slider</span><span class="rules">{
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> inline-block</span></span>;
-}</span>
-<span class="class">.image-slider</span>&gt;<span class="tag">div</span><span class="rules">{
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>;<span class="rule"><span class="attribute">bottom</span>:<span class="value"><span class="number">0</span></span></span>;<span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40%</span></span></span>;  <span class="comment">/*初始宽度*/</span>
-    <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">100%</span></span></span>;
-    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-    <span class="rule"><span class="attribute">resize</span>:<span class="value"> horizontal</span></span>;
-}</span>
-<span class="class">.image-slider</span> <span class="tag">img</span><span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;  <span class="comment">/*img是一种类似text的元素，在结束的时候，
-                        会在末尾加上一个空白符，所以就会多出3px 设置为block可解决*/</span>
-}</span>
-</code></pre><p>这时候的效果是这样的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-15-1.gif" alt=""><br>虽然在上层图片的右下角有一个调节的手柄，但是并不容易辨认。这时候可以利用一个伪元素，将其覆盖在初始的调节手柄之上。最后对伪元素进行美化：</p>
-<pre><code><span class="tag">image-slider</span>&gt;<span class="rule"><span class="attribute">div</span>:<span class="value">:before{
-    content: <span class="string">""</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">bottom</span>:<span class="value"><span class="number">0</span></span></span>;<span class="rule"><span class="attribute">right</span>:<span class="value"><span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">12px</span></span></span>;<span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">12px</span></span></span>;
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">5px</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(-<span class="number">45deg</span>,white <span class="number">50%</span>,transparent <span class="number">0</span>)</span></span>;
-    <span class="rule"><span class="attribute">-webkit-filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">0</span> <span class="number">0</span> <span class="number">2px</span> black)</span></span>;
-    <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">drop-shadow</span>(<span class="number">0</span> <span class="number">0</span> <span class="number">2px</span> black)</span></span>;
-    <span class="rule"><span class="attribute">background-clip</span>:<span class="value"> content-box</span></span>;
-    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> ew-resize</span></span>;
-}
-</code></pre><p><em><code>cursor: ew-resize</code>提供额外的自释性，可以提示用户这个区域可以进行水平方向的拖动</em></p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-15-2.gif" alt=""></p>
-<h2 id="范围输入控件方案">范围输入控件方案</h2><p>利用<code>resize</code>属性很简单就实现了我们的需求，但是这个方案有下面几个不足：</p>
-<ul>
-<li>利用<code>resize</code>方案对于键盘来说是不可访问的</li>
-<li>只能通过拖动来调整上层图片。用户不能点击到某个点来调整宽度。</li>
-<li>用户只能在上层图片的右上角进行大小的调整，有可能被用户忽略。</li>
-</ul>
-<p>为了解决上面三个问题，可以利用一点JS，将一个原生的滑动控件覆盖在图片上，用这个控件来控制上层图片的伸缩。<br>下面可以优化下HTML代码结构，通过JS来添加相应的元素和控件。</p>
-<pre><code>&lt;<span class="tag">div</span> class=<span class="string">"image-slider-2"</span>&gt;
-    &lt;<span class="tag">img</span> src=<span class="string">"bad.jpg"</span> /&gt;
-    &lt;<span class="tag">img</span> src=<span class="string">"good.jpg"</span> /&gt;
-&lt;/div&gt;
-</code></pre><p>CSS:</p>
-<pre><code><span class="class">.image-slider-2</span><span class="rules">{
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> inline-block</span></span>;
-}</span>
-<span class="class">.image-slider-2</span> &gt; <span class="tag">div</span><span class="rules">{
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>;<span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-}</span>
-<span class="class">.image-slider-2</span> <span class="tag">img</span><span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-}</span>
-<span class="class">.image-slider-2</span> <span class="tag">input</span><span class="rules">{
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>; <span class="rule"><span class="attribute">bottom</span>:<span class="value"><span class="number">5px</span></span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="comment">/*filter: contrast(.5);
-    mix-blend-mode: luminosity;*/</span>
-}</span>
-</code></pre><p>JS:</p>
-<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> slider = <span class="built_in">document</span>.querySelector(<span class="string">'.image-slider-2'</span>);
-    <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);
-    slider.appendChild(div);
-    <span class="keyword">var</span> img = slider.querySelector(<span class="string">'img'</span>);
-    slider.insertBefore(img,div);
-    div.appendChild(img);
-    <span class="comment">//创建滑动控件</span>
-    <span class="keyword">var</span> range = <span class="built_in">document</span>.createElement(<span class="string">'input'</span>);
-    range.type = <span class="string">'range'</span>;
-    range.oninput = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-        div.style.width = <span class="keyword">this</span>.value + <span class="string">'%'</span>;
-    }
-    slider.appendChild(range);
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre><p>最终效果如下：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-15-3.gif" alt=""></p>
-<blockquote>
-<p>最后真的希望雾霾问题能够解决，能够给后代留一个蓝天。</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="交互式的图片对比控件">交互式的图片对比控件</h1><p>利用CSS可以模拟一种图片对比滑动控件，这个控件会把两张图片叠加起来，允许用户拖动分割条来控制这两张图片的显露区域。这种控件可以理解为两层结构：<br>下层是一张固定的图片，上层的图片则可以在水平方向上调整大小，从而能够显示下层的图片。<br>一般这种需求是可以利用JavaScript解决的。但是也可以利用下面这两种CSS方式。</p>
-<h2 id="resize方案"><code>resize</code>方案</h2><p>可以利用CSS3中的<code>resize</code>属性。这个属性就算没听说过，但是也肯定接触过它的行为，因为对于<code>&lt;textarea&gt;</code>元素来说，整个属性被默认设置为<code>both</code>，这就使得<code>&lt;textarea&gt;</code>元素在水平和垂直方向上是可以调整大小的。<br>对于任何一个<code>overflow</code>属性不是<code>visible</code>的元素来说，<code>resize</code>属性都是适用的。大部分元素<code>resize</code>属性的默认值是none，即禁止调整大小。该属性也接受<code>horizontal</code>和<code>vertical</code>来限制元素调整大小的方向。<br>]]>
     
     </summary>
     
