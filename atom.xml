@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-11-27T02:19:35.909Z</updated>
+  <updated>2016-11-29T12:10:46.200Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,301 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[IFE Task 16]]></title>
+    <link href="http://blog.supce.com/2016/11/29/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8023/"/>
+    <id>http://blog.supce.com/2016/11/29/JavaScript之基础23/</id>
+    <published>2016-11-28T16:00:00.000Z</published>
+    <updated>2016-11-29T12:10:46.200Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>加强对JavaScript的掌握</li>
+<li>熟悉常用表单处理逻辑</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>在页面中添加多个表单</li>
+<li>要求:</li>
+<li>表单获得焦点时，下方显示表单填写规则</li>
+<li>表单失去焦点时校验表单内容</li>
+<li>校验结果正确时，表单边框显示绿色，并在下方显示验证通过的描述文字</li>
+<li>校验结果错误时，表单边框显示红色，并在下方显示验证错误的描述文字</li>
+<li>点击提交按钮时，对页面中所有输入进行校验，校验结果显示方式同上。若所有表单校验通过，弹窗显示“提交成功”，否则显示“提交失败”</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h1 id="整体思路">整体思路</h1><p>主要是对于表单的输入检验和文本提示，可以将文本提示放在HTML中，并将它们隐藏。然后根据不同的检测结果显示不同的提示。</p>
+<pre><code><span class="tag">&lt;<span class="title">form</span> <span class="attribute">id</span>=<span class="value">"register"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span> <span class="attribute">id</span>=<span class="value">"userName"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">label</span>&gt;</span>用户名<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">""</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"prompt"</span>&gt;</span>中英文均可，4-16个字符<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"checkErr"</span>&gt;</span>必填！中英文均可，4-16个字符<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"checkSucc"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span> <span class="attribute">id</span>=<span class="value">"pwd"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">label</span>&gt;</span>密码<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">""</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"prompt"</span>&gt;</span>6-16个字符<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"checkErr"</span>&gt;</span>必填！6-16个字符<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"checkSucc"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span> <span class="attribute">id</span>=<span class="value">"confirmPwd"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">label</span>&gt;</span>确认密码<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">""</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"prompt"</span>&gt;</span>请再次填写密码<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"checkErr"</span>&gt;</span>密码不一致<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"checkSucc"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span> <span class="attribute">id</span>=<span class="value">"email"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">label</span>&gt;</span>邮箱<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">""</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"prompt"</span>&gt;</span>example@ife.com<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"checkErr"</span>&gt;</span>邮箱格式不正确<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"checkSucc"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span> <span class="attribute">id</span>=<span class="value">"tel"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">label</span>&gt;</span>手机号<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">""</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"prompt"</span>&gt;</span>请输入11位手机号码<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"checkErr"</span>&gt;</span>手机号码格式不正确<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"checkSucc"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"submitBtn"</span> <span class="attribute">type</span>=<span class="value">"submit"</span>&gt;</span>提交<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">form</span>&gt;</span>
+</code></pre><p>然后设置以下基本样式</p>
+<pre><code><span class="id">#register</span> <span class="tag">label</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">80px</span></span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span> <span class="number">8px</span></span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> inline-block</span></span>;
+    <span class="rule"><span class="attribute">text-align</span>:<span class="value"> right</span></span>;
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> normal <span class="number">16px</span>/<span class="number">16px</span> arial,sans-serif</span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#333</span></span></span>;
+}</span>
+<span class="id">#register</span> <span class="tag">input</span><span class="rules">{
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">20px</span></span></span>;
+}</span>
+<span class="class">.inputErr</span><span class="rules">{
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid red</span></span>;
+}</span>
+<span class="id">#submitBtn</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">60px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> white</span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid transparent</span></span>;
+    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">4px</span></span></span>;
+    <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#5cb85c</span></span></span>;
+}</span>
+<span class="id">#submitBtn</span><span class="pseudo">:hover</span><span class="rules">{
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#449d44</span></span></span>;
+}</span>
+<span class="class">.prompt</span><span class="rules">{
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> normal <span class="number">10px</span>/<span class="number">10px</span> arial,sans-serif</span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#999</span></span></span>;
+}</span>
+<span class="class">.checkErr</span><span class="rules">{
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> normal <span class="number">10px</span>/<span class="number">10px</span> arial,sans-serif</span></span>;
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
+}</span>
+<span class="class">.checkSucc</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">16px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">16px</span></span></span>;
+    <span class="rule"><span class="attribute">vertical-align</span>:<span class="value"> middle</span></span>;
+    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(icon/check.png) no-repeat</span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> inline-block</span></span>;
+}</span>
+<span class="class">.hidden</span><span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;
+}</span>
+</code></pre><p>对于检测，可以写一个检测工具类</p>
+<pre><code><span class="comment">//表单检测工具包</span>
+<span class="keyword">var</span> CheckUtil = {
+    <span class="comment">//获取字符串长度</span>
+    getLength : <span class="function"><span class="keyword">function</span><span class="params">(str)</span></span>{
+        <span class="keyword">var</span> strLen = <span class="number">0</span>;
+        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=str.length;i&lt;len;i++){
+            <span class="keyword">var</span> <span class="keyword">char</span> = str.charCodeAt(i);
+            <span class="keyword">if</span>(<span class="keyword">char</span> &gt;=<span class="number">0</span> &amp;&amp; <span class="keyword">char</span> &lt;= <span class="number">128</span>){
+                strLen += <span class="number">1</span>;
+            }<span class="keyword">else</span>{
+                strLen += <span class="number">2</span>;
+            }
+        }
+        <span class="keyword">return</span> strLen;
+    },
+    <span class="comment">//检测用户名</span>
+    checkName : <span class="function"><span class="keyword">function</span><span class="params">(input)</span></span>{
+        <span class="keyword">var</span> <span class="keyword">parent</span> = input.parentNode;
+        <span class="keyword">var</span> value = input.value;
+        <span class="keyword">var</span> len = CheckUtil.getLength(value);
+        <span class="keyword">if</span>(len &gt;=<span class="number">4</span> &amp;&amp; len &lt;=<span class="number">16</span>){
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        }<span class="keyword">else</span>{
+            <span class="keyword">return</span> <span class="keyword">false</span>;
+        }
+    },
+    <span class="comment">//检测密码</span>
+    checkPwd : <span class="function"><span class="keyword">function</span><span class="params">(input)</span></span>{
+        <span class="keyword">var</span> <span class="keyword">parent</span> = input.parentNode;
+        <span class="keyword">var</span> value = input.value;
+        <span class="keyword">var</span> len = CheckUtil.getLength(value);
+        <span class="keyword">var</span> ns = get_nextsibling(<span class="keyword">parent</span>);
+        <span class="keyword">var</span> nsValue = ns.getElementsByTagName(<span class="string">"input"</span>)[<span class="number">0</span>].value;
+        <span class="keyword">if</span>(value !== nsValue){
+            console.log(ns);
+            ns.querySelector(<span class="string">".checkErr"</span>).classList.remove(<span class="string">"hidden"</span>);
+        }
+        <span class="keyword">if</span>(len &gt;= <span class="number">6</span> &amp;&amp; len &lt;=<span class="number">16</span>){
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        }<span class="keyword">else</span>{
+            <span class="keyword">return</span> <span class="keyword">false</span>;
+        }
+        <span class="function"><span class="keyword">function</span> <span class="title">get_nextsibling</span><span class="params">(n)</span></span>{
+            <span class="keyword">var</span> x=n.nextSibling;
+            <span class="keyword">while</span> (x.nodeType!=<span class="number">1</span>){
+                x=x.nextSibling;
+            }
+            <span class="keyword">return</span> x;
+        }
+    },
+    <span class="comment">//确认密码</span>
+    confirmPwd : <span class="function"><span class="keyword">function</span><span class="params">(input)</span></span>{
+        <span class="keyword">var</span> <span class="keyword">parent</span> = input.parentNode;
+        <span class="keyword">var</span> value = input.value;
+        <span class="keyword">var</span> ps = get_previoussibling(<span class="keyword">parent</span>);
+        <span class="keyword">var</span> psValue = ps.getElementsByTagName(<span class="string">"input"</span>)[<span class="number">0</span>].value;
+        <span class="keyword">if</span>((value !== psValue) || (value == <span class="string">""</span>)){
+            <span class="keyword">return</span> <span class="keyword">false</span>;
+        }<span class="keyword">else</span>{
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        }
+
+        <span class="function"><span class="keyword">function</span> <span class="title">get_previoussibling</span><span class="params">(n)</span></span>{
+            <span class="keyword">var</span> x=n.previousSibling;
+            <span class="keyword">while</span> (x.nodeType!=<span class="number">1</span>){
+                x=x.previousSibling;
+            }
+            <span class="keyword">return</span> x;
+        }
+    },
+    <span class="comment">//检测email</span>
+    checkMail : <span class="function"><span class="keyword">function</span><span class="params">(input)</span></span>{
+        <span class="keyword">var</span> email = input.value.replace(/^\s+|\s+$/g,<span class="string">""</span>).toLowerCase();<span class="comment">//去除前后空格并转小写</span>
+        <span class="keyword">var</span> reg=/^[a-z0-<span class="number">9</span>](\w|\.|-)*@([a-z0-<span class="number">9</span>]+-?[a-z0-<span class="number">9</span>]+\.){<span class="number">1</span>,<span class="number">3</span>}[a-z]{<span class="number">2</span>,<span class="number">4</span>}$/i;
+        <span class="keyword">if</span>(email.match(reg) == <span class="keyword">null</span>){
+            <span class="keyword">return</span> <span class="keyword">false</span>;
+        }<span class="keyword">else</span>{
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        }
+    },
+    <span class="comment">//检测手机号码</span>
+    checkTel : <span class="function"><span class="keyword">function</span><span class="params">(input)</span></span>{
+        <span class="keyword">var</span> phone = input.value;
+        <span class="keyword">if</span>(!(/^<span class="number">1</span>[<span class="number">34578</span>]\d{<span class="number">9</span>}$/.test(phone))){ 
+            <span class="keyword">return</span> <span class="keyword">false</span>; 
+        }<span class="keyword">else</span>{
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        } 
+    },
+}
+</code></pre><p>然后隐藏所有的提示</p>
+<pre><code><span class="comment">//span初始化</span>
+<span class="function"><span class="keyword">function</span> <span class="title">initSpan</span><span class="params">(node)</span>{</span>
+    var spans = node.getElementsByTagName<span class="params">(<span class="string">"span"</span>)</span>;
+    <span class="keyword">for</span><span class="params">(var i=<span class="number">0</span>,len=spans.length;i&lt;len;i++)</span>{
+        spans[i].classList.add<span class="params">(<span class="string">"hidden"</span>)</span>;
+    }
+    var input = node.getElementsByTagName<span class="params">(<span class="string">"input"</span>)</span>[<span class="number">0</span>];
+    input.classList.remove<span class="params">(<span class="string">"inputErr"</span>)</span>;
+}
+<span class="comment">//隐藏所有span</span>
+initSpan<span class="params">($<span class="params">(<span class="string">"register"</span>)</span>)</span>;
+</code></pre><p>并且为input添加focus和blur事件</p>
+<pre><code>//input添加事件
+<span class="keyword">var</span> inputs = $(<span class="string">"register"</span>).getElementsByTagName(<span class="string">"input"</span>);
+<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=inputs.length;i&lt;len;i++){
+    //获得焦点时清除内容并且显示提示
+    addHandler(inputs[i],<span class="string">"focus"</span>,function(e){
+        e.target.value = <span class="string">""</span>;
+        <span class="keyword">var</span> parent = e.target.parentNode;
+        initSpan(parent);
+        <span class="keyword">var</span> prompt = parent.querySelector(<span class="string">".prompt"</span>);
+        prompt.classList.remove(<span class="string">"hidden"</span>);
+    });
+    //失去焦点时检测并提示
+    addHandler(inputs[i],<span class="string">"blur"</span>,function(e){
+        <span class="keyword">var</span> input = e.target;
+        check(input);
+    });
+}
+function check(input){
+    <span class="keyword">var</span> parent = input.parentNode;
+    <span class="keyword">var</span> <span class="literal">result</span> = null;
+    initSpan(parent);
+    switch(parent.id){
+        <span class="keyword">case</span> <span class="string">"userName"</span>:<span class="literal">result</span> = <span class="type">CheckUtil</span>.checkName(input);<span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">"pwd"</span>:<span class="literal">result</span> = <span class="type">CheckUtil</span>.checkPwd(input);<span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">"confirmPwd"</span>:<span class="literal">result</span> = <span class="type">CheckUtil</span>.confirmPwd(input);<span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">"email"</span>:<span class="literal">result</span> = <span class="type">CheckUtil</span>.checkMail(input);<span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">"tel"</span>:<span class="literal">result</span> = <span class="type">CheckUtil</span>.checkTel(input);<span class="keyword">break</span>;
+    }
+    <span class="keyword">if</span>(<span class="literal">result</span>){
+        parent.querySelector(<span class="string">".checkSucc"</span>).classList.remove(<span class="string">"hidden"</span>);
+    }<span class="keyword">else</span>{
+        input.classList.add(<span class="string">"inputErr"</span>);
+        parent.querySelector(<span class="string">".checkErr"</span>).classList.remove(<span class="string">"hidden"</span>);
+    }
+}
+</code></pre><p>最后给button添加检测事件</p>
+<pre><code>//提交按钮
+addHandler($(<span class="string">"submitBtn"</span>),<span class="string">"click"</span>,function(){
+    checkAll();
+});
+function checkAll(){
+    <span class="keyword">var</span> inputs = $(<span class="string">"register"</span>).getElementsByTagName(<span class="string">"input"</span>);
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=inputs.length;i&lt;len;i++){
+        <span class="keyword">var</span> parent = inputs[i].parentNode;
+        <span class="keyword">var</span> <span class="literal">result</span> = <span class="literal">true</span>;
+        initSpan(parent);
+        switch(parent.id){
+            <span class="keyword">case</span> <span class="string">"userName"</span>:<span class="literal">result</span> = <span class="literal">result</span> &amp; <span class="type">CheckUtil</span>.checkName(inputs[i]);<span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"pwd"</span>:<span class="literal">result</span> = <span class="literal">result</span> &amp; <span class="type">CheckUtil</span>.checkPwd(inputs[i]);<span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"confirmPwd"</span>:<span class="literal">result</span> = <span class="literal">result</span> &amp; <span class="type">CheckUtil</span>.confirmPwd(inputs[i]);<span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"email"</span>:<span class="literal">result</span> = <span class="literal">result</span> &amp; <span class="type">CheckUtil</span>.checkMail(inputs[i]);<span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"tel"</span>:<span class="literal">result</span> = <span class="literal">result</span> &amp; <span class="type">CheckUtil</span>.checkTel(inputs[i]);<span class="keyword">break</span>;
+        }
+    }
+    <span class="keyword">if</span>(<span class="literal">result</span>){
+        alert(<span class="string">"成功"</span>);
+    }<span class="keyword">else</span>{
+        alert(<span class="string">"失败"</span>);
+    }
+}
+</code></pre><blockquote>
+<p>突然想起高中时代玩的网游aion，逛逛天族的风景 看看贝鲁斯兰的雪 听听幻影神圣所的静谧音乐</p>
+</blockquote>
+<hr>
+<h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/blob/master/task30.html" target="_blank" rel="external">最终代码</a><br><a href="http://ife.supce.com/task30.html" target="_blank" rel="external">demo</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>加强对JavaScript的掌握</li>
+<li>熟悉常用表单处理逻辑</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>在页面中添加多个表单</li>
+<li>要求:</li>
+<li>表单获得焦点时，下方显示表单填写规则</li>
+<li>表单失去焦点时校验表单内容</li>
+<li>校验结果正确时，表单边框显示绿色，并在下方显示验证通过的描述文字</li>
+<li>校验结果错误时，表单边框显示红色，并在下方显示验证错误的描述文字</li>
+<li>点击提交按钮时，对页面中所有输入进行校验，校验结果显示方式同上。若所有表单校验通过，弹窗显示“提交成功”，否则显示“提交失败”</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[IFE Task 15]]></title>
@@ -3858,155 +4153,6 @@ body {
 <pre><code><span class="tag">li</span><span class="pseudo">:only-child</span>{
     <span class="comment">/*只有一个列表时的样式*/</span>
 }
-</code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之结构与布局(一)]]></title>
-    <link href="http://blog.supce.com/2016/09/28/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%BB%93%E6%9E%84%E4%B8%8E%E5%B8%83%E5%B1%80(%E4%B8%80)/"/>
-    <id>http://blog.supce.com/2016/09/28/CSS Secret 读书笔记之结构与布局(一)/</id>
-    <published>2016-09-27T16:00:00.000Z</published>
-    <updated>2016-09-28T03:13:23.512Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="自适应内部元素">自适应内部元素</h1><p>如果不给一个元素指定一个具体的高度(<code>height</code>),这个元素就会根据内容适应高度。但是对于<code>width</code>怎么样才能有类似的行为呢？<br>首先给出一段HTML测试代码：</p>
-<pre><code><span class="tag">&lt;<span class="title">p</span>&gt;</span>猫，属于猫科动物，分家猫、野猫，是全世界家庭中较为广泛的宠物。家猫的祖先据推测是起源于古埃及的沙漠猫，波斯的波斯猫，已经被人类驯化了3500年（但未像狗一样完全地被驯化）。<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-<span class="tag">&lt;<span class="title">figure</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"cat.jpg"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">figcaption</span>&gt;</span>猫咪的训练要从幼时抓起，先要摸清猫咪的脾气，然后根据需要选择不同的方式来进行训练。以下几种方式可供选用：强迫、诱导、奖励、惩罚、喊叫。<span class="tag">&lt;/<span class="title">figcaption</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">figure</span>&gt;</span>
-<span class="tag">&lt;<span class="title">p</span>&gt;</span>猫，分多种，是鼠的天敌。各地都有畜养。有黄、黑、白、灰等各种颜色；身形像狸，外貌像老虎，毛柔而齿利（有几乎无毛的品种）。以尾长腰短，目光如金银，上腭棱多的最好。身体小巧，样子招人喜爱。好奇心重。<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-</code></pre><a id="more"></a>
-<p>设置一些基本的样式：</p>
-<pre><code><span class="tag">figure</span><span class="rules">{
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid black</span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
-}</span>
-<span class="tag">figure</span> &gt; <span class="tag">img</span><span class="rules">{ <span class="rule"><span class="attribute">max-width</span>:<span class="value"> inherit</span></span>; }</span>
-</code></pre><p>初始的效果是这样的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-16-1.jpg" alt=""><br>这个时候希望figure元素能够跟它所包含的图片宽度一样，而且是水平居中的。即：如何让figure的宽度让内部的图片决定。<br>首先想到的是浮动，给figure增加<code>float: left;</code><br>这时候宽度虽然符合要求，但是改变了原有的布局。<br>如果对figure元素设置<code>display: inline-block;</code>，让它根据内容来决定自身的尺寸。但是元素的宽度并不是根据图片的宽度来决定的。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-16-2.jpg" alt=""><br>最后只能设置figure元素为定宽，然后对其内部的img设置<code>max-width: 100%;</code>，但是这就意味着放弃了响应式布局。<br>当然之前也用过JS来动态的设置figure宽度，但是我们可以利用CSS3的一个新关键字，轻松解决这个问题。<br>CSS3中为<code>height</code>和<code>width</code>属性定义了一<code>min-content</code>的关键字。这个关键字将元素的宽度设置为元素内部最大的不可断行元素的宽度(即最宽的单词，图片，或具有固定宽度的盒元素)。<br>为了平稳回退，可以再给元素设置一个固定的<code>max-width</code>值。最终代码如下：</p>
-<pre><code><span class="tag">figure</span><span class="rules">{
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid black</span></span>;
-}</span>
-<span class="tag">figure</span><span class="rules">{
-    <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">300px</span></span></span>;
-    <span class="rule"><span class="attribute">max-width</span>:<span class="value"> min-content</span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
-}</span>
-<span class="tag">figure</span> &gt; <span class="tag">img</span><span class="rules">{ <span class="rule"><span class="attribute">max-width</span>:<span class="value"> inherit</span></span>; }</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-16-3.jpg" alt=""></p>
-<p>问题轻松解决~</p>
-<hr>
-<h1 id="精准控制表格列宽">精准控制表格列宽</h1><p>对于table有一个属性，叫作<code>table-layout</code>，它的默认值为<code>auto</code>，其行为模式被称作自定表格布局算法。也就是平时所看到的表格布局行为。<br>其具体的行为可以用下面这断代码来演示：<br>为了便于演示，先把CSS样式放前面，然后再把HTML分段。</p>
-<pre><code><span class="tag">section</span><span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">500px</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> dashed red</span></span>;
-}</span>
-<span class="tag">table</span><span class="rules">{
-    <span class="rule"><span class="attribute">margin-bottom</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    <span class="rule"><span class="attribute">border-collapse</span>:<span class="value"> collapse</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;
-}</span>
-<span class="tag">table</span>,<span class="tag">tr</span>,<span class="tag">td</span><span class="rules">{
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid black</span></span>;
-}</span>
-<span class="tag">td</span><span class="class">.preformatted</span><span class="rules">{
-    <span class="rule"><span class="attribute">white-space</span>:<span class="value"> pre</span></span>;
-    <span class="rule"><span class="attribute">text-overflow</span>:<span class="value"> ellipsis</span></span>;
-    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-}</span>
-</code></pre><p>HTML：</p>
-<pre><code><span class="tag">&lt;<span class="title">section</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">table</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span>&gt;</span>如果我们不<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span>&gt;</span>指定单元格的宽度，则这些单元格就会根据它们内容的长短来分配宽度，也就是说，内容较长的单元格所能分配到的宽度也较多<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">table</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">table</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span>&gt;</span>如果我们不<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span>&gt;</span>指定单元格的宽度，则这些单元格就会根据它们内容的长短来分配宽度，也就是说，内容较长的单元格所能分配到的宽度也较多<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span>&gt;</span>表格的每一行都会参与到列宽的计算中，而不仅是第一行<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span>&gt;</span>注意，这个表格的列宽分配结果跟上面那个表格不同<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">table</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">table</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span> <span class="attribute">style</span>=<span class="value">"width:1000px"</span>&gt;</span>即使我们为单元格指定了宽度，也未必会得到对应的结果。比如这个单元格宽度为1000px<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span> <span class="attribute">style</span>=<span class="value">"width:2000px"</span>&gt;</span>这个单元格宽度被指定为2000px。由于外层容器不足以提供3000px，则两个单元格等比例缩小为33.3%和66.6%<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">table</span>&gt;</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-16-4.jpg" alt=""></p>
-<pre><code>        <span class="tag">&lt;<span class="title">table</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span>&gt;</span>如果我们禁止文本折行，那么表格宽度也可能远远超出其容器的宽度<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span> <span class="attribute">class</span>=<span class="value">"preformatted"</span>&gt;</span>而且 text-flow:ellipsis 对此也无能为力而且 text-flow:ellipsis 对此也无能为力而且 text-flow:ellipsis 对此也无能为力<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">table</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">table</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span>&gt;</span>大图片或者代码块也可能会导致同样的问题<span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"http://lea.verou.me/book/panoramic.jpg"</span> /&gt;</span><span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">table</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-16-5.jpg" alt=""></p>
-<p>如果我们把<code>table-layout</code>的值设置为<code>fixed</code>，这时候就是利用固定表格布局算法了。在这个算法下，表格的内容不会影响单元格的宽度，它把更多的控制权交给开发者，我们设置的宽度也会起作用，同时，类似于溢出等元素行为也会接受控制，因此的表格的内容将只能影响表格的行高。<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-16-6.jpg" alt=""><br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-16-7.jpg" alt=""><br>通过对比可以发现，设置fixed后，图片所在的单元行并没有根据图片的宽度来扩大自己的宽度。<br>如果给该单元格设置<code>overflow: hidden;</code>也是有效的：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-16-8.jpg" alt=""></p>
-<hr>
-<h1 id="满幅的背景，定宽的内容">满幅的背景，定宽的内容</h1><p>有一种网页设计方案，特别是在电子产品的介绍页面比较流行。比如下图某手机的发布页面：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-16-9.jpg" alt=""><br>这种设计可以称作为“背景宽度满幅，内容宽度固定”。其典型的特征如下：</p>
-<ul>
-<li>页面中包含多个大区块，每个区块都占据了整个视口的宽度，区块的背景也各不相同。</li>
-<li>内容是定宽的，即使在不同分辨率下的宽度不一样，那也只是因为媒体查询改变了这个固定宽度的宽度值。在某些情况下，不同区块的内容也可能具有不同的宽度。</li>
-</ul>
-<p>要实现这种设计风格，最常见的方法就是为每个区块准备两层元素：外层用来实现满幅的背景，内层用来实现定宽的内容，然后再通过<code>margin: auto;</code>实现内容的水平居中。<br>比如下面这个例子：<br>HTML:</p>
-<pre><code><span class="tag">&lt;<span class="title">footer</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"wrapper"</span>&gt;</span>
-        <span class="comment">&lt;!--内容部分--&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
-</code></pre><p>CSS：</p>
-<pre><code><span class="tag">footer</span><span class="rules">{
-    <span class="rule"><span class="attribute">blackground</span>:<span class="value"> <span class="function">url</span>()</span></span>;
-}</span>
-<span class="class">.wrapper</span><span class="rules">{
-    <span class="rule"><span class="attribute">max-width</span>:<span class="value"><span class="number">900px</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">1em</span> auto</span></span>;
-}</span>
-</code></pre><p>如果对<code>marign: auto;</code>有足够的了解，就会发现没必要再添加一层额外的元素。<br><code>margin: auto</code>所产生的左右外边距实际上都等于视口宽度的一半减去内容宽度的一半，根据上面的例子，左右外边距就是：50% - 450px。这时候就可以利用我们之前用到过的<code>calc</code>了。<br>可以把上面的代码修改下：</p>
-<pre><code><span class="tag">footer</span><span class="rules">{
-    <span class="rule"><span class="attribute">blackground</span>:<span class="value"> <span class="function">url</span>()</span></span>;
-}</span>
-<span class="class">.wrapper</span><span class="rules">{
-    <span class="rule"><span class="attribute">max-width</span>:<span class="value"><span class="number">900px</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">1em</span> <span class="function">calc</span>(<span class="number">50%</span> - <span class="number">450px</span>)</span></span>;
-}</span>
-</code></pre><p>我们最初的需求是能够去掉包裹内容的div元素。这时候可以稍微改变下思路，去掉div，给父元素设置<code>padding</code>值：</p>
-<pre><code><span class="tag">footer</span><span class="rules">{
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">1em</span></span></span>; <span class="comment">/*平稳回退*/</span>
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">1em</span> <span class="function">calc</span>(<span class="number">50%</span> - <span class="number">450px</span>)</span></span>;
-    <span class="rule"><span class="attribute">blackground</span>:<span class="value"> <span class="function">url</span>()</span></span>;
-}</span>
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="自适应内部元素">自适应内部元素</h1><p>如果不给一个元素指定一个具体的高度(<code>height</code>),这个元素就会根据内容适应高度。但是对于<code>width</code>怎么样才能有类似的行为呢？<br>首先给出一段HTML测试代码：</p>
-<pre><code><span class="tag">&lt;<span class="title">p</span>&gt;</span>猫，属于猫科动物，分家猫、野猫，是全世界家庭中较为广泛的宠物。家猫的祖先据推测是起源于古埃及的沙漠猫，波斯的波斯猫，已经被人类驯化了3500年（但未像狗一样完全地被驯化）。<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-<span class="tag">&lt;<span class="title">figure</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"cat.jpg"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">figcaption</span>&gt;</span>猫咪的训练要从幼时抓起，先要摸清猫咪的脾气，然后根据需要选择不同的方式来进行训练。以下几种方式可供选用：强迫、诱导、奖励、惩罚、喊叫。<span class="tag">&lt;/<span class="title">figcaption</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">figure</span>&gt;</span>
-<span class="tag">&lt;<span class="title">p</span>&gt;</span>猫，分多种，是鼠的天敌。各地都有畜养。有黄、黑、白、灰等各种颜色；身形像狸，外貌像老虎，毛柔而齿利（有几乎无毛的品种）。以尾长腰短，目光如金银，上腭棱多的最好。身体小巧，样子招人喜爱。好奇心重。<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
 </code></pre>]]>
     
     </summary>
