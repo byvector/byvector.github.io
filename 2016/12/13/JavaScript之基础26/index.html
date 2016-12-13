@@ -1,0 +1,870 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="EM_nzu8-nfb0oJOmKGJImt--r_PtBs7qZz_bWTFRWZQ" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="supce's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="任务目的
+练习JavaScript在DOM、字符串处理相关知识
+练习对于复杂UI，如何进行数据机构建模
+
+
+任务描述
+实现一个类似棋盘的格子空间，每个格子用两个数字可以定位，一个红正方形的DOM在这个空间内，正方形中的蓝色边表示这是他的正面，有一个input输入框
+可以通过键盘对方块下达指令，按下按钮后，使得正方形做相应动作
+回车或者空格:向蓝色边所面向的方向前进一格（一格等同于正方形的边长）
+←">
+<meta property="og:type" content="article">
+<meta property="og:title" content="听指令的小方块">
+<meta property="og:url" content="http://blog.supce.com/2016/12/13/JavaScript之基础26/index.html">
+<meta property="og:site_name" content="supce's blog">
+<meta property="og:description" content="任务目的
+练习JavaScript在DOM、字符串处理相关知识
+练习对于复杂UI，如何进行数据机构建模
+
+
+任务描述
+实现一个类似棋盘的格子空间，每个格子用两个数字可以定位，一个红正方形的DOM在这个空间内，正方形中的蓝色边表示这是他的正面，有一个input输入框
+可以通过键盘对方块下达指令，按下按钮后，使得正方形做相应动作
+回车或者空格:向蓝色边所面向的方向前进一格（一格等同于正方形的边长）
+←">
+<meta property="og:updated_time" content="2016-12-13T11:46:18.123Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="听指令的小方块">
+<meta name="twitter:description" content="任务目的
+练习JavaScript在DOM、字符串处理相关知识
+练习对于复杂UI，如何进行数据机构建模
+
+
+任务描述
+实现一个类似棋盘的格子空间，每个格子用两个数字可以定位，一个红正方形的DOM在这个空间内，正方形中的蓝色边表示这是他的正面，有一个input输入框
+可以通过键盘对方块下达指令，按下按钮后，使得正方形做相应动作
+回车或者空格:向蓝色边所面向的方向前进一格（一格等同于正方形的边长）
+←">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+
+
+
+
+  <title> 听指令的小方块 | supce's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">supce's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/12/13/JavaScript之基础26/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="supce">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="supce's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="supce's blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                听指令的小方块
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-12-13T00:00:00+08:00">
+              2016-12-13
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-12-13T19:46:18+08:00">
+              2016-12-13
+            </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/13/JavaScript之基础26/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/13/JavaScript之基础26/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h1 id="任务目的">任务目的</h1><ul>
+<li>练习JavaScript在DOM、字符串处理相关知识</li>
+<li>练习对于复杂UI，如何进行数据机构建模</li>
+</ul>
+<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>实现一个类似棋盘的格子空间，每个格子用两个数字可以定位，一个红正方形的DOM在这个空间内，正方形中的蓝色边表示这是他的正面，有一个input输入框</li>
+<li>可以通过键盘对方块下达指令，按下按钮后，使得正方形做相应动作</li>
+<li>回车或者空格:向蓝色边所面向的方向前进一格（一格等同于正方形的边长）</li>
+<li>←：向左</li>
+<li>→：向右</li>
+<li>↑：向右</li>
+<li>↓：向下</li>
+<li>移动不能超出格子空间</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h1 id="整体思路">整体思路</h1><p>要实现上面的效果，可以通过canvas也可以通过对页面元素操作来实现。下面采用的是对元素操作来实现的。</p>
+<p>首先是最基础的HTML代码，我们设置一个背景容器div，用来存放背景。</p>
+<pre><code><span class="doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">title</span>&gt;</span>听指令的方块<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">href</span>=<span class="value">"css/task33.css"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"js/task33/utils.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"table_container"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"control_panel"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span>&gt;</span>上下左右改变方向，回车空格移动<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"js/task33/createTable.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"js/task33/Manipulate.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"js/task33/app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
+</code></pre><p>然后可以通过js来创建我们的棋盘背景。将这段代码放在createTable.js中</p>
+<pre><code><span class="comment">//创建背景</span>
+(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> container = $(<span class="string">"#table_container"</span>);
+    <span class="keyword">var</span> table = <span class="built_in">document</span>.createElement(<span class="string">"table"</span>);
+    <span class="keyword">var</span> tbody = <span class="built_in">document</span>.createElement(<span class="string">"tbody"</span>);
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">11</span>;i++){
+        <span class="keyword">var</span> tr = <span class="built_in">document</span>.createElement(<span class="string">"tr"</span>);
+        <span class="keyword">if</span>(i == <span class="number">0</span>){
+            tr.setAttribute(<span class="string">"axle"</span>,<span class="string">"y"</span>);
+        }
+        <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;<span class="number">11</span>;j++){
+            <span class="keyword">var</span> td = <span class="built_in">document</span>.createElement(<span class="string">"td"</span>);
+            td.setAttribute(<span class="string">"index"</span>,j);  <span class="comment">//标注该td为tr的第几个子节点</span>
+            <span class="keyword">if</span>(i===<span class="number">0</span> &amp;&amp; j!==<span class="number">0</span>){   <span class="comment">//添加横轴坐标</span>
+                td.innerHTML = j;
+            }
+            <span class="keyword">if</span>(j===<span class="number">0</span> &amp;&amp; i!==<span class="number">0</span>){   <span class="comment">//添加纵轴坐标</span>
+                td.innerHTML = i;
+            }
+            <span class="keyword">if</span>(i===<span class="number">5</span> &amp;&amp; j==<span class="number">5</span>){    <span class="comment">//添加初始化方块</span>
+                <span class="keyword">var</span> square = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);
+                square.setAttribute(<span class="string">"id"</span>,<span class="string">"square"</span>);
+                square.className = <span class="string">"bottom"</span>;
+                td.appendChild(square);
+            }
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    container.appendChild(table);
+})();
+</code></pre><p>写一个操作类，存放页面中的方块，并且给方块添加go方法(前进)和turn(转变方向)方法</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Manipulate</span>(<span class="params">square</span>)</span>{
+    <span class="keyword">this</span>.square = square;
+};
+Manipulate.prototype = {
+    go : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="built_in">console</span>.log(<span class="string">"gogogog"</span>);
+        <span class="keyword">var</span> direction = square.className;
+        <span class="keyword">var</span> td = <span class="keyword">this</span>.square.parentNode;
+        <span class="keyword">switch</span>(direction){
+            <span class="keyword">case</span> <span class="string">'right'</span>:
+                <span class="keyword">var</span> target = td.nextElementSibling;
+                <span class="keyword">if</span>(target){
+                    target.appendChild(<span class="keyword">this</span>.square);
+                    td.innerHTML = <span class="string">""</span>;
+                }<span class="keyword">else</span>{
+                    alert(<span class="string">"到达最右侧了"</span>);
+                }
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'left'</span>:
+                <span class="keyword">var</span> target = td.previousElementSibling;
+                <span class="keyword">if</span>(target &amp;&amp; (target.innerHTML == <span class="string">""</span>)){
+                    target.appendChild(<span class="keyword">this</span>.square);
+                    td.innerHTML = <span class="string">""</span>;
+                }<span class="keyword">else</span>{
+                    alert(<span class="string">"达到最左侧了"</span>);
+                }
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'bottom'</span>:
+                <span class="keyword">var</span> index = td.getAttribute(<span class="string">"index"</span>);  <span class="comment">//获取索引值</span>
+                <span class="keyword">var</span> tr = td.parentNode.nextElementSibling;
+                <span class="keyword">if</span>(tr){
+                    <span class="keyword">var</span> target = tr.children[index];
+                    target.appendChild(<span class="keyword">this</span>.square);
+                    td.innerHTML = <span class="string">""</span>;
+                }<span class="keyword">else</span>{
+                    alert(<span class="string">"到达最底部了"</span>);
+                }
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'top'</span>:
+                <span class="keyword">var</span> index = td.getAttribute(<span class="string">"index"</span>);  
+                <span class="keyword">var</span> tr = td.parentNode.previousElementSibling;
+                <span class="keyword">if</span>(tr &amp;&amp; (tr.getAttribute(<span class="string">"axle"</span>) != <span class="string">"y"</span>)){
+                    <span class="keyword">var</span> target = tr.children[index];
+                    target.appendChild(<span class="keyword">this</span>.square);
+                    td.innerHTML = <span class="string">""</span>;
+                }<span class="keyword">else</span>{
+                    alert(<span class="string">"到达顶部了"</span>);
+                }
+                <span class="keyword">break</span>;
+        }
+    },
+    turn : <span class="function"><span class="keyword">function</span>(<span class="params">direction</span>)</span>{
+        <span class="keyword">switch</span>(direction){
+            <span class="keyword">case</span> <span class="string">'top'</span>:
+                <span class="keyword">this</span>.square.className = <span class="string">"top"</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'right'</span>:
+                <span class="keyword">this</span>.square.className = <span class="string">"right"</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'bottom'</span>:
+                <span class="keyword">this</span>.square.className = <span class="string">"bottom"</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'left'</span>:
+                <span class="keyword">this</span>.square.className = <span class="string">"left"</span>;
+                <span class="keyword">break</span>;
+        }
+    }
+}
+</code></pre><p>最后创建对象，绑定相关事件即可</p>
+<pre><code><span class="keyword">var</span> square = $(<span class="string">"#square"</span>);
+<span class="keyword">var</span> manipulate = <span class="keyword">new</span> Manipulate(square);
+<span class="comment">//绑定键盘事件</span>
+addHandler(<span class="built_in">document</span>,<span class="string">"keydown"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+    <span class="comment">// console.log(e.keyCode);</span>
+    <span class="keyword">switch</span>(e.keyCode){
+        <span class="keyword">case</span> <span class="number">37</span>:
+            manipulate.turn(<span class="string">"left"</span>);
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">38</span>:
+            manipulate.turn(<span class="string">"top"</span>);
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">39</span>:
+            manipulate.turn(<span class="string">"right"</span>);
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">40</span>:
+            manipulate.turn(<span class="string">"bottom"</span>);
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">32</span>:   <span class="comment">//按回车和空格前进</span>
+        <span class="keyword">case</span> <span class="number">13</span>:
+            manipulate.go();
+            <span class="keyword">break</span>;
+    }
+});
+</code></pre><hr>
+<h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/tree/master/js/task33" target="_blank" rel="external">最终代码</a><br><a href="http://ife.supce.com/task33.html" target="_blank" rel="external">demo</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/09/JavaScript之基础25/" rel="next" title="表单工厂">
+                <i class="fa fa-chevron-left"></i> 表单工厂
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/13/JavaScript之基础26/"
+           data-title="听指令的小方块" data-url="http://blog.supce.com/2016/12/13/JavaScript之基础26/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
+               alt="supce" />
+          <p class="site-author-name" itemprop="name">supce</p>
+          <p class="site-description motion-element" itemprop="description">We are all in the gutter, but some of us are looking at the stars.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">77</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/byvector" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/BestionMiko" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.instagram.com/go_vector/" target="_blank" title="instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  instagram
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/byvector/" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#任务目的"><span class="nav-number">1.</span> <span class="nav-text">任务目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务描述"><span class="nav-number">2.</span> <span class="nav-text">任务描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#整体思路"><span class="nav-number">3.</span> <span class="nav-text">整体思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终代码"><span class="nav-number">4.</span> <span class="nav-text">最终代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">supce</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"byvector"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>
