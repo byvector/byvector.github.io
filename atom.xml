@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-12-13T11:46:18.123Z</updated>
+  <updated>2016-12-15T12:22:52.670Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,236 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[听指令的小方块(二)]]></title>
+    <link href="http://blog.supce.com/2016/12/15/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8027/"/>
+    <id>http://blog.supce.com/2016/12/15/JavaScript之基础27/</id>
+    <published>2016-12-14T16:00:00.000Z</published>
+    <updated>2016-12-15T12:22:52.670Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="整体思路">整体思路</h1><p>在上一篇中是通过页面元素实现的最终效果，下面尝试用canvas的方式实现。</p>
+<p>这里需要两个canvas进行叠加，一个用来绘制底层的棋盘背景，另一个用来绘制小方块。</p>
+<p>首先是HTML代码:</p>
+<pre><code>&lt;<span class="tag">div</span> id=<span class="string">"canvas_box"</span>&gt;
+    &lt;<span class="tag">canvas</span> id=<span class="string">"canvas_bg"</span> <span class="attribute">width</span>=<span class="string">"441"</span> <span class="attribute">height</span>=<span class="string">"441"</span>&gt;A drawing of table&lt;/canvas&gt;
+    &lt;<span class="tag">canvas</span> id=<span class="string">"canvas_square"</span> <span class="attribute">width</span>=<span class="string">"40"</span> <span class="attribute">height</span>=<span class="string">"40"</span>&gt;A drawing of table&lt;/canvas&gt;
+&lt;/div&gt;
+</code></pre><a id="more"></a>
+<p>配置基本样式</p>
+<pre><code><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="id">#canvas_box</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    }</span>
+    <span class="id">#canvas_box</span> <span class="id">#canvas_bg</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+        <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>;
+        <span class="rule"><span class="attribute">top</span>:<span class="value"><span class="number">0</span></span></span>;
+    }</span>
+    <span class="id">#canvas_box</span> <span class="id">#canvas_square</span><span class="rules">{
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>然后，在createBg.js中绘制底层棋盘背景</p>
+<pre><code><span class="list">(<span class="keyword">function</span><span class="list">()</span><span class="collection">{
+    var drawing = $<span class="list">(<span class="string">"#canvas_bg"</span>)</span><span class="comment">;</span>
+    if<span class="list">(<span class="keyword">drawing.getContext</span>)</span><span class="collection">{
+        var context = drawing.getContext<span class="list">(<span class="string">"2d"</span>)</span><span class="comment">;</span>
+        creataBg<span class="list">(<span class="keyword">context</span>)</span><span class="comment">;</span>
+        createXY<span class="list">(<span class="keyword">context</span>)</span><span class="comment">;</span>
+
+    }</span>
+    //创建棋盘背景
+    function creataBg<span class="list">(<span class="keyword">context</span>)</span><span class="collection">{
+        context.strokeStyle = <span class="string">"#ccc"</span><span class="comment">;</span>
+        context.translate<span class="list">(<span class="number">0.5</span>,<span class="number">0.5</span>)</span><span class="comment">;</span>
+        context.lineWidth = <span class="number">1</span><span class="comment">;</span>
+        context.beginPath<span class="list">()</span><span class="comment">;</span>
+        var x = <span class="number">40</span>,y=40;
+        for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> i=0;i&lt;11;i++)</span><span class="collection">{
+            context.moveTo<span class="list">(<span class="keyword">x</span>,y)</span><span class="comment">;</span>
+            context.lineTo<span class="list">(<span class="keyword">x</span>,<span class="number">440</span>)</span><span class="comment">;</span>
+            x += <span class="number">40</span><span class="comment">;</span>
+        }</span>
+        x = <span class="number">40</span><span class="comment">;y=40;</span>
+        for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> j=0;j&lt;11;j++)</span><span class="collection">{
+            context.moveTo<span class="list">(<span class="keyword">x</span>,y)</span><span class="comment">;</span>
+            context.lineTo<span class="list">(<span class="number">440</span>,y)</span><span class="comment">;</span>
+            y += <span class="number">40</span><span class="comment">;</span>
+        }</span>
+        context.stroke<span class="list">()</span><span class="comment">;</span>
+        context.closePath<span class="list">()</span><span class="comment">;</span>
+    }</span>
+    //创建x,y坐标值
+    function createXY<span class="list">(<span class="keyword">context</span>)</span><span class="collection">{
+        context.font = <span class="string">"normal 14px Arial"</span><span class="comment">;</span>
+        context.textAlign = <span class="string">"center"</span><span class="comment">;</span>
+        context.textBaseline = <span class="string">"middle"</span><span class="comment">;</span>
+        var x = <span class="number">60</span>,y=60;
+        for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> i=1;i&lt;11;i++)</span><span class="collection">{
+            context.fillText<span class="list">(<span class="keyword">i</span>,x,<span class="number">20</span>)</span><span class="comment">;</span>
+            x += <span class="number">40</span><span class="comment">;</span>
+        }</span>
+        for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> i=1;i&lt;11;i++)</span><span class="collection">{
+            context.fillText<span class="list">(<span class="keyword">i</span>,<span class="number">20</span>,y)</span><span class="comment">;</span>
+            y += <span class="number">40</span><span class="comment">;</span>
+        }</span>   
+    }</span>
+}</span>)</span><span class="list">()</span><span class="comment">;</span>
+</code></pre><p>创建一个square类，两个属性，分别保存页面方块元素和该方块的方向。同时，在其原型中增添两个方法，一个是create方法，用于创建方块；一个为go方法，用于移动方块。</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Square</span><span class="params">(square)</span>{</span>
+    this.<span class="built_in">square</span> = <span class="built_in">square</span>;
+    this.direction = <span class="string">"right"</span>;
+}
+Square.prototype = {
+    create : <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        var context = this.<span class="built_in">square</span>.getContext<span class="params">(<span class="string">"2d"</span>)</span>;
+        switch<span class="params">(this.direction)</span>{
+            case 'top':
+                createTop<span class="params">(context)</span>;
+                break;
+            case 'bottom':
+                createBottom<span class="params">(context)</span>;
+                break;
+            case 'left':
+                createLeft<span class="params">(context)</span>;
+                break;
+            case 'right':
+                createRight<span class="params">(context)</span>;
+                break;
+        };
+        <span class="keyword">if</span><span class="params">(this.square.style.left == <span class="string">""</span>)</span>{
+            this.<span class="built_in">square</span>.style.left = <span class="string">"40px"</span>;
+            this.<span class="built_in">square</span>.style.top = <span class="string">"40px"</span>;
+        }
+
+        <span class="function"><span class="keyword">function</span> <span class="title">createTop</span><span class="params">(context)</span>{</span>
+            var gra = context.createLinearGradient<span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">40</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0</span>,<span class="string">"red"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0.2</span>,<span class="string">"red"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0.2</span>,<span class="string">"blue"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">1</span>,<span class="string">"blue"</span>)</span>;
+            context.fillStyle = gra;
+            context.fillRect<span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">40</span>,<span class="number">40</span>)</span>;
+        };
+        <span class="function"><span class="keyword">function</span> <span class="title">createBottom</span><span class="params">(context)</span>{</span>
+            var gra = context.createLinearGradient<span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">40</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0</span>,<span class="string">"blue"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0.8</span>,<span class="string">"blue"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0.8</span>,<span class="string">"red"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">1</span>,<span class="string">"red"</span>)</span>;
+            context.fillStyle = gra;
+            context.fillRect<span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">40</span>,<span class="number">40</span>)</span>;
+        };
+        <span class="function"><span class="keyword">function</span> <span class="title">createLeft</span><span class="params">(context)</span>{</span>
+            var gra = context.createLinearGradient<span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">40</span>,<span class="number">0</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0</span>,<span class="string">"red"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0.2</span>,<span class="string">"red"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0.2</span>,<span class="string">"blue"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">1</span>,<span class="string">"blue"</span>)</span>;
+            context.fillStyle = gra;
+            context.fillRect<span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">40</span>,<span class="number">40</span>)</span>;
+        };
+        <span class="function"><span class="keyword">function</span> <span class="title">createRight</span><span class="params">(context)</span>{</span>
+            var gra = context.createLinearGradient<span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">40</span>,<span class="number">0</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0</span>,<span class="string">"blue"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0.8</span>,<span class="string">"blue"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">0.8</span>,<span class="string">"red"</span>)</span>;
+            gra.addColorStop<span class="params">(<span class="number">1</span>,<span class="string">"red"</span>)</span>;
+            context.fillStyle = gra;
+            context.fillRect<span class="params">(<span class="number">0</span>,<span class="number">0</span>,<span class="number">40</span>,<span class="number">40</span>)</span>;
+        };
+    },
+    go : <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        console.<span class="built_in">log</span><span class="params">(<span class="string">"gogogo"</span>)</span>;
+        switch<span class="params">(this.direction)</span>{
+            case 'right':
+                var y = parseInt<span class="params">(this.square.style.left)</span>;
+                <span class="keyword">if</span><span class="params">(y&lt;<span class="number">400</span>)</span>{
+                    y += <span class="number">40</span>;
+                    this.<span class="built_in">square</span>.style.left = <span class="params">(y + <span class="string">"px"</span>)</span>;
+                }<span class="keyword">else</span>{
+                    alert<span class="params">(<span class="string">"已到达右侧边缘"</span>)</span>;
+                }   
+                break;
+            case 'left':
+                var y = parseInt<span class="params">(this.square.style.left)</span>;
+                <span class="keyword">if</span><span class="params">(y&gt;<span class="number">40</span>)</span>{
+                    y -= <span class="number">40</span>;
+                    this.<span class="built_in">square</span>.style.left = <span class="params">(y + <span class="string">"px"</span>)</span>;
+                }<span class="keyword">else</span>{
+                    alert<span class="params">(<span class="string">"已到达左侧边缘"</span>)</span>;
+                }   
+                break;
+            case 'top':
+                var x = parseInt<span class="params">(this.square.style.top)</span>;
+                <span class="keyword">if</span><span class="params">(x&gt;<span class="number">40</span>)</span>{
+                    x -= <span class="number">40</span>;
+                    this.<span class="built_in">square</span>.style.top = <span class="params">(x + <span class="string">"px"</span>)</span>;
+                }<span class="keyword">else</span>{
+                    alert<span class="params">(<span class="string">"已到达顶部边缘"</span>)</span>;
+                }   
+                break;
+            case 'bottom':
+                var x = parseInt<span class="params">(this.square.style.top)</span>;
+                <span class="keyword">if</span><span class="params">(x&lt;<span class="number">400</span>)</span>{
+                    x += <span class="number">40</span>;
+                    this.<span class="built_in">square</span>.style.top = <span class="params">(x + <span class="string">"px"</span>)</span>;
+                }<span class="keyword">else</span>{
+                    alert<span class="params">(<span class="string">"已到达底部边缘"</span>)</span>;
+                }   
+                break;
+        };
+    }
+}
+</code></pre><p>最后在app.js中new一个square对象，绑定相关事件，通过事件调用对象的相关方法。</p>
+<pre><code>var square = <span class="keyword">new</span> Square($(<span class="string">"#canvas_square"</span>));
+square.create();
+<span class="comment">//绑定键盘事件</span>
+addHandler(document,<span class="string">"keydown"</span>,function(e){
+    <span class="comment">// console.log(e.keyCode);</span>
+    <span class="keyword">switch</span>(e.keyCode){
+        <span class="keyword">case</span> <span class="number">37</span>:
+            square.direction = <span class="string">"left"</span>;
+            square.create();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">38</span>:
+            square.direction = <span class="string">"top"</span>;
+            square.create();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">39</span>:
+            square.direction = <span class="string">"right"</span>;
+            square.create();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">40</span>:
+            square.direction = <span class="string">"bottom"</span>;
+            square.create();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">32</span>:   <span class="comment">//按回车和空格前进</span>
+        <span class="keyword">case</span> <span class="number">13</span>:
+            square.go();
+            <span class="keyword">break</span>;
+    }
+});
+</code></pre><hr>
+<h1 id="最终代码">最终代码</h1><p><a href="">最终代码</a><br><a href="">demo</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="整体思路">整体思路</h1><p>在上一篇中是通过页面元素实现的最终效果，下面尝试用canvas的方式实现。</p>
+<p>这里需要两个canvas进行叠加，一个用来绘制底层的棋盘背景，另一个用来绘制小方块。</p>
+<p>首先是HTML代码:</p>
+<pre><code>&lt;<span class="tag">div</span> id=<span class="string">"canvas_box"</span>&gt;
+    &lt;<span class="tag">canvas</span> id=<span class="string">"canvas_bg"</span> <span class="attribute">width</span>=<span class="string">"441"</span> <span class="attribute">height</span>=<span class="string">"441"</span>&gt;A drawing of table&lt;/canvas&gt;
+    &lt;<span class="tag">canvas</span> id=<span class="string">"canvas_square"</span> <span class="attribute">width</span>=<span class="string">"40"</span> <span class="attribute">height</span>=<span class="string">"40"</span>&gt;A drawing of table&lt;/canvas&gt;
+&lt;/div&gt;
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[听指令的小方块]]></title>
@@ -4281,106 +4511,6 @@ init<span class="params">()</span>;
     &lt;img src=<span class="string">"test.jpg"</span> <span class="type">class</span>=<span class="string">"avatar"</span>&gt;
 &lt;/<span class="keyword">div</span>&gt;
 </code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之逐帧动画&闪烁效果]]></title>
-    <link href="http://blog.supce.com/2016/10/11/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E9%80%90%E5%B8%A7%E5%8A%A8%E7%94%BB&%E9%97%AA%E7%83%81%E6%95%88%E6%9E%9C/"/>
-    <id>http://blog.supce.com/2016/10/11/CSS Secret 读书笔记之逐帧动画&闪烁效果/</id>
-    <published>2016-10-10T16:00:00.000Z</published>
-    <updated>2016-10-11T12:40:17.345Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="逐帧动画">逐帧动画</h1><p>在一些场景中，比如页面的加载提示，只使用过渡很难实现预期的效果。在这种情况下，我们可以使用基于图片的逐帧动画来解决。<br>提到基于图片的逐帧动画首先想到的就是GIF动画。GIF动画在大多数场景下都能满足我们的需求，但是GIF也有一些不足：</p>
-<ul>
-<li>GIF不具备Alpha透明的特征。但是对于页面的加载提示来说，一般都是半透明的。</li>
-<li>低灵活性！我们无法在CSS层面修改动画的某些参数， 比如动画的持续时间、循环次数、是否暂停等。GIF一但生成，这些参数就固定在文件中，如果想要修改就只能重新生成一个GIF文件。</li>
-</ul>
-<p>这个时候，可以利用下面这种方式作为补充，我们写一个半透明加载提示的小例子。<br><a id="more"></a></p>
-<p>首先，把动画的中所有帧全部拼到一张PNG图片中，如下图：<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-20-01.jpg" alt=""><br>然后用一个容器将图片包裹进去，并把它的宽高设置为单帧的尺寸。<br>HTML:</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"loader"</span>&gt;loading...&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>CSS:</p>
-<pre><code><span class="class">.loader</span><span class="rules">{
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(loader.png)</span></span>;
-    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-    <span class="comment">/*隐藏文本*/</span>
-    <span class="rule"><span class="attribute">text-indent</span>:<span class="value"> <span class="number">200px</span></span></span>;
-    <span class="rule"><span class="attribute">white-space</span>:<span class="value"> nowrap</span></span>;
-}</span>
-</code></pre><p>这时候只把图片的第一帧显示了出来</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-20-02.jpg" alt=""></p>
-<p>然后添加动画效果，修改后的代码如下:</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> loader</span>{
-    <span class="tag">to</span> <span class="rules">{<span class="rule"><span class="attribute">background-position</span>:<span class="value"> -<span class="number">800px</span> <span class="number">0</span></span></span>;}</span>
-}
-<span class="class">.loader</span><span class="rules">{
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(loader.png)</span></span>;
-    <span class="rule"><span class="attribute">animation</span>:<span class="value"> loader <span class="number">1s</span> infinite linear</span></span>;
-    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-    <span class="rule"><span class="attribute">text-indent</span>:<span class="value"> <span class="number">200px</span></span></span>;
-    <span class="rule"><span class="attribute">white-space</span>:<span class="value"> nowrap</span></span>;
-}</span>
-</code></pre><p>刷新下页面：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-20-03.gif" alt=""></p>
-<p>跟我们预期的效果并不一样。其实只要修改下调速函数就可以了，上文中提到，所有基于贝塞尔曲线的调速函数都是平滑的过渡效果。但是我们现在需求的是逐帧的动画效果。而<code>step()</code>函数会根据指定步进数，把动画切分为多帧，整个动画会在帧与帧之间硬切。<br>于是修改代码：</p>
-<pre><code><span class="rule"><span class="attribute">animation</span>:<span class="value"> loader <span class="number">1s</span> infinite <span class="function">steps</span>(<span class="number">8</span>)</span></span>;
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-20-04.gif" alt=""></p>
-<p>much nicer!</p>
-<hr>
-<h1 id="闪烁效果">闪烁效果</h1><p>在某些论坛或者淘宝店铺的介绍页面，会有闪烁的效果。虽然可以使用GIF来实现，但也可以尝试使用CSS动画来完成闪烁效果。<br>如果把闪烁拆分为动画，其实就是将原来的颜色逐渐变为透明，然后再逐渐显隐的一个过程。<br>假设把一段文字闪烁3次。<br>HTML：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"smooth-blink-a blink"</span>&gt;this <span class="keyword">is</span> a blink test&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>CSS：</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> blink-<span class="number">1</span> </span>{ <span class="tag">to</span> <span class="rules">{ <span class="rule"><span class="attribute">color</span>:<span class="value">transparent</span></span>; }</span> }
-<span class="class">.blink</span><span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">15em</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">3em</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">30px</span> auto</span></span>;
-    <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
-    <span class="rule"><span class="attribute">color</span>:<span class="value"> black</span></span>;
-    <span class="rule"><span class="attribute">font</span>:<span class="value"> <span class="number">125%</span>/<span class="number">1</span> sans-serif</span></span>;
-}</span>
-<span class="class">.smooth-blink-a</span><span class="rules">{
-    <span class="rule"><span class="attribute">animation</span>:<span class="value"> <span class="number">1s</span> blink-<span class="number">1</span> <span class="number">3</span></span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-20-05.gif" alt=""></p>
-<p>仔细观察会发现，文字平滑的渐变为透明，但是会一下子跳转为原来的颜色。如下图:<br><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-20-06.jpg" alt=""><br>为了解决这个问题，可以利用<code>animation-direction</code>，如果属性值是<code>reverse</code>就会反转每一个循环周期，如果是<code>alternate</code>会反转第偶数个循环周期，<code>alternate-reverse</code>会反转第奇数个循环周期。如下图：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-20-07.jpg" alt=""></p>
-<p>如果使用<code>alternate</code>，要实现一次渐隐渐出，就会是两个循环周期(即次数翻倍)。所以也要把<code>animation-duration</code>减半。<br>修改代码：</p>
-<pre><code><span class="class">.smooth-blink-a</span><span class="rules">{
-    <span class="rule"><span class="attribute">animation</span>:<span class="value"> .<span class="number">5s</span> blink-<span class="number">1</span> <span class="number">6</span></span></span>;
-    <span class="rule"><span class="attribute">animation-direction</span>:<span class="value"> alternate</span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-20-08.gif" alt=""></p>
-<p>整个动画过渡平滑了许多。</p>
-<p>如果不想使用平滑的过渡，想要使用最普通的闪烁效果。瞬间就想到了上节中的<code>step()</code>。<br>修改代码如下：</p>
-<pre><code>animation: <span class="number">1</span>s blink-<span class="number">1</span>  <span class="number">3</span> steps(<span class="number">1</span>);
-</code></pre><p>刷新页面，发现文本根本不会闪烁。这是由于step(1)等同于step(1,end)，这就意味着当前颜色到透明色之间的过渡是在一次步进中完成的，于是颜色的切换只会发生在动画周期的末尾，因此透明色只会在无限短的时间点处出现，在视觉上就是不闪烁。如果设置为step(1,start)，那么就会是永久的透明色。</p>
-<p>这时候需要扭转下思路，我们可以让转换动作发生在动画的50%处，而不是起始位置。<br>最终代码如下：</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> blink-<span class="number">2</span> </span>{ 50% <span class="rules">{<span class="rule"><span class="attribute">color</span>:<span class="value"> transparent</span></span>;}</span> }
-<span class="class">.smooth-blink-a</span><span class="rules">{
-    <span class="rule"><span class="attribute">animation</span>:<span class="value"> <span class="number">1s</span> blink-<span class="number">2</span>  <span class="number">3</span> <span class="function">steps</span>(<span class="number">1</span>)</span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-20-09.gif" alt=""></p>
-<p>问题解决。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="逐帧动画">逐帧动画</h1><p>在一些场景中，比如页面的加载提示，只使用过渡很难实现预期的效果。在这种情况下，我们可以使用基于图片的逐帧动画来解决。<br>提到基于图片的逐帧动画首先想到的就是GIF动画。GIF动画在大多数场景下都能满足我们的需求，但是GIF也有一些不足：</p>
-<ul>
-<li>GIF不具备Alpha透明的特征。但是对于页面的加载提示来说，一般都是半透明的。</li>
-<li>低灵活性！我们无法在CSS层面修改动画的某些参数， 比如动画的持续时间、循环次数、是否暂停等。GIF一但生成，这些参数就固定在文件中，如果想要修改就只能重新生成一个GIF文件。</li>
-</ul>
-<p>这个时候，可以利用下面这种方式作为补充，我们写一个半透明加载提示的小例子。<br>]]>
     
     </summary>
     
