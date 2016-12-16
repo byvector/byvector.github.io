@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-12-15T12:22:52.670Z</updated>
+  <updated>2016-12-16T11:50:45.219Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,267 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[听指令的小方块(三)]]></title>
+    <link href="http://blog.supce.com/2016/12/16/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8028/"/>
+    <id>http://blog.supce.com/2016/12/16/JavaScript之基础28/</id>
+    <published>2016-12-15T16:00:00.000Z</published>
+    <updated>2016-12-16T11:50:45.219Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>根据之前的任务，对于正方形的移动增加相应动画，包括移动和旋转</li>
+<li>每个指令的执行时间是1s（可以自己调整）</li>
+<li>增加新的指令如下：</li>
+<li>GO：向蓝色边所面向的方向前进一格（一格等同于正方形的边长）</li>
+<li>TUN LEF：向左转（逆时针旋转90度）</li>
+<li>TUN RIG：向右转（顺时针旋转90度）</li>
+<li>TUN BAC：向右转（旋转180度）</li>
+<li>TRA LEF：向屏幕的左侧移动一格，方向不变</li>
+<li>TRA TOP：向屏幕的上面移动一格，方向不变</li>
+<li>TRA RIG：向屏幕的右侧移动一格，方向不变</li>
+<li>TRA BOT：向屏幕的下面移动一格，方向不变</li>
+<li>MOV LEF：方向转向屏幕左侧，并向屏幕的左侧移动一格</li>
+<li>MOV TOP：方向转向屏幕上面，向屏幕的上面移动一格</li>
+<li>MOV RIG：方向转向屏幕右侧，向屏幕的右侧移动一格</li>
+<li>MOV BOT：方向转向屏幕下面，向屏幕的下面移动一格</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h1 id="整体思路">整体思路</h1><p>上个任务中，分别使用了canvas和普通HTML元素。这次可以把两者结合起来。<br>对于棋盘背景，生成之后不会再进行变换，可以利用canvas实现；对于小方块，为了实现动画效果，可以用一个div来模拟。具体HTML代码和基本样式如下：</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"container"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">canvas</span> <span class="attribute">id</span>=<span class="value">"canvas_bg"</span> <span class="attribute">width</span>=<span class="value">"441"</span> <span class="attribute">height</span>=<span class="value">"441"</span>&gt;</span><span class="tag">&lt;/<span class="title">canvas</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"square"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"control_panel"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"order"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"btn_exe"</span>&gt;</span>执行<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+    <span class="id">#container</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span> auto</span></span>;
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">441px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">441px</span></span></span>;
+    }</span>
+    <span class="id">#square</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">40px</span></span></span>;
+        <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">linear-gradient</span>(red <span class="number">20%</span>,blue <span class="number">0</span>)</span></span>;
+        <span class="rule"><span class="attribute">background-size</span>:<span class="value"> <span class="number">100%</span></span></span>;
+        <span class="rule"><span class="attribute">transition-duration</span>:<span class="value"> <span class="number">0.5s</span></span></span>;
+    }</span>
+    <span class="id">#control_panel</span><span class="rules">{
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;
+        <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">400px</span></span></span>;
+        <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;
+    }</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>对于棋盘背景的生成代码可以直接拿来用。也可对其进行封装，添加行列参数，直接调用生成任意行列的棋盘背景。</p>
+<pre><code><span class="list">(<span class="keyword">function</span><span class="list">()</span><span class="collection">{
+    var drawing = $<span class="list">(<span class="string">"#canvas_bg"</span>)</span><span class="comment">;</span>
+    if<span class="list">(<span class="keyword">drawing.getContext</span>)</span><span class="collection">{
+        var context = drawing.getContext<span class="list">(<span class="string">"2d"</span>)</span><span class="comment">;</span>
+        creataBg<span class="list">(<span class="keyword">context</span>)</span><span class="comment">;</span>
+        createXY<span class="list">(<span class="keyword">context</span>)</span><span class="comment">;</span>
+
+    }</span>
+    //创建棋盘背景
+    function creataBg<span class="list">(<span class="keyword">context</span>)</span><span class="collection">{
+        context.strokeStyle = <span class="string">"#ccc"</span><span class="comment">;</span>
+        context.translate<span class="list">(<span class="number">0.5</span>,<span class="number">0.5</span>)</span><span class="comment">;</span>
+        context.lineWidth = <span class="number">1</span><span class="comment">;</span>
+        context.beginPath<span class="list">()</span><span class="comment">;</span>
+        var x = <span class="number">40</span>,y=40;
+        for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> i=0;i&lt;11;i++)</span><span class="collection">{
+            context.moveTo<span class="list">(<span class="keyword">x</span>,y)</span><span class="comment">;</span>
+            context.lineTo<span class="list">(<span class="keyword">x</span>,<span class="number">440</span>)</span><span class="comment">;</span>
+            x += <span class="number">40</span><span class="comment">;</span>
+        }</span>
+        x = <span class="number">40</span><span class="comment">;y=40;</span>
+        for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> j=0;j&lt;11;j++)</span><span class="collection">{
+            context.moveTo<span class="list">(<span class="keyword">x</span>,y)</span><span class="comment">;</span>
+            context.lineTo<span class="list">(<span class="number">440</span>,y)</span><span class="comment">;</span>
+            y += <span class="number">40</span><span class="comment">;</span>
+        }</span>
+        context.stroke<span class="list">()</span><span class="comment">;</span>
+        context.closePath<span class="list">()</span><span class="comment">;</span>
+    }</span>
+    //创建x,y坐标值
+    function createXY<span class="list">(<span class="keyword">context</span>)</span><span class="collection">{
+        context.font = <span class="string">"normal 14px Arial"</span><span class="comment">;</span>
+        context.textAlign = <span class="string">"center"</span><span class="comment">;</span>
+        context.textBaseline = <span class="string">"middle"</span><span class="comment">;</span>
+        var x = <span class="number">60</span>,y=60;
+        for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> i=1;i&lt;11;i++)</span><span class="collection">{
+            context.fillText<span class="list">(<span class="keyword">i</span>,x,<span class="number">20</span>)</span><span class="comment">;</span>
+            x += <span class="number">40</span><span class="comment">;</span>
+        }</span>
+        for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> i=1;i&lt;11;i++)</span><span class="collection">{
+            context.fillText<span class="list">(<span class="keyword">i</span>,<span class="number">20</span>,y)</span><span class="comment">;</span>
+            y += <span class="number">40</span><span class="comment">;</span>
+        }</span>   
+    }</span>
+}</span>)</span><span class="list">()</span><span class="comment">;</span>
+</code></pre><p>对于方块类，需要增加左侧和顶部偏移以及旋转角度三个属性。并且在原型方法中对指令进行了分解，提高代码的重用率。</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Square</span><span class="params">(square)</span></span>{
+    <span class="keyword">this</span>.square = square;
+    <span class="keyword">this</span>.left = <span class="number">200</span>;
+    <span class="keyword">this</span>.top = <span class="number">200</span>;
+    <span class="keyword">this</span>.deg = <span class="number">0</span>;  <span class="comment">//旋转角度</span>
+}
+Square.prototype = {
+    init : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">this</span>.setPositon();
+    },
+    setPositon : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">this</span>.square.style.left = <span class="keyword">this</span>.left + <span class="string">"px"</span>;
+        <span class="keyword">this</span>.square.style.top = <span class="keyword">this</span>.top + <span class="string">"px"</span>;
+        <span class="keyword">this</span>.square.style.transform = <span class="string">"rotate("</span>+ <span class="keyword">this</span>.deg + <span class="string">"deg)"</span>;
+    },
+    move : <span class="function"><span class="keyword">function</span><span class="params">(commond)</span></span>{
+        <span class="keyword">var</span> preCommond = commond.split(<span class="string">" "</span>)[<span class="number">0</span>];
+        <span class="keyword">var</span> direction = commond.split(<span class="string">" "</span>)[<span class="number">1</span>];
+        <span class="keyword">switch</span>(preCommond){
+            <span class="keyword">case</span> <span class="string">'TUN'</span>:
+                rotate(direction,<span class="keyword">this</span>);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'GO'</span>:
+                go(<span class="keyword">this</span>);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'MOV'</span>:
+                moveTurn(direction,<span class="keyword">this</span>);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">'TRA'</span>:
+                trans(direction,<span class="keyword">this</span>);
+        }
+        <span class="keyword">this</span>.setPositon();
+        <span class="function"><span class="keyword">function</span> <span class="title">rotate</span><span class="params">(direction,that)</span></span>{
+            <span class="keyword">switch</span>(direction){
+                <span class="keyword">case</span> <span class="string">'LEF'</span>:that.deg -= <span class="number">90</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'RIG'</span>:that.deg += <span class="number">90</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'BAC'</span>:that.deg += <span class="number">180</span>;<span class="keyword">break</span>;
+            }
+        }
+        <span class="function"><span class="keyword">function</span> <span class="title">moveTurn</span><span class="params">(direction,that)</span></span>{
+            <span class="keyword">switch</span>(direction){
+                <span class="keyword">case</span> <span class="string">'LEF'</span>:that.deg = -<span class="number">90</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'RIG'</span>:that.deg = <span class="number">90</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'TOP'</span>:that.deg = <span class="number">0</span>;<span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'BOT'</span>:that.deg = <span class="number">180</span>;<span class="keyword">break</span>;
+            }
+            go(that);
+        }
+        <span class="function"><span class="keyword">function</span> <span class="title">trans</span><span class="params">(direction,that)</span></span>{
+            <span class="keyword">switch</span>(direction){
+                <span class="keyword">case</span> <span class="string">'LEF'</span>:
+                    <span class="keyword">if</span>(that.left&gt;<span class="number">40</span>){
+                        that.left -= <span class="number">40</span>;
+                    }<span class="keyword">else</span>{
+                        alert(<span class="string">"到达左侧"</span>);
+                    }
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'RIG'</span>:
+                    <span class="keyword">if</span>(that.left&lt;<span class="number">400</span>){
+                        that.left += <span class="number">40</span>;
+                    }<span class="keyword">else</span>{
+                        alert(<span class="string">"到达右侧"</span>);
+                    }
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'TOP'</span>:
+                    <span class="keyword">if</span>(that.top&gt;<span class="number">40</span>){
+                        that.top -= <span class="number">40</span>;
+                    }<span class="keyword">else</span>{
+                        alert(<span class="string">"到达顶部"</span>);
+                    }
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'BOT'</span>:
+                    <span class="keyword">if</span>(that.top&lt;<span class="number">400</span>){
+                        that.top += <span class="number">40</span>;
+                    }<span class="keyword">else</span>{
+                        alert(<span class="string">"到达底部"</span>);
+                    }
+                    <span class="keyword">break</span>;
+            }
+        }
+        <span class="function"><span class="keyword">function</span> <span class="title">go</span><span class="params">(that)</span></span>{
+            <span class="keyword">var</span> deg = that.deg % <span class="number">360</span>;
+            <span class="keyword">switch</span>(deg){
+                <span class="keyword">case</span> <span class="number">0</span>:
+                    <span class="keyword">if</span>(that.top&gt;<span class="number">40</span>){
+                        that.top -= <span class="number">40</span>;
+                    }<span class="keyword">else</span>{
+                        alert(<span class="string">"到达顶部"</span>);
+                    }
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="number">180</span>:
+                <span class="keyword">case</span> -<span class="number">180</span>:
+                    <span class="keyword">if</span>(that.top&lt;<span class="number">400</span>){
+                        that.top += <span class="number">40</span>;
+                    }<span class="keyword">else</span>{
+                        alert(<span class="string">"到达底部"</span>);
+                    }
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="number">90</span>:
+                <span class="keyword">case</span> -<span class="number">270</span>:
+                    <span class="keyword">if</span>(that.left&lt;<span class="number">400</span>){
+                        that.left += <span class="number">40</span>;
+                    }<span class="keyword">else</span>{
+                        alert(<span class="string">"到达右侧"</span>);
+                    }
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> -<span class="number">90</span>:
+                <span class="keyword">case</span> <span class="number">270</span>:
+                    <span class="keyword">if</span>(that.left&gt;<span class="number">40</span>){
+                        that.left -= <span class="number">40</span>;
+                    }<span class="keyword">else</span>{
+                        alert(<span class="string">"到达左侧"</span>);
+                    }
+                    <span class="keyword">break</span>;
+            }
+        }
+    }
+
+}
+</code></pre><p>最后创建类对象，绑定事件就可以了</p>
+<pre><code>var <span class="built_in">square</span> = new Square<span class="params">($<span class="params">(<span class="string">"#square"</span>)</span>)</span>;
+<span class="built_in">square</span>.init<span class="params">()</span>;
+
+addHandler<span class="params">($<span class="params">(<span class="string">"#btn_exe"</span>)</span>,<span class="string">"click"</span>,function<span class="params">(e)</span>{
+    var value = $<span class="params">(<span class="string">"#order"</span>)</span>.value.toUpperCase<span class="params">()</span>;
+    var order = value.trim<span class="params">()</span>;
+    square.move<span class="params">(order)</span>;
+})</span>;
+</code></pre><hr>
+<h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/tree/master/js/task34" target="_blank" rel="external">最终代码</a><br><a href="http://ife.supce.com/task34.html" target="_blank" rel="external">demo</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>根据之前的任务，对于正方形的移动增加相应动画，包括移动和旋转</li>
+<li>每个指令的执行时间是1s（可以自己调整）</li>
+<li>增加新的指令如下：</li>
+<li>GO：向蓝色边所面向的方向前进一格（一格等同于正方形的边长）</li>
+<li>TUN LEF：向左转（逆时针旋转90度）</li>
+<li>TUN RIG：向右转（顺时针旋转90度）</li>
+<li>TUN BAC：向右转（旋转180度）</li>
+<li>TRA LEF：向屏幕的左侧移动一格，方向不变</li>
+<li>TRA TOP：向屏幕的上面移动一格，方向不变</li>
+<li>TRA RIG：向屏幕的右侧移动一格，方向不变</li>
+<li>TRA BOT：向屏幕的下面移动一格，方向不变</li>
+<li>MOV LEF：方向转向屏幕左侧，并向屏幕的左侧移动一格</li>
+<li>MOV TOP：方向转向屏幕上面，向屏幕的上面移动一格</li>
+<li>MOV RIG：方向转向屏幕右侧，向屏幕的右侧移动一格</li>
+<li>MOV BOT：方向转向屏幕下面，向屏幕的下面移动一格</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[听指令的小方块(二)]]></title>
@@ -4351,170 +4612,6 @@ init<span class="params">()</span>;
     </summary>
     
       <category term="编程" scheme="http://blog.supce.com/tags/%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CSS Secret 读书笔记之沿环形路径转动的动画]]></title>
-    <link href="http://blog.supce.com/2016/10/13/CSS%20Secret%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%B2%BF%E7%8E%AF%E5%BD%A2%E8%B7%AF%E5%BE%84%E5%B9%B3%E7%A7%BB%E7%9A%84%E5%8A%A8%E7%94%BB/"/>
-    <id>http://blog.supce.com/2016/10/13/CSS Secret 读书笔记之沿环形路径平移的动画/</id>
-    <published>2016-10-12T16:00:00.000Z</published>
-    <updated>2016-10-13T13:36:56.429Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="沿环形路径转动的动画">沿环形路径转动的动画</h1><p>今天利用CSS实现一种沿着环形路径转动的动画。为了便于演示，我们让一个头像图片沿着环形路径转动。<br>首先是一个img标签，用来保存头像图片，外面嵌套一个div用来设置背景。</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"path"</span>&gt;
-    &lt;img src=<span class="string">"test.jpg"</span> <span class="type">class</span>=<span class="string">"avatar"</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><a id="more"></a>
-<p>然后设置基本的样式：</p>
-<pre><code><span class="class">.path</span><span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">20px</span> auto</span></span>;
-    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">20px</span></span></span>;
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#fb3</span></span></span>;
-}</span>
-<span class="class">.avatar</span>,<span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">40px</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> dashed black</span></span>; <span class="comment">/*为了便于观察旋转，添加虚线边框*/</span>
-    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
-}</span>
-<span class="class">.avatar-a</span>&gt;<span class="tag">img</span><span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> inherit</span></span>;
-}</span>
-</code></pre><p>最后为图片添加旋转动画：</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> spin</span>{
-    <span class="tag">to</span> <span class="rules">{ <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(<span class="number">1turn</span>)</span></span>; }</span>
-}
-<span class="class">.avatar</span><span class="rules">{
-    <span class="rule"><span class="attribute">animation</span>:<span class="value"> <span class="number">6s</span> spin infinite linear</span></span>;
-    <span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> <span class="number">50%</span> <span class="number">100px</span></span></span>;
-}</span>
-</code></pre><p>刷新页面：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-21-01.gif" alt=""></p>
-<p>虽然图片已经能够沿着环形路径转动了，但是图片自身也在旋转。为了让图片能够沿着环形转动，同时保证图片保持原来的朝向，可以用下面这两种方式：</p>
-<p>既然图片本身也在旋转，那可以尝试在图片的外层嵌套一个div，然后让这个div反向旋转，从而把内层的图片旋转效果给抵消掉。这也是之前经常用到的一种方法。</p>
-<p>修改HTML代码结构：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"path"</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"avatar-a"</span>&gt;
-        &lt;img src=<span class="string">"test.jpg"</span>&gt;
-    &lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>下面就利用到上篇文章提到的<code>animation-direction</code>，图片外层的div保持旋转，然后设置内部img的<code>animation-direction</code>为相同的动画特效，但是最后让<code>animation-direction</code>反转。</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> spin</span>{
-    <span class="tag">to</span> <span class="rules">{ <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(<span class="number">1turn</span>)</span></span>; }</span>
-}
-<span class="class">.avatar-a</span><span class="rules">{
-    <span class="rule"><span class="attribute">animation</span>:<span class="value"> <span class="number">6s</span> spin infinite linear</span></span>;
-    <span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> <span class="number">50%</span> <span class="number">100px</span></span></span>;
-}</span>
-<span class="class">.avatar-a</span>&gt;<span class="tag">img</span><span class="rules">{
-    <span class="rule"><span class="attribute">animation</span>:<span class="value"> inherit</span></span>;
-    <span class="rule"><span class="attribute">animation-direction</span>:<span class="value"> reverse</span></span>;
-}</span>
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-21-02.gif" alt=""></p>
-<p>much nicer！</p>
-<p>问题虽然得到解决，但是修改了HTML结构。下面这种方式能够在保持原来HTML代码结构不变的情况下解决自身旋转问题。在提出这种方法之前，要首先了解下<code>transform-origin</code>。其实：</p>
-<p><em>每个<code>transform-origin</code>都可以被两个<code>translate()</code>模拟出来</em></p>
-<p>比如下面这个两端代码是等效的：</p>
-<pre><code><span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">rotate</span>(<span class="number">30deg</span>)</span></span>;
-<span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> <span class="number">100px</span> <span class="number">50px</span></span></span>;
-
-<span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">100px</span>,<span class="number">50px</span>),
-           <span class="function">rotate</span>(<span class="number">30deg</span>),
-           <span class="function">translate</span>(-<span class="number">100px</span>,-<span class="number">50px</span>)</span></span>;
-<span class="rule"><span class="attribute">transform-origin</span>:<span class="value"> <span class="number">0</span> <span class="number">0</span></span></span>;
-</code></pre><p>具体过程如下图：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-21-03.jpg" alt=""></p>
-<p>于是，我们可以把刚才的spin动画拆分：</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframe</span> spin</span>{
-    <span class="tag">from</span><span class="rules">{
-        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">100px</span>)
-                   <span class="function">rotate</span>(<span class="number">0turn</span>)
-                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">100px</span>)</span></span>;
-    }</span>
-    <span class="tag">to</span><span class="rules">{
-        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">100px</span>)
-                   <span class="function">rotate</span>(<span class="number">1turn</span>)
-                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">100px</span>)</span></span>;
-    }</span>
-}
-</code></pre><p>对于自身的反向旋转进行拆分：</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframe</span> spin</span>{
-    <span class="tag">from</span><span class="rules">{
-        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">50%</span>)
-                   <span class="function">rotate</span>(<span class="number">1turn</span>)
-                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;
-    }</span>
-    <span class="tag">to</span><span class="rules">{
-        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">50%</span>)
-                   <span class="function">rotate</span>(<span class="number">0turn</span>)
-                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;
-    }</span>
-}
-</code></pre><p>然后把img外部嵌套的div去掉，把这两个动画合并，直接用在img上，这样既保持了原有的HTML代码结构，也解决了图片的自旋转问题。最终代码如下：</p>
-<p>HTML：</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"path"</span>&gt;
-    &lt;img src=<span class="string">"test.jpg"</span> <span class="type">class</span>=<span class="string">"avatar-b"</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>CSS:</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> spin-b</span>{
-    <span class="tag">from</span><span class="rules">{
-        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">100px</span>)
-                   <span class="function">rotate</span>(<span class="number">0turn</span>)
-                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">100px</span>)
-                   <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">50%</span>)
-                   <span class="function">rotate</span>(<span class="number">1turn</span>)
-                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;
-    }</span>
-    <span class="tag">to</span><span class="rules">{
-        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">100px</span>)
-                   <span class="function">rotate</span>(<span class="number">1turn</span>)
-                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">100px</span>)
-                   <span class="function">translate</span>(<span class="number">50%</span>,<span class="number">50%</span>)
-                   <span class="function">rotate</span>(<span class="number">0turn</span>)
-                   <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;
-    }</span>
-}
-<span class="class">.avatar-b</span><span class="rules">{
-    <span class="rule"><span class="attribute">animation</span>:<span class="value"> <span class="number">6s</span> spin-b infinite linear</span></span>;
-}</span>
-</code></pre><p>也可以把一个关键帧的水平位移抵消，以精简代码：</p>
-<pre><code><span class="at_rule">@<span class="keyword">keyframes</span> spin-b</span>{
-    <span class="tag">from</span><span class="rules">{
-        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(<span class="number">100px</span>) <span class="function">translateY</span>(-<span class="number">50%</span>)
-                   <span class="function">rotate</span>(<span class="number">0turn</span>)
-                   <span class="function">translateY</span>(-<span class="number">100px</span>) <span class="function">translateY</span>(<span class="number">50%</span>)
-                   <span class="function">rotate</span>(<span class="number">1turn</span>)</span></span>;
-
-    }</span>
-    <span class="tag">to</span><span class="rules">{
-        <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(<span class="number">100px</span>) <span class="function">translateY</span>(-<span class="number">50%</span>)
-                   <span class="function">rotate</span>(<span class="number">1turn</span>)
-                   <span class="function">translateY</span>(-<span class="number">100px</span>) <span class="function">translateY</span>(<span class="number">50%</span>)
-                   <span class="function">rotate</span>(<span class="number">0turn</span>)</span></span>;
-    }</span>
-}
-</code></pre><p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/secret-21-04.gif" alt=""></p>
-<p>much nicer！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="沿环形路径转动的动画">沿环形路径转动的动画</h1><p>今天利用CSS实现一种沿着环形路径转动的动画。为了便于演示，我们让一个头像图片沿着环形路径转动。<br>首先是一个img标签，用来保存头像图片，外面嵌套一个div用来设置背景。</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"path"</span>&gt;
-    &lt;img src=<span class="string">"test.jpg"</span> <span class="type">class</span>=<span class="string">"avatar"</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre>]]>
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://blog.supce.com/tags/CSS/"/>
     
   </entry>
   
