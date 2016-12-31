@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.supce.com/"/>
-  <updated>2016-12-16T11:50:45.219Z</updated>
+  <updated>2016-12-31T08:50:46.846Z</updated>
   <id>http://blog.supce.com/</id>
   
   <author>
@@ -13,6 +13,220 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[听指令的小方块(四)]]></title>
+    <link href="http://blog.supce.com/2016/12/31/JavaScript%E4%B9%8B%E5%9F%BA%E7%A1%8029/"/>
+    <id>http://blog.supce.com/2016/12/31/JavaScript之基础29/</id>
+    <published>2016-12-30T16:00:00.000Z</published>
+    <updated>2016-12-31T08:50:46.846Z</updated>
+    <content type="html"><![CDATA[<hr>
+<blockquote>
+<p>基于上个任务，继续进行改进</p>
+</blockquote>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>命令输入框由input变为textarea，可以允许输入多条指令，每一行一条</li>
+<li>textarea左侧有一列可以显示当前行数的列（代码行数列），列数保持和textarea中一致</li>
+<li>当textarea发生上下滚动时，代码行数列同步滚动</li>
+<li>能够判断指令是否合法，不合法的指令给出提示</li>
+<li>点击执行时，依次逐条执行所有命令</li>
+<li>对于GO，TRA以及MOV指令增加可以移动格子数量的参数，例如</li>
+<li>GO 3：向当前方向前进三格</li>
+<li>TRA TOP 2：向屏幕上方平移两格</li>
+<li>MOV RIG 4：方向转向屏幕右侧，向屏幕的右侧移动四格</li>
+</ul>
+<a id="more"></a>
+<h1 id="整体思路">整体思路</h1><p>首先根据要求，修改HTML结构，并设置基本样式。</p>
+<pre><code>&lt;div id=<span class="string">"container"</span> class=<span class="string">"clearFix"</span>&gt;
+    &lt;div id=<span class="string">"dispaly_box"</span>&gt;
+        &lt;canvas id=<span class="string">"canvas_bg"</span> <span class="variable">width</span>=<span class="string">"441"</span> <span class="variable">height</span>=<span class="string">"441"</span>&gt;&lt;/canvas&gt;
+        &lt;div id=<span class="string">"square"</span>&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=<span class="string">"control_panel"</span>&gt;
+        &lt;ol id=<span class="string">"identifier"</span>&gt;
+            &lt;li&gt;<span class="number">1</span>&lt;/li&gt;
+        &lt;/ol&gt;
+        &lt;textarea id=<span class="string">"orders"</span>&gt;&lt;/textarea&gt;
+        &lt;button id=<span class="string">"btn_exe"</span>&gt;执行&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=<span class="string">"instruction"</span>&gt;
+   <span class="comment">//介绍</span>
+&lt;/div&gt;
+
+    #control_panel{
+        padding: <span class="number">40</span>px <span class="number">0</span>;
+        <span class="built_in">float</span>: right;
+        <span class="variable">width</span>: <span class="number">441</span>px;
+        <span class="variable">height</span>: <span class="number">441</span>px;
+    }
+    #control_panel ol{
+        <span class="built_in">float</span>: left;
+        margin: <span class="number">0</span>;
+        padding: <span class="number">0</span>;
+        <span class="variable">width</span>: <span class="number">25</span>px;
+        <span class="variable">height</span>: <span class="number">400</span>px;
+        <span class="built_in">background</span>-<span class="built_in">color</span>: #ccc;
+        overflow: hidden;
+    }
+    #control_panel li{
+        list-style: none;
+        <span class="variable">width</span>: <span class="number">25</span>px;
+        <span class="variable">height</span>: <span class="number">25</span>px;
+        <span class="built_in">line</span>-<span class="variable">height</span>: <span class="number">25</span>px;
+        <span class="built_in">text</span>-align: center;
+        <span class="built_in">color</span>: white;
+    }
+    #orders{
+        padding: <span class="number">0</span>;
+        padding-left: <span class="number">2</span>px;
+        <span class="variable">width</span>: <span class="number">410</span>px;
+        <span class="variable">height</span>: <span class="number">400</span>px;
+        outline: none;
+        border: none;
+        font-<span class="built_in">size</span>: <span class="number">20</span>px;
+        <span class="built_in">line</span>-<span class="variable">height</span>: <span class="number">25</span>px;
+        vertical-align: middle;
+        overflow-y: auto;
+        <span class="built_in">background</span>-<span class="built_in">color</span>: rgb(<span class="number">43</span>,<span class="number">43</span>,<span class="number">43</span>);
+        <span class="built_in">color</span>: rgb(<span class="number">86</span>,<span class="number">187</span>,<span class="number">86</span>);
+        resize: none;
+    }
+    .clearFix:after{
+        <span class="built_in">clear</span>: both;
+        display: block;
+        visibility: hidden;
+        content: <span class="string">""</span>;
+        <span class="variable">height</span>: <span class="number">0</span>;
+        <span class="built_in">line</span>-<span class="variable">height</span>: <span class="number">0</span>;
+    }
+    .error{
+        <span class="built_in">background</span>-<span class="built_in">color</span>: <span class="built_in">red</span>;
+    }
+    #instruction{
+        margin: <span class="number">10</span>px auto;
+        <span class="variable">width</span>: <span class="number">800</span>px;
+    }
+</code></pre><p>下面，新增一个textArea.js，添加一个函数，帮助获取文本域中的指令行数</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">getTextLine</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> txt = $(<span class="string">"#orders"</span>).value;
+    <span class="keyword">var</span> arr = txt.split(<span class="string">"\n"</span>);
+    <span class="keyword">return</span> arr.length;
+}
+</code></pre><p>然后增加一个函数，以获取显示当前行数的列</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">getIdentifier</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> eleNodes = [];
+    <span class="keyword">var</span> nodes = <span class="built_in">Array</span>.prototype.slice.call($(<span class="string">"#identifier"</span>).childNodes);
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;nodes.length;i++){
+        <span class="keyword">if</span>(nodes[i].nodeType == <span class="number">1</span>){
+            eleNodes.push(nodes[i]);
+        }
+    }
+    <span class="keyword">return</span> eleNodes;
+}
+</code></pre><p>最后，编写一个检测指令是否合法的函数</p>
+<pre><code><span class="function">function <span class="title">checkValue</span><span class="params">(value)</span></span>{
+    var order_two = [<span class="string">"LEF"</span>,<span class="string">"RIG"</span>,<span class="string">"BAC"</span>];
+    var order_three = [<span class="string">"LEF"</span>,<span class="string">"RIG"</span>,<span class="string">"TOP"</span>,<span class="string">"BOT"</span>];
+    var comms = value.split(<span class="string">" "</span>);
+    <span class="keyword">if</span>(comms.length&gt;<span class="number">3</span> || comms.length&lt;<span class="number">0</span>){ <span class="comment">//如果指令组成大于3或者小于0 返回false</span>
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    }<span class="keyword">else</span> <span class="keyword">if</span>(comms.length == <span class="number">1</span>){
+        <span class="keyword">if</span>(comms[<span class="number">0</span>] == <span class="string">"GO"</span>){
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    }<span class="keyword">else</span> <span class="keyword">if</span>(comms.length == <span class="number">2</span>){
+        <span class="keyword">if</span>(comms[<span class="number">0</span>]==<span class="string">"GO"</span> &amp;&amp; !isNaN(comms[<span class="number">1</span>])){
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }<span class="keyword">else</span> <span class="keyword">if</span>(comms[<span class="number">0</span>]==<span class="string">"TUN"</span> &amp;&amp; isMatch(comms[<span class="number">1</span>],order_two)){
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }<span class="keyword">else</span> <span class="keyword">if</span>((comms[<span class="number">0</span>]==<span class="string">"TRA"</span>||comms[<span class="number">0</span>]==<span class="string">"MOV"</span>) &amp;&amp; isMatch(comms[<span class="number">1</span>],order_three)){
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }<span class="keyword">else</span>{
+            <span class="keyword">return</span> <span class="literal">false</span>;
+        }   
+    }<span class="keyword">else</span> <span class="keyword">if</span>(comms.length == <span class="number">3</span>){
+        <span class="keyword">if</span>((comms[<span class="number">0</span>]==<span class="string">"TRA"</span>||comms[<span class="number">0</span>]==<span class="string">"MOV"</span>) &amp;&amp; isMatch(comms[<span class="number">1</span>],order_three) &amp;&amp; !isNaN(comms[<span class="number">2</span>])){
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }<span class="keyword">else</span>{
+            <span class="keyword">return</span> <span class="literal">false</span>;
+        }
+    }
+    <span class="function">function <span class="title">isMatch</span><span class="params">(value,arr)</span></span>{
+        <span class="keyword">for</span>(var i=<span class="number">0</span>,len=arr.length;i&lt;len;i++){
+            <span class="keyword">if</span>(value == arr[i]){
+                <span class="keyword">return</span> <span class="literal">true</span>;
+            }
+        }
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    }
+}
+</code></pre><p>然后对文本域进行事件绑定，当用户按下回车键后，对指令进行检测，然后增加新的行数</p>
+<pre><code>addHandler($(<span class="string">"#orders"</span>),<span class="string">"keydown"</span>,function(<span class="keyword">e</span>){
+    <span class="keyword">if</span>(<span class="keyword">e</span>.keyCode == 13){
+        <span class="comment">//保存输入的指令并获取行数</span>
+        <span class="keyword">var</span> txt = $(<span class="string">"#orders"</span>).value;
+        <span class="keyword">var</span> arr = txt.<span class="keyword">split</span>(<span class="string">"\n"</span>);
+        <span class="keyword">var</span> <span class="keyword">line</span> = arr.length;
+        <span class="comment">//获取最后一行的指令</span>
+        <span class="keyword">var</span> value = arr[<span class="keyword">line</span>-1];
+        <span class="comment">//获取行号节点</span>
+        <span class="keyword">var</span> indexs = getIdentifier();
+        <span class="comment">//指令不正确则红色标注</span>
+        <span class="keyword">if</span>(!checkValue(value)){
+            indexs[<span class="keyword">line</span>-1].className = <span class="string">"error"</span>;
+        }
+        <span class="comment">//添加行数</span>
+        <span class="keyword">var</span> <span class="keyword">li</span> = document.createElement(<span class="string">"li"</span>);
+        <span class="keyword">li</span>.innerHTML = <span class="keyword">line</span>+1;
+        $(<span class="string">"#identifier"</span>).appendChild(<span class="keyword">li</span>);
+    }
+});
+</code></pre><p>为了实现删除某行指令后，删除前面行号的效果，需要绑定的键盘的keyup事件，检测实际指令行数和行号是否一致，不一致则删除最后一行。</p>
+<pre><code>addHandler<span class="list">($<span class="list">(<span class="string">"#orders"</span>)</span>,<span class="string">"keyup"</span>,function<span class="list">(<span class="keyword">e</span>)</span>{
+    if<span class="list">(<span class="keyword">e</span>.keyCode == <span class="number">8</span>)</span>{
+        var line = getTextLine<span class="list">()</span><span class="comment">;</span>
+        var indexs = getIdentifier<span class="list">()</span><span class="comment">;</span>
+        if<span class="list">(<span class="keyword">line</span> !== indexs.length)</span>{
+            $<span class="list">(<span class="string">"#identifier"</span>)</span>.removeChild<span class="list">(<span class="keyword">indexs</span>[indexs.length-1])</span><span class="comment">;</span>
+            indexs[indexs.length-2].className = <span class="string">""</span><span class="comment">;</span>
+        }
+    }
+})</span><span class="comment">;</span>
+</code></pre><p>最后实现行号列和指令列的同步滚动</p>
+<pre><code>addHandler($(<span class="string">"#orders"</span>),<span class="string">"scroll"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+    <span class="keyword">var</span> top = $(<span class="string">"#orders"</span>).scrollTop;
+    $(<span class="string">"#identifier"</span>).scrollTop = top;
+});
+</code></pre><h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/tree/master/js/task35" target="_blank" rel="external">最终代码</a><br><a href="http://ife.supce.com/task35.html" target="_blank" rel="external">demo</a></p>
+<hr>
+<blockquote>
+<p>两周时间一直专注于课题组的课题，今天是16年最后一天，挤出点时间，更新出今年的最后一篇 O(∩_∩)O</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<blockquote>
+<p>基于上个任务，继续进行改进</p>
+</blockquote>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>命令输入框由input变为textarea，可以允许输入多条指令，每一行一条</li>
+<li>textarea左侧有一列可以显示当前行数的列（代码行数列），列数保持和textarea中一致</li>
+<li>当textarea发生上下滚动时，代码行数列同步滚动</li>
+<li>能够判断指令是否合法，不合法的指令给出提示</li>
+<li>点击执行时，依次逐条执行所有命令</li>
+<li>对于GO，TRA以及MOV指令增加可以移动格子数量的参数，例如</li>
+<li>GO 3：向当前方向前进三格</li>
+<li>TRA TOP 2：向屏幕上方平移两格</li>
+<li>MOV RIG 4：方向转向屏幕右侧，向屏幕的右侧移动四格</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://blog.supce.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[听指令的小方块(三)]]></title>
@@ -4540,78 +4754,6 @@ init<span class="params">()</span>;
     </summary>
     
       <category term="HTTP" scheme="http://blog.supce.com/tags/HTTP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[关于编码(一)]]></title>
-    <link href="http://blog.supce.com/2016/10/19/%E5%85%B3%E4%BA%8E%E7%BC%96%E7%A0%81(%E4%B8%80)/"/>
-    <id>http://blog.supce.com/2016/10/19/关于编码(一)/</id>
-    <published>2016-10-18T16:00:00.000Z</published>
-    <updated>2016-10-19T13:21:01.737Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="从英文单词和汉字说起">从英文单词和汉字说起</h1><p>世有万物，人类为了区分，给万物冠以不同的名称。英文单词由26个字母组成，对于天空，人们用字母s，k，y表示，即：sky；对于猫用c，a，t，表示，即cat；对于狗用d,o,t表示，即：dog。</p>
-<p>这些名字都是随意的，没有什么原因说明为什么不把猫称为狗或不把狗称为猫。因此可以说英语词汇就是一种用26个符号(字母)进行的编码。<br>刚开始可以用几个字母，很短的单词来命名事物。随着已经约定事物的单词越来越多，后期事物的单词也越来越长。估计这也是很多自然事物的单词比较短，而一些近现代词汇比较长的原因吧。<br>汉字和英文单词有些不同。汉字最初是象形文字。通过模拟物体的形状来表示某一类物品。</p>
-<p>随着不断的模拟，又从这些最初的象形文字归纳提炼出“点”、“横”、“竖”、“撇”、“捺”等笔画。然后再利用这些笔画进行组合，创立出不同的文字，用这些文字标记不同的物品。所以，也可以说汉字也是一种编码，甚至要比英文单词更加复杂，能够创立更多的组合。<br>比如下面表示太阳的“日”字。</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bianma1.png" alt=""></p>
-<a id="more"></a>
-<hr>
-<h1 id="由摩斯密码、盲文到二元编">由摩斯密码、盲文到二元编</h1><p>由于应用场景的不同，人们对于信息的表示有着不同需求。字母可以通过写在纸上进行信息的传递，但是在有些场景不适合，比如说盲人或者电报机是无法识别纸质上的文字的。</p>
-<p>摩尔斯电码（又译为摩斯密码，Morse code）是一种时通时断的信号代码，通过不同的排列顺序来表达不同的英文字母、数字和标点符号。它的代码包括五种： 点、划、点和划之间的停顿、每个字符间短的停顿（在点和划之间）、每个词之间中等的停顿以及句子之间长的停顿。</p>
-<p><em>点（.）和划（-），或叫“滴”（Dit）和“答”（Dah）</em></p>
-<p>英文字母可以用下图表示:</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bianma2.png" alt=""></p>
-<p>为了便于识别(译码)，树状图可能会更清晰：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bianma3.jpg" alt=""></p>
-<p>摩尔斯电码被称为二元码（binary code），因为编码中仅含“滴”和“嗒”。这与一个硬<br>币很相似，硬币着地时只可能是正面或反面。二元事物（例如硬币）、二元编码（例如摩尔斯电码）常常用2的乘方来描述。</p>
-<p>下面来解析下盲文，来看看它是如何工作的。我们并不是要真的学习布莱叶盲文，而且也无须刻意记住什么关于它的内容。我们仅仅希望从中窥探到编码的一些本质。</p>
-<p>在布莱叶盲文中，每个在书写文字中用到的符号——具体来说就是字母、数字和标点符号——都被编码成为2×3的点码单元中的一个或者多个凸起的点。这个点码单元包含的点通常使用1到6的数字来编号。</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bianma4.jpg" alt=""></p>
-<blockquote>
-<p>下面我们约定：大点表示这是一个凸起的点，小点则表示其对应的位置是平的</p>
-</blockquote>
-<p>对于6个位置，我们可以由2的6次方=64种组合。</p>
-<p>对于26个字母表示法如下图：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bianma5.jpg" alt=""></p>
-<p>甚至可以区分大小写————规定6号凸点为大写标识符，如果表示大写“B”，如下图：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bianma6.png" alt=""></p>
-<p>大写字母标识符表示紧随它的字母（而且仅仅是紧随它的字母）应该被译为大写。类似这样的编码被称为“逃逸码”（escape codes）。逃逸码让你“逃离”对编码串单调的、一成不变的解析，而转入一种新的解析方式中。</p>
-<hr>
-<h1 id="二进制数">二进制数</h1><p>二进制数是由0，1两个数码表示数的。</p>
-<p>让我们再回头看看之前提到的由点、划组成其间用空格分开的摩尔斯电码。摩尔斯电码看上去不像是由0和1组成的，但它确实是。</p>
-<p>下面回忆一下摩尔斯电码的编码规则：划的长度等于点长度的三倍；单个的点或划之间用长度与点的长度相等的空格分开；单词内的各个字母之间用长度等于划的长度的空格分隔；各单词之间由长度等于两倍的划长度的空格分开。</p>
-<p>为使分析更加简单，我们假设划的长度是点长度的两倍而不是3倍。也就是说，一个点是一个值为1的比特位，一个划是两个值为1的比特位，空格是值为0的比特位。</p>
-<blockquote>
-<p>“bit (比特)”这个词被创造出来代表“binary digit”，它的确是新造的和计算机相关的最可爱的词之一。当然，“bit”有其通常的意义：“一小部分，程度很低或数量很少”。这个意义用来表示比特是非常精确的，因为1比特,一个二进制数字位确实是一个非常小的量。–《Code》</p>
-</blockquote>
-<p>下面是之前的摩尔斯电码基本表：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bianma2.png" alt=""></p>
-<p>我们可以将它转换为比特形式：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bianma7.png" alt=""></p>
-<p>注意，所有的编码都以 1开头，以两个0结束。结尾处的两个零代表单词中各个字母之间的空格，单词之间的空格用另外的一对0来表示。</p>
-<p>对于”code”这个单词，可以用11010110100110110110011010100100表示</p>
-<p>用比特的形式表示布莱叶盲文比表示摩尔斯电码容易得多。例如，单词“code”可以用布莱叶盲文这样表示：</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bianma8.png" alt=""></p>
-<p>如果突起的点是1，平坦的点是0，则布莱叶盲文中的每一个符号都可以用6个比特的二进制代码表示。单词”code”中的四个布莱叶字母符号就可以简单地写成:</p>
-<p>100100 101010 100110 100010</p>
-<p><em>最左边的一位对应编号为1的位置，最右边的一位对应编码为 6的位置。</em></p>
-<p>正如上面的例子，比特可以代表任何信息。但是，最基本的一点是：比特是数字。</p>
-<p>当用比特表示信息时只要将可能情况的数目数清楚就可以了，这样就决定了需要多少个比特位(四个数目用两个比特位即可)，从而使得各种可能的情况都能分配到一个编号。</p>
-<p>比特在哲学和数学的奇怪混合物 — 逻辑 — 中发挥作用。逻辑最基本的目标是证明某个语句是否正确，而正确与否也可以用1和0来表示。</p>
-<blockquote>
-<p>以上这些恰好是信息可以通过电信号进行传递的前提！</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<hr>
-<h1 id="从英文单词和汉字说起">从英文单词和汉字说起</h1><p>世有万物，人类为了区分，给万物冠以不同的名称。英文单词由26个字母组成，对于天空，人们用字母s，k，y表示，即：sky；对于猫用c，a，t，表示，即cat；对于狗用d,o,t表示，即：dog。</p>
-<p>这些名字都是随意的，没有什么原因说明为什么不把猫称为狗或不把狗称为猫。因此可以说英语词汇就是一种用26个符号(字母)进行的编码。<br>刚开始可以用几个字母，很短的单词来命名事物。随着已经约定事物的单词越来越多，后期事物的单词也越来越长。估计这也是很多自然事物的单词比较短，而一些近现代词汇比较长的原因吧。<br>汉字和英文单词有些不同。汉字最初是象形文字。通过模拟物体的形状来表示某一类物品。</p>
-<p>随着不断的模拟，又从这些最初的象形文字归纳提炼出“点”、“横”、“竖”、“撇”、“捺”等笔画。然后再利用这些笔画进行组合，创立出不同的文字，用这些文字标记不同的物品。所以，也可以说汉字也是一种编码，甚至要比英文单词更加复杂，能够创立更多的组合。<br>比如下面表示太阳的“日”字。</p>
-<p><img src="http://7xqkrz.com1.z0.glb.clouddn.com/bianma1.png" alt=""></p>]]>
-    
-    </summary>
-    
-      <category term="编程" scheme="http://blog.supce.com/tags/%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   

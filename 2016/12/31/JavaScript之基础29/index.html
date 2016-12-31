@@ -1,0 +1,884 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="EM_nzu8-nfb0oJOmKGJImt--r_PtBs7qZz_bWTFRWZQ" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="supce's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="基于上个任务，继续进行改进
+
+任务描述
+命令输入框由input变为textarea，可以允许输入多条指令，每一行一条
+textarea左侧有一列可以显示当前行数的列（代码行数列），列数保持和textarea中一致
+当textarea发生上下滚动时，代码行数列同步滚动
+能够判断指令是否合法，不合法的指令给出提示
+点击执行时，依次逐条执行所有命令
+对于GO，TRA以及MOV指令增加可以移动格子数量的参">
+<meta property="og:type" content="article">
+<meta property="og:title" content="听指令的小方块(四)">
+<meta property="og:url" content="http://blog.supce.com/2016/12/31/JavaScript之基础29/index.html">
+<meta property="og:site_name" content="supce's blog">
+<meta property="og:description" content="基于上个任务，继续进行改进
+
+任务描述
+命令输入框由input变为textarea，可以允许输入多条指令，每一行一条
+textarea左侧有一列可以显示当前行数的列（代码行数列），列数保持和textarea中一致
+当textarea发生上下滚动时，代码行数列同步滚动
+能够判断指令是否合法，不合法的指令给出提示
+点击执行时，依次逐条执行所有命令
+对于GO，TRA以及MOV指令增加可以移动格子数量的参">
+<meta property="og:updated_time" content="2016-12-31T08:50:46.846Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="听指令的小方块(四)">
+<meta name="twitter:description" content="基于上个任务，继续进行改进
+
+任务描述
+命令输入框由input变为textarea，可以允许输入多条指令，每一行一条
+textarea左侧有一列可以显示当前行数的列（代码行数列），列数保持和textarea中一致
+当textarea发生上下滚动时，代码行数列同步滚动
+能够判断指令是否合法，不合法的指令给出提示
+点击执行时，依次逐条执行所有命令
+对于GO，TRA以及MOV指令增加可以移动格子数量的参">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+
+
+
+
+  <title> 听指令的小方块(四) | supce's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">supce's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.supce.com/2016/12/31/JavaScript之基础29/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="supce">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="supce's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="supce's blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                听指令的小方块(四)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Дата создания записи" itemprop="dateCreated datePublished" datetime="2016-12-31T00:00:00+08:00">
+              2016-12-31
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Дата обновления записи" itemprop="dateModified" datetime="2016-12-31T16:50:46+08:00">
+              2016-12-31
+            </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/31/JavaScript之基础29/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/31/JavaScript之基础29/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<blockquote>
+<p>基于上个任务，继续进行改进</p>
+</blockquote>
+<h1 id="任务描述">任务描述</h1><ul>
+<li>命令输入框由input变为textarea，可以允许输入多条指令，每一行一条</li>
+<li>textarea左侧有一列可以显示当前行数的列（代码行数列），列数保持和textarea中一致</li>
+<li>当textarea发生上下滚动时，代码行数列同步滚动</li>
+<li>能够判断指令是否合法，不合法的指令给出提示</li>
+<li>点击执行时，依次逐条执行所有命令</li>
+<li>对于GO，TRA以及MOV指令增加可以移动格子数量的参数，例如</li>
+<li>GO 3：向当前方向前进三格</li>
+<li>TRA TOP 2：向屏幕上方平移两格</li>
+<li>MOV RIG 4：方向转向屏幕右侧，向屏幕的右侧移动四格</li>
+</ul>
+<a id="more"></a>
+<h1 id="整体思路">整体思路</h1><p>首先根据要求，修改HTML结构，并设置基本样式。</p>
+<pre><code>&lt;div id=<span class="string">"container"</span> class=<span class="string">"clearFix"</span>&gt;
+    &lt;div id=<span class="string">"dispaly_box"</span>&gt;
+        &lt;canvas id=<span class="string">"canvas_bg"</span> <span class="variable">width</span>=<span class="string">"441"</span> <span class="variable">height</span>=<span class="string">"441"</span>&gt;&lt;/canvas&gt;
+        &lt;div id=<span class="string">"square"</span>&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=<span class="string">"control_panel"</span>&gt;
+        &lt;ol id=<span class="string">"identifier"</span>&gt;
+            &lt;li&gt;<span class="number">1</span>&lt;/li&gt;
+        &lt;/ol&gt;
+        &lt;textarea id=<span class="string">"orders"</span>&gt;&lt;/textarea&gt;
+        &lt;button id=<span class="string">"btn_exe"</span>&gt;执行&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=<span class="string">"instruction"</span>&gt;
+   <span class="comment">//介绍</span>
+&lt;/div&gt;
+
+    #control_panel{
+        padding: <span class="number">40</span>px <span class="number">0</span>;
+        <span class="built_in">float</span>: right;
+        <span class="variable">width</span>: <span class="number">441</span>px;
+        <span class="variable">height</span>: <span class="number">441</span>px;
+    }
+    #control_panel ol{
+        <span class="built_in">float</span>: left;
+        margin: <span class="number">0</span>;
+        padding: <span class="number">0</span>;
+        <span class="variable">width</span>: <span class="number">25</span>px;
+        <span class="variable">height</span>: <span class="number">400</span>px;
+        <span class="built_in">background</span>-<span class="built_in">color</span>: #ccc;
+        overflow: hidden;
+    }
+    #control_panel li{
+        list-style: none;
+        <span class="variable">width</span>: <span class="number">25</span>px;
+        <span class="variable">height</span>: <span class="number">25</span>px;
+        <span class="built_in">line</span>-<span class="variable">height</span>: <span class="number">25</span>px;
+        <span class="built_in">text</span>-align: center;
+        <span class="built_in">color</span>: white;
+    }
+    #orders{
+        padding: <span class="number">0</span>;
+        padding-left: <span class="number">2</span>px;
+        <span class="variable">width</span>: <span class="number">410</span>px;
+        <span class="variable">height</span>: <span class="number">400</span>px;
+        outline: none;
+        border: none;
+        font-<span class="built_in">size</span>: <span class="number">20</span>px;
+        <span class="built_in">line</span>-<span class="variable">height</span>: <span class="number">25</span>px;
+        vertical-align: middle;
+        overflow-y: auto;
+        <span class="built_in">background</span>-<span class="built_in">color</span>: rgb(<span class="number">43</span>,<span class="number">43</span>,<span class="number">43</span>);
+        <span class="built_in">color</span>: rgb(<span class="number">86</span>,<span class="number">187</span>,<span class="number">86</span>);
+        resize: none;
+    }
+    .clearFix:after{
+        <span class="built_in">clear</span>: both;
+        display: block;
+        visibility: hidden;
+        content: <span class="string">""</span>;
+        <span class="variable">height</span>: <span class="number">0</span>;
+        <span class="built_in">line</span>-<span class="variable">height</span>: <span class="number">0</span>;
+    }
+    .error{
+        <span class="built_in">background</span>-<span class="built_in">color</span>: <span class="built_in">red</span>;
+    }
+    #instruction{
+        margin: <span class="number">10</span>px auto;
+        <span class="variable">width</span>: <span class="number">800</span>px;
+    }
+</code></pre><p>下面，新增一个textArea.js，添加一个函数，帮助获取文本域中的指令行数</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">getTextLine</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> txt = $(<span class="string">"#orders"</span>).value;
+    <span class="keyword">var</span> arr = txt.split(<span class="string">"\n"</span>);
+    <span class="keyword">return</span> arr.length;
+}
+</code></pre><p>然后增加一个函数，以获取显示当前行数的列</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">getIdentifier</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> eleNodes = [];
+    <span class="keyword">var</span> nodes = <span class="built_in">Array</span>.prototype.slice.call($(<span class="string">"#identifier"</span>).childNodes);
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;nodes.length;i++){
+        <span class="keyword">if</span>(nodes[i].nodeType == <span class="number">1</span>){
+            eleNodes.push(nodes[i]);
+        }
+    }
+    <span class="keyword">return</span> eleNodes;
+}
+</code></pre><p>最后，编写一个检测指令是否合法的函数</p>
+<pre><code><span class="function">function <span class="title">checkValue</span><span class="params">(value)</span></span>{
+    var order_two = [<span class="string">"LEF"</span>,<span class="string">"RIG"</span>,<span class="string">"BAC"</span>];
+    var order_three = [<span class="string">"LEF"</span>,<span class="string">"RIG"</span>,<span class="string">"TOP"</span>,<span class="string">"BOT"</span>];
+    var comms = value.split(<span class="string">" "</span>);
+    <span class="keyword">if</span>(comms.length&gt;<span class="number">3</span> || comms.length&lt;<span class="number">0</span>){ <span class="comment">//如果指令组成大于3或者小于0 返回false</span>
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    }<span class="keyword">else</span> <span class="keyword">if</span>(comms.length == <span class="number">1</span>){
+        <span class="keyword">if</span>(comms[<span class="number">0</span>] == <span class="string">"GO"</span>){
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    }<span class="keyword">else</span> <span class="keyword">if</span>(comms.length == <span class="number">2</span>){
+        <span class="keyword">if</span>(comms[<span class="number">0</span>]==<span class="string">"GO"</span> &amp;&amp; !isNaN(comms[<span class="number">1</span>])){
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }<span class="keyword">else</span> <span class="keyword">if</span>(comms[<span class="number">0</span>]==<span class="string">"TUN"</span> &amp;&amp; isMatch(comms[<span class="number">1</span>],order_two)){
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }<span class="keyword">else</span> <span class="keyword">if</span>((comms[<span class="number">0</span>]==<span class="string">"TRA"</span>||comms[<span class="number">0</span>]==<span class="string">"MOV"</span>) &amp;&amp; isMatch(comms[<span class="number">1</span>],order_three)){
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }<span class="keyword">else</span>{
+            <span class="keyword">return</span> <span class="literal">false</span>;
+        }   
+    }<span class="keyword">else</span> <span class="keyword">if</span>(comms.length == <span class="number">3</span>){
+        <span class="keyword">if</span>((comms[<span class="number">0</span>]==<span class="string">"TRA"</span>||comms[<span class="number">0</span>]==<span class="string">"MOV"</span>) &amp;&amp; isMatch(comms[<span class="number">1</span>],order_three) &amp;&amp; !isNaN(comms[<span class="number">2</span>])){
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }<span class="keyword">else</span>{
+            <span class="keyword">return</span> <span class="literal">false</span>;
+        }
+    }
+    <span class="function">function <span class="title">isMatch</span><span class="params">(value,arr)</span></span>{
+        <span class="keyword">for</span>(var i=<span class="number">0</span>,len=arr.length;i&lt;len;i++){
+            <span class="keyword">if</span>(value == arr[i]){
+                <span class="keyword">return</span> <span class="literal">true</span>;
+            }
+        }
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    }
+}
+</code></pre><p>然后对文本域进行事件绑定，当用户按下回车键后，对指令进行检测，然后增加新的行数</p>
+<pre><code>addHandler($(<span class="string">"#orders"</span>),<span class="string">"keydown"</span>,function(<span class="keyword">e</span>){
+    <span class="keyword">if</span>(<span class="keyword">e</span>.keyCode == 13){
+        <span class="comment">//保存输入的指令并获取行数</span>
+        <span class="keyword">var</span> txt = $(<span class="string">"#orders"</span>).value;
+        <span class="keyword">var</span> arr = txt.<span class="keyword">split</span>(<span class="string">"\n"</span>);
+        <span class="keyword">var</span> <span class="keyword">line</span> = arr.length;
+        <span class="comment">//获取最后一行的指令</span>
+        <span class="keyword">var</span> value = arr[<span class="keyword">line</span>-1];
+        <span class="comment">//获取行号节点</span>
+        <span class="keyword">var</span> indexs = getIdentifier();
+        <span class="comment">//指令不正确则红色标注</span>
+        <span class="keyword">if</span>(!checkValue(value)){
+            indexs[<span class="keyword">line</span>-1].className = <span class="string">"error"</span>;
+        }
+        <span class="comment">//添加行数</span>
+        <span class="keyword">var</span> <span class="keyword">li</span> = document.createElement(<span class="string">"li"</span>);
+        <span class="keyword">li</span>.innerHTML = <span class="keyword">line</span>+1;
+        $(<span class="string">"#identifier"</span>).appendChild(<span class="keyword">li</span>);
+    }
+});
+</code></pre><p>为了实现删除某行指令后，删除前面行号的效果，需要绑定的键盘的keyup事件，检测实际指令行数和行号是否一致，不一致则删除最后一行。</p>
+<pre><code>addHandler<span class="list">($<span class="list">(<span class="string">"#orders"</span>)</span>,<span class="string">"keyup"</span>,function<span class="list">(<span class="keyword">e</span>)</span>{
+    if<span class="list">(<span class="keyword">e</span>.keyCode == <span class="number">8</span>)</span>{
+        var line = getTextLine<span class="list">()</span><span class="comment">;</span>
+        var indexs = getIdentifier<span class="list">()</span><span class="comment">;</span>
+        if<span class="list">(<span class="keyword">line</span> !== indexs.length)</span>{
+            $<span class="list">(<span class="string">"#identifier"</span>)</span>.removeChild<span class="list">(<span class="keyword">indexs</span>[indexs.length-1])</span><span class="comment">;</span>
+            indexs[indexs.length-2].className = <span class="string">""</span><span class="comment">;</span>
+        }
+    }
+})</span><span class="comment">;</span>
+</code></pre><p>最后实现行号列和指令列的同步滚动</p>
+<pre><code>addHandler($(<span class="string">"#orders"</span>),<span class="string">"scroll"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+    <span class="keyword">var</span> top = $(<span class="string">"#orders"</span>).scrollTop;
+    $(<span class="string">"#identifier"</span>).scrollTop = top;
+});
+</code></pre><h1 id="最终代码">最终代码</h1><p><a href="https://github.com/byvector/code-monkey/tree/master/js/task35" target="_blank" rel="external">最终代码</a><br><a href="http://ife.supce.com/task35.html" target="_blank" rel="external">demo</a></p>
+<hr>
+<blockquote>
+<p>两周时间一直专注于课题组的课题，今天是16年最后一天，挤出点时间，更新出今年的最后一篇 O(∩_∩)O</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/16/JavaScript之基础28/" rel="next" title="听指令的小方块(三)">
+                <i class="fa fa-chevron-left"></i> 听指令的小方块(三)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/31/JavaScript之基础29/"
+           data-title="听指令的小方块(四)" data-url="http://blog.supce.com/2016/12/31/JavaScript之基础29/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqkrz.com1.z0.glb.clouddn.com/imp.jpg"
+               alt="supce" />
+          <p class="site-author-name" itemprop="name">supce</p>
+          <p class="site-description motion-element" itemprop="description">We are all in the gutter, but some of us are looking at the stars.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">80</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/byvector" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/BestionMiko" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.instagram.com/go_vector/" target="_blank" title="instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  instagram
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/byvector/" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#任务描述"><span class="nav-number">1.</span> <span class="nav-text">任务描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#整体思路"><span class="nav-number">2.</span> <span class="nav-text">整体思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终代码"><span class="nav-number">3.</span> <span class="nav-text">最终代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">supce</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"byvector"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>
